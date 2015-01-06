@@ -67,7 +67,7 @@
 				<?php } ?>
 
 				<article class="container" id="top">
-				
+
 
 					<div class="row">
 						<div class="4u">
@@ -212,13 +212,14 @@
 								<ul class="social">
 									<li class="rss"><a href="http://bloqnum.com" class="icon icon-rss"><span>Blog</span></a></li>
 									<li class="twitter"><a href="http://twitter.com/zetxek" class="icon icon-twitter"><span>Twitter</span></a></li>
-									<li class="facebook"><a href="http://twitter.com/adrianmp" class="icon icon-facebook"><span>Facebook</span></a></li>
+									<li class="facebook"><a href="http://facebook.com/zetxek" class="icon icon-facebook"><span>Facebook</span></a></li>
+									<li class="instagram"><a href="https://instagram.com/zetxek" class="icon icon-instagram"><span>Instagram</span></a></li>
 									<!--<li class="dribbble"><a href="http://dribbble.com/n33" class="icon icon-dribbble"><span>Dribbble</span></a></li>-->
 									<li class="linkedin"><a href="http://es.linkedin.com/in/adrianmoreno" class="icon icon-linkedin"><span>LinkedIn</span></a></li>
 									<!--<li class="tumblr"><a href="#" class="icon icon-tumblr"><span>Tumblr</span></a></li>-->
 									<li class="googleplus"><a href="https://plus.google.com/114734617841208618721" class="icon icon-google-plus"><span>Google+</span></a></li>
 									<li class="github"><a href="https://github.com/zetxek" class="icon icon-github"><span>Github</span></a></li>
-									<li class="instagram"><a href="https://instagram.com/zetxek" class="icon icon-instagram"><span>Instagram</span></a></li>
+									<li class="bitbucket"><a href="https://bitbucket.org/zetxek" class="icon icon-bitbucket"><span>Bitbucket</span></a></li>
 								</ul>
 							</div>
 						</div>
