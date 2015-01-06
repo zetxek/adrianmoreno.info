@@ -236,7 +236,7 @@
 								<ul class="social">
 									<li class="rss"><a href="http://bloqnum.com" class="icon icon-rss"><span>Blog</span></a></li>
 									<li class="twitter"><a href="http://twitter.com/zetxek" class="icon icon-twitter"><span>Twitter</span></a></li>
-									<li class="facebook"><a href="http://twitter.com/adrianmp" class="icon icon-facebook"><span>Facebook</span></a></li>
+									<li class="facebook"><a href="http://facebook.com/zetxek" class="icon icon-facebook"><span>Facebook</span></a></li>
 									<li class="instagram"><a href="https://instagram.com/zetxek" class="icon icon-instagram"><span>Instagram</span></a></li>
 									<!--<li class="dribbble"><a href="http://dribbble.com/n33" class="icon icon-dribbble"><span>Dribbble</span></a></li>-->
 									<li class="linkedin"><a href="http://es.linkedin.com/in/adrianmoreno" class="icon icon-linkedin"><span>LinkedIn</span></a></li>
