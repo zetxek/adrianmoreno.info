@@ -24,3 +24,10 @@ build:
         name: echo
         code: |
           echo "hello world!"
+
+  deploy:
+    steps:
+      - duleorlovic/ftp-deploy:
+          destination: ftp://adrianmoreno.info/public_html
+          username: $USERNAME
+          password: $PASSWORD
