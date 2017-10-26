@@ -57,7 +57,7 @@
 		<!-- Nav -->
 			<nav id="nav">
 				<a id="home" href="#top"><span class="icon icon-home"></span></a>
-				<span id="lang-switch"><a href="index.php">English</a></span>
+				<span id="lang-switch"><a href="index.html">English</a></span>
 				<ul class="container">
 					<li><a href="#skills">Habilidades</a></li>
 					<li><a href="#resume">Currículum</a></li>
