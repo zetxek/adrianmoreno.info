@@ -2,7 +2,7 @@
 # Docker Hub https://registry.hub.docker.com/_/debian/
 # Read more about containers on our dev center
 # http://devcenter.wercker.com/docs/containers/index.html
-box: wercker/default
+box: debian
 # You can also use services such as databases. Read more on our dev center:
 # http://devcenter.wercker.com/docs/services/index.html
 # services:
@@ -30,6 +30,12 @@ deploy:
       name: echo
       code: |
         echo "Starting FTP deploy..."
+    - script: 
+      name: installing-tools
+      code: |
+        apt-get -y update && apt-get -y install \
+        git \
+        curl
     - duleorlovic/ftp-deploy:
         destination: ftp://adrianmoreno.info/public_html
         username: $USERNAME
