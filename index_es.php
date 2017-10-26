@@ -25,9 +25,16 @@
 		<script>
 		$(document).ready(function(){
 			$("#thanks").fadeIn('slow').delay(2000).fadeOut('slow');
-			$("#button-send").click(function(){
-				console.log("Sending");
-			});
+			//$("#button-send").click(function(){
+			//	console.log("Sending");
+			//});
+			$("form").submit(function(event) {
+		   var recaptcha = $("#g-recaptcha-response").val();
+		   if (recaptcha === "") {
+		      event.preventDefault();
+		      alert("Please check the captcha");
+		   }
+		});
 		});
 		</script>
 		<script type="text/javascript">
@@ -43,6 +50,7 @@
 		  })();
 
 		</script>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
 	</head>
 	<body>
 
@@ -136,27 +144,21 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="4u">
+							<div class="6u">
 								<article class="box box-style2">
 									<a href="http://adrianmoreno.info/files/cv_adrian_moreno_english.pdf" class="image image-full"><img src="images/cv01.jpg" alt="" /></a>
-									<h3><a href="http://adrianmoreno.info/files/cv_adrian_moreno_english.pdf">PDF (english)</a></h3>
-									<p>53 Kb, 3 páginas</p>
+									<h3><a href="http://adrianmoreno.info/files/cv_adrian_moreno_english.pdf">PDF (inglés)</a></h3>
+									<p>183 Kb, 2 páginas</p>
 								</article>
 							</div>
-							<div class="4u">
+							<div class="6u">
 								<article class="box box-style2">
-									<a href="http://adrianmoreno.info/files/cv_adrian_moreno.pdf" class="image image-full"><img src="images/cv02.jpg" alt="" /></a>
-									<h3><a href="http://adrianmoreno.info/files/cv_adrian_moreno.pdf">PDF (español)</a></h3>
-									<p>51 Kb, 3 páginas</p>
+									<a href="http://adrianmoreno.info/files/cv_cover_adrian_moreno_english.pdf" class="image image-full"><img src="images/cv02.jpg" alt="" /></a>
+									<h3><a href="http://adrianmoreno.info/files/cv_cover_adrian_moreno_english.pdf">PDF (inglés, con cover letter)</a></h3>
+									<p>269 Kb, 3 páginas</p>
 								</article>
 							</div>
-							<div class="4u">
-								<article class="box box-style2">
-									<a href="http://adrianmoreno.info/files/cv_adrian_moreno.html" class="image image-full"><img src="images/cv03.jpg" alt="" /></a>
-									<h3><a href="http://adrianmoreno.info/files/cv_adrian_moreno.html">HTML (español)</a></h3>
-									<p>Un poco de HTML básico, bueno para SEO</p>
-								</article>
-							</div>
+
 						</div>
 					</div>
 					<footer>
@@ -197,12 +199,22 @@
 											</div>
 										</div>
 										<div class="row">
-											<div class="12u">
-												<a href="#contact" class="button form-button-submit" id="button-send">Enviar mensaje</a>
-												<a href="#" class="button button-alt form-button-reset">Borrar datos</a>
+											<div class="4u">
+												<div class="g-recaptcha" data-sitekey="6Lfy-SsUAAAAAJmVEiH0smVmGNPVVCFm0LZ4ZaW1"></div>
 											</div>
-										</div>
-									</div>
+											<div class="4u">
+												<button
+													href="#contact"
+													class="button form-button-submit"
+													id="button-send"
+													>
+													Enviar mensaje
+												</button>
+											</div>
+											<div class="4u">
+												<a href="#" class="button button-alt form-button-reset">Borrar</a>
+											</div>
+											</div>									</div>
 								</form>
 							</div>
 						</div>

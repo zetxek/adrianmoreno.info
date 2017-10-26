@@ -26,9 +26,16 @@
 		<script>
 		$(document).ready(function(){
 			$("#thanks").fadeIn('slow').delay(2000).fadeOut('slow');
-			$("#button-send").click(function(){
-				console.log("Sending");
-			});
+			//$("#button-send").click(function(){
+			//	console.log("Sending");
+			//});
+			$("form").submit(function(event) {
+		   var recaptcha = $("#g-recaptcha-response").val();
+		   if (recaptcha === "") {
+		      event.preventDefault();
+		      alert("Please check the captcha");
+		   }
+		});
 		});
 		</script>
 		<script type="text/javascript">
@@ -44,6 +51,7 @@
 		  })();
 
 		</script>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
 	</head>
 	<body>
 
@@ -129,7 +137,7 @@
 				<article id="resume">
 					<header>
 						<h2>The reason of this webpage</h2>
-						<span>In a variety of flavours and file formats</span>
+						<span>Get served!</span>
 					</header>
 					<div class="container">
 						<div class="row">
@@ -137,25 +145,18 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="4u">
+							<div class="6u">
 								<article class="box box-style2">
 									<a href="http://adrianmoreno.info/files/cv_adrian_moreno_english.pdf" class="image image-full"><img src="images/cv01.jpg" alt="" /></a>
 									<h3><a href="http://adrianmoreno.info/files/cv_adrian_moreno_english.pdf">PDF (english)</a></h3>
-									<p>53 Kb, 3 pages long</p>
+									<p>183 Kb, 2 pages long</p>
 								</article>
 							</div>
-							<div class="4u">
+							<div class="6u">
 								<article class="box box-style2">
-									<a href="http://adrianmoreno.info/files/cv_adrian_moreno.pdf" class="image image-full"><img src="images/cv02.jpg" alt="" /></a>
-									<h3><a href="http://adrianmoreno.info/files/cv_adrian_moreno.pdf">PDF (spanish)</a></h3>
-									<p>51 Kb, 3 pages long</p>
-								</article>
-							</div>
-							<div class="4u">
-								<article class="box box-style2">
-									<a href="http://adrianmoreno.info/files/cv_adrian_moreno.html" class="image image-full"><img src="images/cv03.jpg" alt="" /></a>
-									<h3><a href="http://adrianmoreno.info/files/cv_adrian_moreno.html">HTML (spanish)</a></h3>
-									<p>Plain ol' HTML, good for SEO</p>
+									<a href="http://adrianmoreno.info/files/cv_cover_adrian_moreno_english.pdf" class="image image-full"><img src="images/cv02.jpg" alt="" /></a>
+									<h3><a href="http://adrianmoreno.info/files/cv_cover_adrian_moreno_english.pdf">PDF (english, cover lever)</a></h3>
+									<p>269 Kb, 3 pages long</p>
 								</article>
 							</div>
 						</div>
@@ -195,12 +196,15 @@
 				<article id="contact" class="container small">
 					<header>
 						<h2>Want to hire me? Get in touch!</h2>
-						<span>Want to phone me? Reach me on <a href="tel:+34 676137567">+34 676 13 75 67</a></span>
+						<span>Want to phone me? Reach me on <a href="tel:+310674725025">+31 0684825025 </a></span>
 					</header>
 					<div>
 						<div class="row">
 							<div class="12u">
-								<form method="post" action="mail.php">
+
+
+
+								<form id="mail-form" method="post" action="https://formspree.io/info@adrianmoreno.info">
 									<div>
 										<div class="row half">
 											<div class="6u">
@@ -212,18 +216,15 @@
 										</div>
 										<div class="row half">
 											<div class="12u">
-												<input type="text" name="subject" id="subject" placeholder="Subject" />
+												<textarea name="message" id="message" placeholder="Message"></textarea>
 											</div>
 										</div>
 										<div class="row half">
 											<div class="12u">
-												<textarea name="message" id="message" placeholder="Message"></textarea>
-											</div>
-										</div>
-										<div class="row">
-											<div class="12u">
-												<a href="#contact" class="button form-button-submit" id="button-send">Send Message</a>
-												<a href="#" class="button button-alt form-button-reset">Clear Form</a>
+												<input 
+													class="button form-button-submit"
+													 type="submit" value="Send">
+												<input type="reset" class="button button-alt form-button-reset" value="Clear Form">
 											</div>
 										</div>
 									</div>
@@ -238,6 +239,8 @@
 									<li class="twitter"><a href="http://twitter.com/zetxek" class="icon icon-twitter"><span>Twitter</span></a></li>
 									<li class="facebook"><a href="http://facebook.com/zetxek" class="icon icon-facebook"><span>Facebook</span></a></li>
 									<li class="instagram"><a href="https://instagram.com/zetxek" class="icon icon-instagram"><span>Instagram</span></a></li>
+									<li class="behance"><a href="https://www.behance.net/zetxek" class="icon fa-behance"><span>Behance</span></a></li>
+									<li class="stack-overflow"><a href="https://stackoverflow.com/users/570087/adri%C3%A1n-moreno" class="icon icon-stack-overflow"><span>Stack Overflow</span></a></li>
 									<!--<li class="dribbble"><a href="http://dribbble.com/n33" class="icon icon-dribbble"><span>Dribbble</span></a></li>-->
 									<li class="linkedin"><a href="http://es.linkedin.com/in/adrianmoreno" class="icon icon-linkedin"><span>LinkedIn</span></a></li>
 									<!--<li class="tumblr"><a href="#" class="icon icon-tumblr"><span>Tumblr</span></a></li>-->
@@ -247,12 +250,12 @@
 									</ul>
 							</div>
 						</div>
+						<footer>
+							<p id="copyright">
+								Design by: <a href="http://html5up.net/">HTML5 UP</a>
+							</p>
+						</footer>
 					</div>
-					<footer>
-						<p id="copyright">
-							Design by: <a href="http://html5up.net/">HTML5 UP</a>
-						</p>
-					</footer>
 				</article>
 			</div>
 	</body>
