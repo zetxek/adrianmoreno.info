@@ -36,7 +36,8 @@ deploy:
         apt-get -y update && apt-get -y install \
         git \
         curl
-    - duleorlovic/ftp-deploy:
+    - simpletechs/ftp-deploy-exclude:
         destination: ftp://adrianmoreno.info/public_html
         username: $USERNAME
         password: $PASSWORD
+        exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
