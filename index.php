@@ -57,7 +57,7 @@
 
 		<!-- Nav -->
 			<nav id="nav">
-				<a id="home" href="#top"><span class="icon icon-home"></span></a>
+				<a id="home" href="#top"><span class="icon fa-home"></span></a>
 				<span id="lang-switch"><a href="index_es.php">Spanish</a></span>
 				<ul class="container">
 					<li><a href="#skills">Skills</a></li>
@@ -94,7 +94,7 @@
 			</div>
 
 		<!-- Work -->
-			<div class="wrapper wrapper-style2">
+			<div class="wrapper style2">
 				<article id="skills">
 					<header>
 						<h2>I ❤ software</h2></h2>
@@ -103,22 +103,22 @@
 					<div class="container">
 						<div class="row">
 							<div class="4u">
-								<section class="box box-style1">
-									<span class="icon featured-icon icon-beaker"></span>
+								<section class="box style1">
+									<span class="icon featured fa-flask"></span>
 									<h3>Web</h3>
 									<p>HTML5, CSS3, Javascript, Javascript Frameworks (jQuery, jQuery UI, jQuery Mobile, MooTools, …), Content Management Systems (Wordpress, Drupal,…), e-Commerce Systems (Magento, OpenCart, VirtueMart, UberCart…)</p>
 								</section>
 							</div>
 							<div class="4u">
-								<section class="box box-style1">
-									<span class="icon featured-icon icon-mobile-phone"></span>
+								<section class="box style1">
+									<span class="icon featured fa-mobile-phone"></span>
 									<h3>Mobile</h3>
 									<p>Mobile web (HTML5, CSS & JS, Apache Cordova), native development (Java Android, Objetive-C iOS, Web techs for BB10…), multi-platform frameworks (Titanium Appcelerator).</p>
 								</section>
 							</div>
 							<div class="4u">
-								<section class="box box-style1">
-									<span class="icon featured-icon icon-thumbs-up"></span>
+								<section class="box style1">
+									<span class="icon featured fa-thumbs-up"></span>
 									<h3>All around!</h3>
 									<p>Everything around software projects, you name it. Project planning, agile project management, system administration, software translation, software integration, platform architecture design…</p>
 								</section>
@@ -133,7 +133,7 @@
 			</div>
 
 		<!-- Portfolio -->
-			<div class="wrapper wrapper-style3">
+			<div class="wrapper style3">
 				<article id="resume">
 					<header>
 						<h2>The reason of this webpage</h2>
@@ -146,14 +146,14 @@
 						</div>
 						<div class="row">
 							<div class="6u">
-								<article class="box box-style2">
+								<article class="box style2">
 									<a href="http://adrianmoreno.info/files/cv_adrian_moreno_english.pdf" class="image image-full"><img src="images/cv01.jpg" alt="" /></a>
 									<h3><a href="http://adrianmoreno.info/files/cv_adrian_moreno_english.pdf">PDF (english)</a></h3>
 									<p>183 Kb, 2 pages long</p>
 								</article>
 							</div>
 							<div class="6u">
-								<article class="box box-style2">
+								<article class="box style2">
 									<a href="http://adrianmoreno.info/files/cv_cover_adrian_moreno_english.pdf" class="image image-full"><img src="images/cv02.jpg" alt="" /></a>
 									<h3><a href="http://adrianmoreno.info/files/cv_cover_adrian_moreno_english.pdf">PDF (english, cover lever)</a></h3>
 									<p>269 Kb, 3 pages long</p>
@@ -162,21 +162,21 @@
 						</div>
 						<!--<div class="row">
 							<div class="4u">
-								<article class="box box-style2">
+								<article class="box style2">
 									<a href="http://flypixel.com/n33-pattern-set-1/3522389001865317" class="image image-full"><img src="images/portfolio04.jpg" alt="" /></a>
 									<h3><a href="http://flypixel.com/n33-pattern-set-1/3522389001865317">Tempus dolore</a></h3>
 									<p>Ornare nulla proin odio consequat.</p>
 								</article>
 							</div>
 							<div class="4u">
-								<article class="box box-style2">
+								<article class="box style2">
 									<a href="http://flypixel.com/cityscape/9803996277226316" class="image image-full"><img src="images/portfolio05.jpg" alt="" /></a>
 									<h3><a href="http://flypixel.com/cityscape/9803996277226316">Feugiat aliquam</a></h3>
 									<p>Ornare nulla proin odio consequat.</p>
 								</article>
 							</div>
 							<div class="4u">
-								<article class="box box-style2">
+								<article class="box style2">
 									<a href="http://flypixel.com/n33" class="image image-full"><img src="images/portfolio06.jpg" alt="" /></a>
 									<h3><a href="http://flypixel.com/n33">Sed amet ornare</a></h3>
 									<p>Ornare nulla proin odio consequat.</p>
@@ -192,13 +192,12 @@
 			</div>
 
 		<!-- Contact -->
-			<div class="wrapper wrapper-style4">
-				<article id="contact" class="container small">
+			<div class="wrapper style4">
+				<article id="contact" class="container 75%">
 					<header>
 						<h2>Want to hire me? Get in touch!</h2>
-						<span>Want to phone me? Reach me on <a href="tel:+310674725025">+31 0684825025 </a></span>
+						<p>Want to phone me? Reach me on <a href="tel:+310674725025">+31 0684825025 </a></p>
 					</header>
-					<div>
 						<div class="row">
 							<div class="12u">
 
@@ -224,7 +223,7 @@
 												<input 
 													class="button form-button-submit"
 													 type="submit" value="Send">
-												<input type="reset" class="button button-alt form-button-reset" value="Clear Form">
+												<input type="reset" class="button alt form-button-reset" value="Clear Form">
 											</div>
 										</div>
 									</div>
@@ -235,18 +234,18 @@
 							<div class="12u">
 								<h3>Find me on ...</h3>
 								<ul class="social">
-									<li class="rss"><a href="http://bloqnum.com" class="icon icon-rss"><span>Blog</span></a></li>
-									<li class="twitter"><a href="http://twitter.com/zetxek" class="icon icon-twitter"><span>Twitter</span></a></li>
-									<li class="facebook"><a href="http://facebook.com/zetxek" class="icon icon-facebook"><span>Facebook</span></a></li>
-									<li class="instagram"><a href="https://instagram.com/zetxek" class="icon icon-instagram"><span>Instagram</span></a></li>
-									<li class="behance"><a href="https://www.behance.net/zetxek" class="icon fa-behance"><span>Behance</span></a></li>
-									<li class="stack-overflow"><a href="https://stackoverflow.com/users/570087/adri%C3%A1n-moreno" class="icon icon-stack-overflow"><span>Stack Overflow</span></a></li>
-									<!--<li class="dribbble"><a href="http://dribbble.com/n33" class="icon icon-dribbble"><span>Dribbble</span></a></li>-->
-									<li class="linkedin"><a href="http://es.linkedin.com/in/adrianmoreno" class="icon icon-linkedin"><span>LinkedIn</span></a></li>
-									<!--<li class="tumblr"><a href="#" class="icon icon-tumblr"><span>Tumblr</span></a></li>-->
-									<li class="googleplus"><a href="https://plus.google.com/114734617841208618721" class="icon icon-google-plus"><span>Google+</span></a></li>
-									<li class="github"><a href="https://github.com/zetxek" class="icon icon-github"><span>Github</span></a></li>
-									<li class="bitbucket"><a href="https://bitbucket.org/zetxek" class="icon icon-bitbucket"><span>Bitbucket</span></a></li>
+									<li class="rss"><a href="http://bloqnum.com" class="icon fa-rss"><span class="label">Blog</span></a></li>
+									<li class="twitter"><a href="http://twitter.com/zetxek" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+									<li class="facebook"><a href="http://facebook.com/zetxek" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+									<li class="instagram"><a href="https://instagram.com/zetxek" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+									<li class="behance"><a href="https://www.behance.net/zetxek" class="icon fa-behance"><span class="label">Behance</span></a></li>
+									<li class="stack-overflow"><a href="https://stackoverflow.com/users/570087/adri%C3%A1n-moreno" class="icon fa-stack-overflow"><span class="label">Stack Overflow</span></a></li>
+									<!--<li class="dribbble"><a href="http://dribbble.com/n33" class="icon fa-dribbble"><span>Dribbble</span></a></li>-->
+									<li class="linkedin"><a href="http://es.linkedin.com/in/adrianmoreno" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<!--<li class="tumblr"><a href="#" class="icon fa-tumblr"><span>Tumblr</span></a></li>-->
+									<li class="googleplus"><a href="https://plus.google.com/114734617841208618721" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+									<li class="github"><a href="https://github.com/zetxek" class="icon fa-github"><span class="label">Github</span></a></li>
+									<li class="bitbucket"><a href="https://bitbucket.org/zetxek" class="icon fa-bitbucket"><span class="label">Bitbucket</span></a></li>
 									</ul>
 							</div>
 						</div>
@@ -255,7 +254,6 @@
 								Design by: <a href="http://html5up.net/">HTML5 UP</a>
 							</p>
 						</footer>
-					</div>
 				</article>
 			</div>
 	</body>

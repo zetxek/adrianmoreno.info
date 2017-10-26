@@ -1,0 +1,36 @@
+header {
+    margin: 0 0 3em 0;
+}
+
+	#lang-switch{
+		float: right;
+		position: relative;
+		top: 0px;
+		right: 10px;
+	}
+
+	#home{
+		float: left;
+		position: relative;
+		top: 0px;
+		right: 10px;
+	}
+
+    .wrapper-style4 {
+        background-color: #303030;
+        color: #999;
+        text-shadow: -1px -1px 0px #181818;
+    }
+    .wrapper-style4 h1, .wrapper-style4 h2, .wrapper-style4 h3, .wrapper-style4 h4, .wrapper-style4 h5, .wrapper-style4 h6 {
+        color: #fff;
+    }
+
+    .button-alt {
+        background-color: #393939;
+        background-image: -moz-linear-gradient(top, rgba(50,50,50,0), rgba(45,45,45,1));
+        background-image: -webkit-linear-gradient(top, rgba(50,50,50,0), rgba(45,45,45,1));
+        background-image: -o-linear-gradient(top, rgba(50,50,50,0), rgba(45,45,45,1));
+        background-image: -ms-linear-gradient(top, rgba(50,50,50,0), rgba(45,45,45,1));
+        background-image: linear-gradient(top, rgba(50,50,50,0), rgba(45,45,45,1));
+        box-shadow: inset 0px 0px 0px 1px #242424, inset 0px 2px 1px 0px rgba(255,255,255,0.2);
+    }

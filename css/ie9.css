@@ -1,38 +1,21 @@
 /*
-	Miniport 2.0 by HTML5 UP
-	html5up.net | @n33co
+	Miniport by HTML5 UP
+	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-/*********************************************************************************/
-/* Basic                                                                         */
-/*********************************************************************************/
+/* Button */
 
-	.button
-	{
-		background-image: url('images/ie9/button.svg');
+	input[type="button"],
+	input[type="submit"],
+	input[type="reset"],
+	button,
+	.button {
+		background-image: url("images/ie/grad0-20.svg");
 	}
-	
-		.button:active
-		{
-			background-image: url('images/ie9/button-active.svg');
-		}
-		
-		.button-alt
-		{
-			background-image: url('images/ie9/button-alt.svg');
-		}
-		
-			.button-alt:active
-			{
-				background-image: url('images/ie9/button-alt-active.svg');
-			}
 
-	ul.social
-	{
+/* List */
+
+	ul.social li a:before {
+		background-image: url("images/ie/grad0-20.svg");
 	}
-	
-		ul.social li
-		{
-			background-image: url('images/ie9/social-li.svg');
-		}
