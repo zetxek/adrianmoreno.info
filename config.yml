@@ -1,0 +1,19 @@
+baseURL: 'http://www.adrianmoreno.info/'
+languageCode: en-us
+title: 'Adrián Moreno Peña · Web & Mobile Developer, all-around coder'
+DefaultContentLanguage: en
+theme: miniport
+
+Languages:
+  en:
+    weight: 1
+    title: 'Adrián Moreno Peña · Web & Mobile Developer, all-around coder'
+    switch_lang: Spanish
+    skills: Skills
+    resume: Résumé
+    intro: "I'm also known as zetxek around the Internet, and this is my online resume. Here you can find some of the things I've built, know about my ninja coding skills or get in contact."
+    know-how: What do I know how to do?
+  es:
+    weight: 2
+    title: 'Adrián Moreno Peña · Desarrollador web & móvil, programador todoterreno'
+    switch-lang: English
