@@ -1,0 +1,86 @@
+- id: title
+  translation: 'Adrián Moreno Peña · Web & Mobile Developer, all-around coder'
+
+- id: switch_lang
+  translation: Spanish
+
+- id: skills
+  translation: Skills
+
+- id: resume
+  translation: Résumé
+
+- id: contact
+  translation: Contact
+
+- id: intro
+  translation: "I'm also known as zetxek around the Internet, and this is my online resume. Here you can find some of the things I've built, know about my ninja coding skills or get in contact."
+
+- id: know-how
+  translation: What do I know how to do?
+
+- id: skills-title
+  translation: "I ❤ software"
+
+- id: skills-subtitle
+  translation: "Specifically, building great apps and webs"
+
+- id: skill-1-title
+  translation: "Web"
+
+- id: skill-1-desc
+  translation: "HTML5, CSS3, Javascript, Javascript Frameworks (jQuery, jQuery UI, jQuery Mobile, MooTools, …), Content Management Systems (Wordpress, Drupal,…), e-Commerce Systems (Magento, OpenCart, VirtueMart, UberCart…)"
+
+- id: skill-2-title
+  translation: "Mobile"
+
+- id: skill-2-desc
+  translation: "Mobile web (HTML5, CSS & JS, Apache Cordova), native development (Java Android, Objetive-C iOS, Web techs for BB10…),	multi-platform frameworks (Titanium Appcelerator)."
+
+- id: skill-3-title
+  translation: "All around!"
+
+- id: skill-3-desc
+  translation: "Everything around software projects, you name it. Project planning, agile project management, system administration, software translation, software integration, platform architecture design…"
+
+- id: skills-closing
+  translation: "And overall, I like learning new stuff and trying new technologies"
+
+- id: go-download
+  translation: "Go get my downloadable resumé"
+
+- id: resume-title
+  translation: "The reason of this webpage"
+
+- id: resume-desc
+  translation: "Get served!"
+
+- id: resume-1-title
+  translation: "PDF (english)"
+
+- id: resume-1-desc
+  translation: "183 Kb, 2 pages long"
+
+- id: resume-2-title
+  translation: "PDF (english, cover lever)"
+
+- id: resume-2-desc
+  translation: "269 Kb, 3 pages long"
+
+- id: cta-title
+  translation: "Have I already convinced you that I'm the best fit for your job?"
+
+- id: cta-action
+  translation: "Get in touch with me!"
+
+- id: contact-title
+  translation: "Want to hire me? Get in touch!"
+
+- id: contact-subtitle
+  translation: "Want to phone me? Reach me on <a href=\"tel:+310674725025\">+31 0684825025 </a>"
+
+- id: contact-send
+  translation: "Send"
+
+- id: contact-clear
+  translation: "Clear form"

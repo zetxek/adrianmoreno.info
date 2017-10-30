@@ -7,7 +7,7 @@
 <html>
 
 <head>
-	<title>Adrián Moreno Peña · Web & Mobile Developer, all-around coder</title>
+	<title>{{ i18n "title" }}</title>
 	<link rel="shortcut icon" href="/favicon.ico">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="description" content="" />
@@ -45,17 +45,17 @@
 			<span class="icon fa-home"></span>
 		</a>
 		<span id="lang-switch">
-			<a href="index_es.php">Spanish</a>
+			<a href="/es/">{{ i18n "switch_lang" }}</a>
 		</span>
 		<ul class="container">
 			<li>
-				<a href="#skills">Skills</a>
+				<a href="#skills">{{ i18n "skills" }}</a>
 			</li>
 			<li>
-				<a href="#resume">Résumé</a>
+				<a href="#resume">{{ i18n "resume" }}</a>
 			</li>
 			<li>
-				<a href="#contact">Contact</a>
+				<a href="#contact">{{ i18n "contact" }}</a>
 			</li>
 		</ul>
 	</nav>
@@ -74,9 +74,8 @@
 						<h1>Hi. I'm
 							<strong>Adrián Moreno Peña</strong>.</h1>
 					</header>
-					<p>I'm also known as zetxek around the Internet, and this is my online resume. Here you can find some of the things I've
-						built, know about my ninja coding skills or get in contact.</p>
-					<a href="#skills" class="button button-big">What do I know how to do?</a>
+					<p>{{ i18n "intro" }}</p>
+					<a href="#skills" class="button button-big">{{ i18n "know-how" }}</a>
 				</div>
 			</div>
 		</article>
@@ -86,40 +85,37 @@
 	<div class="wrapper style2">
 		<article id="skills">
 			<header>
-				<h2>I ❤ software</h2>
-				<span>Specifically, building great apps and webs</span>
+				<h2>{{ i18n "skills-title" }}</h2>
+				<span>{{ i18n "skills-subtitle" }}</span>
 			</header>
 			<div class="container">
 				<div class="row">
 					<div class="4u 12u(mobile)">
 						<section class="box style1">
 							<span class="icon featured fa-flask"></span>
-							<h3>Web</h3>
-							<p>HTML5, CSS3, Javascript, Javascript Frameworks (jQuery, jQuery UI, jQuery Mobile, MooTools, …), Content Management
-								Systems (Wordpress, Drupal,…), e-Commerce Systems (Magento, OpenCart, VirtueMart, UberCart…)</p>
+							<h3>{{ i18n "skill-1-title" }}</h3>
+							<p>{{ i18n "skill-1-desc" }}</p>
 						</section>
 					</div>
 					<div class="4u 12u(mobile)">
 						<section class="box style1">
 							<span class="icon featured fa-mobile-phone"></span>
-							<h3>Mobile</h3>
-							<p>Mobile web (HTML5, CSS & JS, Apache Cordova), native development (Java Android, Objetive-C iOS, Web techs for BB10…),
-								multi-platform frameworks (Titanium Appcelerator).</p>
+							<h3>{{ i18n "skill-2-title" }}</h3>
+							<p>{{ i18n "skill-2-desc" }}</p>
 						</section>
 					</div>
 					<div class="4u 12u(mobile)">
 						<section class="box style1">
 							<span class="icon featured fa-thumbs-up"></span>
-							<h3>All around!</h3>
-							<p>Everything around software projects, you name it. Project planning, agile project management, system administration,
-								software translation, software integration, platform architecture design…</p>
+							<h3>{{ i18n "skill-3-title" }}</h3>
+							<p>{{ i18n "skill-3-desc" }}</p>
 						</section>
 					</div>
 				</div>
 			</div>
 			<footer>
-				<p>And overall, I like learning new stuff and trying new technologies</p>
-				<a href="#resume" class="button button-big">Go get my downloadable resumé</a>
+				<p>{{i18n "skills-closing"}}</p>
+				<a href="#resume" class="button button-big">{{i18n "go-download"}}</a>
 			</footer>
 		</article>
 	</div>
@@ -128,8 +124,8 @@
 	<div class="wrapper style3">
 		<article id="resume">
 			<header>
-				<h2>The reason of this webpage</h2>
-				<span>Get served!</span>
+				<h2>{{i18n "resume-title"}}</h2>
+				<span>{{i18n "resume-desc" }}</span>
 			</header>
 			<div class="container">
 				<div class="row">
@@ -143,9 +139,9 @@
 								<img src="images/cv01.jpg" alt="" />
 							</a>
 							<h3>
-								<a href="http://adrianmoreno.info/files/cv_adrian_moreno_english.pdf">PDF (english)</a>
+								<a href="http://adrianmoreno.info/files/cv_adrian_moreno_english.pdf">{{i18n "resume-1-title"}}</a>
 							</h3>
-							<p>183 Kb, 2 pages long</p>
+							<p>{{i18n "resume-1-desc"}}</p>
 						</article>
 					</div>
 					<div class="6u">
@@ -154,9 +150,9 @@
 								<img src="images/cv02.jpg" alt="" />
 							</a>
 							<h3>
-								<a href="http://adrianmoreno.info/files/cv_cover_adrian_moreno_english.pdf">PDF (english, cover lever)</a>
+								<a href="http://adrianmoreno.info/files/cv_cover_adrian_moreno_english.pdf">{{i18n "resume-2-title"}}</a>
 							</h3>
-							<p>269 Kb, 3 pages long</p>
+							<p>{{i18n "resume-2-desc"}}</p>
 						</article>
 					</div>
 				</div>
@@ -185,8 +181,8 @@
 						</div>-->
 			</div>
 			<footer>
-				<p>Have I already convinced you that I'm the best fit for your job?</p>
-				<a href="#contact" class="button button-big">Get in touch with me</a>
+				<p>{{i18n "cta-title"}}</p>
+				<a href="#contact" class="button button-big">{{ i18n "cta-action" }}</a>
 			</footer>
 		</article>
 	</div>
@@ -195,9 +191,8 @@
 	<div class="wrapper style4">
 		<article id="contact" class="container 75%">
 			<header>
-				<h2>Want to hire me? Get in touch!</h2>
-				<p>Want to phone me? Reach me on
-					<a href="tel:+310674725025">+31 0684825025 </a>
+				<h2>{{i18n "contact-title"}}</h2>
+				<p>{{i18n "contact-subtitle"}}
 				</p>
 			</header>
 			<div class="row">
@@ -222,8 +217,8 @@
 							</div>
 							<div class="row half">
 								<div class="12u">
-									<input class="button form-button-submit" type="submit" value="Send">
-									<input type="reset" class="button alt form-button-reset" value="Clear Form">
+									<input class="button form-button-submit" type="submit" value="{{ i18n "contact-send" }}">
+									<input type="reset" class="button alt form-button-reset" value="{{ i18n "contact-clear" }}">
 								</div>
 							</div>
 						</div>
