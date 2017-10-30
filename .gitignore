@@ -2,3 +2,4 @@ vendor/*/
 wercker
 .wercker
 .DS_STORE
+/public

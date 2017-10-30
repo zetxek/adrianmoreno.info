@@ -23,9 +23,13 @@ build:
     - script:
         name: echo
         code: |
-          echo "hello world!"
+          echo "Starting hugo build..."
+    - arjen/hugo-build:
+      version: "0.30.2"
+      flags: --buildDrafts=true
 deploy:
   steps:
+
     - script:
       name: echo
       code: |
@@ -37,7 +41,7 @@ deploy:
         git \
         curl
     - simpletechs/ftp-deploy-exclude:
-        destination: ftp://adrianmoreno.info/public_html
+        destination: ftp://adrianmoreno.info/public_html/dev
         username: $USERNAME
         password: $PASSWORD
         exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
