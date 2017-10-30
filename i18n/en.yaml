@@ -1,6 +1,9 @@
 - id: title
   translation: 'Adrián Moreno Peña · Web & Mobile Developer, all-around coder'
 
+- id: seo-desc
+  translation: 'Professional website of Adrián Moreno, computer engineer based in Amsterdam, with experience in mobile and web development, AdTech industry, and working with a variety of clients and sectors.'
+
 - id: switch_lang
   translation: Spanish
 
@@ -15,6 +18,9 @@
 
 - id: intro
   translation: "I'm also known as zetxek around the Internet, and this is my online resume. Here you can find some of the things I've built, know about my ninja coding skills or get in contact."
+
+- id: welcome
+  translation: "Hi. I'm <strong>Adrián Moreno Peña</strong>."
 
 - id: know-how
   translation: What do I know how to do?
@@ -84,3 +90,9 @@
 
 - id: contact-clear
   translation: "Clear form"
+
+- id: social-title
+  translation: "Find me on ..."
+
+- id: copyright
+  translation: "Design by <a href=\"http://html5up.net/\">HTML5 UP</a>"

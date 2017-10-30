@@ -10,7 +10,7 @@
 	<title>{{ i18n "title" }}</title>
 	<link rel="shortcut icon" href="/favicon.ico">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta name="description" content="" />
+	<meta name="description" content="{{ i18n "seo_desc" }}" />
 	<meta name="keywords" content="" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -71,8 +71,7 @@
 				</div>
 				<div class="8u 12u(mobile)">
 					<header>
-						<h1>Hi. I'm
-							<strong>Adrián Moreno Peña</strong>.</h1>
+						<h1>{{ i18n "welcome" }}</h1>
 					</header>
 					<p>{{ i18n "intro" }}</p>
 					<a href="#skills" class="button button-big">{{ i18n "know-how" }}</a>
@@ -227,7 +226,7 @@
 			</div>
 			<div class="row row-special">
 				<div class="12u">
-					<h3>Find me on ...</h3>
+					<h3>{{ i18n "social-title" }}</h3>
 					<ul class="social">
 						<li class="rss">
 							<a href="http://bloqnum.com" class="icon fa-rss">
@@ -286,8 +285,7 @@
 			</div>
 			<footer>
 				<p id="copyright">
-					Design by:
-					<a href="http://html5up.net/">HTML5 UP</a>
+					{{ i18n "copyright" }}
 				</p>
 			</footer>
 		</article>
