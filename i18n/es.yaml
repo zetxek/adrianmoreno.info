@@ -1,0 +1,98 @@
+- id: title
+  translation: 'Adrián Moreno Peña · Desarrollador móvil y web, programador en general'
+
+- id: seo-desc
+  translation: 'Professional website of Adrián Moreno, computer engineer based in Amsterdam, with experience in mobile and web development, AdTech industry, and working with a variety of clients and sectors.'
+
+- id: switch_lang
+  translation: English
+
+- id: skills
+  translation: Habilidades
+
+- id: resume
+  translation: CV
+
+- id: contact
+  translation: Contacto
+
+- id: intro
+  translation: "Soy conocido como zetxek en Internet, y este es mi CV online. Aquí puedes encontrar algunas de las cosas que he hecho, sobre lo que sé hacer, o estar en contacto conmigo."
+
+- id: welcome
+  translation: "Hola. Soy <strong>Adrián Moreno Peña</strong>."
+
+- id: know-how
+  translation: Qué se hacer?
+
+- id: skills-title
+  translation: "Yo ❤ el software"
+
+- id: skills-subtitle
+  translation: "En particular, construir grandes apps y webs que los usuarios disfruten."
+
+- id: skill-1-title
+  translation: "Web"
+
+- id: skill-1-desc
+  translation: "HTML5, CSS3, Javascript, Javascript Frameworks (jQuery, jQuery UI, jQuery Mobile, MooTools, …), Content Management Systems (Wordpress, Drupal,…), e-Commerce Systems (Magento, OpenCart, VirtueMart, UberCart…)"
+
+- id: skill-2-title
+  translation: "Mobile"
+
+- id: skill-2-desc
+  translation: "Mobile web (HTML5, CSS & JS, Apache Cordova), native development (Java Android, Objetive-C iOS, Web techs for BB10…),	multi-platform frameworks (Titanium Appcelerator)."
+
+- id: skill-3-title
+  translation: "Un poco de todo!"
+
+- id: skill-3-desc
+  translation: "De todo relacionado con proyectos de software. Gestión de proyectos, agile development, administración de sistemas, devops, integración de software, migraciones de sistemas, prototipado y validación de modelos de negocio…"
+
+- id: skills-closing
+  translation: "Y, sobre todo, disfruto aprendiendo cosas nuevas y colaborando a crear un equipo autosuficiente."
+
+- id: go-download
+  translation: "Descarga mi CV"
+
+- id: resume-title
+  translation: "La razón de ser de esta web"
+
+- id: resume-desc
+  translation: "Descarga ya!"
+
+- id: resume-1-title
+  translation: "PDF (english)"
+
+- id: resume-1-desc
+  translation: "183 Kb, 2 páginas"
+
+- id: resume-2-title
+  translation: "PDF (english, con cover lever)"
+
+- id: resume-2-desc
+  translation: "269 Kb, 3 páginas"
+
+- id: cta-title
+  translation: "Te he convencido ya de que soy el mejor para tu puesto?"
+
+- id: cta-action
+  translation: "Contacta conmigo!"
+
+- id: contact-title
+  translation: "Envíame un mensaje"
+
+- id: contact-subtitle
+  translation: "Quieres llamarme? Prefiero mail, pero este es mi teléfono: <a href=\"tel:+310674725025\">+31 0684825025 </a>"
+
+- id: contact-send
+  translation: "Enviar"
+
+- id: contact-clear
+  translation: "Reiniciar"
+
+- id: social-title
+  translation: "Encuéntrame en redes sociales..."
+
+- id: copyright
+  translation: "Diseño por <a href=\"http://html5up.net/\">HTML5 UP</a>"
