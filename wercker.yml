@@ -24,6 +24,15 @@ build:
         name: echo
         code: |
           echo "Starting hugo build..."
+    - script:
+        name: debug
+        code: |
+          echo "Current path:"
+          ls
+          echo "Hardcoded path:"
+          ls /pipeline/source/content
+          echo "source dir: ${WERCKER_SOURCE_DIR}"
+          ls ${WERCKER_SOURCE_DIR}
     - arjen/hugo-build:
       version: "0.30.2"
       flags: --buildDrafts=true
