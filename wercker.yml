@@ -28,6 +28,8 @@ build:
         name: debug
         code: |
           echo "Current path:"
+          pwd
+          echo "Current path content:"
           ls
           echo "Hardcoded path:"
           ls /pipeline/source/content
