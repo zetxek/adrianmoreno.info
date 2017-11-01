@@ -40,7 +40,6 @@ build:
       flags: --buildDrafts=true
 deploy:
   steps:
-
     - script:
       name: echo
       code: |
@@ -52,7 +51,8 @@ deploy:
         git \
         curl
     - simpletechs/ftp-deploy-exclude:
-        destination: ftp://adrianmoreno.info/public_html/dev
+        cwd: public/
+        destination: $DESTINATION
         username: $USERNAME
         password: $PASSWORD
         exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
