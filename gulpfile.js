@@ -1,6 +1,6 @@
 var gulp = require('gulp'); // Require gulp
 
-var minifyCSS = require('gulp-minify-css'); // Minify the CSS
+var cleanCSS = require('gulp-clean-css'); // Minify the CSS
 
 // Minification dependencies
 var minifyHTML = require('gulp-minify-html'); // Minify HTML
@@ -14,6 +14,12 @@ var size = require('gulp-size'); // Get the size of the project
 
 // Tasks -------------------------------------------------------------------- >
 
+// Minify HTML
+gulp.task('css', () => {
+  return gulp.src('public/assets/css/*.css')
+    .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(gulp.dest('public/assets/css/'));
+});
 
 // Task to minify new or changed HTML pages
 gulp.task('html', function() {
@@ -57,7 +63,7 @@ gulp.task('build-size', function() {
 });
 
 // Serve application
-gulp.task('serve', ['html', 'scripts', 'images', 'size'], function() {
+gulp.task('serve', ['css', 'html', 'scripts', 'images', 'size'], function() {
 });
 
 // Run all Gulp tasks and serve application
