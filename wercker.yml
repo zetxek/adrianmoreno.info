@@ -30,8 +30,8 @@ build:
       version: "0.30.2"
       flags: --buildDrafts=true
     - samueldebruyn/minify:
-        css: false
-        js: false
+        css: true
+        js: true
 deploy:
   steps:
     - script:
