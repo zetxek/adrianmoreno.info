@@ -12,6 +12,10 @@ var imagemin = require('gulp-imagemin'); // Minify images
 // Other dependencies
 var size = require('gulp-size'); // Get the size of the project
 
+// Critical CSS
+var critical = require('critical');
+
+
 // Tasks -------------------------------------------------------------------- >
 
 // Minify HTML
@@ -19,6 +23,18 @@ gulp.task('css', () => {
   return gulp.src('public/assets/css/*.css')
     .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest('public/assets/css/'));
+});
+
+gulp.task('critical', () => {
+  critical.generate({
+    inline: true,
+    minify: true,    
+    base: 'public/',
+    src: 'index.html',
+    dest: 'index.html',
+    width: 1300,
+    height: 900
+  });
 });
 
 // Task to minify new or changed HTML pages
@@ -63,7 +79,7 @@ gulp.task('build-size', function() {
 });
 
 // Serve application
-gulp.task('serve', ['css', 'html', 'scripts', 'images', 'size'], function() {
+gulp.task('serve', ['critical', 'css', 'html', 'scripts', 'images', 'size'], function() {
 });
 
 // Run all Gulp tasks and serve application
