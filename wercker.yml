@@ -2,7 +2,7 @@
 # Docker Hub https://registry.hub.docker.com/_/debian/
 # Read more about containers on our dev center
 # http://devcenter.wercker.com/docs/containers/index.html
-box: debian
+box: node
 # You can also use services such as databases. Read more on our dev center:
 # http://devcenter.wercker.com/docs/services/index.html
 # services:
@@ -20,24 +20,18 @@ build:
     # Read more about steps on our dev center:
     # http://devcenter.wercker.com/docs/steps/index.html
   steps:
+    - npm-install
+    - hgen/gulp
     - script:
         name: echo
         code: |
           echo "Starting hugo build..."
-    - script:
-        name: debug
-        code: |
-          echo "Current path:"
-          pwd
-          echo "Current path content:"
-          ls
-          echo "Hardcoded path:"
-          ls /pipeline/source/content
-          echo "source dir: ${WERCKER_SOURCE_DIR}"
-          ls ${WERCKER_SOURCE_DIR}
     - arjen/hugo-build:
       version: "0.30.2"
       flags: --buildDrafts=true
+    - samueldebruyn/minify:
+        css: false
+        js: false
 deploy:
   steps:
     - script:

@@ -3,3 +3,4 @@ wercker
 .wercker
 .DS_STORE
 /public
+node_modules/
