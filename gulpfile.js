@@ -17,9 +17,9 @@ var size = require('gulp-size'); // Get the size of the project
 
 // Task to minify new or changed HTML pages
 gulp.task('html', function() {
-  gulp.src('./app/*.html')
+  gulp.src('./public/*.html')
     .pipe(minifyHTML())
-    .pipe(gulp.dest('./build/'));
+    .pipe(gulp.dest('./public/'));
 });
 
 // Task to concat, strip debugging and minify JS files
