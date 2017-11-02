@@ -24,25 +24,25 @@ gulp.task('html', function() {
 
 // Task to concat, strip debugging and minify JS files
 gulp.task('scripts', function() {
-  gulp.src(['./app/scripts/lib.js', './app/scripts/*.js'])
-    .pipe(concat('script.js'))
+  gulp.src(['./public/assets/js/', './public/assets/js/*.js'])
+    .pipe(concat('app.js'))
     .pipe(stripDebug())
     .pipe(uglify())
-    .pipe(gulp.dest('./build/scripts/'));
+    .pipe(gulp.dest('./public/assets/js/'));
 });
 
 // Task to minify images into build
 gulp.task('images', function() {
-  gulp.src('./app/images/*')
+  gulp.src('./public/images/*')
   .pipe(imagemin({
     progressive: true,
   }))
-  .pipe(gulp.dest('./build/images'));
+  .pipe(gulp.dest('./public/images'));
 });
 
 // Task to get the size of the app project
 gulp.task('size', function() {
-  gulp.src('./app/**')
+  gulp.src('./public/**')
 	.pipe(size({
     showFiles: true,
   }));
@@ -50,7 +50,7 @@ gulp.task('size', function() {
 
 // Task to get the size of the build project
 gulp.task('build-size', function() {
-  gulp.src('./build/**')
+  gulp.src('./public/**')
   .pipe(size({
     showFiles: true,
   }));
