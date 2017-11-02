@@ -9,3 +9,11 @@ AddOutputFilterByType DEFLATE application/javascript
 AddOutputFilterByType DEFLATE application/x-javascript
 AddOutputFilterByType DEFLATE image/svg+xml
 AddOutputFilterByType DEFLATE image/x-icon
+
+<filesMatch ".(jpg|jpeg|png|gif|ico)$">
+Header set Cache-Control "max-age=2628000, public"
+</filesMatch>
+# One month for css and js
+<filesMatch ".(css|js)$">
+Header set Cache-Control "max-age=684000, public"
+</filesMatch>
