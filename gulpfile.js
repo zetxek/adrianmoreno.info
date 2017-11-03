@@ -29,8 +29,18 @@ gulp.task('critical', () => {
   critical.generate({
     inline: true,
     minify: true,    
-    base: 'public/',
-    src: 'index.html',
+    base: './public/',
+    src: './index.html',
+    dest: 'index.html',
+    width: 1300,
+    height: 900
+  });
+
+  critical.generate({
+    inline: true,
+    minify: true,    
+    base: './public/',
+    src: './es/index.html',
     dest: 'index.html',
     width: 1300,
     height: 900
@@ -39,9 +49,13 @@ gulp.task('critical', () => {
 
 // Task to minify new or changed HTML pages
 gulp.task('html', function() {
-  gulp.src('./public/*.html')
+  gulp.src('./public/index.html',  {base: './'})
     .pipe(minifyHTML())
-    .pipe(gulp.dest('./public/'));
+    .pipe(gulp.dest('./'));
+
+    gulp.src('./public/es/index.html',  {base: './'})
+    .pipe(minifyHTML())
+    .pipe(gulp.dest('./'));
 });
 
 // Task to concat, strip debugging and minify JS files
@@ -79,9 +93,14 @@ gulp.task('build-size', function() {
 });
 
 // Serve application
-gulp.task('serve', ['critical', 'css', 'html', 'scripts', 'images', 'size'], function() {
-});
+gulp.task('default', [
+    'css', 
+    'html', 
+    'scripts',
+    'images', 
+    'critical', 
+    'size'
+  ], function() {
 
-// Run all Gulp tasks and serve application
-gulp.task('default', ['serve'], function() {
-});
+  }
+);
