@@ -51,21 +51,21 @@ deploy:
         password: $PASSWORD
         exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
 
-  deploy-dev:
-    steps:
-      - script:
-        name: echo
-        code: |
-          echo "Starting FTP deploy (dev)..."
-      - script: 
-        name: installing-tools
-        code: |
-          apt-get -y update && apt-get -y install \
-          git \
-          curl
-      - simpletechs/ftp-deploy-exclude:
-          cwd: dev/public/
-          destination: $DESTINATION
-          username: $USERNAME
-          password: $PASSWORD
-          exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
+deploy-dev:
+  steps:
+    - script:
+      name: echo
+      code: |
+        echo "Starting FTP deploy (dev)..."
+    - script: 
+      name: installing-tools
+      code: |
+        apt-get -y update && apt-get -y install \
+        git \
+        curl
+    - simpletechs/ftp-deploy-exclude:
+        cwd: dev/public/
+        destination: $DESTINATION
+        username: $USERNAME
+        password: $PASSWORD
+        exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
