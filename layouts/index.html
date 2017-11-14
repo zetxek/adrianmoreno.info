@@ -33,7 +33,7 @@
 </head>
 
 <body>
-
+	
 	<!-- Nav -->
 	<nav id="nav">
 		<a id="home" href="#top">
@@ -78,31 +78,34 @@
 	<!-- Work -->
 	<div class="wrapper style2">
 		<article id="skills">
-			<header>
-				<h2>{{ i18n "skills-title" }}</h2>
-				<span>{{ i18n "skills-subtitle" }}</span>
-			</header>
+
 			<div class="container">
+				<div class="row">
+					<header>
+						<h2>{{ i18n "skills-title" }}</h2>
+						<span>{{ i18n "skills-subtitle" }}</span>
+					</header>
+				</div>
 				<div class="row">
 					<div class="4u 12u(mobile)">
 						<section class="box style1">
 							<span class="icon featured fa-flask"></span>
 							<h3>{{ i18n "skill-1-title" }}</h3>
-							<p>{{ i18n "skill-1-desc" }}</p>
+							<p>{{ i18n "skill-1-desc" | safeHTML }}</p>
 						</section>
 					</div>
 					<div class="4u 12u(mobile)">
 						<section class="box style1">
 							<span class="icon featured fa-mobile-phone"></span>
 							<h3>{{ i18n "skill-2-title" }}</h3>
-							<p>{{ i18n "skill-2-desc" }}</p>
+							<p>{{ i18n "skill-2-desc" | safeHTML }}</p>
 						</section>
 					</div>
 					<div class="4u 12u(mobile)">
 						<section class="box style1">
 							<span class="icon featured fa-thumbs-up"></span>
 							<h3>{{ i18n "skill-3-title" }}</h3>
-							<p>{{ i18n "skill-3-desc" }}</p>
+							<p>{{ i18n "skill-3-desc" | safeHTML }}</p>
 						</section>
 					</div>
 				</div>
@@ -191,9 +194,6 @@
 			</header>
 			<div class="row">
 				<div class="12u">
-
-
-
 					<form id="mail-form" method="post" action="https://formspree.io/info@adrianmoreno.info">
 						<div>
 							<div class="row half">

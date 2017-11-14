@@ -23,34 +23,34 @@
   translation: "Hi. I'm <strong>Adrián Moreno Peña</strong>."
 
 - id: know-how
-  translation: What do I know how to do?
+  translation: What can I do?
 
 - id: skills-title
   translation: "I ❤ software"
 
 - id: skills-subtitle
-  translation: "Specifically, building great apps and webs"
+  translation: "Specifically, building great apps and websites that make users' life simpler, and easier. I like to apply technology to bring solutions to a problem and reduce frictions in the digital world - but only after understanding the problem that needs to be solved. For that, I have carefully turned myself into a generalist - with knowledge of many areas, as I believe that to come up with meaningful solutions, cross-functional knowledge is needed. "
 
 - id: skill-1-title
   translation: "Web"
 
 - id: skill-1-desc
-  translation: "HTML5, CSS3, Javascript, Javascript Frameworks (jQuery, jQuery UI, jQuery Mobile, MooTools, …), Content Management Systems (Wordpress, Drupal,…), e-Commerce Systems (Magento, OpenCart, VirtueMart, UberCart…)"
+  translation: "The open platform par excelence. Open standards, browser interoperalibility and APIs everywhere!<p class='sub'>HTML5, CSS3, Javascript (and frameworks, such as jQuery/UI/mobile, backbone, Angular.js, …), Content Management Systems (Wordpress, Drupal, Liferay…), e-Commerce Systems (Magento, OpenCart, WooCommerce…).</p>"
 
 - id: skill-2-title
   translation: "Mobile"
 
 - id: skill-2-desc
-  translation: "Mobile web (HTML5, CSS & JS, Apache Cordova), native development (Java Android, Objetive-C iOS, Web techs for BB10…),	multi-platform frameworks (Titanium Appcelerator)."
+  translation: " Mobile apps are a chance to create meaningful experiences that travel with the people behind the screen. <p class='sub'>Mobile web (HTML5, CSS & JS, Apache Cordova), native development (Java Android, Objetive-C iOS, Web techs for BB10…),	multi-platform frameworks (Titanium Appcelerator).</p>"
 
 - id: skill-3-title
   translation: "All around!"
 
 - id: skill-3-desc
-  translation: "Everything around software projects, you name it. Project planning, agile project management, system administration, software translation, software integration, platform architecture design…"
+  translation: "I believe in strong independent teams, and I strive to create and be part of them. <p class='sub'>My place is anywhere close to a software project: team leading, software developing, asisting with pre-sales and estimates, agile development, platform architecture design…</p>"
 
 - id: skills-closing
-  translation: "And overall, I like learning new stuff and trying new technologies"
+  translation: "And overall, I like learning new stuff and applying new technologies. Whatever fits best for the purpose!wra"
 
 - id: go-download
   translation: "Go get my downloadable resumé"
@@ -95,4 +95,4 @@
   translation: "Find me on ..."
 
 - id: copyright
-  translation: "Design by <a href=\"http://html5up.net/\">HTML5 UP</a>"
+  translation: "You can <a target='_blank' href='https://bitbucket.org/zetxek/adrianmoreno.info/'>check the code online</a>."
