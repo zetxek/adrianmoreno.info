@@ -36,15 +36,16 @@ gulp.task('critical', () => {
     height: 900
   });
 
-  critical.generate({
-    inline: true,
-    minify: true,    
-    base: './public/',
-    src: './es/index.html',
-    dest: 'index.html',
-    width: 1300,
-    height: 900
-  });
+  return critical
+    .generate({
+      inline: true,
+      minify: true,    
+      base: './public/',
+      src: './es/index.html',
+      dest: 'index.html',
+      width: 1300,
+      height: 900
+    });
 });
 
 // Task to minify new or changed HTML pages
@@ -53,14 +54,16 @@ gulp.task('html', function() {
     .pipe(minifyHTML())
     .pipe(gulp.dest('./'));
 
-    gulp.src('./public/es/index.html',  {base: './'})
-    .pipe(minifyHTML())
-    .pipe(gulp.dest('./'));
+    return  gulp
+      .src('./public/es/index.html',  {base: './'})
+      .pipe(minifyHTML())
+      .pipe(gulp.dest('./'));
 });
 
 // Task to concat, strip debugging and minify JS files
 gulp.task('scripts', function() {
-  gulp.src(['./public/assets/js/', './public/assets/js/*.js'])
+  return gulp
+    .src(['./public/assets/js/', './public/assets/js/*.js'])
     .pipe(concat('app.min.js'))
     .pipe(stripDebug())
     .pipe(uglify())
@@ -69,38 +72,41 @@ gulp.task('scripts', function() {
 
 // Task to minify images into build
 gulp.task('images', function() {
-  gulp.src('./public/images/*')
-  .pipe(imagemin({
-    progressive: true,
-  }))
-  .pipe(gulp.dest('./public/images'));
+  return gulp
+    .src('./public/images/*')
+    .pipe(imagemin({
+      progressive: true,
+    }))
+    .pipe(gulp.dest('./public/images'));
 });
 
 // Task to get the size of the app project
 gulp.task('size', function() {
-  gulp.src('./public/**')
-	.pipe(size({
-    showFiles: true,
-  }));
+  return gulp
+    .src('./public/**')
+	  .pipe(size({
+      showFiles: true,
+    }));
 });
 
 // Task to get the size of the build project
 gulp.task('build-size', function() {
-  gulp.src('./public/**')
-  .pipe(size({
-    showFiles: true,
-  }));
+  return gulp
+    .src('./public/**')
+    .pipe(size({
+      showFiles: true,
+    }));
 });
 
 // Serve application
-gulp.task('default', [
+gulp.task('default', gulp.series([
     'css', 
     'html', 
     'scripts',
     'images', 
     'critical', 
     'size'
-  ], function() {
-
+  ]), function() {
+    return Promise.resolve('');
   }
 );
