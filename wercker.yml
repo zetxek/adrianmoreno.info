@@ -18,8 +18,11 @@ build:
 #    - script:
 #      name: installing-dependencies
 #      code: |
+    - script:
+        name: install-sharp
+        code: npm install sharp
     - npm-install:
-      options: --unsafe-perm
+      options: --unsafe-perm=true --force
     - hgen/gulp
     - script:
         name: echo
