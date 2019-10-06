@@ -20,7 +20,7 @@ build:
 #      code: |
     - script:
         name: install-sharp
-        code: npm install sharp
+        code: npm install sharp --unsafe-perm=true
     - npm-install:
       options: --unsafe-perm=true --force
     - hgen/gulp
