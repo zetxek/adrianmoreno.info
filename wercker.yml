@@ -5,18 +5,11 @@
 # box: node
 # box: node:10-alpine
 box: bitnami/node
-# You can also use services such as databases. Read more on our dev center:
-# http://devcenter.wercker.com/docs/services/index.html
-# services:
-    # - postgres
-    # http://devcenter.wercker.com/docs/services/postgresql.html
-
-    # - mongo
-    # http://devcenter.wercker.com/docs/services/mongodb.html
 
 # This is the build pipeline. Pipelines are the core of wercker
 # Read more about pipelines on our dev center
 # http://devcenter.wercker.com/docs/pipelines/index.html
+
 build:
     # Steps make up the actions in your pipeline
     # Read more about steps on our dev center:
@@ -25,7 +18,8 @@ build:
 #    - script:
 #      name: installing-dependencies
 #      code: |
-    - npm-install
+    - npm-install:
+      options: --unsafe-perm
     - hgen/gulp
     - script:
         name: echo
