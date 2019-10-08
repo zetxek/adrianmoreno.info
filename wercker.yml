@@ -67,7 +67,7 @@ deploy-dev:
         curl
     - chonla/ftp-deploy-exclude-verbose:
         cwd: dev/public/
-        destination: ftp://adrianmoreno.info/public_html/dev/
+        destination: ftp://adrianmoreno.info/public_html/dev
         username: $USERNAME
         password: $PASSWORD
         verbose: true
