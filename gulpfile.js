@@ -51,12 +51,12 @@ gulp.task('critical', () => {
 // Task to minify new or changed HTML pages
 gulp.task('html', function() {
   gulp.src('./public/index.html',  {base: './'})
-    .pipe(minifyHTML())
+    .pipe(minifyHTML({allowEmpty: true}))
     .pipe(gulp.dest('./'));
 
     return  gulp
       .src('./public/es/index.html',  {base: './'})
-      .pipe(minifyHTML())
+      .pipe(minifyHTML({allowEmpty: true}))
       .pipe(gulp.dest('./'));
 });
 
