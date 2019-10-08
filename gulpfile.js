@@ -103,7 +103,7 @@ gulp.task('default', gulp.series([
     'css', 
     'scripts',
     'images', 
-    'critical', 
+    /*'critical', */
     'size'
   ]), function() {
     return Promise.resolve('');
