@@ -47,7 +47,6 @@ deploy:
         git \
         curl
     - simpletechs/ftp-deploy-exclude:
-        cwd: public/
         destination: $DESTINATION
         username: $USERNAME
         password: $PASSWORD
@@ -66,7 +65,6 @@ deploy-dev:
         git \
         curl
     - chonla/ftp-deploy-exclude-verbose:
-        cwd: dev/public/
         destination: ftp://adrianmoreno.info/public_html/dev
         username: $USERNAME
         password: $PASSWORD
