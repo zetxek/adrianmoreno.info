@@ -65,9 +65,10 @@ deploy-dev:
         apt-get -y update && apt-get -y install \
         git \
         curl
-    - simpletechs/ftp-deploy-exclude:
+    - chonla/ftp-deploy-exclude-verbose:
         cwd: dev/public/
-        destination: $DESTINATION
+        destination: ftp://adrianmoreno.info/public_html/dev/
         username: $USERNAME
         password: $PASSWORD
+        verbose: true
         exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
