@@ -23,7 +23,6 @@ build:
         code: npm install sharp --unsafe-perm=true
     - npm-install:
       options: --unsafe-perm=true --force
-    - hgen/gulp
     - script:
         name: echo
         code: |
@@ -31,6 +30,7 @@ build:
     - arjen/hugo-build:
       version: "0.30.2"
       flags: --buildDrafts=true
+    - hgen/gulp
     - samueldebruyn/minify:
         css: true
         js: true
