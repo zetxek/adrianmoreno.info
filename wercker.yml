@@ -65,6 +65,8 @@ deploy-dev:
         git \
         curl
     - chonla/ftp-deploy-exclude-verbose:
+        no-response-timeout: 60
+        command-timeout: 60
         destination: ftp://adrianmoreno.info/public_html/dev
         username: $USERNAME
         password: $PASSWORD
