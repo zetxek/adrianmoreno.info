@@ -101,7 +101,6 @@ gulp.task('build-size', function() {
 // Serve application
 gulp.task('default', gulp.series([
     'css', 
-    'html', 
     'scripts',
     'images', 
     'critical', 
