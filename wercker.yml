@@ -74,7 +74,7 @@ deploy-dev:
     - simpletechs/ftp-deploy-exclude:
       name: deploy to ftp (dev)
       cwd: public/
-      destination: $DESTINATION
+      destination: $DESTINATION_DEV
       username: $USERNAME
       password: $PASSWORD
       exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
