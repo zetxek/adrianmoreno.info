@@ -1,23 +1,17 @@
-# This references a standard debian container from the
-# Docker Hub https://registry.hub.docker.com/_/debian/
-# Read more about containers on our dev center
-# http://devcenter.wercker.com/docs/containers/index.html
-# box: node
-# box: node:10-alpine
+## The boxes are docker containers - using a node one to have already JS tooling out-of-the-box ;-)
 box: bitnami/node
 
-# This is the build pipeline. Pipelines are the core of wercker
-# Read more about pipelines on our dev center
+# This is the build pipeline, which are the core of Wercker
+# More about Wercker pipelines:
 # http://devcenter.wercker.com/docs/pipelines/index.html
+# In this case, the main process is a hugo build:
+# https://gohugo.io/hosting-and-deployment/deployment-with-wercker/
 
 build:
     # Steps make up the actions in your pipeline
     # Read more about steps on our dev center:
     # http://devcenter.wercker.com/docs/steps/index.html
   steps:
-#    - script:
-#      name: installing-dependencies
-#      code: |
     - script:
         name: install-sharp
         code: npm install sharp --unsafe-perm=true
@@ -47,12 +41,18 @@ deploy:
         apt-get -y update && apt-get -y install \
         git \
         curl
+    - script:
+      name: prepare output (so it's lighter)
+      code: rm -rf $WERCKER_ROOT/.git $WERCKER_ROOT/package.json $WERCKER_ROOT/package-lock.json $WERCKER_ROOT/.gitignore $WERCKER_ROOT/wercker.yml $WERCKER_ROOT/node_modules/    
     - simpletechs/ftp-deploy-exclude:
+      ## So we publish the result from the hugo build, the public folder :-)
+        cwd: public
         destination: $DESTINATION
         username: $USERNAME
         password: $PASSWORD
         exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
 
+## Executed conditionally - so tests can be done in git outside of the master branch
 deploy-dev:
   steps:
     - script:
@@ -68,7 +68,7 @@ deploy-dev:
         curl
    
     - script:
-      name: prepare output
+      name: prepare output (so it's lighter)
       code: rm -rf $WERCKER_ROOT/.git $WERCKER_ROOT/package.json $WERCKER_ROOT/package-lock.json $WERCKER_ROOT/.gitignore $WERCKER_ROOT/wercker.yml $WERCKER_ROOT/node_modules/    
    
     - simpletechs/ftp-deploy-exclude:
