@@ -1,0 +1,46 @@
+name: ftp-deploy-exclude-verbose
+version: 0.0.3
+summary: Sync your FTP files using remote list for files md5sum's and comparing with
+  local md5sum.
+category: imported
+tags:
+- ftp
+- upload
+- diff
+- md5sum
+- exclude
+- output
+- verbose
+properties:
+- name: destination
+  type: string
+  required: true
+  default: ""
+- name: verbose
+  type: string
+  required: false
+  default: ""
+- name: timeout
+  type: string
+  required: false
+  default: ""
+- name: retry
+  type: string
+  required: false
+  default: ""
+- name: exclude-files
+  type: string
+  required: false
+  default: ""
+- name: remote-file
+  type: string
+  required: false
+  default: ""
+- name: password
+  type: string
+  required: true
+  default: ""
+- name: username
+  type: string
+  required: true
+  default: ""

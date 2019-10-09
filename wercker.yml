@@ -64,11 +64,28 @@ deploy-dev:
         apt-get -y update && apt-get -y install \
         git \
         curl
-    - chonla/ftp-deploy-exclude-verbose:
-        no-response-timeout: 60
-        command-timeout: 60
-        destination: ftp://adrianmoreno.info/public_html/dev
-        username: $USERNAME
-        password: $PASSWORD
-        verbose: true
-        exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
+    - script:
+      name: prepare output
+      code: rm -rf $WERCKER_ROOT/.git $WERKER_ROOT/.gitignore $WERKER_ROOT/wercker.yml       
+
+publish:
+ steps:
+ - install-packages:
+    packages: ca-certificates
+ - internal/publish-step:
+    private: true
+    destination: ftp://adrianmoreno.info/public_html/dev
+    username: $USERNAME
+    password: $PASSWORD
+    verbose: true
+#     exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
+
+
+# - chonla/ftp-deploy-exclude-verbose:
+#     no-response-timeout: 60
+#     command-timeout: 60
+#     destination: ftp://adrianmoreno.info/public_html/dev
+#     username: $USERNAME
+#     password: $PASSWORD
+#     verbose: true
+#     exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
