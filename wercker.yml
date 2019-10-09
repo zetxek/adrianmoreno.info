@@ -1,23 +1,17 @@
-# This references a standard debian container from the
-# Docker Hub https://registry.hub.docker.com/_/debian/
-# Read more about containers on our dev center
-# http://devcenter.wercker.com/docs/containers/index.html
-# box: node
-# box: node:10-alpine
+## The boxes are docker containers - using a node one to have already JS tooling out-of-the-box ;-)
 box: bitnami/node
 
-# This is the build pipeline. Pipelines are the core of wercker
-# Read more about pipelines on our dev center
+# This is the build pipeline, which are the core of Wercker
+# More about Wercker pipelines:
 # http://devcenter.wercker.com/docs/pipelines/index.html
+# In this case, the main process is a hugo build:
+# https://gohugo.io/hosting-and-deployment/deployment-with-wercker/
 
 build:
     # Steps make up the actions in your pipeline
     # Read more about steps on our dev center:
     # http://devcenter.wercker.com/docs/steps/index.html
   steps:
-#    - script:
-#      name: installing-dependencies
-#      code: |
     - script:
         name: install-sharp
         code: npm install sharp --unsafe-perm=true
@@ -28,12 +22,13 @@ build:
         code: |
           echo "Starting hugo build..."
     - arjen/hugo-build:
-      version: "0.30.2"
+      version: "0.58.3"
       flags: --buildDrafts=true
     - hgen/gulp
     - samueldebruyn/minify:
         css: true
         js: true
+
 deploy:
   steps:
     - script:
@@ -46,29 +41,40 @@ deploy:
         apt-get -y update && apt-get -y install \
         git \
         curl
+    - script:
+      name: prepare output (so it's lighter)
+      code: rm -rf $WERCKER_ROOT/.git $WERCKER_ROOT/package.json $WERCKER_ROOT/package-lock.json $WERCKER_ROOT/.gitignore $WERCKER_ROOT/wercker.yml $WERCKER_ROOT/node_modules/    
     - simpletechs/ftp-deploy-exclude:
+      ## So we publish the result from the hugo build, the public folder :-)
+        cwd: public
         destination: $DESTINATION
         username: $USERNAME
         password: $PASSWORD
         exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
 
+## Executed conditionally - so tests can be done in git outside of the master branch
 deploy-dev:
   steps:
     - script:
       name: echo
       code: |
         echo "Starting FTP deploy (dev)..."
+   
     - script: 
       name: installing-tools
       code: |
         apt-get -y update && apt-get -y install \
         git \
         curl
-    - chonla/ftp-deploy-exclude-verbose:
-        no-response-timeout: 60
-        command-timeout: 60
-        destination: ftp://adrianmoreno.info/public_html/dev
-        username: $USERNAME
-        password: $PASSWORD
-        verbose: true
-        exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
+   
+    - script:
+      name: prepare output (so it's lighter)
+      code: rm -rf $WERCKER_ROOT/.git $WERCKER_ROOT/package.json $WERCKER_ROOT/package-lock.json $WERCKER_ROOT/.gitignore $WERCKER_ROOT/wercker.yml $WERCKER_ROOT/node_modules/    
+   
+    - simpletechs/ftp-deploy-exclude:
+      name: deploy to ftp (dev)
+      cwd: public/
+      destination: $DESTINATION_DEV
+      username: $USERNAME
+      password: $PASSWORD
+      exclude-file: "/.git/ /.gitignore /wercker.yml" #ignores .git folder and wercker config file
