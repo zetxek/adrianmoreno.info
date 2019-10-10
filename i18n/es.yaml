@@ -68,7 +68,7 @@
   translation: "183 Kb, 2 páginas"
 
 - id: resume-2-title
-  translation: "PDF (english, con cover lever)"
+  translation: "PDF (en inglés, con cover lever)"
 
 - id: resume-2-desc
   translation: "269 Kb, 3 páginas"
@@ -95,4 +95,4 @@
   translation: "Encuéntrame en redes sociales..."
 
 - id: copyright
-  translation: "Diseño por <a href=\"http://html5up.net/\">HTML5 UP</a>"
+  translation: "Por cierto, el <a target='_blank' href='https://github.com/zetxek/adrianmoreno.info/'>código está disponible online</a>"

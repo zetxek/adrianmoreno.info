@@ -35,7 +35,7 @@
   translation: "Web"
 
 - id: skill-1-desc
-  translation: "The open platform par excelence. Open standards, browser interoperalibility and APIs everywhere!<p class='sub'>HTML5, CSS3, Javascript (and frameworks, such as jQuery/UI/mobile, backbone, Angular.js, …), Content Management Systems (Wordpress, Drupal, Liferay…), e-Commerce Systems (Magento, OpenCart, WooCommerce…).</p>"
+  translation: "The open platform par excelence. Open standards, browser interoperalibility and APIs everywhere!<p class='sub'>HTML5, CSS3, Javascript (and frameworks, such as jQuery/UI/mobile, backbone, Angular.js, …), Content Management Systems (Wordpress, Drupal, Liferay…), e-Commerce Systems (Salesforce Commerce Cloud, Magento, OpenCart, WooCommerce…).</p>"
 
 - id: skill-2-title
   translation: "Mobile"
@@ -95,4 +95,4 @@
   translation: "Find me on ..."
 
 - id: copyright
-  translation: "You can <a target='_blank' href='https://bitbucket.org/zetxek/adrianmoreno.info/'>check the code online</a>."
+  translation: "Pst, you can <a target='_blank' href='https://github.com/zetxek/adrianmoreno.info/'>check the code online</a>"
