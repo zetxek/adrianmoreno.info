@@ -1497,6 +1497,14 @@
 					background-color: #E0D7C8;
 				}
 
+				ul.social li a.fa-stack-overflow {
+					background-color: #EA8A95;
+				}
+
+				ul.social li a.fa-bitbucket {
+					background-color: rgb(7, 71, 166);
+				}
+
 				ul.social li a.fa-foursquare {
 					background-color: #39A3D4;
 				}
