@@ -3,7 +3,7 @@ var gulp = require('gulp'); // Require gulp
 var cleanCSS = require('gulp-clean-css'); // Minify the CSS
 
 // Minification dependencies
-var minifyHTML = require('gulp-minify-html'); // Minify HTML
+const htmlmin = require('gulp-htmlmin'); // Minify HTML
 var concat = require('gulp-concat'); // Join all JS files together to save space
 var stripDebug = require('gulp-strip-debug'); // Remove debugging stuffs
 var uglify = require('gulp-uglify'); // Minify JavaScript
@@ -51,12 +51,12 @@ gulp.task('critical', () => {
 // Task to minify new or changed HTML pages
 gulp.task('html', function() {
   gulp.src('./public/index.html',  {base: './'})
-    .pipe(minifyHTML({allowEmpty: true}))
+    .pipe(htmlmin())
     .pipe(gulp.dest('./'));
 
     return  gulp
       .src('./public/es/index.html',  {base: './'})
-      .pipe(minifyHTML({allowEmpty: true}))
+      .pipe(htmlmin())
       .pipe(gulp.dest('./'));
 });
 
