@@ -21,16 +21,16 @@ build:
         name: echo
         code: |
           echo "Starting hugo build..."
+    - hgen/gulp
     - arjen/hugo-build:
       version: "0.58.3"
       flags: --buildDrafts=true
-    - hgen/gulp
     - samueldebruyn/minify:
         css: true
         js: true
 
 deploy:
-  steps:
+  steps/:
     - script:
       name: echo
       code: |
