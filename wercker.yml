@@ -30,7 +30,7 @@ build:
         js: true
 
 deploy:
-  steps:
+  steps/:
     - script:
       name: echo
       code: |
@@ -71,6 +71,14 @@ deploy-dev:
       name: prepare output (so it's lighter)
       code: rm -rf $WERCKER_ROOT/.git $WERCKER_ROOT/package.json $WERCKER_ROOT/package-lock.json $WERCKER_ROOT/.gitignore $WERCKER_ROOT/wercker.yml $WERCKER_ROOT/node_modules/    
    
+    - script: 
+      name: disallow robots
+      code: |
+        # Init file
+        echo "User-agent: *" > public/robots.txt
+        # And there you go, nothing to see
+        echo "Disallow: /" >> public/robots.txt
+
     - simpletechs/ftp-deploy-exclude:
       name: deploy to ftp (dev)
       cwd: public/
