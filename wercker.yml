@@ -77,7 +77,7 @@ deploy-dev:
         # Init file
         echo "User-agent: *" > public/robots.txt
         # And there you go, nothing to see
-        echo "Disallow: /" >> public/ronots.txt
+        echo "Disallow: /" >> public/robots.txt
 
     - simpletechs/ftp-deploy-exclude:
       name: deploy to ftp (dev)
