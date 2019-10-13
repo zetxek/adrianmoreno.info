@@ -61,7 +61,10 @@
 			<div class="row">
 				<div class="4u 12u(mobile)">
 					<span class="me image image-full">
-						<img src="/images/me.jpg" alt="" />
+						<picture>
+							<source type="image/webp" srcset="/images/me.jpg">
+							<img src="/images/me.jpg" alt="{{ i18n "pic-of-me" }}" />
+						</picture>
 					</span>
 				</div>
 				<div class="8u 12u(mobile)">
