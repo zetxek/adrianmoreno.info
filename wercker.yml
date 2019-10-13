@@ -71,9 +71,12 @@ deploy-dev:
       name: prepare output (so it's lighter)
       code: rm -rf $WERCKER_ROOT/.git $WERCKER_ROOT/package.json $WERCKER_ROOT/package-lock.json $WERCKER_ROOT/.gitignore $WERCKER_ROOT/wercker.yml $WERCKER_ROOT/node_modules/    
    
-    - script: disallow robots
+    - script: 
+      name: disallow robots
       code: |
-        echo "User-agent: *" > public/robots.txt &&
+        # Init file
+        echo "User-agent: *" > public/robots.txt
+        # And there you go, nothing to see
         echo "Disallow: /" >> public/ronots.txt
 
     - simpletechs/ftp-deploy-exclude:
