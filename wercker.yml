@@ -79,6 +79,14 @@ deploy-dev:
         # And there you go, nothing to see
         echo "Disallow: /" >> public/robots.txt
 
+
+    - wercker/s3sync@2.2.2:
+      key_id:         $S3_KEY 
+      key_secret:     $S3_SECRET
+      bucket_url:     $S3_URL
+#          delete_removed: <string> # optional, default: ""
+#          source_dir:     <string> # optional, default: ""
+
     - simpletechs/ftp-deploy-exclude:
       name: deploy to ftp (dev)
       cwd: public/
