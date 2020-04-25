@@ -9,8 +9,8 @@ on:
       - '*'
 
 jobs:
-  deploy:
-    runs-on: ubuntu-18.04
+  build-and-deploy:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
