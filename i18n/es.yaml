@@ -17,13 +17,16 @@
   translation: Contacto
 
 - id: intro
-  translation: "Soy conocido como zetxek en Internet, y este es mi CV online. Aquí puedes encontrar algunas de las cosas que he hecho, sobre lo que sé hacer, o estar en contacto conmigo."
+  translation: "Mi alias online es \"zetxek\", y este es mi CV online. Aquí puedes encontrar algunas de las cosas que he hecho, mi trayectoria profesional, contactar conmigo o encontarme en redes sociales."
 
 - id: welcome
   translation: "Hola. Soy <strong>Adrián Moreno Peña</strong>."
 
 - id: know-how
   translation: Qué se hacer?
+
+- id: pic-of-me
+  translation: Una foto de mi, Adrián Moreno
 
 - id: skills-title
   translation: "Yo ❤ el software"

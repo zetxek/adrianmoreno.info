@@ -17,13 +17,16 @@
   translation: Contact
 
 - id: intro
-  translation: "I'm also known as zetxek around the Internet, and this is my online resume. Here you can find some of the things I've built, know about my polyglot coding skills or get in contact."
+  translation: "My online nickname is zetxek, and here you can find my résumé. You can read about some of the projects I worked on, my background, or get in contact."
 
 - id: welcome
   translation: "Hi. I'm <strong>Adrián Moreno Peña</strong>."
 
 - id: know-how
   translation: What can I do?
+
+- id: pic-of-me
+  translation: A pic of me, Adrián Moreno
 
 - id: skills-title
   translation: "I ❤ software"
