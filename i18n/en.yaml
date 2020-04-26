@@ -7,6 +7,12 @@
 - id: switch_lang
   translation: Spanish
 
+- id: lang_english
+  translation: English
+
+- id: lang_spanish
+  translation: Español
+
 - id: skills
   translation: Skills
 
