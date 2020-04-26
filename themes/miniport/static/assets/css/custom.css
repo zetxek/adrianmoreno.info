@@ -13,6 +13,10 @@ p.sub{
     right: 00px;
 }
 
+#lang-switch a{
+    display: inline;
+}
+
 #home {
     float: left;
     position: relative;
