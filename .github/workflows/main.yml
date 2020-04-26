@@ -39,7 +39,7 @@ jobs:
             
       - name: Compile with gulp
         run: |
-          npm install gulp && gulp      
+          npm install --no-optional && npm install gulp && gulp      
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
