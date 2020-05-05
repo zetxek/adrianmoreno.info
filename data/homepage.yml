@@ -7,6 +7,7 @@ showcase:
   subtitle: "Technical Team Lead"
   description: "I work at <a target='_blank' href='https://www.vanmoof.com/'>VanMoof</a>, a smart e-bike manufacturer based in Amsterdam. My background is diverse - but always close to digital technology. You can find out more about me in this site."
   image:
+    alt: "Profile picture of Adrián Moreno Peña, smiling over a petroleum colour background"
     x: "img/adrian.jpg"
     _2x: "img/adrian.jpg"
   imageMobile:
@@ -78,7 +79,7 @@ education:
 experience:
   enable: true
   title: "Experience"
-  description: "Over 13+ years of experience working in all kind of project sizes and teams. I architect & develop digital products to help businesses and improve people's lives, solving complex problems with simple solutions."
+  description: "Over 13+ years of experience working in all kind of project sizes and teams. I have architected & developed digital products to help businesses and improve people's lives, solving complex problems with simple solutions."
   button:
     icon: "icon-linkedin-fill"
     btnText: "Linkedin"
@@ -86,7 +87,7 @@ experience:
   button2:
     icon: "icon-profile-fill"
     btnText: "Download my resume"
-    URL: "/static/files/cv_adrian_moreno_english.pdf"
+    URL: "/files/cv_adrian_moreno_english.pdf"
 
   items:
     - title: "Technical Lead"
