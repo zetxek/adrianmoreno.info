@@ -39,8 +39,8 @@ theme = "raditian"
   weight = 2
 
   [[menu.header]]
-  name = "Portfolio"
-  URL = "#portfolio"
+  name = "Experience"
+  URL = "#experience"
   weight = 3
 
   [[menu.header]]
@@ -70,11 +70,11 @@ theme = "raditian"
   googleTagManagerID = "GTM-000000" # Google Analytics works with Google Tag Manager
 
   [params.logo]
-    text1 = "Andreas"
-    text2 = "Ellure"
+    text1 = "Adrián"
+    text2 = "Moreno"
 
   [params.footer]
-      copyright = "© Raditian. All rights reserved."
+      copyright = "© Adrián Moreno Peña. Code available in GitHub."
       [params.footer.radity_logo]
         x = "img/general/design-and-code-radity.png"
         _2x = "img/general/design-and-code-radity@2x.png"
