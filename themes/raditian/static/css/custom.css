@@ -1,0 +1,21 @@
+/* You can customize theme styles here */
+.header .navbar-brand span:first-child{
+    color: #478079;
+}
+
+.rad-showcase__bg img{
+    height: 400px;
+    margin-top: 0;
+    margin-left: 100px;
+}
+
+.header .navbar-brand{
+    flex-direction: row;
+}
+.header .navbar-brand span{
+    display: inline;
+}
+.header .navbar-brand span:nth-child(2){
+    font-family: inherit;
+    margin-top: 0;
+}
