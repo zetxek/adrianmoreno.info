@@ -20,9 +20,9 @@ var critical = require('critical');
 
 // Minify HTML
 gulp.task('css', () => {
-  return gulp.src('public/assets/css/*.css')
+  return gulp.src('public/css/*.css')
     .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(gulp.dest('public/assets/css/'));
+    .pipe(gulp.dest('public/css/'));
 });
 
 gulp.task('critical', () => {
@@ -63,21 +63,21 @@ gulp.task('html', function() {
 // Task to concat, strip debugging and minify JS files
 gulp.task('scripts', function() {
   return gulp
-    .src(['./public/assets/js/', './public/assets/js/*.js'])
+    .src(['./public/js/', './public/js/*.js'])
     .pipe(concat('app.min.js'))
     .pipe(stripDebug())
     .pipe(uglify())
-    .pipe(gulp.dest('./public/assets/js/'));
+    .pipe(gulp.dest('./public/js/'));
 });
 
 // Task to minify images into build
 gulp.task('images', function() {
   return gulp
-    .src('./public/images/*')
+    .src('./public/img/*')
     .pipe(imagemin({
       progressive: true,
     }))
-    .pipe(gulp.dest('./public/images'));
+    .pipe(gulp.dest('./public/img'));
 });
 
 // Task to get the size of the app project
@@ -101,8 +101,8 @@ gulp.task('build-size', function() {
 // Serve application
 gulp.task('default', gulp.series([
     'css', 
-    'scripts',
-    'images', 
+    /*'scripts',*/
+    /*'images', */
     /*'critical', */
     'size'
   ]), function() {
