@@ -41,6 +41,12 @@ jobs:
         run: |
           npm install --no-optional && npm install gulp && gulp      
 
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: public
+        
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --acl public-read --follow-symlinks --delete
