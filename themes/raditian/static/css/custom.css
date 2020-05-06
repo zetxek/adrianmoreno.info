@@ -12,9 +12,11 @@
 .header .navbar-brand{
     flex-direction: row;
 }
+
 .header .navbar-brand span{
     display: inline;
 }
+
 .header .navbar-brand span:nth-child(2){
     font-family: inherit;
     margin-top: 0;
@@ -22,4 +24,16 @@
 
 .experience__company{
     color: #478079;
+}
+
+@media only screen and (max-width : 768px) {
+    .header .navbar-brand{
+        margin-top: 10px;
+    }
+}
+
+@media only screen and (max-width : 990px) {
+    .rad-showcase__bg img{
+        margin-left: 0;
+    }
 }
