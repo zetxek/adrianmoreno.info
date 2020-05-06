@@ -6,9 +6,9 @@ It's a good excuse to overengineer a CV-website, isn't it? ;-)
 
 ### Design ###
 
-It's based on [Miniport's theme, by HTML5up](https://html5up.net/miniport).
+It's based on the nice and simple [Raditian Theme](https://github.com/radity/raditian-free-hugo-theme) by [Radity](https://radity.com/en/) (for which I will probably make [some more contributions](https://github.com/zetxek/raditian-free-hugo-theme), it's a very nice starting theme).
 
-Why instead of a Boostrap theme? Because it's light and clean, without distractions to start thinking about the content.
+Why a theme instead of coding everytjing from scratch? Because I will focus too much in the tool itself instead of getting something done and improving the content of the site :-)
 
 ### Generation ###
 
@@ -16,11 +16,11 @@ The content is generated with [Hugo](https://gohugo.io/), a very fast, flexible 
 
 ### Deployment
 
-[![wercker status](https://app.wercker.com/status/da8cc34d1b77e74c9aea01396a92be82/s/master "wercker status")](https://app.wercker.com/project/byKey/da8cc34d1b77e74c9aea01396a92be82)
+The code in this repo is later procesed with [Github Actions](https://github.com/zetxek/adrianmoreno.info/actions) - which will generate the HTML with hugo, process the CSS, images and JS with gulp, and export the contents to AWS's S3.
 
-The code in this repo is later procesed with a [Wercker](http://wercker.com) application, which you can access at: https://app.wercker.com/zetxek/adrianmoreno.info
+The site is later on served by Cloudfront - no backend code used or needed.
 
-Wercker is another awesome piece of software, a great continous integration and deployment platform (CI/CD), where you can define and create your own steps, or use the community ones. You can check the application setup in ```wercker.yml```.
+As simple as it gets!
 
 ### More? ###
 

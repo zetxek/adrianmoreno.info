@@ -74,4 +74,4 @@ theme = "raditian"
     text2 = "Moreno"
 
   [params.footer]
-      copyright = "© Adrián Moreno Peña. Code available in GitHub."
+      copyright = "© Adrián Moreno Peña. <a href=\"https://github.com/zetxek/adrianmoreno.info\">Code available in GitHub</a>."
