@@ -26,6 +26,10 @@
     color: #478079;
 }
 
+.footer__copy a{
+    color: white;
+}
+
 @media only screen and (max-width : 768px) {
     .header .navbar-brand{
         margin-top: 10px;
