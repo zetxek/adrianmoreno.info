@@ -9,7 +9,7 @@ showcase:
   image:
     alt: "Profile picture of Adrián Moreno Peña, smiling over a petroleum colour background"
     x: "img/adrian.jpg"
-    _2x: "img/adrian.jpg"
+    _2x: "img/adrian@2x.jpg"
   imageMobile:
     alt: "Profile picture of Adrián Moreno Peña, smiling over a petroleum colour background"
     x: "img/adrian.jpg"
