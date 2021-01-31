@@ -5,7 +5,7 @@ showcase:
   enable: true
   title: "Hello, I’m Adrián."
   subtitle: "Technical Team Lead"
-  description: "I work at <a target='_blank' href='https://www.vanmoof.com/'>VanMoof</a>, a smart e-bike manufacturer based in Amsterdam. My background is diverse (you could say I'm a specialized generalist), but always close to digital technology.<br>I have done a bit of everything, from backend development to mobile apps, devops or team leading and coaching. I love automation as a way to optimize processes, and working in happy agile teams - where work is a way to solve problems, and not a mean by itself."
+  description: "I work at <a target='_blank' href='https://www.vanmoof.com/'>VanMoof</a>, a smart e-bike manufacturer based in Amsterdam. My background is diverse (you could say I'm a specialized generalist), but always close to digital technology.<br>I have done a bit of everything, from backend development to mobile apps, devops or team leading and coaching. I love automation as a way to optimize processes and avoid repetitive work, and working in happy agile teams - where work is a way to solve problems, and not a mean by itself."
   image:
     alt: "Profile picture of Adrián Moreno Peña, smiling over a petroleum colour background"
     x: "img/adrian.jpg"
