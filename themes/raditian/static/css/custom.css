@@ -3,6 +3,10 @@
     color: #478079;
 }
 
+html body ::selection{
+    background-color:#488079;color:#fff
+}
+
 .rad-showcase__bg img{
     height: 400px;
     margin-top: 0;
