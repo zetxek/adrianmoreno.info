@@ -226,13 +226,13 @@ contact:
     message: "Type Your Message Here"
   phone:
     title: "Phone Number"
-    number: "+31 684825025"
+    number: "+45 31 57 98 27"
   email:
     title: "Email"
     email: '<a href="mailto:info@adrianmoreno.info">info@adrianmoreno.info</a>'
   address:
     title: "Location"
-    address: "Amsterdam"
+    address: "Copenhagen (DK)"
   button:
     icon: "icon-mail-fill"
     btnText: "Send Message"
