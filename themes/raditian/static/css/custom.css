@@ -30,6 +30,10 @@ html body ::selection{
     color: #478079;
 }
 
+.experience__location{
+    font-weight: normal;
+}
+
 .footer__copy a{
     color: white;
 }
