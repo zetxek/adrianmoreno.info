@@ -41,7 +41,7 @@ jobs:
         run: |
           npm install --no-optional && npm install gulp && gulp      
 
-      - name: Upload a Build Artifact
+      - name: Upload to S3
         uses: actions/upload-artifact@v2
         with:
           name: build
