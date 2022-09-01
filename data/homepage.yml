@@ -85,12 +85,12 @@ experience:
     URL: "/files/cv_adrian_moreno_english.pdf"
 
   items:
-    - title: "Engineering Manager"
+    - title: "Engineering Manager → Director of Engineering"
       company: "SumUp"
       location: "Copenhagen, Denmark"
       duration: "2021-present"
     
-    - title: "Technical Lead / Engineering Manager"
+    - title: "Technical Lead → Engineering Manager"
       company: "VanMoof"
       location: "Amsterdam, The Netherlands"
       duration: "2019-2021"
