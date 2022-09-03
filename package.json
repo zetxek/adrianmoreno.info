@@ -25,8 +25,8 @@
     "postcss-flexbugs-fixes": "^5.0.2"
   },
   "engines": {
-    "node": ">= 6.9.0",
-    "npm": ">= 3.0.0"
+    "node": ">=14.16",
+     "npm": ">= 3.0.0"
   },
   "dependencies": {
     "gulp-concat": "^2.6.1",
