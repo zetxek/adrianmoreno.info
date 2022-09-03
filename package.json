@@ -10,31 +10,29 @@
   "author": "Adrián Moreno Peña <zetxek@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "autoprefixer": "^9.8.8",
+    "autoprefixer": "^10.4.8",
     "browser-sync": "^2.27.10",
-    "del": "^5.1.0",
+    "del": "^7.0.0",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-htmlmin": "^5.0.1",
-    "gulp-imagemin": "^7.1.0",
-    "gulp-postcss": "^8.0.0",
-    "gulp-responsive": "^3.0.1",
+    "gulp-imagemin": "^8.0.0",
+    "gulp-postcss": "^9.0.1",
     "gulp-rev": "^9.0.0",
     "gulp-rev-replace": "^0.4.4",
-    "gulp-sourcemaps": "^2.6.5",
-    "imagemin-mozjpeg": "^8.0.0",
-    "postcss-flexbugs-fixes": "^4.2.1"
+    "gulp-sourcemaps": "^3.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "postcss-flexbugs-fixes": "^5.0.2"
   },
   "engines": {
     "node": ">= 6.9.0",
     "npm": ">= 3.0.0"
   },
   "dependencies": {
-    "critical": "^4.0.1",
     "gulp-concat": "^2.6.1",
-    "gulp-size": "^3.0.0",
-    "gulp-strip-debug": "^3.0.0",
+    "gulp-size": "^4.0.1",
+    "gulp-strip-debug": "^4.0.0",
     "gulp-uglify": "^3.0.2",
-    "node-gyp": "^6.1.0"
+    "node-gyp": "^9.1.0"
   }
 }
