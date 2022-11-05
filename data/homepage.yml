@@ -54,7 +54,7 @@ about:
     btnText: "About Me"
     URL: "https://www.linkedin.com/in/adrianmoreno/"
   image:
-    x: "img/working.jpg"
+    x: "img/working-left.jpg"
     _2x: "img/working-left@2x.jpg"
 
 # education
