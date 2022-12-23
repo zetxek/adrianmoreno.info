@@ -1,0 +1,36 @@
+<!-- inject:../components/baseHead/baseHeadStart.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {{ partial "head.html" . }}
+    {{ partial "head_custom.html" . }}
+
+</head>
+
+<body>
+	{{ partial "header.html" . }}
+
+<section class="section rad-animation-group pb-0" id="about">
+  <div class="container rad-fade-down">
+
+    <ul>
+    {{ range where .Site.RegularPages "Type" "experience" }}
+
+    <li>
+        {{/* The context, ".", is now each one of the pages as it goes through the loop */}}
+    <pre> {{ print .Title }} </pre>
+    
+    </li>
+    {{ end }}
+    </ul>
+  </div>
+</section>
+
+	{{ partial "footer.html" . }}
+    {{ partial "base-foot.html" . }}
+</body>
+
+</html>
+<!-- endinject -->
