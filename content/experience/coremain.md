@@ -1,5 +1,5 @@
 ---
-date: 2011-12-20T09:03:20-08:00
+date: 2011-03-01T00:00:00+01:00
 draft: true
 title: "Programmer Analyst"
 company: "Coremain"

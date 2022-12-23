@@ -1,5 +1,5 @@
 ---
-date: 2021-05-01T09:03:20-08:00
+date: 2021-05-01T00:00:00+01:00
 draft: true
 title: "Engineering Manager → Director of Engineering"
 company: "SumUp"

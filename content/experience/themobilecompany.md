@@ -1,5 +1,5 @@
 ---
-date: 2015-11-20T09:03:20-08:00
+date: 2015-03-01T00:00:00+01:00
 draft: true
 title: "Senior Mobile Apps Developer (iOS & Android)"
 company: "The Mobile Company"

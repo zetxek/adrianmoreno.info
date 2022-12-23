@@ -1,5 +1,5 @@
 ---
-date: 2011-11-20T09:03:20-08:00
+date: 2011-04-01T00:00:00+01:00
 draft: true
 title: "Co-Founder & Technical Lead"
 company: "Zadia Software"

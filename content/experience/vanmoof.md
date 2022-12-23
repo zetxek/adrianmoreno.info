@@ -1,5 +1,5 @@
 ---
-date: 2019-11-20T09:03:20-08:00
+date: 2019-10-01T00:00:00+01:00
 draft: true
 title: "Technical Lead → Engineering Manager"
 company: "VanMoof"
