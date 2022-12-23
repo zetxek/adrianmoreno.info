@@ -83,42 +83,6 @@ experience:
     icon: "icon-profile-fill"
     btnText: "Download my resume"
     URL: "/files/cv_adrian_moreno_english.pdf"
-
-  items:
-    - title: "Engineering Manager → Director of Engineering"
-      company: "SumUp"
-      location: "Copenhagen, Denmark"
-      duration: "2021-present"
-    
-    - title: "Technical Lead → Engineering Manager"
-      company: "VanMoof"
-      location: "Amsterdam, The Netherlands"
-      duration: "2019-2021"
-
-    - title: "Technical Lead"
-      company: "Emakina.NL"
-      location: "Amsterdam, The Netherlands"
-      duration: "2017-2019"
-
-    - title: "CTO"
-      company: "Pocket Media"
-      location: "Amsterdam, The Netherlands"
-      duration: "2015-2017"
-
-    - title: "Senior Mobile Apps Developer (iOS & Android)"
-      company: "The Mobile Company"
-      location: "Amsterdam, The Netherlands"
-      duration: "2015"
-
-    - title: "Co-Founder & Technical Lead"
-      company: "Zadia Software"
-      location: "Santiago de Compostela, Spain"
-      duration: "2011-2015"
-
-    - title: "Programmer Analyst"
-      company: "Bahia Software, Coremain"
-      location: "Santiago de Compostela, Spain"
-      duration: "2007-2011"
 # Client & Work
 client_and_work:
   title: "Clients & Works"
