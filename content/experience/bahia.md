@@ -1,7 +1,8 @@
 ---
 date: 2007-12-01T00:00:00+01:00
 draft: true
-title: "Programmer Analyst"
+title: "Programmer Analyst - Bahia Software"
+jobTitle: "Programmer Analyst"
 company: "Bahia Software"
 location: "Santiago de Compostela, Spain"
 duration: "2007-2011"

@@ -34,7 +34,7 @@
             {{ end }}
           </div>
           <div class="col-6 col-sm-6 mt-6 mt-sm-0">
-            {{ partial "experience-description.html" . }}
+            {{ .Content | safeHTML }}
           </div>
         </div>
       </div>

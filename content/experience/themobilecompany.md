@@ -1,7 +1,8 @@
 ---
 date: 2015-03-01T00:00:00+01:00
 draft: true
-title: "Senior Mobile Apps Developer (iOS & Android)"
+title: "Mobile Apps Developer - The Mobile Company"
+jobTitle: "Senior Mobile Apps Developer (iOS & Android)"
 company: "The Mobile Company"
 location: "Amsterdam, The Netherlands"
 duration: "2015"

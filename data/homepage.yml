@@ -83,6 +83,10 @@ experience:
     icon: "icon-profile-fill"
     btnText: "Download my resume"
     URL: "/files/cv_adrian_moreno_english.pdf"
+  button3: 
+    icon: "icon-arrow-right"
+    btnText: "See all experience"
+    URL: "/experience"
 # Client & Work
 client_and_work:
   title: "Clients & Works"
