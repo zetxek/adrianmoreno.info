@@ -7,8 +7,8 @@ company: "Coremain"
 location: "Santiago de Compostela, Spain"
 duration: "2011"
 ---
-## Introduction
+### Contact with enterprise private project
 
-This is **bold** text, and this is *emphasized* text.
+After the stay at Bahía I wanted to check if the knowledge that I was gaining would be applicable in other companies, and I could help also setup new teams in a different environment.
 
-Visit the [Hugo](https://gohugo.io) website!
+At Coremain I had a fruitful stay, participating in a greenfield project for a consumer bank, participating on the design and implementation of the solution that would create a new internal portal.
