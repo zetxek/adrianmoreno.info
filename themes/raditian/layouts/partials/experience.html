@@ -14,8 +14,8 @@
                 {{ end }}
                 {{ if gt $xpCount 6 }}
                     <div class="all-experience-container">
-                        <em>And 2 more</em><br/>
                         {{ $xpExtra := sub $xpCount 6 }}
+                        <em>And {{ $xpExtra }} more</em><br/>
                         <a href="{{ relURL "experience" }} " title="See additional {{ $xpExtra }} experience items" class="btn btn-primary btn-all-experience">
                             <i class="{{ .Site.Data.homepage.experience.button3.icon }}"></i>
                             {{ .Site.Data.homepage.experience.button3.btnText }}
