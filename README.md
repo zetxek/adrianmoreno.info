@@ -8,7 +8,7 @@ It's a good excuse to overengineer a CV-website, isn't it? ;-)
 
 It's based on the nice and simple [Raditian Theme](https://github.com/radity/raditian-free-hugo-theme) by [Radity](https://radity.com/en/) (for which I will probably make [some more contributions](https://github.com/zetxek/raditian-free-hugo-theme), it's a very nice starting theme).
 
-Why a theme instead of coding everytjing from scratch? Because I will focus too much in the tool itself instead of getting something done and improving the content of the site :-)
+Why a theme instead of coding everything from scratch? Because I will focus too much in the tool itself instead of getting something done and improving the content of the site :-)
 
 ### Generation ###
 
@@ -21,11 +21,12 @@ After that, the commands from [Hugo CLI](https://gohugo.io/getting-started/usage
 
 ### Deployment
 
-The code in this repo is later procesed with [Github Actions](https://github.com/zetxek/adrianmoreno.info/actions) - which will generate the HTML with hugo, process the CSS, images and JS with gulp, and export the contents to AWS's S3.
-
-The site is later on served by Cloudfront - no backend code used or needed.
+The code in this repo is later procesed with [Github Actions](https://github.com/zetxek/adrianmoreno.info/actions) - which will generate the HTML with hugo, process the CSS, images and JS with gulp, and export the contents to Vercel.
 
 As simple as it gets!
+
+__Note __
+I switched from Cloudfront to Vercel because Cloudfront [doesn't support a root object defined for all folders](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DefaultRootObject.html) (ie: an `index.html` for the `/experience` path). At some point I might try [the option to make them work with Lambda functions](https://robkenis.com/posts/hugo_pretty_urls_on_aws/), but that will be also a chance to revamp the project infrastructure and set it up as Infrastructure as Code (setting it up with CDK or Terraform).
 
 ### More? ###
 
