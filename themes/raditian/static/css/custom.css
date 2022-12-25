@@ -26,6 +26,11 @@ html body ::selection{
     margin-top: 0;
 }
 
+#breadcrumb-bar{
+    position: relative;
+    padding-top: 120px;
+}
+
 .experience__company{
     color: #478079;
 }
@@ -34,6 +39,24 @@ html body ::selection{
     font-weight: normal;
 }
 
+.experience a {
+    display: block;
+    padding: 2px 10px;
+    text-decoration: none;
+    color: inherit;
+}
+.experience a:hover, .experience a:active{
+    display: block;
+    background-color: #488079;
+}
+.experience a:hover > .experience__company,
+.experience a:active > .experience__company{
+    color: white;
+}
+
+.all-experience-container{
+    margin-top: 50px;
+}
 .footer__copy a{
     color: white;
 }
