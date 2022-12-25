@@ -31,7 +31,7 @@
   "dependencies": {
     "gulp-concat": "^2.6.1",
     "gulp-size": "^4.0.1",
-    "gulp-strip-debug": "^4.0.0",
+    "gulp-strip-debug": "^5.0.0",
     "gulp-uglify": "^3.0.2",
     "node-gyp": "^9.1.0"
   }
