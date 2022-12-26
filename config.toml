@@ -3,6 +3,8 @@ languageCode = "en"
 DefaultContentLanguage = "en"
 title = "Adrián Moreno Peña · Web & Mobile Developer, all-around coder"
 theme = "raditian"
+sections = ["showcase", "about", "education", "experience", "contact"]
+
 
 # Languages
 #   en
