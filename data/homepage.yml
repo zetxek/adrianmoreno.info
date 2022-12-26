@@ -81,11 +81,11 @@ experience:
     URL: "https://www.linkedin.com/in/adrianmoreno/"
   button2:
     icon: "icon-profile-fill"
-    btnText: "Download my resume"
+    btnText: "Download résumé"
     URL: "/files/cv_adrian_moreno_english.pdf"
   button3: 
     icon: "icon-arrow-right"
-    btnText: "See all experience"
+    btnText: "All experience"
     URL: "/experience"
 # Client & Work
 client_and_work:
