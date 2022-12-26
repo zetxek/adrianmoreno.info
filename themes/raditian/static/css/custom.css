@@ -39,20 +39,32 @@ html body ::selection{
     font-weight: normal;
 }
 
+.experience+.experience{
+    padding-top: 0;
+}
+
+body.home div.experience{
+    padding-top: 50px;
+}
+
 .experience a {
     display: block;
-    padding: 2px 10px;
+    padding: 20px;
     text-decoration: none;
     color: inherit;
 }
 
 .experience.selected a,
+.experience:hover a,
+.experience:active a,
 .experience a:hover, 
 .experience a:active{
     display: block;
     background-color: #488079;
 }
 .experience.selected a > .experience__company,
+.experience:hover a > .experience__company,
+.experience:active a > .experience__company,
 .experience a:hover > .experience__company,
 .experience a:active > .experience__company{
     color: white;
