@@ -14,7 +14,7 @@
     >
       <div class="container">
         <div class="row flex-column-reverse flex-md-row rad-fade-down">
-          <div class="col-6 col-sm-6 mt-5 mt-sm-0">
+          <div class="col-12 col-md-6 mt-5 mt-sm-0">
             {{ range where .Site.RegularPages.ByDate.Reverse "Type" "experience" }}
 
             <div class="experience">
@@ -33,7 +33,7 @@
             </div>
             {{ end }}
           </div>
-          <div class="col-6 col-sm-6 mt-6 mt-sm-0">
+          <div class="col-12 col-md-6 mt-6 mt-sm-0">
             {{ partial "experience-description.html" . }}
           </div>
         </div>
