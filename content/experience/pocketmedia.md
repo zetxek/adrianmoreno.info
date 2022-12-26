@@ -1,6 +1,6 @@
 ---
 date: 2015-11-01T00:00:00+01:00
-draft: true
+draft: false
 title: "CTO"
 jobTitle: "CTO - Pocket Media"
 company: "Pocket Media"

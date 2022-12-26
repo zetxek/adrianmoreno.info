@@ -1,6 +1,6 @@
 ---
 date: 2021-05-01T00:00:00+01:00
-draft: true
+draft: false
 title: "Director of Engineering - SumUp"
 jobTitle: "Engineering Manager → Director of Engineering"
 company: "SumUp"

@@ -1,6 +1,6 @@
 ---
 date: 2015-03-01T00:00:00+01:00
-draft: true
+draft: false
 title: "Mobile Apps Developer - The Mobile Company"
 jobTitle: "Senior Mobile Apps Developer (iOS & Android)"
 company: "The Mobile Company"
