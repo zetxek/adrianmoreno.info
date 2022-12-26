@@ -18,7 +18,7 @@
             {{ $currentPageID := .Page.File.UniqueID }}
             {{ range where .Site.RegularPages.ByDate.Reverse "Type" "experience" }}
 
-            <div class="experience">
+            <div class="experience {{ if eq .Page.File.UniqueID $currentPageID }} selected {{ end }}" >
               <a href="{{.Permalink}}">
                 {{/* The context, ".", is now each one of the pages as it goes
                 through the loop */}}

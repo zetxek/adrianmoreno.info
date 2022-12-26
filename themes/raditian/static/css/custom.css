@@ -45,10 +45,14 @@ html body ::selection{
     text-decoration: none;
     color: inherit;
 }
-.experience a:hover, .experience a:active{
+
+.experience.selected a,
+.experience a:hover, 
+.experience a:active{
     display: block;
     background-color: #488079;
 }
+.experience.selected a > .experience__company,
 .experience a:hover > .experience__company,
 .experience a:active > .experience__company{
     color: white;
