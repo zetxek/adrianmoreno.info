@@ -36,12 +36,12 @@ theme = "raditian"
 
   [[menu.header]]
   name = "About"
-  URL = "#about"
+  URL = "index.html#about"
   weight = 2
 
   [[menu.header]]
   name = "Experience"
-  URL = "#experience"
+  URL = "index.html#experience"
   weight = 3
 
   [[menu.header]]
@@ -52,12 +52,12 @@ theme = "raditian"
 
   [[menu.footer]]
   name = "About"
-  URL = "#about"
+  URL = "index.html#about"
   weight = 2
 
   [[menu.footer]]
   name = "Experience"
-  URL = "#experience"
+  URL = "index.html#experience"
   weight = 3
 
   [[menu.footer]]
