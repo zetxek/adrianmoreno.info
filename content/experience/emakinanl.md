@@ -1,6 +1,6 @@
 ---
 date: 2017-11-01T00:00:00+01:00
-draft: true
+draft: false
 title: "Technical Lead - Emakina.NL"
 jobTitle: "Technical Lead"
 company: "Emakina.NL"
