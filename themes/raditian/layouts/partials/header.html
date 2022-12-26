@@ -8,12 +8,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a class="navbar-brand" href="{{ .Site.BaseURL | absURL }}">
         <span>{{ .Site.Params.logo.text1 }}</span>
         <span>{{ .Site.Params.logo.text2 }}</span>
-        <!-- <img
-          class="img-responsive"
-          src="img/logo-dark.png"
-          srcset="img/logo-dark.png 1x, img/logo-dark@2x.png 2x"
-          alt="Header Logo"
-        /> -->
       </a>
       <button
         class="navbar-toggler"
@@ -34,7 +28,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </li>
           {{ range .Site.Menus.header }}
           <li class="nav-item">
-            <a data-scroll class="nav-link" href="{{ .URL }}"
+            <a data-scroll class="nav-link" href="{{ .URL | relURL }}"
               >{{ .Name | upper }}</a
             >
           </li>
