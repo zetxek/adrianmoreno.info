@@ -3,7 +3,6 @@ languageCode = "en"
 DefaultContentLanguage = "en"
 title = "Adrián Moreno Peña · Web & Mobile Developer, all-around coder"
 theme = "raditian"
-sections = ["showcase", "about", "education", "experience", "contact"]
 
 
 # Languages
@@ -69,6 +68,7 @@ sections = ["showcase", "about", "education", "experience", "contact"]
 
 [params]
 
+  sections = ["showcase", "about", "education", "experience", "contact"]
   googleTagManagerID = "GTM-NVN2BJG" # Google Analytics works with Google Tag Manager
 
   [params.logo]
