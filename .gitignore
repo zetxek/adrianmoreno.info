@@ -5,3 +5,5 @@ wercker
 /public
 node_modules/
 .vercel
+resources/_gen
+.hugo_build.lock
