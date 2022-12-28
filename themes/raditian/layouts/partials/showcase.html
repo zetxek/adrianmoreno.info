@@ -10,6 +10,7 @@
       height="{{ $img.Height }}"
       class="lozad img-responsive"
       src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
+      srcset="{{ $img.RelPermalink }} 1x, {{ $img2x.RelPermalink }} 2x"
       data-src="{{ $img.RelPermalink }}"
       data-srcset="{{ $img.RelPermalink }} 1x, {{ $img2x.RelPermalink }} 2x"
       alt="{{ .Site.Data.homepage.showcase.image.alt }}"

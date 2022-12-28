@@ -35,6 +35,10 @@ html body ::selection{
     padding-top: 120px;
 }
 
+.about__profile-picture img{
+    object-fit: contain;
+}
+
 .experience__company{
     color: #478079;
 }
