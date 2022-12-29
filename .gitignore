@@ -1,9 +1,22 @@
+/config.yaml
+/content
+/static/images
+.vscode
+
 vendor/*/
 wercker
 .wercker
 .DS_STORE
-/public
 node_modules/
 .vercel
-resources/_gen
+
+### Hugo ###
+# Generated files by hugo
+/public/
+/resources/_gen/
+/assets/jsconfig.json
+hugo_stats.json
+.hugo_build.lock
+
+# Temporary lock file while building
 .hugo_build.lock
