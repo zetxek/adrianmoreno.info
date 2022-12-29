@@ -6,10 +6,10 @@ It's a good excuse to overengineer a CV-website, isn't it? ;-)
 
 ### Design ###
 
-It's based on the nice and simple [Raditian Theme](https://github.com/radity/raditian-free-hugo-theme) by [Radity](https://radity.com/en/) (for which I will probably make [some more contributions](https://github.com/zetxek/raditian-free-hugo-theme), it's a very nice starting theme).
+It's based on the nice and simple [Raditian Theme](https://github.com/radity/raditian-free-hugo-theme) by [Radity](https://radity.com/en/), based on bootstrap 4.
+The template in this repo is heavily modified (adding assets pipeline support, some i18n features, additional pages/templates, performance and accessibility improvements...).
 
-Why a theme instead of coding everything from scratch? Because I will focus too much in the tool itself instead of getting something done and improving the content of the site :-)
-
+TODO: fork and open source the changes I made for this repo.
 ### Generation ###
 
 The content is generated with [Hugo](https://gohugo.io/), a very fast, flexible and tuneable static content generator. It's made with go, the first reason I started to play around with it - later I discovered its power and strong community.
