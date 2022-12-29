@@ -212,9 +212,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 {{ if findRE "^http" .link }}
 <link rel="stylesheet" href="{{ .link | absURL }}">
 {{ else }}
-{{ $cssFile := resources.Get .link | minify }}
-{{ $cssBundle = $cssBundle | append $cssFile }}
+{{ $cssFile := resources.Get .link }}
+{{ $minifiedCss := $cssFile | resources.Minify }}
+{{ $cssBundle = $cssBundle | append $minifiedCss }}
 {{ end }}
 {{ end }}
-{{ $cssBundle := $cssBundle | resources.Concat "css/bundle.css" | fingerprint }}
+{{ $cssBundle := $cssBundle | resources.Concat "css/bundle.css" | resources.Minify | fingerprint }}
 <link rel="stylesheet" href="{{ $cssBundle.Permalink | absURL }}">
