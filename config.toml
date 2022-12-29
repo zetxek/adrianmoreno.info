@@ -16,11 +16,11 @@ theme = "raditian"
 
   # CSS Plugins
   [[params.plugins.css]]
-  URL = "css/main.css"
+  link = "css/main.css"
   [[params.plugins.css]]
-  URL = "css/rad-icons.css"
+  link = "css/rad-icons.css"
   [[params.plugins.css]]
-  URL = "css/custom.css"
+  link = "css/custom.css"
 
   # JS Plugins
   [[params.plugins.js]]

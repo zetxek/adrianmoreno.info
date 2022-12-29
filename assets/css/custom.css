@@ -1,0 +1,98 @@
+/* You can customize theme styles here */
+.header .navbar-brand span:first-child{
+    color: #478079;
+}
+
+html body ::selection{
+    background-color:#488079;color:#fff
+}
+
+.rad-showcase__bg img{
+    margin-top: 0;
+    margin-left: 100px;
+}
+@media only screen and (min-width : 768px) {
+    .rad-showcase__bg img{
+        height: 400px;
+    }
+}
+
+.header .navbar-brand{
+    flex-direction: row;
+}
+
+.header .navbar-brand span{
+    display: inline;
+}
+
+.header .navbar-brand span:nth-child(2){
+    font-family: inherit;
+    margin-top: 0;
+}
+
+#breadcrumb-bar{
+    position: relative;
+    padding-top: 120px;
+}
+
+.about__profile-picture img{
+    object-fit: contain;
+}
+
+.experience__company{
+    color: #478079;
+}
+
+.experience__location{
+    font-weight: normal;
+}
+
+.experience+.experience{
+    padding-top: 0;
+}
+
+body.home div.experience{
+    padding-top: 50px;
+}
+
+.experience a {
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.experience.selected a,
+.experience:hover a,
+.experience:active a,
+.experience a:hover, 
+.experience a:active{
+    display: block;
+    background-color: #488079;
+}
+.experience.selected a > .experience__company,
+.experience:hover a > .experience__company,
+.experience:active a > .experience__company,
+.experience a:hover > .experience__company,
+.experience a:active > .experience__company{
+    color: white;
+}
+
+.all-experience-container{
+    margin-top: 50px;
+}
+.footer__copy a{
+    color: white;
+}
+
+@media only screen and (max-width : 768px) {
+    .header .navbar-brand{
+        margin-top: 10px;
+    }
+}
+
+@media only screen and (max-width : 990px) {
+    .rad-showcase__bg img{
+        margin-left: 0;
+    }
+}

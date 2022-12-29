@@ -207,6 +207,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
 </style>
 
+{{ $cssBundle := slice }}
 {{ range .Site.Params.plugins.css }}
-<link rel="stylesheet" href="{{ .URL | absURL }}"/>
+{{ if findRE "^http" .link }}
+<link rel="stylesheet" href="{{ .link | absURL }}">
+{{ else }}
+{{ $cssFile := resources.Get .link | minify }}
+{{ $cssBundle = $cssBundle | append $cssFile }}
 {{ end }}
+{{ end }}
+{{ $cssBundle := $cssBundle | resources.Concat "css/bundle.css" | fingerprint }}
+<link rel="stylesheet" href="{{ $cssBundle.Permalink | absURL }}">
