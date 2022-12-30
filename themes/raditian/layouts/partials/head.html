@@ -213,9 +213,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="stylesheet" href="{{ .link | absURL }}">
 {{ else }}
 {{ $cssFile := resources.Get .link }}
-{{ $minifiedCss := $cssFile | resources.Minify }}
-{{ $cssBundle = $cssBundle | append $minifiedCss }}
+{{ $cssBundle = $cssBundle | append $cssFile }}
 {{ end }}
 {{ end }}
-{{ $cssBundle := $cssBundle | resources.Concat "css/bundle.css" | resources.Minify | fingerprint }}
-<link rel="stylesheet" href="{{ $cssBundle.Permalink | absURL }}">
+{{ $cssBundle := $cssBundle | resources.Concat "css/bundle.css" | fingerprint }}
+
+
+<!-- Purge CSS -->
+{{ $css := $cssBundle | resources.PostCSS }} 
+{{ if hugo.IsProduction }} 
+    {{ $css = $css | minify | fingerprint | resources.PostProcess }} 
+{{ end }}
+
+<link
+  rel="stylesheet"
+  href="{{ $css.RelPermalink }}"
+  data-generator="purgeCSS"
+  {{ if hugo.IsProduction -}} 
+    integrity="{{ $css.Data.Integrity }}"
+  {{- end }}
+/>

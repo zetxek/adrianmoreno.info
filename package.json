@@ -26,13 +26,16 @@
   },
   "engines": {
     "node": ">=14.16",
-     "npm": ">= 3.0.0"
+    "npm": ">= 3.0.0"
   },
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^5.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-size": "^4.0.1",
     "gulp-strip-debug": "^5.0.0",
     "gulp-uglify": "^3.0.2",
-    "node-gyp": "^9.3.1"
+    "node-gyp": "^9.3.1",
+    "postcss": "^8.4.20",
+    "postcss-cli": "^10.1.0"
   }
 }

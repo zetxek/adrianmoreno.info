@@ -11,6 +11,9 @@ theme = "raditian"
 #   es
 #     weight: 2
 
+[build]
+  writeStats = true
+  
 # Plugins
 [params.plugins]
 
