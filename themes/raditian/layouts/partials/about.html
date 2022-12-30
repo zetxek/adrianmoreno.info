@@ -24,9 +24,7 @@
       </div>
       <div class="col-12 col-md-6 my-auto my-auto">
         <h2>{{ .Site.Data.homepage.about.title }}</h2>
-        <p class="lead">
-          {{ .Site.Data.homepage.about.content | safeHTML }}
-        </p>
+        {{ .Site.Data.homepage.about.content | safeHTML }}
         <a
           href="{{ .Site.Data.homepage.about.button.URL | absURL }}"
           target="_blank"
