@@ -9,7 +9,7 @@
         {{ $img2xWebp := $img.Resize (printf "%dx%d webp" $img2x.Height $img2x.Width) }}
         <picture>
           <source srcset="{{ $imgWebp.RelPermalink }} 1x, {{ $img2xWebp.RelPermalink }} 2x" type="image/webp" />
-          <source srcset="{{ $img.RelPermalink }} 1x, {{ $img2x.RelPermalink }} 2x">
+          <source srcset="{{ $img.RelPermalink }} 1x, {{ $img2x.RelPermalink }} 2x" type="image/webp">
           <img
             width="{{ $img.Width }}"
             height="{{ $img.Height }}"
