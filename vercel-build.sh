@@ -10,3 +10,8 @@ else
     echo "Production URL with PROD_URL: '$PROD_URL'";
     hugo -b https://$PROD_URL --gc --minify --environment=production
 fi
+
+echo "Running critical css generation"
+source ./critical-css.sh
+
+echo "Done running vercel-build.sh"

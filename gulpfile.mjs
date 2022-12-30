@@ -1,76 +1,38 @@
-import imagemin from "gulp-imagemin"; // Minify images
 import gulp from "gulp";
-
-import cleanCSS from "gulp-clean-css";
-import htmlmin from "gulp-htmlmin";
-import concat from "gulp-concat";
-import GulpUglify from "gulp-uglify";
-import size from "gulp-size";
-
 export default defaultTask;
+var critical = require('critical'); // new
 
-async function defaultTask() {
-  gulp.task("default", gulp.series(["css", "size"]), function () {
-    return Promise.resolve("");
-  });
-}
 
-gulp.task("css", () => {
-  return gulp
-    .src("public/css/*.css")
-    .pipe(cleanCSS({ compatibility: "ie8" }))
-    .pipe(gulp.dest("public/css/"));
+// Default Task
+gulp.task('default', ['connect']);
+
+// Critical-path CSS
+gulp.task('copystyles', function () {
+  return gulp.src('./build/assets/combined.css')
+      .pipe(rename({
+          basename: "site" // site.css
+      }))
+      .pipe(gulp.dest('./build/assets/'));
 });
 
-// Task to minify new or changed HTML pages
-gulp.task("html", function () {
-  gulp
-    .src("./public/index.html", { base: "./" })
-    .pipe(htmlmin())
-    .pipe(gulp.dest("./"));
-
-  return gulp
-    .src("./public/es/index.html", { base: "./" })
-    .pipe(htmlmin())
-    .pipe(gulp.dest("./"));
+gulp.task('criticalcss', function (cb) {
+  critical.generateInline({
+      base: './build/',
+      src: 'index.html',
+      styleTarget: './assets/combined.css',
+      htmlTarget: 'index.html',
+      width: 960,
+      height: 600,
+      minify: true
+  }, cb.bind(cb));
 });
 
-// Task to concat, strip debugging and minify JS files
-gulp.task("scripts", function () {
-  return gulp
-    .src(["./public/js/", "./public/js/*.js"])
-    .pipe(concat("app.min.js"))
-    .pipe(gulpStripDebug())
-    .pipe(GulpUglify())
-    .pipe(gulp.dest("./public/js/"));
+gulp.task('critical', ['clean'], function () {
+runSequence('build', 'copystyles', function(){
+  // Note this is a temporary hack. 
+  setTimeout(function(){
+    gulp.start('criticalcss');
+  }, 5000);
 });
-
-// Task to minify images into build
-gulp.task("images", function () {
-  return gulp
-    .src("./public/img/*")
-    .pipe(
-      imagemin({
-        progressive: true,
-      })
-    )
-    .pipe(gulp.dest("./public/img"));
 });
-
-// Task to get the size of the app project
-gulp.task("size", function () {
-  return gulp.src("./public/**").pipe(
-    size({
-      showFiles: true,
-    })
-  );
-});
-
-// Task to get the size of the build project
-gulp.task("build-size", function () {
-  return gulp.src("./public/**").pipe(
-    size({
-      showFiles: true,
-    })
-  );
-});
+// end critical-path css
