@@ -16,20 +16,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <title>{{ .Site.Data.homepage.head.title }}</title>
 <meta name="description" content="{{ .Site.Data.homepage.head.description }}">
 
-<style>
-    
+{{ $critical := resources.Get "css/critical.css" | resources.ToCSS | resources.Minify }}
+<style data-generator="critical-css">
+{{ $critical.Content | safeCSS }}
 </style>
 
 {{ $cssBundle := slice }}
 {{ range .Site.Params.plugins.css }}
-{{ if findRE "^http" .link }}
-<link rel="stylesheet" href="{{ .link | absURL }}">
-{{ else }}
-{{ $cssFile := resources.Get .link }}
-{{ $cssBundle = $cssBundle | append $cssFile }}
+    {{ if findRE "^http" .link }}
+        <link rel="stylesheet" href="{{ .link | absURL }}">
+        {{ else }}
+        {{ $cssFile := resources.Get .link }}
+        {{ $cssBundle = $cssBundle | append $cssFile }}
+    {{ end }}
 {{ end }}
-{{ end }}
-{{ $cssBundle := $cssBundle | resources.Concat "css/bundle.css" | fingerprint }}
+{{ $cssBundle := $cssBundle | resources.Concat "css/bundle.css" }}
 
 
 <!-- Purge CSS -->
