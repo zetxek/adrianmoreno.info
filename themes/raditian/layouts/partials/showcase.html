@@ -3,8 +3,12 @@
   <div class="rad-showcase__bg">
   {{ $img := resources.Get .Site.Data.homepage.showcase.image.x }}
   {{ $img2x := resources.Get .Site.Data.homepage.showcase.image._2x }}
+  {{ $imgWebp := $img.Resize (printf "%dx%d webp q75 Lanczos picture" $img.Height $img.Width) }}
+  {{ $img2xWebp := $img2x.Resize (printf "%dx%d webp q75 Lanczos picture" $img2x.Height $img2x.Width) }}
 
-
+  <picture>
+    <source srcset="{{ $imgWebp.RelPermalink }} 1x, {{ $img2xWebp.RelPermalink }} 2x" type="image/webp" />
+    <source srcset="{{ $img.RelPermalink }} 1x, {{ $img2x.RelPermalink }} 2x">
     <img
       width="{{ $img.Width }}"
       height="{{ $img.Height }}"
@@ -15,6 +19,7 @@
       data-srcset="{{ $img.RelPermalink }} 1x, {{ $img2x.RelPermalink }} 2x"
       alt="{{ .Site.Data.homepage.showcase.image.alt }}"
     />
+  </picture>
   </div>
   <div class="container">
     <div class="row">
@@ -49,12 +54,21 @@
     </div>
   </div>
   <div class="rad-showcase__bg rad-showcase__bg--mobile">
-    <img
-      class="lozad img-responsive"
-      src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
-      data-src="{{ .Site.Data.homepage.showcase.imageMobile.x | absURL }}"
-      alt="{{ .Site.Data.homepage.showcase.imageMobile.alt }}"
-    />
+    {{ $img := resources.Get .Site.Data.homepage.showcase.imageMobile.x }}  
+    {{ $imgWebp := $img.Resize (printf "%dx%d webp q80 picture" $img.Height $img.Width) }}
+
+    <picture>
+      <source srcset="{{ $imgWebp.RelPermalink }} 1x" type="image/webp" />
+      <source srcset="{{ $img.RelPermalink }} 1x">  
+      <img
+        width="{{ $img.Width }}"
+        height="{{ $img.Height }}"  
+        class="lozad img-responsive"
+        src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
+        data-src="{{ .Site.Data.homepage.showcase.imageMobile.x | absURL }}"
+        alt="{{ .Site.Data.homepage.showcase.imageMobile.alt }}"
+      />
+    </picture>
   </div>
 </section>
 {{ end }}
