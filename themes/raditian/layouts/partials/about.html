@@ -5,7 +5,7 @@
       <div class="about__profile-picture col-12 col-md-6">
         {{ $img := resources.Get .Site.Data.homepage.about.image.x }}
         {{ $img2x := resources.Get .Site.Data.homepage.about.image._2x }}      
-        {{ $imgWebp := $img.Resize "790x768 webp" }}
+        {{ $imgWebp := $img.Resize (printf "%dx%d webp" $img.Height $img.Width) }}
         {{ $img2xWebp := $img.Resize (printf "%dx%d webp" $img2x.Height $img2x.Width) }}
         <picture>
           <source srcset="{{ $imgWebp.RelPermalink }} 1x, {{ $img2xWebp.RelPermalink }} 2x" type="image/webp" />
