@@ -443,11 +443,13 @@ legend {
     --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
+/* purgecss start ignore */
 *,
 ::after,
 ::before {
     box-sizing: border-box;
 }
+/* purgecss stop ignore */
 body {
     margin: 0;
     font-size: 1rem;
@@ -9344,6 +9346,7 @@ span a:hover {
 .show > .btn-primary.dropdown-toggle:focus {
     box-shadow: 0 0 0 0.2rem rgba(233, 62, 52, 0.5);
 }
+/* purgecss start ignore */
 .btn {
     display: -webkit-inline-box;
     display: inline-flex;
@@ -9374,6 +9377,7 @@ span a:hover {
     margin-left: 0;
     margin-right: 0;
 }
+/* purgecss stop ignore */
 .btn-lg {
     line-height: 1.91;
     min-width: 140px;
