@@ -26,7 +26,7 @@
     var fontE = new w.FontFaceObserver("Inter", {
       weight: 700
     });
-    w.Promise.all([fontA.load(), fontC.load(), fontF.load()]).then(function() {
+    w.Promise.all([fontA.load(), fontE.load()]).then(function() {
       w.document.documentElement.className += " fonts-loaded";
     });
   })(this);
