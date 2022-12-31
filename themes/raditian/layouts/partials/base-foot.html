@@ -23,20 +23,8 @@
     var fontA = new w.FontFaceObserver("Inter", {
       weight: 300
     });
-    var fontB = new w.FontFaceObserver("Inter", {
-      weight: 400
-    });
-    var fontC = new w.FontFaceObserver("Inter", {
-      weight: 500
-    });
-    var fontD = new w.FontFaceObserver("Inter", {
-      weight: 600
-    });
     var fontE = new w.FontFaceObserver("Inter", {
       weight: 700
-    });
-    var fontF = new w.FontFaceObserver("Inter", {
-      weight: 900
     });
     w.Promise.all([fontA.load(), fontC.load(), fontF.load()]).then(function() {
       w.document.documentElement.className += " fonts-loaded";
