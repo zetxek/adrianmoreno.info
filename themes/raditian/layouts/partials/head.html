@@ -40,10 +40,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 {{ end }}
 
 <link
-  rel="stylesheet"
+  rel="preload"
   href="{{ $css.RelPermalink }}"
+  as="style"
   data-generator="purgeCSS"
+  onload="this.onload=null;this.rel='stylesheet'"
   {{ if hugo.IsProduction -}} 
     integrity="{{ $css.Data.Integrity }}"
   {{- end }}
 />
+<noscript>
+  <link 
+    rel="stylesheet" 
+    href="{{ $css.RelPermalink }}"
+    {{ if hugo.IsProduction -}} 
+    integrity="{{ $css.Data.Integrity }}"
+    {{- end }}
+  />
+  </noscript>
