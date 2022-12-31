@@ -11,7 +11,5 @@ else
     hugo -b https://$PROD_URL --gc --minify --environment=production
 fi
 
-echo "Running critical css generation"
-source ./critical-css.sh
-
-echo "Done running vercel-build.sh"
+## Disabled as it needs to comment out the critical printing in head.html
+# source ./critical-css.sh
