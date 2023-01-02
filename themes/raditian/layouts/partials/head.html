@@ -4,14 +4,6 @@
 <meta name="theme-color" content="#478079" >
 <link rel="preconnect" href="https://www.googletagmanager.com">
 
-
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','{{ .Site.Params.googleTagManagerID }}');</script>
-<!-- End Google Tag Manager -->
 <!-- endinject -->
 <title>{{ .Site.Data.homepage.head.title }}</title>
 <meta name="description" content="{{ .Site.Data.homepage.head.description }}">
@@ -57,4 +49,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     integrity="{{ $css.Data.Integrity }}"
     {{- end }}
   />
-  </noscript>
+</noscript>
+<!-- Google tag (gtag.js), google analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-465407-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-465407-4');
+</script>
+
