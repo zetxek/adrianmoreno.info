@@ -51,12 +51,7 @@
   />
 </noscript>
 <!-- Google tag (gtag.js), google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-465407-4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-465407-4');
-</script>
+<script defer src="https://www.googletagmanager.com/gtag/js?id=UA-465407-4"></script>
+{{ $analytics := resources.Get "js/analytics.js" | resources.Minify }}
+<script defer src="{{ $analytics.Permalink }}"></script>
 
