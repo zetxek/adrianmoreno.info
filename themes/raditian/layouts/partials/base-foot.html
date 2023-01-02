@@ -13,36 +13,7 @@
 <script src='{{ "js/library/bootstrap.min.js" | absURL }}'></script>
 <script src='{{ "js/sticky-header.js" | absURL }}'></script>
 <script src='{{ "js/library/smooth-scroll.polyfills.min.js" | absURL }}'></script>
-<script src='{{ "js/library/fontfaceobserver.js" | absURL }}'></script>
-<script>
-  (function(w) {
-    // if the class is already set, we're good.
-    if (w.document.documentElement.className.indexOf("fonts-loaded") > -1) {
-      return;
-    }
-    var fontA = new w.FontFaceObserver("Inter", {
-      weight: 300
-    });
-    var fontB = new w.FontFaceObserver("Inter", {
-      weight: 400
-    });
-    var fontC = new w.FontFaceObserver("Inter", {
-      weight: 500
-    });
-    var fontD = new w.FontFaceObserver("Inter", {
-      weight: 600
-    });
-    var fontE = new w.FontFaceObserver("Inter", {
-      weight: 700
-    });
-    var fontF = new w.FontFaceObserver("Inter", {
-      weight: 900
-    });
-    w.Promise.all([fontA.load(), fontC.load(), fontF.load()]).then(function() {
-      w.document.documentElement.className += " fonts-loaded";
-    });
-  })(this);
-</script>
+
 <script>
   const scroll = new SmoothScroll('a[href*="#"]');
     $('a.nav-link').on('click', () => {
