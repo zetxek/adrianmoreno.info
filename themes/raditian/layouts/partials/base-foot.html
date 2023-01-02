@@ -13,13 +13,4 @@
 <script defer src='{{ "js/library/bootstrap.min.js" | absURL }}'></script>
 <script defer src='{{ "js/sticky-header.js" | absURL }}'></script>
 <script async src='{{ "js/library/smooth-scroll.polyfills.min.js" | absURL }}'></script>
-
-<script>
-  const scroll = new SmoothScroll('a[href*="#"]');
-    $('a.nav-link').on('click', () => {
-      const navbar = $('.navbar-collapse');
-      if (navbar && navbar.hasClass('show')) {
-        $('.navbar-toggler').click();
-      }
-    })
-</script>
+<script async src='{{ "js/smooth-scroll-init.js" | absURL }}'></script>
