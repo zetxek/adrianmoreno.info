@@ -21,11 +21,14 @@ jobs:
           node-version: 18
           cache: 'npm'
 
+      - name: Install postcss
+        run: npm install postcss-cli
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.68.3'
-          # extended: true
+          hugo-version: '0.91.2'
+          extended: true
 
       - name: Build
         run: hugo --minify --buildDrafts=true
@@ -34,17 +37,7 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
-
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update \
-          && sudo apt-get install -y \
-            python3
-            
-      - name: Compile with gulp
-        run: |
-          npm install --no-optional && npm install gulp && gulp      
-
+      
       - name: Upload to S3
         uses: actions/upload-artifact@v2
         with:
