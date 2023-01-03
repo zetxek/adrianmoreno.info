@@ -10445,7 +10445,7 @@ textarea:focus {
     height: 100%;
     max-height: 721px;
 }
-@media (min-width: 992px) {
+@media (min-width: 968px) {
     .rad-showcase {
         min-height: 870px;
         padding-top: 0;
@@ -10479,7 +10479,7 @@ textarea:focus {
     width: 100%;
     font-size: 32px;
 }
-@media (min-width: 992px) {
+@media (min-width: 968px) {
     .rad-showcase__bg--mobile {
         display: none;
     }
