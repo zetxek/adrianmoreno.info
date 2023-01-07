@@ -37,6 +37,7 @@ html body ::selection{
 
 ul.breadcrumbs{
     display: inline;
+    padding-left: 0;
 }
 ul.breadcrumbs li:not(:last-child):after{
     content: ">";

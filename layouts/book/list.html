@@ -1,0 +1,27 @@
+<!-- inject:../components/baseHead/baseHeadStart.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{ partial "head.html" . }} {{ partial "head_custom.html" . }}
+  </head>
+
+  <body>
+    {{ partial "header.html" . }} {{ partial "breadcrumb.html" . }}
+
+    <section
+      id="books"
+      class="content-list section section--border-bottom rad-animation-group"
+    >
+      <div class="container">
+        <div class="row">
+              {{ range .Pages }}
+                 {{ .Render "summary"}} 
+                {{ end }}
+        </div>
+      </div>
+    </section>
+
+    {{ partial "footer.html" . }} {{ partial "base-foot.html" . }}
+  </body>
+</html>
+<!-- endinject -->

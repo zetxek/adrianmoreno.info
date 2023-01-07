@@ -1,0 +1,17 @@
+<div class="col-sm-6">
+
+  <div class="card">
+      <div class="card-body">
+          <a href="{{ .Permalink }}">
+            <h5 class="card-title">{{ .Title }}</h5>
+            {{ if isset .Params "book_author" }} 
+                by 
+                {{ range .Params.book_author }} 
+                    {{ . }} 
+                {{ end}} {{ end }}
+            <div>{{ .Summary }}</div>
+            {{ if isset .Params "link" }} <a href="{{ .Params.link }}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Search in goodreads</a>{{ end }}
+          </a>
+      </div>
+  </div>
+</div>

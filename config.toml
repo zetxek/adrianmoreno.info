@@ -78,3 +78,7 @@ theme = "raditian"
 
   [params.footer]
       copyright = "© Adrián Moreno Peña. <a href=\"https://github.com/zetxek/adrianmoreno.info\">Code available in GitHub</a>."
+
+[taxonomies]
+  book_author = "book_authors"
+  book_category = "book_categories"
