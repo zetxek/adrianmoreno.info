@@ -35,6 +35,18 @@ html body ::selection{
     padding-top: 120px;
 }
 
+ul.breadcrumbs{
+    display: inline;
+}
+ul.breadcrumbs li:not(:last-child):after{
+    content: ">";
+    margin-left: 10px;
+    margin-right: 10px;
+}
+ul.breadcrumbs li{
+    display: inline;
+}
+
 .about__profile-picture img{
     object-fit: contain;
 }
