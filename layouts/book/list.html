@@ -9,58 +9,23 @@
     {{ partial "header.html" . }} {{ partial "breadcrumb.html" . }}
 
 
-<section id="menu">
-    <ul>
-        {{ range $key, $taxonomy := .Site.Taxonomies.book_category }}
-        <li> {{ $key }} </li>
-        <ul>
-            {{ range $taxonomy.Pages }}
-            <li hugo-nav="{{ .RelPermalink}}"><a href="{{ .Permalink}}"> {{ .LinkTitle }} </a> </li>
-            {{ end }}
-        </ul>
-        {{ end }}
-    </ul>
-</section>
-
-<ul>
-  {{ range $taxonomy, $terms := site.Taxonomies }}
-    <li>
-      {{ with site.GetPage $taxonomy }}
-        <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-      {{ end }}
-      <ul>
-        {{ range $term, $weightedPages := $terms }}
-        <li>
-          {{ with site.GetPage (path.Join $taxonomy $term) }}
-            <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-          {{ end }}
-        </li>
-          <ul>
-            {{ range $weightedPages }}
-              <li>
-                <a href="{{ .RelPermalink}}"> {{ .LinkTitle }}</a>
-              </li>
-            {{ end }}
-          </ul>
-        {{ end }}
-      </ul>
-    </li>
-  {{ end }}
-</ul>
-
-
 
     <section
       id="books"
       class="content-list section section--border-bottom rad-animation-group"
     >
       <div class="container">
-        <div class="row">
-              {{ range .Pages }}
-                 {{ .Render "summary"}} 
-                {{ end }}
+            {{ $book_categories := slice "Engineering Management" "Organization Design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Society, world and future" "Sport & performance" "My reading list" }}
+              {{ range $book_categories }}
+               <div class="row">
+                <h2>{{ . }}</h2>
+                  {{ range where (where site.RegularPages "Draft" false) "Params.book_categories" "intersect" (slice . ) }}
+                    {{ .Render "summary"}} 
+                  {{ end }}
+              </div>
+  
+              {{ end }}
         </div>
-      </div>
     </section>
 
     {{ partial "footer.html" . }} {{ partial "base-foot.html" . }}

@@ -1,12 +1,11 @@
 <div class="col-sm-6">
-
   <div class="card book-card">
       <div class="card-body">
             <h5 class="card-title">{{ .Title }}</h5>
             <p class="card-text">
-            {{ if isset .Params "book_author" }} 
+            {{ if isset .Params "book_authors" }} 
                 by 
-                {{ range .Params.book_author }} 
+                {{ range .Params.book_authors }} 
                     {{ . }} 
                 {{ end}}
                 <br>
