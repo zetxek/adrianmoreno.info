@@ -48,6 +48,10 @@ ul.breadcrumbs li{
     display: inline;
 }
 
+.book-card a.goodreads{
+    float: right;
+}
+
 .about__profile-picture img{
     object-fit: contain;
 }
