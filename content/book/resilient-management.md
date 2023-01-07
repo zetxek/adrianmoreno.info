@@ -1,6 +1,6 @@
 ---
 title: "Resilient Management"
-book_author: ["Lara Hogan"]
-book_category: ["Engineering Management"]
+book_authors: ["Lara Hogan"]
+book_categories: ["Engineering Management"]
 link: "https://www.goodreads.com/search?q=Resilient+Management+Lara+Hogan"
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Build"
-book_author: ["Tom Fadell "]
-book_category: ["Biographies/company stories"]
+book_authors: ["Tom Fadell "]
+book_categories: ["Biographies/company stories"]
 link: "https://www.goodreads.com/search?q=Build+Tom+Fadell+"
 ---
