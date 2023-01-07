@@ -1,18 +1,14 @@
-<div class="col-sm-6">
-  <div class="card book-card">
-      <div class="card-body">
-            <h5 class="card-title">{{ .Title }}</h5>
-            <p class="card-text">
-            {{ if isset .Params "book_authors" }} 
-                by 
-                {{ range .Params.book_authors }} 
-                    {{ . }} 
-                {{ end}}
-                <br>
-             {{ end }}
-            {{ .Summary }}
-            </p>
-            {{ if isset .Params "link" }} <a href="{{ .Params.link }}" class="btn btn-primary goodreads" target="_blank" rel="noopener noreferrer">Search in goodreads</a>{{ end }}
-      </div>
-  </div>
-</div>
+    <li class="book-content col-sm-12">
+        <h5 class="book-title">{{ .Title }}</h5>
+        {{ if isset .Params "book_authors" }} 
+            <h6 class="book-author">, by 
+            {{ range .Params.book_authors }} 
+                {{ . }} 
+            {{ end}}
+            </h6>
+            {{ end }}
+        {{ .Summary }}
+        <a class="goodreads-link" href="{{ .Params.link }}">
+            <img class="goodreads-search" src="/img/goodreads.svg" alt="Search in goodreads">
+        </a>
+    </li>

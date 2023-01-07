@@ -48,7 +48,35 @@ ul.breadcrumbs li{
     display: inline;
 }
 
+.book-category{
+    font-size: 1.5em;
+    padding-bottom: .3em;
+    border-bottom: 1px solid rgb(200, 200, 200);
+    width: 100%;
+}
+ul.book-category-content{
+    padding-left: 0;
+}
 .book-card a.goodreads{
+    float: right;
+}
+.goodreads-search{
+    margin-left: 64px;
+    width: 16px;
+}
+.book-content{
+    width: 100%;
+}
+
+.book-content h5,
+.book-content h6{
+    display: inline;
+    font-weight: 300;
+}
+.book-content h5{
+    margin-right: 2px;
+}
+.book-content .goodreads-link{
     float: right;
 }
 
