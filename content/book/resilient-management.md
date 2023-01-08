@@ -5,4 +5,4 @@ book_categories: ["Engineering Management"]
 link: "https://www.goodreads.com/search?q=Resilient+Management+Lara+Hogan"
 ---
 
-Guide for managers on how to build and maintain a resilient team, with a focus on creating a positive work culture and setting clear goals and expectations. Hogan offers practical strategies for managing stress, communicating effectively, and leading with empathy in order to foster a resilient and high-performing team.
+It has a very good toolset for first time EM's, or for anyone that wants to review some proven ways of working. It is structured in 5 chapters ("Meet your team", "Grow your teammates", "Set clear expectations", "Communicate Effectively" and "Build resiliency"), and it's full of good tips, with a human-centric approach. Very useful for these turbulent times!
