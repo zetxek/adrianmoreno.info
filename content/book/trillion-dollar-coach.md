@@ -1,5 +1,5 @@
 ---
-title: "Trillion Dollar Coach"
+title: "Trillion Dollar Coach: The Leadership Playbook of Silicon Valley's Bill Campbell"
 book_authors: ["Eric Schmidt", "lan Eagle", "Jonathan Rosenberg"]
 book_categories: ["Product, strategy and business"]
 link: "https://www.goodreads.com/search?q=Trillion+Dollar+Coach+Eric+Schmidt"
