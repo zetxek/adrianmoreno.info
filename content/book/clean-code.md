@@ -1,6 +1,6 @@
 ---
 title: "Clean Code: A Handbook of Agile Software Craftsmanship"
-book_authors: ["Robert C. Martib"]
+book_authors: ["Robert C. Martin"]
 book_categories: ["Software engineering and development"]
 link: "https://www.goodreads.com/search?q=Clean+Code+Robert+c+Martin"
 ---
