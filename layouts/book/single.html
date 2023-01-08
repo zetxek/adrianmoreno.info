@@ -1,0 +1,41 @@
+<!-- inject:../components/baseHead/baseHeadStart.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{ partial "head.html" . }} {{ partial "head_custom.html" . }}
+  </head>
+
+  <body>
+    {{ partial "header.html" . }} {{ partial "breadcrumb.html" . }}
+
+    <section
+      id="book"
+      class="section section--border-bottom rad-animation-group">
+      <div class="container">
+
+          <div class="row">
+            <div class="col-12 col-md-7 mt-7 mt-sm-0">
+              <h2>{{ .Title }}</h2> {{ if isset .Params "book_authors" }} by {{ range .Params.book_authors }} {{ . }} {{ end }} {{ end}}
+              <br/>
+              {{ .Content | safeHTML }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-7 mt-7 mt-sm-0">
+              {{ range .Params.book_categories }}
+              Other books on {{ . }}
+                 {{ $pages := where site.Pages "Params.book_categories" "in" . }}
+                  {{ range $pages }}
+                    {{ .Render "summary"}} 
+                  {{ end }}
+              {{ end }}
+            </div>
+          : 
+          </div>
+      </div>
+    </section>
+
+    {{ partial "footer.html" . }} {{ partial "base-foot.html" . }}
+  </body>
+</html>
+<!-- endinject -->

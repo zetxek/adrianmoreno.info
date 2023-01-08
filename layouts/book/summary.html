@@ -1,0 +1,14 @@
+    <li class="book-content col-sm-12">
+        <h5 class="book-title">{{ .Title }}</h5>
+        {{ if isset .Params "book_authors" }} 
+            <h6 class="book-author">, by 
+            {{ range .Params.book_authors }} 
+                {{ . }} 
+            {{ end}}
+            </h6>
+            {{ end }}
+        <a class="goodreads-link" href="{{ .Params.link }}">
+            <img class="goodreads-search" src="/img/goodreads.svg" alt="Search in goodreads">
+        </a>
+        {{ if gt (len .Summary) 0 }} <p>{{ .Summary }}</p> {{ end }} 
+    </li>

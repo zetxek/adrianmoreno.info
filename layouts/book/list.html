@@ -1,0 +1,40 @@
+<!-- inject:../components/baseHead/baseHeadStart.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{ partial "head.html" . }} {{ partial "head_custom.html" . }}
+  </head>
+
+  <body>
+    {{ partial "header.html" . }} {{ partial "breadcrumb.html" . }}
+
+    <section
+      id="books"
+      class="content-list section section--border-bottom rad-animation-group"
+    >
+
+      <div class="container">
+
+    <p class="lead">📚 This is a list of the books that have made a dent on me, especially focused on non fiction. It represents the areas where I have an interest or a passion, either professionally, as a hobby, or intellectually. I have always wanted to have a "Recommendation list", and it's one of the common questions when discussing a topic that I found myself attracted to - as I will name drop or quote the book.
+    <br/>I have included only books that I have read - so I can have a chat about them, and the "whistlist" at the bottom.
+    <br/>If you see any book that could fit in the list and is missing - let me know! I'm very open to suggestions 👂</p>
+
+            {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, phylosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
+              {{ range $book_categories }}
+               <div class="row">
+                <h2 id="#{{ anchorize . }}" class="book-category clearfix">{{ . }}</h2>
+                  <ul class="row col-12 book-category-content">
+                  {{ range where (where site.RegularPages "Draft" false) "Params.book_categories" "intersect" (slice . ) }}
+                    {{ .Render "summary"}} 
+                  {{ end }}
+                  </ul>
+              </div>
+  
+              {{ end }}
+        </div>
+    </section>
+
+    {{ partial "footer.html" . }} {{ partial "base-foot.html" . }}
+  </body>
+</html>
+<!-- endinject -->

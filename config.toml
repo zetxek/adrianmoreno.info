@@ -52,19 +52,20 @@ theme = "raditian"
 
 
   [[menu.footer]]
-  name = "About"
+  name = "💁‍♂️ About"
   URL = "index.html#about"
   weight = 2
 
+
   [[menu.footer]]
-  name = "Experience"
-  URL = "index.html#experience"
+  name = "📚 Books"
+  URL = "/books"
   weight = 3
 
   [[menu.footer]]
-  name = "Contact"
-  URL = "#contact"
-  weight = 4
+  name = "📨 Contact"
+  URL = "index.html#contact"
+  weight = 5
 
 
 [params]
@@ -78,3 +79,7 @@ theme = "raditian"
 
   [params.footer]
       copyright = "© Adrián Moreno Peña. <a href=\"https://github.com/zetxek/adrianmoreno.info\">Code available in GitHub</a>."
+
+[taxonomies]
+  book_author = "book_authors"
+  book_category = "book_categories"
