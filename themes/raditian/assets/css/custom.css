@@ -64,6 +64,9 @@ ul.breadcrumbs li{
     border-bottom: 1px solid rgb(200, 200, 200);
     width: 100%;
 }
+.book-category-anchor .icon{
+    font-size: 12px
+}
 ul.book-category-content{
     padding-left: 0;
 }
@@ -90,6 +93,9 @@ ul.book-category-content{
     float: right;
 }
 
+#books .row{
+    margin: 0;
+}
 .about__profile-picture img{
     object-fit: contain;
 }
