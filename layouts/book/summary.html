@@ -7,8 +7,8 @@
             {{ end}}
             </h6>
             {{ end }}
-        {{ .Summary }}
         <a class="goodreads-link" href="{{ .Params.link }}">
             <img class="goodreads-search" src="/img/goodreads.svg" alt="Search in goodreads">
         </a>
+        {{ if gt (len .Summary) 0 }} <p>{{ .Summary }}</p> {{ end }} 
     </li>

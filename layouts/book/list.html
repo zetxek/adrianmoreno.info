@@ -19,10 +19,10 @@
     <br/>I have included only books that I have read - so I can have a chat about them, and the "whistlist" at the bottom.
     <br/>If you see any book that could fit in the list and is missing - let me know! I'm very open to suggestions 👂</p>
 
-            {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Society, world and future" "Sport & performance" "My reading list" }}
+            {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, phylosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
               {{ range $book_categories }}
                <div class="row">
-                <h2 class="book-category clearfix">{{ . }}</h2>
+                <h2 id="#{{ anchorize . }}" class="book-category clearfix">{{ . }}</h2>
                   <ul class="row col-12 book-category-content">
                   {{ range where (where site.RegularPages "Draft" false) "Params.book_categories" "intersect" (slice . ) }}
                     {{ .Render "summary"}} 
