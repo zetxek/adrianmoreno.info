@@ -19,7 +19,7 @@
                             <li class="breadcrum-item current">{{ .Title }}</li>
                         {{- end -}}
                     {{- else -}}
-                        <li class="breadcrum-item"><span><a href="{{ $.Scratch.Get `url` }}">{{ humanize . }}</span></a></li>
+                        <li class="breadcrum-item"><span><a href="{{ $.Scratch.Get `url` }}">{{ humanize . }}</a></span></li>
                     {{- end -}}
                 {{- end -}}
             {{- end -}}
