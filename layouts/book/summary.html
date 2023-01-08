@@ -1,4 +1,4 @@
-    <li class="book-content col-sm-12">
+    <li class="book-content col-sm-12 {{ if .Params.featured }}featured{{ end }}">
         <h5 class="book-title">{{ .Title }}</h5>
         {{ if isset .Params "book_authors" }} 
             <h6 class="book-author">, by 
