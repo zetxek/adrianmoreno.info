@@ -96,6 +96,22 @@ ul.book-category-content{
 #books .row{
     margin: 0;
 }
+
+ul.book-category-content {
+    list-style: none;
+}
+.book-content.featured::before {
+    content: "\2605"; /* Unicode bullet symbol */
+    color: #478079;  /* Bullet color */
+	/* Optional tweaks */
+    font-weight: bold;
+    padding-right: 10px;
+    background-color: transparent;
+    top: 4px;
+    left: -5px;
+}
+
+
 .about__profile-picture img{
     object-fit: contain;
 }
