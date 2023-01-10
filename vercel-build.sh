@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+
+## Script to run the build in vercel
+## configured with:
+## test -f vercel-build.sh && chmod +x vercel-build.sh && ./vercel-build.sh
+## to prevent running it in the gh-pages branches
+
 echo "Running vercel-build.sh"
 echo "Prod URL: " $PROD_URL;
 echo "Vercel URL: " $VERCEL_URL;
