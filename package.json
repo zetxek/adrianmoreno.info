@@ -10,7 +10,7 @@
   "author": "Adrián Moreno Peña <zetxek@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "autoprefixer": "^10.4.13",
+    "autoprefixer": "^10.4.14",
     "browser-sync": "^2.27.11",
     "critical": "^5.0.4",
     "del": "^7.0.0",
