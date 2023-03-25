@@ -23,4 +23,5 @@ During this episode, we explored topics such as:
 - The role of teaching and mentoring in fostering growth and development within a team
 - Strategies for balancing the needs of the individual with the needs of the larger organization
 
+Episode available also in [youtube with live video](https://www.youtube.com/watch?v=_o5XzIBtj0I).
 <!--more-->
