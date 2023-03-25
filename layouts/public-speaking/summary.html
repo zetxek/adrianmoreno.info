@@ -1,0 +1,12 @@
+    <li class="book-content col-sm-12 {{ if .Params.featured }}featured{{ end }}">
+        <h5 class="title">{{ .Title }}</h5>
+        <h6>{{ if isset .Params "length" }} {{ if gt (len .Params.length) 0 }} ({{ .Params.length }}) {{ end }} {{ end }} {{ if isset .Params "date" }} {{ .Params.date.Format "January 2, 2006" }} {{ end }} </h6>
+        <a class="link" href="{{ .Params.link }}" target="_blank" rel="noopener noreferrer">
+            🔗
+        </a>
+        {{ if gt (len .Summary) 0 }}
+            <div>
+            {{ .Summary }} 
+            </div>
+        {{ end }} 
+    </li>

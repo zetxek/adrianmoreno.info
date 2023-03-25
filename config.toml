@@ -63,6 +63,11 @@ theme = "raditian"
   weight = 3
 
   [[menu.footer]]
+  name = "🎤 Public Speaking"
+  URL = "/public-speaking"
+  weight = 4
+
+  [[menu.footer]]
   name = "📨 Contact"
   URL = "index.html#contact"
   weight = 5

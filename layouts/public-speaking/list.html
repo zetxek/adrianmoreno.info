@@ -1,0 +1,41 @@
+<!-- inject:../components/baseHead/baseHeadStart.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{ partial "head.html" . }} {{ partial "head_custom.html" . }}
+  </head>
+
+  <body>
+    {{ partial "header.html" . }} {{ partial "breadcrumb.html" . }}
+
+    <section
+      id="books"
+      class="content-list section section--border-bottom rad-animation-group"
+    >
+
+      <div class="container">
+
+    <p class="lead">
+      🎤 From time to time I give presentations, talks or participate in podcasts about the topics that I am passionate about. 
+      <br/>
+      I have not collected these collaborations consistently in one place - so this is a selection of some of the public speaking or public appearances that I have done over time.
+      <br/>
+      If you would like to have me participating in your talk, podcast or any other format, <a href="/index.html#contact">drop me a line</a>!
+    </p>
+
+               <div class="row">
+                <ul class="row col-12 book-category-content">
+
+                  {{ range .Pages }}
+                    {{ .Render "summary"}} 
+                  {{ end }}
+                  </ul>
+              </div>
+  
+        </div>
+    </section>
+
+    {{ partial "footer.html" . }} {{ partial "base-foot.html" . }}
+  </body>
+</html>
+<!-- endinject -->
