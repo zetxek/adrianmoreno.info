@@ -1,5 +1,5 @@
     <li class="book-content col-sm-12 {{ if .Params.featured }}featured{{ end }}">
-        <h5 class="title">{{ .Title }}</h5> {{ if gt (len .Params.length) 0 }} ({{ .Params.length }}) {{ end}}
+        <h5 class="title">{{ .Title }}</h5> {{ if isset .Params "length" }} {{ if gt (len .Params.length) 0 }} ({{ .Params.length }}) {{ end }} {{ end }}
         
         <a class="link" href="{{ .Params.link }}" target="_blank" rel="noopener noreferrer">
             🔗
