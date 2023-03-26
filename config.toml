@@ -36,17 +36,17 @@ theme = "raditian"
 [menu]
 
   [[menu.header]]
-  name = "About"
+  name = "💁‍♂️ About"
   URL = "index.html#about"
   weight = 2
 
   [[menu.header]]
-  name = "Experience"
+  name = "👨‍🔧 Experience"
   URL = "index.html#experience"
   weight = 3
 
   [[menu.header]]
-  name = "Contact"
+  name = "📨 Contact"
   URL = "#contact"
   weight = 4
 
