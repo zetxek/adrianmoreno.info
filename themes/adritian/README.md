@@ -1,7 +1,7 @@
 # Adritian Free Hugo Theme
 ###### Adritian Hugo Theme for Personal Websites
 
-This free Hugo theme is a fork of [Raditian Theme](https://github.com/radity/raditian-free-hugo-theme) - a Hugo theme created by Radity.
+This free Hugo theme is a fork of [Raditian Theme](https://github.com/radity/raditian-free-hugo-theme) - a great Hugo theme created by Radity.
 
 It's based on bootstrap (so it's responsive), and the main changes have been upgrades on the web performance and accessibility of the template.
 
@@ -15,7 +15,8 @@ Changes:
 
 You can see it live in https://www.adrianmoreno.info (my personal website)
 
-<img src="https://raditycmswebsite-live-5f5ab2ec57ec4907b-b52c0bb.divio-media.net/filer_public/73/76/7376fcbd-46ff-4e8b-85b6-e4f9175658ad/01_-_mainpage_exportable_copy_31x_2.png"  width="100%" alt="raditian-free-hugo-theme">
+![adrianmorenoinfo](https://user-images.githubusercontent.com/240085/230632835-74349170-d610-4731-8fac-62c413e6b3f5.png)
+
 
 ## Download
 
@@ -37,7 +38,7 @@ You can see it live in https://www.adrianmoreno.info (my personal website)
 
 ## License
 
-- Copyright 2020 Radity (https://radity.com/)
+- Copyright 2020 Radity (https://radity.com/), 2022 Adrián Moreno Peña (https://www.adrianmoreno.info)
 - Licensed under MIT (https://github.com/zetxek/adritian-free-hugo-theme/blob/master/LICENSE)
 
 ## Support
