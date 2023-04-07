@@ -2,7 +2,7 @@ baseURL = "https://www.adrianmoreno.info/"
 languageCode = "en"
 DefaultContentLanguage = "en"
 title = "Adrián Moreno Peña · Web & Mobile Developer, all-around coder"
-theme = "raditian"
+theme = "adritian"
 
 
 # Languages
