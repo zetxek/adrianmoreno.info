@@ -14,7 +14,7 @@ Its theme started based on [Raditian Theme](https://github.com/radity/raditian-f
 
 As a result, the template in this repo is heavily modified (adding assets pipeline support, some i18n features, additional pages/templates, performance and accessibility improvements...).
 
-`TODO`: fork and open source the changes I made for this repo.
+You can find the template open sourced independently from this site in https://github.com/zetxek/adritian-free-hugo-theme.
 
 ### Generation ###
 
