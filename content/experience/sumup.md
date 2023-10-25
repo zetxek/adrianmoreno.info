@@ -2,7 +2,7 @@
 date: 2021-05-01T00:00:00+01:00
 draft: false
 title: "Director of Engineering - SumUp"
-jobTitle: "Engineering Manager → Director of Engineering"
+jobTitle: "Engineering Manager → Director of Engineering, Tribe Lead"
 company: "SumUp"
 location: "Copenhagen, Denmark"
 duration: "2021-present"
