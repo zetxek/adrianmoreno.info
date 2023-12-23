@@ -32,7 +32,7 @@
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^5.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-size": "^4.0.1",
+    "gulp-size": "^5.0.0",
     "gulp-strip-debug": "^6.0.0",
     "gulp-uglify": "^3.0.2",
     "node-gyp": "^10.0.1",
