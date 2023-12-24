@@ -6,7 +6,7 @@ showcase:
   enable: true
   title: "Hello, I’m Adrián."
   subtitle: "Director of Engineering & Tribe Lead"
-  description: "I work at <a target='_blank' href='https://www.sumup.com/'>SumUp</a>, a digital payments company focused in small businesses. My background is diverse (you could say I'm a specialized generalist), but always close to digital technology.<br>I have done a bit of everything, from backend development to mobile apps, devops or team leading and coaching. I love automation as a way to optimize processes and avoid repetitive work, and working in happy agile teams - where work is a way to solve problems, and not a mean by itself."
+  description: "I work at <a target='_blank' href='https://www.sumup.com/'>SumUp</a>, a digital payments company focused in small businesses whose vision is <em>to create a world where anyone can build a thriving business</em>. <br/>My background is diverse, as a specialized generalist. I have a wide range of experiences: from backend development to mobile apps, devops, leading teams or coaching. I love automation as a way to optimize processes and avoid repetitive work, and working in happy agile teams - where technology is a <em>way to solve problems</em>, and not a mean by itself."
   image:
     alt: "Profile picture of Adrián Moreno Peña (@zetxek), smiling over a petroleum color background"
     x: "images/adrian.jpg"
