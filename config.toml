@@ -77,6 +77,7 @@ theme = "adritian"
 
   sections = ["showcase", "about", "education", "experience", "contact"]
   googleTagManagerID = "GTM-NVN2BJG" # Google Analytics works with Google Tag Manager
+  homepageExperienceCount = 6
 
   [params.logo]
     text1 = "Adrián"
