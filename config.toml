@@ -19,11 +19,11 @@ theme = "adritian-free-hugo-theme"
 
   # CSS Plugins
   [[params.plugins.css]]
-  link = "css/main.css"
+  URL = "css/main.css"
   [[params.plugins.css]]
-  link = "css/rad-icons.css"
+  URL = "css/rad-icons.css"
   [[params.plugins.css]]
-  link = "css/custom.css"
+  URL = "css/custom.css"
 
   # JS Plugins
   [[params.plugins.js]]
