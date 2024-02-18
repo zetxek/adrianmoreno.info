@@ -6,7 +6,7 @@ showcase:
   enable: true
   title: "Hello, I’m Adrián."
   subtitle: "Director of Engineering & Tribe Lead"
-  description: "I work at <a target='_blank' href='https://www.sumup.com/'>SumUp</a>, a digital payments company focused in small businesses whose vision is <em>to create a world where anyone can build a thriving business</em>. <br/>My background is diverse, as a <strong>specialized generalist</strong>. I have a wide range of experiences: from backend development to mobile apps, devops, leading teams or coaching. I love automation as a way to optimize processes and avoid repetitive work, and working in happy agile teams - where technology is a <em>way to solve problems</em>, and not an end in itself."
+  description: "Based in Copenhagen 🇩🇰, I work at <a target='_blank' href='https://www.sumup.com/'>SumUp</a>, a fintech company focused in small businesses, whose vision is <em>to create a world where anyone can build a thriving business</em>. <br/>My background is diverse, as a <strong>specialized generalist</strong>. In technology I have a wide range of experiences: from backend to mobile development or infrastructure, as well as individual contributor or leading teams. I apply the 3P's (People, Product, Process) to my work, and I am passionate about contributing to healthy teams that work in iterative improvements."
   image:
     alt: "Profile picture of Adrián Moreno Peña (@zetxek), smiling over a petroleum color background"
     x: "images/adrian.jpg"
@@ -41,7 +41,7 @@ about:
   enable: true
   title: "Who am I?"
   content: '<p class="lead">
-    I’m a very easy going, sociable, fast-learner, curious and natural leader. I do what I love, and I love what I do. I lead by example and work side by side with my teams.
+    I am an engineer by formation, curious and energetic - that applies technology to solve real-world problems. Personally, I’m a very easy going, sociable, fast-learner, curious and natural leader. I do what I love, and I love what I do. I lead by example and work side by side with my teams.
     </p>
     <p class="lead">
     I am a deliberate <em>jack of all trades, master of none</em>. My profile is a hybrid of technical and managerial experience, but always related to technological projects. I bring business and product vision to tech teams, partly thanks to having started an developed a company. I am a fast learner, curious to see how technology can improve the users experience in multiple areas. I have a strong motivation and sense of responsibility with myself, my team and clients (or peers), and people like my positive and easy going, can-do attitude.

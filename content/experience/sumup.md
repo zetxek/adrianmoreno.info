@@ -1,8 +1,8 @@
 ---
 date: 2021-05-01T00:00:00+01:00
 draft: false
-title: "Director of Engineering - SumUp"
-jobTitle: "Engineering Manager → Director of Engineering, Tribe Lead"
+title: "Director of Engineering & Tribe Lead - SumUp"
+jobTitle: "Engineering Manager → Director of Engineering & Tribe Lead"
 company: "SumUp"
 location: "Copenhagen, Denmark"
 duration: "2021-present"
@@ -11,7 +11,7 @@ duration: "2021-present"
 
 After relocating from Amsterdam to Copenhagen - I joined SumUp to work in the danish headquarters as an Engineering Manager for the Accounting Squad, in the Merchant Growth Tribe. The team I joined had been part of a previous acqusition of SumUp (Debitoor): merging cultures and integrating into the overall company was a big challenge.
 
-At SumUp I got exposed to a more complex organizational setup and map, with a tribalized setup; and highly enjoyed the reflective [spirit of the company when finding new ways of working](https://www.sumup.com/en-us/wtf-sumup-organisation/).
+At SumUp I got hands-on with a more complex organizational setup and map, with a tribalized setup; and highly enjoyed the reflective [spirit of the company when finding new ways of working](https://www.sumup.com/en-us/wtf-sumup-organisation/).
 
 Later, I got promoted to Director of Engineering, overseeing the engineering department of the Invoices Tribe. As part of the Tribe leadership, I worked on aligning technology and product to ensure a solid foundation for quick iterations, and maximising merchants' value and developer experience (happy teams = happy product = happy customers!).
 
