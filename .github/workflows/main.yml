@@ -3,7 +3,7 @@ name: Build Hugo
 on:
   push:
     branches:
-      - master
+      - main
       - develop
       - feature/github-actions
       - '*'
