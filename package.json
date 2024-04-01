@@ -30,7 +30,7 @@
     "npm": ">= 3.0.0"
   },
   "dependencies": {
-    "@fullhuman/postcss-purgecss": "^5.0.0",
+    "@fullhuman/postcss-purgecss": "^6.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-size": "^5.0.0",
     "gulp-strip-debug": "^6.0.0",
