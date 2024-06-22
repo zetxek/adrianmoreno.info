@@ -9280,7 +9280,7 @@ h4 {
         font-size: 32px;
     }
     p {
-        line-height: 28px;
+        line-height: 18px;
     }
 }
 p {
@@ -9319,7 +9319,7 @@ span a:hover {
 .lead {
     font-size: 16px;
     font-weight: 300;
-    line-height: 1.78;
+    line-height: 1.18;
     letter-spacing: -0.2px;
     color: #000;
 }
