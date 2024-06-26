@@ -4,17 +4,18 @@ This repository holds the information, structure and design in [www.adrianmoreno
 
 It's a good excuse to overengineer a CV-website, isn't it? ;-)
 
-### Theme: Adritian ###
+### Theme: [Adritian](https://github.com/zetxek/adritian-free-hugo-theme) ###
 
 <img width="1340" alt="website-screenshot" src="https://user-images.githubusercontent.com/240085/211220892-f1ebeb35-224e-4e2e-925d-c7116527208f.png">
 
-The page theme is open sourced independently from this site, as [Adritian]([url](https://github.com/zetxek/adritian-free-hugo-theme)) in [its own repo](https://github.com/zetxek/adritian-free-hugo-theme).
+The page theme is open sourced independently from this site, as a hugo theme [Adritian]([url](https://github.com/zetxek/adritian-free-hugo-theme)) in [its own repo](https://github.com/zetxek/adritian-free-hugo-theme).
 
-It is based on [Raditian Theme](https://github.com/radity/raditian-free-hugo-theme), then I forked it and evolved it quite deeply, upgrading Bootstrap 4 to 5, removing jQuery as a dependency, ...
+It is based on [Raditian Theme](https://github.com/radity/raditian-free-hugo-theme), then I forked it and evolved it quite deeply, upgrading Bootstrap 4 to 5, removing jQuery as a dependency or adding new content types.
 
 ### Generation ###
 
 The content is generated with [Hugo](https://gohugo.io/), a very fast, flexible and tuneable static content generator. It's made with go, the first reason I started to play around with it - later I discovered its power and strong community.
+
 
 #### Running locally
 
