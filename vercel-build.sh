@@ -15,6 +15,8 @@ if [[ "$VERCEL_GIT_COMMIT_REF" == "gh-pages"  ]] ; then
   # Skip the build
     echo "🛑 - Build is skipped"
   exit 0;
+else
+    echo "🚀 - Build is running"
 fi
 
 
