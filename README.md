@@ -27,8 +27,7 @@ After that, the commands from [Hugo CLI](https://gohugo.io/getting-started/usage
 The code in this repo is later processed with [Github Actions](https://github.com/zetxek/adrianmoreno.info/actions) - which will generate the HTML with Hugo, process the CSS, images and JS with Gulp, and export the contents to [Vercel](https://vercel.com).
 
 As simple as it gets!
-
-In order to customize which branches get to be built by Vercel, the build command and ignore step are customized.
+To customize which branches get to be built by Vercel, the build command and ignore step are customized. This allows me to still keep the generated content in the `gh-pages` branch, and have that branch ignored by Vercel deployments.
 
 Build command:
 
