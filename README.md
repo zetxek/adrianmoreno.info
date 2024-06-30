@@ -24,14 +24,26 @@ After that, the commands from [Hugo CLI](https://gohugo.io/getting-started/usage
 
 ### Deployment
 
-The code in this repo is later procesed with [Github Actions](https://github.com/zetxek/adrianmoreno.info/actions) - which will generate the HTML with hugo, process the CSS, images and JS with gulp, and export the contents to [Vercel](https://vercel.com).
+The code in this repo is later processed with [Github Actions](https://github.com/zetxek/adrianmoreno.info/actions) - which will generate the HTML with Hugo, process the CSS, images and JS with Gulp, and export the contents to [Vercel](https://vercel.com).
 
 As simple as it gets!
+To customize which branches get to be built by Vercel, the build command and ignore step are customized. This allows me to still keep the generated content in the `gh-pages` branch, and have that branch ignored by Vercel deployments.
 
-_Note_
+Build command:
 
-I switched from AWS Cloudfront to Vercel because Cloudfront [doesn't support a root object defined for all folders](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DefaultRootObject.html) (ie: an `index.html` for the `/experience` path). At some point I might try [the option to make them work with Lambda functions](https://robkenis.com/posts/hugo_pretty_urls_on_aws/), but that will be also a chance to revamp the project infrastructure and set it up as Infrastructure as Code (setting it up with CDK or Terraform).
+```
+echo VERCEL_GIT_COMMIT_REF=$VERCEL_GIT_COMMIT_REF; if [ "$VERCEL_GIT_COMMIT_REF" == "gh-pages" ]; then echo "Skipping build" && exit 0; else echo "Looking for build script" && test -f vercel-build.sh && chmod +x vercel-build.sh && ./vercel-build.sh; fi; 
+```
+
+[Ignore step](https://vercel.com/docs/projects/overview#ignored-build-step):
+
+```
+echo VERCEL_GIT_COMMIT_REF=$VERCEL_GIT_COMMIT_REF; if [ "$VERCEL_GIT_COMMIT_REF" == "gh-pages" ]; then echo "Skipping build" && exit 0; else echo "Continuing build!" && exit 1; fi; 
+```
+_Note on Vercel vs Cloudfront_
+
+I switched from AWS Cloudfront to Vercel because Cloudfront [doesn't support a root object defined for all folders](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DefaultRootObject.html) (ie: an `index.html` for the `/experience` path). At some point, I might try [the option to make them work with Lambda functions](https://robkenis.com/posts/hugo_pretty_urls_on_aws/), but that will be also a chance to revamp the project infrastructure and set it up as Infrastructure as Code (setting it up with CDK or Terraform).
 
 ### More? ###
 
-Do you want some more info about how or why I did some thing on the site? Drop me a line! (the form is connected to [formspree.io](https://formspree.io/) by the way, another great piece of software).
+Do you want some more info about how or why I did something on the site? Drop me a line! (the form is connected to [formspree.io](https://formspree.io/) by the way, another great piece of software).
