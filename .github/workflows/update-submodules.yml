@@ -1,0 +1,40 @@
+name: Update submodules (theme)
+
+# Controls when the action will run.
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  # This workflow contains a single job called "update"
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      - name: Pull & update submodules recursively
+        run: |
+          git submodule update --init --recursive
+          git submodule update --recursive --remote
+
+      - name: Commit & push changes
+        run: |
+          DATE=$(date '+%Y%m%d-%H%M')
+          BRANCH_NAME="update-submodules/update-$DATE"
+          # Setup the committers identity.
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions - update theme submodule"
+
+          git checkout -b $BRANCH_NAME
+          git submodule update --init --recursive
+          git submodule update --recursive --remote
+          
+          git commit -am "Update submodules"
+          git push origin $BRANCH_NAME
+
+      - name: create pull request
+        run: gh pr create -B main -H $BRANCH_NAME --title 'Update site submodules' --body 'Created by Github action'
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
