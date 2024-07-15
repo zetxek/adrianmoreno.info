@@ -35,7 +35,7 @@
     "gulp-size": "^5.0.0",
     "gulp-strip-debug": "^6.0.0",
     "gulp-uglify": "^3.0.2",
-    "node-gyp": "^10.1.0",
+    "node-gyp": "^10.2.0",
     "postcss": "^8.4.39",
     "postcss-cli": "^11.0.0"
   }
