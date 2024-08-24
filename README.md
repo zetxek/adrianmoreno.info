@@ -10,8 +10,6 @@ It's a good excuse to overengineer a CV-website, isn't it? ;-)
 
 The page theme is open sourced independently from this site, as a hugo theme [Adritian]([url](https://github.com/zetxek/adritian-free-hugo-theme)) in [its own repo](https://github.com/zetxek/adritian-free-hugo-theme).
 
-It is based on [Raditian Theme](https://github.com/radity/raditian-free-hugo-theme), then I forked it and evolved it quite deeply, upgrading Bootstrap 4 to 5, removing jQuery as a dependency or adding new content types.
-
 ### Generation ###
 
 The content is generated with [Hugo](https://gohugo.io/), a very fast, flexible and tuneable static content generator. It's made with go, the first reason I started to play around with it - later I discovered its power and strong community.
