@@ -84,7 +84,7 @@ theme = "adritian-free-hugo-theme"
     text2 = "Moreno"
 
   [params.footer]
-      copyright = "© Adrián Moreno Peña. <a href=\"https://github.com/zetxek/adrianmoreno.info\">Code available in GitHub</a>."
+      copyright = "© Adrián Moreno Peña. <a href=\"https://github.com/zetxek/adrianmoreno.info\">Content</a> and <a href=\"https://github.com/zetxek/adritian-free-hugo-theme\">code available in GitHub</a>."
 
 [taxonomies]
   book_author = "book_authors"
