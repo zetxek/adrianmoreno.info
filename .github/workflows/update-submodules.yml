@@ -19,7 +19,7 @@ jobs:
           git submodule update --init --recursive
           git submodule update --recursive --remote
 
-      - name: Commit & push changes
+      - name: Commit, push changes & open PR
         run: |
           DATE=$(date '+%Y%m%d-%H%M')
           BRANCH_NAME="update-submodules/update-$DATE"
@@ -34,14 +34,25 @@ jobs:
           git commit -am "Update submodules"
           git push origin $BRANCH_NAME
 
-      - name: create pull request
-        run:  |
+          LATEST_TAG=$(git --git-dir=themes/adritian-free-hugo-theme/.git describe --tags --always)
+        
+
+          echo "Creating pull-request..."
+          PR_TITLE='preview: update theme to `'$LATEST_TAG'`'
+          echo 'PR title: '$PR_TITLE
+          PR_BODY="🤖 This automated PR updates the theme submodule to a PR in the source repo: $PR_URL.
+          🔗 Triggered by a [github action](https://github.com/zetxek/adrianmoreno.info/actions/workflows/update-submodules.yml)"
+          
+          echo "PR body: "$PR_BODY
+          
+          PR_TITLE='update theme to `'$SOURCE_BRANCH_NAME'`'
           DATE=$(date '+%Y%m%d-%H%M')
           BRANCH_NAME="update-submodules/update-$DATE"
+          
           gh pr create \
           -B main \
           -H $BRANCH_NAME \
-          --title "Update site submodules" \
-          --body "Created by Github action"
+          --title "$PR_TITLE" \
+          --body --body "$PR_BODY"
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
