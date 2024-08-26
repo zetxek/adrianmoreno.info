@@ -35,9 +35,9 @@ jobs:
           echo "Creating pull-request..."
           PR_TITLE='update theme to `'$LATEST_TAG'`'
           echo 'PR title: '$PR_TITLE
-          PR_BODY="🤖 This automated PR updates the theme submodule: $SOURCE_REPO.
+          PR_BODY='🤖 This automated PR updates the theme submodule: '$SOURCE_REPO'.
           👉 Last commit: `'$LAST_COMMIT'`
-          🔗 Triggered by a github action: https://github.com/zetxek/adrianmoreno.info/actions/workflows/update-submodules.yml"
+          🔗 Triggered by a github action: https://github.com/zetxek/adrianmoreno.info/actions/workflows/update-submodules.yml'
           
           echo "PR body: "$PR_BODY
           
