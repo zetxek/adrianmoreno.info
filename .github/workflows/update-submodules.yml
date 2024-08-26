@@ -36,6 +36,7 @@ jobs:
 
       - name: create pull request
         run:  |
+          BRANCH_NAME="update-submodules/update-$DATE"
           gh pr create \
           -B main \
           -H $BRANCH_NAME \
