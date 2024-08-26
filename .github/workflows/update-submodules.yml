@@ -53,6 +53,6 @@ jobs:
           -B main \
           -H $BRANCH_NAME \
           --title "$PR_TITLE" \
-          --body --body "$PR_BODY"
+          --body "$PR_BODY"
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
