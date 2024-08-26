@@ -35,6 +35,11 @@ jobs:
           git push origin $BRANCH_NAME
 
       - name: create pull request
-        run: gh pr create -B main -H $BRANCH_NAME --title 'Update site submodules' --body 'Created by Github action'
+        run:  |
+          gh pr create 
+          -B main 
+          -H $BRANCH_NAME 
+          --title "Update site submodules"
+          --body "Created by Github action"
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
