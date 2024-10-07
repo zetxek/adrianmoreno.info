@@ -13,7 +13,7 @@
     "autoprefixer": "^10.4.20",
     "browser-sync": "^3.0.2",
     "critical": "^7.2.0",
-    "del": "^7.1.0",
+    "del": "^8.0.0",
     "gulp": "^5.0.0",
     "gulp-clean-css": "^4.3.0",
     "gulp-htmlmin": "^5.0.1",
