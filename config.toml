@@ -81,6 +81,7 @@ theme = "adritian-free-hugo-theme"
 
   # controls vercel page insights - disabled by default
   vercelPageInsights = true
+  vercelAnalytics = true
 
   [params.logo]
     text1 = "Adrián"
