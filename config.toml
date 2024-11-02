@@ -79,6 +79,9 @@ theme = "adritian-free-hugo-theme"
   googleTagManagerID = "GTM-NVN2BJG" # Google Analytics works with Google Tag Manager
   homepageExperienceCount = 6
 
+  # controls vercel page insights - disabled by default
+  vercelPageInsights = true
+
   [params.logo]
     text1 = "Adrián"
     text2 = "Moreno"
