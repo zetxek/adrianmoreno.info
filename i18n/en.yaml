@@ -1,107 +1,154 @@
-- id: title
-  translation: 'Adrián Moreno Peña · Web & Mobile Developer, all-around coder'
+## Header
+- id: "logo_text1"
+  translation: "Adrián"
 
-- id: seo-desc
-  translation: 'Professional website of Adrián Moreno, computer engineer based in Copenhagen (DK), with experience in mobile and web development, AdTech industry, and working with a variety of clients and sectors.'
+- id: "logo_text2"
+  translation: "Moreno"
 
-- id: switch_lang
-  translation: Spanish
+## Footer
+- id: "footer_notice"
+  translation: "© Adrián Moreno Peña. <a href=\"https://github.com/zetxek/adrianmoreno.info\">Content</a> and <a href=\"https://github.com/zetxek/adritian-free-hugo-theme\">code available in GitHub</a>."
 
-- id: lang_english
-  translation: English
+- id: "language"
+  translation: "Language"
 
-- id: lang_spanish
-  translation: Español
+## Homepage head title
+- id: "head_title"
+  translation: "Adrián Moreno Peña | Engineering Lead, web & mobile developer"
 
-- id: skills
-  translation: Skills
+- id: "head_description"
+  translation: "Personal site for Adrián Moreno Peña, VP of Engineering at SumUp. With a background as computer engineer and experience both as a web and mobile developer and team lead, in multi-cultural environments in Spain, the Netherlands and Denmark. You can find contact information, as well as availability for work, up-to-date curriculum and previous experience."
 
-- id: resume
-  translation: Résumé
+## Homepage showcase
+- id: "showcase_title"
+  translation: "Hello, I’m Adrián."
 
-- id: contact
-  translation: Contact
+- id: "showcase_subtitle"
+  translation: "VP of Engineering & Tribe Lead"
 
-- id: intro
-  translation: "My online nickname is zetxek, and here you can find my résumé. You can read about some of the projects I worked on, my background, or get in contact."
+- id: "showcase_description"
+  translation: "Based in Copenhagen 🇩🇰, I work at <a target='_blank' href='https://www.sumup.com/'>SumUp</a>, a fintech company focused in small businesses, whose vision is <em>to create a world where anyone can build a thriving business</em>. <br/>My background is diverse, as a <strong>specialized generalist</strong>. In technology I have a wide range of experiences: from backend to mobile development or infrastructure, as well as individual contributor or leading teams. I apply the 3P's (People, Product, Process) to my work, and I am passionate about contributing to healthy teams that work in iterative improvements."
 
-- id: welcome
-  translation: "Hi. I'm <strong>Adrián Moreno Peña</strong>."
+- id: "showcase_button"
+  translation: "Contact"
 
-- id: know-how
-  translation: What can I do?
+## Homepage about
+- id: "about_title"
+  translation: "Who am I?"
 
-- id: pic-of-me
-  translation: A pic of me, Adrián Moreno
+- id: "about_content"
+  translation:  '<p class="lead">
+    I am an engineer by formation, curious and energetic - that applies technology to solve real-world problems. Personally, I’m a very easy going, sociable, fast-learner, curious and natural leader. I do what I love, and I love what I do. I lead by example and work side by side with my teams.
+    </p>
+    <p class="lead">
+    I am a deliberate <em>jack of all trades, master of none</em>. My profile is a hybrid of technical and managerial experience, but always related to technological projects. I bring business and product vision to tech teams, partly thanks to having started an developed a company. I am a fast learner, curious to see how technology can improve the users experience in multiple areas. I have a strong motivation and sense of responsibility with myself, my team and clients (or peers), and people like my positive and easy going, can-do attitude.
+    </p>
+    <p class="lead">    
+    On the technical side, I’m a <em>specialized generalist</em>, always working between different areas and aiming to develop a holistic vision on what is involved into creating a successful tech product: mobile and web development, devops/SRE,... This has involved a variety of languages and frameworks in the web-side, both in the backend and in the client side.
+    </p>'
 
-- id: skills-title
-  translation: "I ❤ software"
+- id: "about_button"
+  translation: "About Me"
 
-- id: skills-subtitle
-  translation: "Specifically, building great apps and websites that make users' life simpler, and easier. I like to apply technology to bring solutions to a problem and reduce frictions in the digital world - but only after understanding the problem that needs to be solved. For that, I have carefully turned myself into a generalist - with knowledge of many areas, as I believe that to come up with meaningful solutions, cross-functional knowledge is needed. "
+## Homepage education
+- id: "education_title"
+  translation: "Education"
 
-- id: skill-1-title
-  translation: "Web"
+## Homepage experience
+- id: "experience_title"
+  translation: "Experience"
 
-- id: skill-1-desc
-  translation: "The open platform par excelence. Open standards, browser interoperalibility and APIs everywhere!<p class='sub'>HTML5, CSS3, Javascript (and frameworks, such as jQuery/UI/mobile, backbone, Angular.js, …), Content Management Systems (Wordpress, Drupal, Liferay…), e-Commerce Systems (Salesforce Commerce Cloud, Magento, OpenCart, WooCommerce…).</p>"
+- id: "experience_description"
+  translation: "Over 17 years of experience working in all kind of project sizes and teams. I have architected & developed digital products to help businesses and improve people's lives, solving complex problems with simple solutions."
 
-- id: skill-2-title
-  translation: "Mobile"
+- id: "experience_button"
+  translation: "LinkedIn" 
 
-- id: skill-2-desc
-  translation: " Mobile apps are a chance to create meaningful experiences that travel with the people behind the screen. <p class='sub'>Mobile web (HTML5, CSS & JS, Apache Cordova), native development (Java Android, Objetive-C iOS, Web techs for BB10…),	multi-platform frameworks (Titanium Appcelerator).</p>"
+- id: "experience_button_url"
+  translation: "https://www.linkedin.com/in/adrianmoreno/"
 
-- id: skill-3-title
-  translation: "All around!"
+- id: "experience_button2"
+  translation: "Download résumé"
 
-- id: skill-3-desc
-  translation: "I believe in strong independent teams, and I strive to create and be part of them. <p class='sub'>My place is anywhere close to a software project: team leading, software developing, asisting with pre-sales and estimates, agile development, platform architecture design…</p>"
+- id: "experience_button2_url"
+  translation: "/files/cv_adrian_moreno_english.pdf"
 
-- id: skills-closing
-  translation: "And overall, I like learning new stuff and applying new technologies. Whatever fits best for the purpose!"
+- id: "experience_button3"
+  translation: "All experience"
 
-- id: go-download
-  translation: "Go get my downloadable resumé"
+- id: "experience_button3_url"
+  translation: "/experience"
 
-- id: resume-title
-  translation: "The reason of this webpage"
+## Homepage client & work
+- id: "client_work_title"
+  translation: "Clients & Work"
 
-- id: resume-desc
-  translation: "Get served!"
+## Homepage newsletter
+- id: "newsletter_title"
+  translation: "Newsletter"
 
-- id: resume-1-title
-  translation: "PDF (english)"
+- id: "newsletter_button"
+  translation: "Subscribe"
 
-- id: resume-1-desc
-  translation: "183 Kb, 2 pages long"
+- id: "newsletter_placeholder"
+  translation: "Your email"
 
-- id: resume-2-title
-  translation: "PDF (english, cover lever)"
+- id: "newsletter_success_message"
+  translation: "Thank you for subscribing to my newsletter!"
 
-- id: resume-2-desc
-  translation: "269 Kb, 3 pages long"
+- id: "newsletter_error_message"
+  translation: "An error occurred. Please try again."
 
-- id: cta-title
-  translation: "Have I already convinced you that I'm the best fit for your job?"
+- id: "newsletter_note"
+  translation: "We'll never share your email with anyone else."
 
-- id: cta-action
-  translation: "Get in touch with me!"
+## Homepage testimonials
+- id: "testimonials_title"
+  translation: "Testimonials"
 
-- id: contact-title
-  translation: "Want to hire me? Get in touch!"
+## Homepage contact
+- id: "contact_title"
+  translation: "Contact"
 
-- id: contact-subtitle
-  translation: "Want to phone me? Reach me on <a href=\"tel:+4531579827\">+4531579827</a>"
+- id: "contact_button"
+  translation: "Send message"
 
-- id: contact-send
-  translation: "Send"
+- id: "contact_form_name"
+  translation: "Full Name"
 
-- id: contact-clear
-  translation: "Clear form"
+- id: "contact_form_email"
+  translation: "Email Address"
 
-- id: social-title
-  translation: "Find me on ..."
+- id: "contact_form_message"
+  translation: "Type your message Here"
 
-- id: copyright
-  translation: "Pst, you can <a target='_blank' href='https://github.com/zetxek/adrianmoreno.info/'>check the code online</a>"
+- id: "contact_phone_title"
+  translation: "Phone Number"
+
+- id: "contact_phone_number"
+  translation: "+45 31 57 98 27"
+
+- id: "contact_email_title"
+  translation: "Email"
+
+- id: "contact_email_email"
+  translation: '<a href="mailto:info@adrianmoreno.info">info@adrianmoreno.info</a>'
+
+- id: "contact_address_title"
+  translation: "Address"
+
+- id: "contact_address_address"
+  translation: "Copenhagen (DK🇩🇰)"
+
+- id: "contact_button"
+  translation: "Send Message"
+
+## Blog
+- id: "read_more"
+  translation: "Read more"
+
+- id: "published_on"
+  translation: "Published en"
+
+- id: "continue_reading"
+  translation: "Continue reading"
