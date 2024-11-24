@@ -1,7 +1,6 @@
 baseURL = "https://www.adrianmoreno.info/"
 languageCode = "en"
 DefaultContentLanguage = "en"
-title = "Adrián Moreno Peña · Web & Mobile Developer, all-around coder"
 theme = "adritian-free-hugo-theme"
 
 
@@ -24,12 +23,17 @@ theme = "adritian-free-hugo-theme"
   URL = "css/rad-icons.css"
   [[params.plugins.css]]
   URL = "css/custom.css"
+  
+  # SCSS Plugins
+  [[params.plugins.scss]]
+  URL = "css/menu.scss"
 
   # JS Plugins
   [[params.plugins.js]]
   URL = "js/rad-animations.js"
   [[params.plugins.js]]
   URL = "js/sticky-header.js"
+
  
 
 # navigation
@@ -82,13 +86,6 @@ theme = "adritian-free-hugo-theme"
   # controls vercel page insights - disabled by default
   vercelPageInsights = true
   vercelAnalytics = true
-
-  [params.logo]
-    text1 = "Adrián"
-    text2 = "Moreno"
-
-  [params.footer]
-      copyright = "© Adrián Moreno Peña. <a href=\"https://github.com/zetxek/adrianmoreno.info\">Content</a> and <a href=\"https://github.com/zetxek/adritian-free-hugo-theme\">code available in GitHub</a>."
 
 [taxonomies]
   book_author = "book_authors"

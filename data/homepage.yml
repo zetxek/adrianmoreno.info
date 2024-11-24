@@ -1,12 +1,6 @@
-head:
-  title: "Adrián Moreno Peña | Engineering Lead, web & mobile developer"
-  description: "Personal site for Adrián Moreno Peña, VP of Engineering at SumUp. With a background as computer engineer and experience both as a web and mobile developer and team lead, in multi-cultural environments in Spain, the Netherlands and Denmark. You can find contact information, as well as availability for work, up-to-date curriculum and previous experience."
 # showcase
 showcase:
   enable: true
-  title: "Hello, I’m Adrián."
-  subtitle: "VP of Engineering & Tribe Lead"
-  description: "Based in Copenhagen 🇩🇰, I work at <a target='_blank' href='https://www.sumup.com/'>SumUp</a>, a fintech company focused in small businesses, whose vision is <em>to create a world where anyone can build a thriving business</em>. <br/>My background is diverse, as a <strong>specialized generalist</strong>. In technology I have a wide range of experiences: from backend to mobile development or infrastructure, as well as individual contributor or leading teams. I apply the 3P's (People, Product, Process) to my work, and I am passionate about contributing to healthy teams that work in iterative improvements."
   image:
     alt: "Profile picture of Adrián Moreno Peña (@zetxek), smiling over a petroleum color background"
     x: "images/adrian.jpg"
@@ -39,21 +33,9 @@ showcase:
 # about
 about:
   enable: true
-  title: "Who am I?"
-  content: '<p class="lead">
-    I am an engineer by formation, curious and energetic - that applies technology to solve real-world problems. Personally, I’m a very easy going, sociable, fast-learner, curious and natural leader. I do what I love, and I love what I do. I lead by example and work side by side with my teams.
-    </p>
-    <p class="lead">
-    I am a deliberate <em>jack of all trades, master of none</em>. My profile is a hybrid of technical and managerial experience, but always related to technological projects. I bring business and product vision to tech teams, partly thanks to having started an developed a company. I am a fast learner, curious to see how technology can improve the users experience in multiple areas. I have a strong motivation and sense of responsibility with myself, my team and clients (or peers), and people like my positive and easy going, can-do attitude.
-    </p>
-    <p class="lead">    
-    On the technical side, I’m a <em>specialized generalist</em>, always working between different areas and aiming to develop a holistic vision on what is involved into creating a successful tech product: mobile and web development, devops/SRE,... This has involved a variety of languages and frameworks in the web-side, both in the backend and in the client side.
-    </p>'
 
   button:
     icon: "icon-smile-fill"
-    btnText: "About Me"
-    URL: "https://www.linkedin.com/in/adrianmoreno/"
   image:
     x: "images/working-left.jpg"
     _2x: "images/working-left@2x.jpg"
@@ -74,20 +56,13 @@ education:
 # experience
 experience:
   enable: true
-  title: "Experience"
-  description: "Over 17 years of experience working in all kind of project sizes and teams. I have architected & developed digital products to help businesses and improve people's lives, solving complex problems with simple solutions."
   button:
     icon: "icon-linkedin-fill"
-    btnText: "Linkedin"
-    URL: "https://www.linkedin.com/in/adrianmoreno/"
   button2:
     icon: "icon-profile-fill"
-    btnText: "Download résumé"
-    URL: "/files/cv_adrian_moreno_english.pdf"
   button3: 
     icon: "icon-arrow-right"
-    btnText: "All experience"
-    URL: "/experience"
+
 # Client & Work
 client_and_work:
   title: "Clients & Works"
@@ -191,26 +166,7 @@ contact:
   form:
     action: "https://formspree.io/info@adrianmoreno.info"
     method: "POST"
-    full_name: "Full Name"
-    email: "Email Address"
-    message: "Type Your Message Here"
-  phone:
-    title: "Phone Number"
-    number: "+45 31 57 98 27"
-  email:
-    title: "Email"
-    email: '<a href="mailto:info@adrianmoreno.info">info@adrianmoreno.info</a>'
-  address:
-    title: "Location"
-    address: "Copenhagen (DK)"
+
   button:
     icon: "icon-mail-fill"
     btnText: "Send Message"
-
-# newsletter
-newsletter:
-  enable: false
-  title: "Newsletter subscription"
-  success_message: "Successfully subscribed"
-  error_message: "Error while subscribing."
-  note: "We'll never share your email with anyone else."
