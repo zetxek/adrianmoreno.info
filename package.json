@@ -26,6 +26,7 @@
     "npm": ">= 3.0.0"
   },
   "dependencies": {
-    "node-gyp": "^10.2.0"
+    "node-gyp": "^10.2.0",
+    "puppeteer-core": "^23.9.0"
   }
 }
