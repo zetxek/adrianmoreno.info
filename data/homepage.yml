@@ -41,7 +41,7 @@ about:
   enable: true
 
   button:
-    icon: "icon-smile-fill"
+    icon: "icon-user"
   image:
     x: "images/working-left.jpg"
     _2x: "images/working-left@2x.jpg"
@@ -63,11 +63,11 @@ education:
 experience:
   enable: true
   button:
-    icon: "icon-linkedin-fill"
+    icon: "icon-linkedin"
   button2:
-    icon: "icon-profile-fill"
+    icon: "icon-file-pdf"
   button3: 
-    icon: "icon-arrow-right"
+    icon: "icon-circle-arrow-right"
 
 # Client & Work
 client_and_work:
@@ -174,5 +174,5 @@ contact:
     method: "POST"
 
   button:
-    icon: "icon-mail-fill"
+    icon: "icon-email"
     btnText: "Send Message"
