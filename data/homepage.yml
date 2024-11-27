@@ -10,7 +10,7 @@ showcase:
     x: "images/adrian.jpg"
 
   button:
-    icon: "icon-mail-fill"
+    icon: "icon-email"
     btnText: "Contact"
     URL: "#contact"
 
@@ -18,14 +18,20 @@ showcase:
     - icon: "linkedin"
       URL: "https://www.linkedin.com/in/adrianmoreno/"
 
-    - icon: "github"
+    - icon: "square-github"
       URL: "https://github.com/zetxek"
 
-    - icon: "twitter"
+    - icon: "x-twitter"
       URL: "https://twitter.com/zetxek"
+
+    - icon: "bluesky"
+      URL: "https://bsky.app/profile/zetxek.bsky.social"
 
     - icon: "instagram"
       URL: "https://www.instagram.com/zetxek"
+
+    - icon: "threads"
+      URL: "https://threads.net/zetxek"
 
     - icon: "facebook"
       URL: "https://www.facebook.com/zetxek"
@@ -35,7 +41,7 @@ about:
   enable: true
 
   button:
-    icon: "icon-smile-fill"
+    icon: "icon-user"
   image:
     x: "images/working-left.jpg"
     _2x: "images/working-left@2x.jpg"
@@ -57,11 +63,11 @@ education:
 experience:
   enable: true
   button:
-    icon: "icon-linkedin-fill"
+    icon: "icon-linkedin"
   button2:
-    icon: "icon-profile-fill"
+    icon: "icon-file-pdf"
   button3: 
-    icon: "icon-arrow-right"
+    icon: "icon-circle-arrow-right"
 
 # Client & Work
 client_and_work:
@@ -168,5 +174,5 @@ contact:
     method: "POST"
 
   button:
-    icon: "icon-mail-fill"
+    icon: "icon-email"
     btnText: "Send Message"

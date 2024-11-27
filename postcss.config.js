@@ -1,4 +1,5 @@
-const purgecss = require("@fullhuman/postcss-purgecss")({
+const purgecss = require("@fullhuman/postcss-purgecss");
+const purgecssconfig = purgecss.default({
     content: ["./hugo_stats.json"],
     keyframes: true,
     defaultExtractor: (content) => {
@@ -10,10 +11,9 @@ const purgecss = require("@fullhuman/postcss-purgecss")({
     greedy: [/header.*/, /.*icon.*/, /btn$/, /.*\[class.*/]
     },
     dynamicAttributes: ["type"]
-  });
-  
-  module.exports = {
-    plugins: [
-      ...(process.env.HUGO_ENVIRONMENT === "production" ? [purgecss] : []),
-    ],
-  };
+});
+module.exports = {
+  plugins: [
+    ...(process.env.HUGO_ENVIRONMENT === "production" ? [purgecssconfig] : []),
+  ],
+};
