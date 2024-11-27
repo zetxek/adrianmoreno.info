@@ -22,7 +22,7 @@
     "postcss-flexbugs-fixes": "^5.0.2"
   },
   "engines": {
-    "node": ">=14.16",
+    "node": ">=18.x",
     "npm": ">= 3.0.0"
   },
   "dependencies": {
