@@ -10,7 +10,7 @@ showcase:
     x: "images/adrian.jpg"
 
   button:
-    icon: "icon-mail-fill"
+    icon: "icon-email"
     btnText: "Contact"
     URL: "#contact"
 
@@ -18,14 +18,20 @@ showcase:
     - icon: "linkedin"
       URL: "https://www.linkedin.com/in/adrianmoreno/"
 
-    - icon: "github"
+    - icon: "square-github"
       URL: "https://github.com/zetxek"
 
-    - icon: "twitter"
+    - icon: "x-twitter"
       URL: "https://twitter.com/zetxek"
+
+    - icon: "bluesky"
+      URL: "https://bsky.app/profile/zetxek.bsky.social"
 
     - icon: "instagram"
       URL: "https://www.instagram.com/zetxek"
+
+    - icon: "threads"
+      URL: "https://threads.net/zetxek"
 
     - icon: "facebook"
       URL: "https://www.facebook.com/zetxek"
