@@ -2,10 +2,8 @@ name: Generate Critical CSS
 # Run on pull requests to main
 on:
   pull_request:
-    branches:
-      - main
-
-      jobs:
+    branches: [main]
+jobs:
   build:
     runs-on: ubuntu-latest
     steps:
