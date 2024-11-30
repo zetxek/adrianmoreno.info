@@ -18,11 +18,11 @@ jobs:
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
           cache: 'npm'
 
-      - name: Install postcss
-        run: npm install postcss-cli
+      - name: Install npm
+        run: npm install 
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
@@ -32,6 +32,15 @@ jobs:
 
       - name: Build
         run: hugo --minify --buildDrafts=true
+      
+      - name: Run critical css
+        run: npm run critical-css
+      
+      - name: Commit critical css
+        uses: EndBug/add-and-commit@v7
+        with:
+          message: 'Update critical CSS'
+          add: 'assets/css/critical.css'
       
       - name: Set up Python 3.8
         uses: actions/setup-python@v5

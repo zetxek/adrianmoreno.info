@@ -1,0 +1,44 @@
+name: Generate Critical CSS
+# Run on pull requests to main
+on:
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true  # Fetch Hugo themes
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+  
+      - name: Install npm
+        run: npm install 
+  
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.136.2'
+          extended: true
+
+      - name: Build
+        run: hugo --minify --buildDrafts=true
+      
+      - run: npm install
+
+      - name: Run critical script file
+        run: |
+          chmod +x ./critical-css.sh
+          ./critical-css.sh
+        shell: bash
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v7
+        with:
+          message: 'Update critical CSS'
+          add: 'assets/css/critical.css'
