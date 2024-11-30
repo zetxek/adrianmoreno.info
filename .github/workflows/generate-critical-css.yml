@@ -1,0 +1,22 @@
+name: Generate Critical CSS
+# Run on pull requests to main
+on:
+  pull_request:
+    branches:
+      - main
+
+      jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '22'
+      - run: npm install
+      - run: npm run critical-css
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v7
+        with:
+          message: 'Update critical CSS'
+          add: 'assets/css/critical.css'
