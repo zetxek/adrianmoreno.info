@@ -4,6 +4,7 @@ DefaultContentLanguage = "en"
 theme = "adritian-free-hugo-theme"
 
 [build]
+  writeStats = true
   [build.buildStats]
     disableClasses = false
     disableIDs = false
@@ -15,9 +16,6 @@ theme = "adritian-free-hugo-theme"
 #     weight: 1
 #   es
 #     weight: 2
-
-[build]
-  writeStats = true
   
 # Plugins
 [params.plugins]
