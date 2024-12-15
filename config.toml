@@ -3,6 +3,12 @@ languageCode = "en"
 DefaultContentLanguage = "en"
 theme = "adritian-free-hugo-theme"
 
+[build]
+  [build.buildStats]
+    disableClasses = false
+    disableIDs = false
+    disableTags = false
+    enable = true
 
 # Languages
 #   en
@@ -20,20 +26,25 @@ theme = "adritian-free-hugo-theme"
   [[params.plugins.css]]
   URL = "css/main.css"
   [[params.plugins.css]]
+  URL = "css/adritian.css"
+  [[params.plugins.css]]
   URL = "css/adritian-icons.css"
   [[params.plugins.css]]
   URL = "css/custom.css"
-  
-  # SCSS Plugins
-  [[params.plugins.scss]]
-  URL = "css/menu.scss"
 
   # JS Plugins
   [[params.plugins.js]]
   URL = "js/rad-animations.js"
   [[params.plugins.js]]
   URL = "js/sticky-header.js"
+  [[params.plugins.js]]
+  URL = "js/library/fontfaceobserver.js"
 
+  # SCSS Plugins
+  [[params.plugins.scss]]
+  URL = "scss/menu.scss"
+  [[params.plugins.scss]]
+  URL = "scss/bootstrap/bootstrap.scss"
  
 
 # navigation
