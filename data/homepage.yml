@@ -43,8 +43,8 @@ about:
   button:
     icon: "icon-user"
   image:
-    x: "images/working-left.jpg"
-    _2x: "images/working-left@2x.jpg"
+    x: "images/working-left.webp"
+    _2x: "images/working-left@2x.webp"
 
 # education
 education:
