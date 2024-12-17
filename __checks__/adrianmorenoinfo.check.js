@@ -17,4 +17,12 @@ test('visit page and take screenshot', async ({ page }) => {
 
     // Take a screenshot
     await page.screenshot({ path: 'screenshot.jpg' })
+
+    // Page title
+    await expect(page).toHaveTitle('Adrián Moreno Peña | VP of Engineering based in Copenhagen (Denmark) ⸱ mobile apps, platforms, APIs, SaaS');
+  
+    // Checking for some element in the content
+    await page.locator(".display-1").count() > 0
+
+
 })
