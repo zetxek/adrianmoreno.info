@@ -28,7 +28,4 @@ else
     hugo -b https://$PROD_URL --gc --minify --environment=production
 fi
 
-echo "Running critical css generation"
-source ./critical-css.sh
-
 echo "Done running vercel-build.sh"
