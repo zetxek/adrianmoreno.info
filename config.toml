@@ -3,6 +3,22 @@ languageCode = "en"
 DefaultContentLanguage = "en"
 theme = "adritian-free-hugo-theme"
 
+
+[params]
+
+  title = "Adrián Moreno Peña | VP of Engineering based in Copenhagen (Denmark) ⸱ mobile apps, platforms, APIs, SaaS"
+  description = "Personal site for Adrián Moreno Peña, VP of Engineering at SumUp. With a background as computer engineer and experience both as a web and mobile developer and team lead, in multi-cultural environments in Spain, the Netherlands and Denmark. You can find contact information, as well as availability for work, up-to-date curriculum and previous experience."
+  images = ['/img/og-preview.png']
+  
+  sections = ["showcase", "about", "education", "experience", "contact"]
+  googleTagManagerID = "GTM-NVN2BJG" # Google Analytics works with Google Tag Manager
+  homepageExperienceCount = 6
+
+  # controls vercel page insights - disabled by default
+  vercelPageInsights = true
+  vercelAnalytics = true
+
+
 [build]
   writeStats = true
   [build.buildStats]
@@ -24,8 +40,6 @@ theme = "adritian-free-hugo-theme"
   [[params.plugins.css]]
   URL = "css/main.css"
   [[params.plugins.css]]
-  URL = "css/adritian.css"
-  [[params.plugins.css]]
   URL = "css/adritian-icons.css"
   [[params.plugins.css]]
   URL = "css/custom.css"
@@ -40,10 +54,8 @@ theme = "adritian-free-hugo-theme"
 
   # SCSS Plugins
   [[params.plugins.scss]]
-  URL = "scss/menu.scss"
-  [[params.plugins.scss]]
-  URL = "scss/bootstrap/bootstrap.scss"
- 
+  URL = "scss/adritian.scss"
+  
 
 # navigation
 [menu]
@@ -85,16 +97,6 @@ theme = "adritian-free-hugo-theme"
   URL = "index.html#contact"
   weight = 5
 
-
-[params]
-
-  sections = ["showcase", "about", "education", "experience", "contact"]
-  googleTagManagerID = "GTM-NVN2BJG" # Google Analytics works with Google Tag Manager
-  homepageExperienceCount = 6
-
-  # controls vercel page insights - disabled by default
-  vercelPageInsights = true
-  vercelAnalytics = true
 
 [taxonomies]
   book_author = "book_authors"
