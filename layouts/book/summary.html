@@ -1,31 +1,44 @@
-<div class="col-sm-4 mb-3 mb-sm-0 d-flex align-items-stretch">
+<div class="col-12 mb-3">
   <div class="card h-100 book-content {{ if .Params.featured }}featured{{ end }}">
-    <img
-      src="{{ .Params.cover }}"
-      class="card-img-top"
-      alt="Cover of {{ .Title }} by {{ .Params.book_authors }}"
-    />
-
-    <div class="card-body d-flex flex-column">
-      <h5 class="card-title book-title">{{ .Title }}</h5>
-      {{- if isset .Params "book_authors" }}
-      <h6 class="book-author card-subtitle mb-2 text-body-secondary">by {{ range .Params.book_authors }} {{ . }} {{ end}}</h6>
-      {{- end }} {{ if gt (len .Summary) 0 }}
-      <p class="card-text">{{ .Summary }}</p>
-      {{ end }}
-      <a
-        class="goodreads-link mt-auto"
-        href="{{ .Params.link }}"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+    <div class="row g-0">
+      <div class="col-md-2 col-sm-3">
+        {{ if .Params.cover }}
         <img
-          class="goodreads-search"
-          src="/img/goodreads.svg"
-          alt="Search in goodreads"
+          src="{{ .Params.cover }}"
+          class="img-fluid rounded-start book-cover"
+          alt="Cover of {{ .Title }} by {{ .Params.book_authors }}"
         />
-        <small>Search in Goodreads</small>
-      </a>
+        {{ end }}
+      </div>
+      <div class="col-md-10 col-sm-9">
+        <div class="card-body py-2">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h5 class="card-title book-title mb-1">{{ .Title }}</h5>
+              {{- if isset .Params "book_authors" }}
+              <p class="book-author text-body-secondary mb-2">by {{ range .Params.book_authors }} {{ . }} {{ end}}</p>
+              {{- end }}
+            </div>
+            <a
+              class="goodreads-link ms-2"
+              href="{{ .Params.link }}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                class="goodreads-search"
+                src="/img/goodreads.svg"
+                alt="Search in goodreads"
+                width="24"
+                height="24"
+              />
+            </a>
+          </div>
+          {{ if gt (len .Summary) 0 }}
+          <p class="card-text small">{{ .Summary }}</p>
+          {{ end }}
+        </div>
+      </div>
     </div>
   </div>
 </div>
