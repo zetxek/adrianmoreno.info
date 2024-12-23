@@ -1,11 +1,10 @@
-
 .book-content {
   transition: transform 0.2s ease-in-out;
   border: 1px solid rgba(0, 0, 0, 0.1);
 
   &.featured {
-    border-color: #ffd700;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+    border-color: #478079;
+    box-shadow: 0 0 10px rgba(71, 128, 121, 0.2);
   }
 
   &:hover {
@@ -101,8 +100,8 @@
     background-color: #242424;
 
     &.featured {
-      border-color: #ffd700;
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.15);
+      border-color: #478079;
+      box-shadow: 0 0 10px rgba(71, 128, 121, 0.3);
     }
 
     .book-title {
@@ -110,7 +109,7 @@
     }
 
     .book-author {
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.7) !important;
     }
 
     .card-text {
