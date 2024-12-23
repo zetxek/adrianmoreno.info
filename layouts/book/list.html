@@ -25,11 +25,11 @@
                 <h2 id="{{ anchorize . }}" class="book-category clearfix">
                   <a href="#{{ anchorize . }}" class="book-category-anchor"><span class="icon">🔗</span> {{ . }}</a>
                 </h2>
-                  <ul class="row col-12 book-category-content">
+                  <div class="row book-category-content card-group">
                   {{ range where (where site.RegularPages "Draft" false) "Params.book_categories" "intersect" (slice . ) }}
                     {{ .Render "summary"}} 
                   {{ end }}
-                  </ul>
+                  </div>
               </div>
   
               {{ end }}

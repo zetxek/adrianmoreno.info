@@ -1,14 +1,33 @@
-    <li class="book-content col-sm-12 {{ if .Params.featured }}featured{{ end }}">
-        <h5 class="book-title">{{ .Title }}</h5>
-        {{ if isset .Params "book_authors" }} 
-            <h6 class="book-author">, by 
-            {{ range .Params.book_authors }} 
-                {{ . }} 
-            {{ end}}
-            </h6>
-            {{ end }}
-        <a class="goodreads-link" href="{{ .Params.link }}" target="_blank" rel="noopener noreferrer">
-            <img class="goodreads-search" src="/img/goodreads.svg" alt="Search in goodreads">
+<div class="col-sm-4 mb-3 mb-sm-0 d-flex align-items-stretch">
+  <div class="card book-content {{ if .Params.featured }}featured{{ end }}">
+    <img
+      src="/books/high-output.png"
+      class="card-img-top"
+      alt="Cover of {{ .Title }} by {{ .Params.book_authors }}"
+    />
+
+    <div class="card-body d-flex flex-column">
+      <h5 class="card-title book-title">{{ .Title }}</h5>
+      {{- if isset .Params "book_authors" }}
+      <h6 class="book-author card-subtitle mb-2 text-body-secondary">by {{ range .Params.book_authors }} {{ . }} {{ end}}</h6>
+      {{- end }} {{ if gt (len .Summary) 0 }}
+      <p class="card-text">{{ .Summary }}</p>
+      {{ end }}
+      <div class="card-footer">
+        <a
+          class="goodreads-link"
+          href="{{ .Params.link }}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            class="goodreads-search"
+            src="/img/goodreads.svg"
+            alt="Search in goodreads"
+          />
+          <small>Search in Goodreads</small>
         </a>
-        {{ if gt (len .Summary) 0 }} <p>{{ .Summary }}</p> {{ end }} 
-    </li>
+      </div>
+    </div>
+  </div>
+</div>
