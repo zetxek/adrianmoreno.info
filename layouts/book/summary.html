@@ -1,14 +1,44 @@
-    <li class="book-content col-sm-12 {{ if .Params.featured }}featured{{ end }}">
-        <h5 class="book-title">{{ .Title }}</h5>
-        {{ if isset .Params "book_authors" }} 
-            <h6 class="book-author">, by 
-            {{ range .Params.book_authors }} 
-                {{ . }} 
-            {{ end}}
-            </h6>
-            {{ end }}
-        <a class="goodreads-link" href="{{ .Params.link }}" target="_blank" rel="noopener noreferrer">
-            <img class="goodreads-search" src="/img/goodreads.svg" alt="Search in goodreads">
-        </a>
-        {{ if gt (len .Summary) 0 }} <p>{{ .Summary }}</p> {{ end }} 
-    </li>
+<div class="col-12 mb-3">
+  <div class="card h-100 book-content {{ if .Params.featured }}featured{{ end }}">
+    <div class="row g-0">
+      <div class="col-md-2 col-sm-3">
+        {{ if .Params.cover }}
+        <img
+          src="{{ .Params.cover }}"
+          class="img-fluid rounded-start book-cover"
+          alt="Cover of {{ .Title }} by {{ .Params.book_authors }}"
+        />
+        {{ end }}
+      </div>
+      <div class="col-md-10 col-sm-9">
+        <div class="card-body py-2">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h5 class="card-title book-title mb-1">{{ .Title }}</h5>
+              {{- if isset .Params "book_authors" }}
+              <p class="book-author text-body-secondary mb-2">by {{ range .Params.book_authors }} {{ . }} {{ end}}</p>
+              {{- end }}
+            </div>
+            <a
+              class="goodreads-link ms-2"
+              href="{{ .Params.link }}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                class="goodreads-search"
+                src="/img/goodreads.svg"
+                alt="Search in goodreads"
+                width="24"
+                height="24"
+              />
+            </a>
+          </div>
+          {{ if gt (len .Summary) 0 }}
+          <p class="card-text small">{{ .Summary }}</p>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

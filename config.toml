@@ -55,7 +55,8 @@ theme = "adritian-free-hugo-theme"
   # SCSS Plugins
   [[params.plugins.scss]]
   URL = "scss/adritian.scss"
-  
+  [[params.plugins.scss]]
+  URL = "scss/_books.scss"
 
 # navigation
 [menu]

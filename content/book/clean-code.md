@@ -5,6 +5,7 @@ book_categories: ["Software engineering and development"]
 link: "https://www.goodreads.com/search?q=Clean+Code+A+Handbook+of+Agile+Craftmanship+Robert+c+Martin"
 featured: true
 
+cover: "/images/books/clean-code-a-handbook-of-agile-software-craftsmanship.jpg"
 ---
 
 Classic on software development - it changed the way I understood code, and convinced me to always aim for readability and human-optimized code. Its focus on readability and naming really influenced my view on software, and helped me understand better testing.
