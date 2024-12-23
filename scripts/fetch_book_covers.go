@@ -17,6 +17,7 @@ const (
 	contentType    = "book"
 	staticImgDir   = "static/images/books"
 	googleBooksAPI = "https://www.googleapis.com/books/v1/volumes?q=%s"
+	skipExisting   = true // Skip books that already have a cover
 )
 
 type GoogleBooksResponse struct {
@@ -104,6 +105,15 @@ func modifyContent(content string) string {
 		return content
 	}
 
+	// Check if cover already exists and we should skip
+	if skipExisting {
+		cover := extractField(matches[1], "cover")
+		if cover != "" {
+			fmt.Printf("Skipping book: cover already exists (%s)\n", cover)
+			return content
+		}
+	}
+
 	title := extractField(matches[1], "title")
 	authors := extractArrayField(matches[1], "book_authors")
 
@@ -145,15 +155,14 @@ func searchBookCover(query string) string {
 	}
 
 	fmt.Printf("Found %d items\n", len(result.Items))
-	if (len(result.Items)) > 0 {
-		fmt.Printf("First item: %+v\n", result.Items[0].VolumeInfo.ImageLinks.Thumbnail)
-	}
-	if len(result.Items) > 0 && result.Items[0].VolumeInfo.ImageLinks.Thumbnail != "" {
-		imageURL := result.Items[0].VolumeInfo.ImageLinks.Thumbnail
-		// Convert http to https
-		imageURL = strings.Replace(imageURL, "http://", "https://", 1)
-		fmt.Printf("Found image URL: %s\n", imageURL)
-		return imageURL
+	for _, item := range result.Items {
+		if item.VolumeInfo.ImageLinks.Thumbnail != "" {
+			imageURL := item.VolumeInfo.ImageLinks.Thumbnail
+			// Convert http to https
+			imageURL = strings.Replace(imageURL, "http://", "https://", 1)
+			fmt.Printf("Found image URL: %s\n", imageURL)
+			return imageURL
+		}
 	}
 
 	fmt.Printf("No image found for query: %s\n", query)
