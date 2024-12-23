@@ -1,7 +1,7 @@
 <div class="col-sm-4 mb-3 mb-sm-0 d-flex align-items-stretch">
   <div class="card h-100 book-content {{ if .Params.featured }}featured{{ end }}">
     <img
-      src="/books/high-output.png"
+      src="{{ .Params.cover }}"
       class="card-img-top"
       alt="Cover of {{ .Title }} by {{ .Params.book_authors }}"
     />
