@@ -1,3 +1,4 @@
+
 .book-content {
   transition: transform 0.2s ease-in-out;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -90,6 +91,59 @@
       opacity: 0.3;
       font-size: 0.8em;
       transition: opacity 0.2s ease-in-out;
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .book-content {
+    border-color: rgba(255, 255, 255, 0.1);
+    background-color: #242424;
+
+    &.featured {
+      border-color: #ffd700;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.15);
+    }
+
+    .book-title {
+      color: #fff;
+    }
+
+    .book-author {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .card-text {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .goodreads-link img {
+      filter: invert(1);
+    }
+  }
+
+  .book-toc {
+    background: #242424;
+
+    h2 {
+      color: #fff;
+    }
+
+    &-link {
+      color: rgba(255, 255, 255, 0.8);
+
+      &:hover {
+        background: #333;
+        color: #fff;
+      }
+    }
+  }
+
+  .book-category {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    
+    &-anchor {
+      color: #fff;
     }
   }
 }
