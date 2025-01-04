@@ -63,10 +63,13 @@ education:
 experience:
   enable: true
   button:
+    enable: true
     icon: "icon-linkedin"
   button2:
+    enable: true
     icon: "icon-file-pdf"
   button3: 
+    enable: true
     icon: "icon-circle-arrow-right"
 
 # Client & Work
