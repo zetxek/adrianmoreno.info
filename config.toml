@@ -91,10 +91,10 @@ theme = "adritian-free-hugo-theme"
   URL = "/public-speaking"
   weight = 4
 
-  [[menu.footer]]
-  name = "📨 Contact"
-  URL = "index.html#contact"
-  weight = 5
+  #[[menu.footer]]
+  #name = "📨 Contact"
+  #URL = "index.html#contact"
+  #weight = 5
 
 
 [taxonomies]
