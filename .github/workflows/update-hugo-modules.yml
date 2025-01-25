@@ -48,14 +48,7 @@ jobs:
               -B main \
               -H $BRANCH_NAME \
               --title "Update Hugo modules" \
-              --body "🤖 This automated PR updates the Hugo modules to their latest versions.
-
-Changes in go.mod:
-\`\`\`
-$UPDATES
-\`\`\`
-
-🔗 Triggered by GitHub action: https://github.com/${{ github.repository }}/actions/workflows/update-hugo-modules.yml"
+              --body $'🤖 This automated PR updates the Hugo modules to their latest versions.\n\nChanges in go.mod:\n```\n'"$UPDATES"$'\n```\n\n🔗 Triggered by GitHub action: https://github.com/'"$GITHUB_REPOSITORY"$'/actions/workflows/update-hugo-modules.yml'
           else
             echo "No updates found for Hugo modules"
           fi
