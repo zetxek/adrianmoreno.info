@@ -1,0 +1,63 @@
+name: Update Hugo modules
+
+# Controls when the action will run.
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Update Hugo Modules
+        run: |
+          DATE=$(date '+%Y%m%d-%H%M')
+          BRANCH_NAME="update-hugo-modules/update-$DATE"
+          
+          # Setup the committer's identity
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions - update Hugo modules"
+          
+          # Create new branch
+          git checkout -b $BRANCH_NAME
+          
+          # Update Hugo modules
+          hugo mod get -u
+          hugo mod tidy
+          
+          # Commit changes if any
+          if [[ -n $(git status -s) ]]; then
+            git add go.mod go.sum
+            git commit -m "Update Hugo modules"
+            git push origin $BRANCH_NAME
+            
+            # Get the updated module versions for PR description
+            UPDATES=$(git diff main...HEAD go.mod | grep -E '^\+.*v[0-9]' || echo "No version changes found")
+            
+            # Create PR
+            gh pr create \
+              -B main \
+              -H $BRANCH_NAME \
+              --title "Update Hugo modules" \
+              --body "🤖 This automated PR updates the Hugo modules to their latest versions.
+
+Changes in go.mod:
+\`\`\`
+$UPDATES
+\`\`\`
+
+🔗 Triggered by GitHub action: https://github.com/${{ github.repository }}/actions/workflows/update-hugo-modules.yml"
+          else
+            echo "No updates found for Hugo modules"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
