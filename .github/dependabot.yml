@@ -9,6 +9,11 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+      
+  - package-ecosystem: "gomod" # Hugo modules use Go modules
+    directory: "/" # Location of hugo.mod
+    schedule:
+      interval: "weekly"
 
   - package-ecosystem: gitsubmodule
     schedule:
