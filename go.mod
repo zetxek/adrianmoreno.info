@@ -1,5 +1,5 @@
 module github.com/zetxek/adrianmoreno.info
 
-go 1.23
+go 1.20
 
-require github.com/zetxek/adritian-free-hugo-theme v1.4.28-0.20250125211631-64928b683f36
+require github.com/zetxek/adritian-free-hugo-theme v1.5.0
