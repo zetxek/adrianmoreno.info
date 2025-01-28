@@ -52,6 +52,8 @@ path="github.com/zetxek/adritian-free-hugo-theme"
 
 [build]
   
+  _merge = "deep"
+  
   writeStats = true
   [build.buildStats]
     disableClasses = false
