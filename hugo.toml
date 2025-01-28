@@ -10,6 +10,20 @@ min = "0.92.0"
 [[module.imports]]
 path="github.com/zetxek/adritian-free-hugo-theme"
 
+# The following mounts are required for the theme to be able to load bootstrap
+# Remember also to copy the theme's `package.json` to your site, and run `npm install`
+[[module.mounts]]
+  source = "node_modules/bootstrap/scss"
+  target = "assets/scss/bootstrap"
+
+[[module.mounts]]
+  source = "node_modules/bootstrap/dist/js"
+  target = "assets/js/bootstrap"
+
+[[module.mounts]]
+  source = "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+  target = "assets/js/vendor/bootstrap.bundle.min.js"
+
 [params]
 
   title = "Adrián Moreno Peña | VP of Engineering based in Copenhagen (Denmark) ⸱ mobile apps, platforms, APIs, SaaS"
@@ -37,6 +51,7 @@ path="github.com/zetxek/adritian-free-hugo-theme"
 
 
 [build]
+  
   writeStats = true
   [build.buildStats]
     disableClasses = false
@@ -70,8 +85,8 @@ path="github.com/zetxek/adritian-free-hugo-theme"
   # SCSS Plugins
   [[params.plugins.scss]]
   URL = "scss/adritian.scss"
-  [[params.plugins.scss]]
-  URL = "scss/_books.scss"
+  #[[params.plugins.scss]]
+  #URL = "scss/books.scss"
 
 # navigation
 [menu]
