@@ -18,15 +18,17 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
-  
       - name: Install npm
         run: npm install 
   
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.136.2'
+          hugo-version: '0.142.0'
           extended: true
+
+      - Name: hugo npm pack
+        run: hugo mod npm pack
 
       - name: Build
         run: hugo --minify --buildDrafts=true

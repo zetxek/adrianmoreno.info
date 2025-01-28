@@ -1,18 +1,30 @@
 {
-  "name": "adrianmoreno.info",
-  "version": "1.0.0",
-  "description": "JS automations for adrianmoreno.info",
-  "homepage": "https://bitbucket.org/zetxek/adrianmoreno.info",
-  "repository": {
-    "type": "git",
-    "url": "git+https://bitbucket.org/zetxek/adrianmoreno.info.git"
-  },
   "author": "Adrián Moreno Peña <zetxek@gmail.com>",
-  "license": "ISC",
-  "type": "commonjs",
+  "comments": {
+    "dependencies": {
+      "node-gyp": "project"
+    },
+    "devDependencies": {
+      "@fullhuman/postcss-purgecss": "project",
+      "autoprefixer": "project",
+      "bootstrap": "github.com/zetxek/adritian-free-hugo-theme",
+      "browser-sync": "project",
+      "critical": "project",
+      "del": "project",
+      "imagemin-mozjpeg": "project",
+      "postcss": "project",
+      "postcss-cli": "project",
+      "postcss-flexbugs-fixes": "project"
+    }
+  },
+  "dependencies": {
+    "node-gyp": "^10.2.0"
+  },
+  "description": "JS automations for adrianmoreno.info",
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^7.0.2",
     "autoprefixer": "^10.4.20",
+    "bootstrap": "^5.3.3",
     "browser-sync": "^3.0.3",
     "critical": "^7.2.1",
     "del": "^8.0.0",
@@ -25,7 +37,13 @@
     "node": "22.x",
     "npm": ">= 3.0.0"
   },
-  "dependencies": {
-    "node-gyp": "^10.2.0"
-  }
+  "homepage": "https://bitbucket.org/zetxek/adrianmoreno.info",
+  "license": "ISC",
+  "name": "adrianmoreno.info",
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/zetxek/adrianmoreno.info.git"
+  },
+  "type": "commonjs",
+  "version": "1.0.0"
 }
