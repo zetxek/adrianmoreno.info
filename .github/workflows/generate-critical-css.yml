@@ -27,7 +27,7 @@ jobs:
           hugo-version: '0.142.0'
           extended: true
 
-      - Name: hugo npm pack
+      - name: hugo npm pack
         run: hugo mod npm pack
 
       - name: Build
