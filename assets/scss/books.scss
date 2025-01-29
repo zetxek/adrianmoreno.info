@@ -1,6 +1,8 @@
+
 .book-content {
   transition: transform 0.2s ease-in-out;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
 
   &.featured {
     border-color: #478079;
@@ -94,7 +96,8 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+
+[data-bs-theme="dark"] {
   .book-content {
     border-color: rgba(255, 255, 255, 0.1);
     background-color: #242424;
