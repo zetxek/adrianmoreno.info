@@ -1,0 +1,31 @@
+{
+  "name": "adrianmoreno.info",
+  "version": "1.0.0",
+  "description": "JS automations for adrianmoreno.info",
+  "homepage": "https://bitbucket.org/zetxek/adrianmoreno.info",
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/zetxek/adrianmoreno.info.git"
+  },
+  "author": "Adrián Moreno Peña <zetxek@gmail.com>",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^7.0.2",
+    "autoprefixer": "^10.4.20",
+    "browser-sync": "^3.0.3",
+    "critical": "^7.2.1",
+    "del": "^8.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
+    "postcss-flexbugs-fixes": "^5.0.2"
+  },
+  "engines": {
+    "node": "22.x",
+    "npm": ">= 3.0.0"
+  },
+  "dependencies": {
+    "node-gyp": "^10.2.0"
+  }
+}
