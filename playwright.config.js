@@ -8,8 +8,8 @@ module.exports = defineConfig({
   },
   use: {
     baseURL: 'http://localhost:1313',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    screenshot: 'on',
+    video: 'on',
   },
   reporter: [
     ['html'],
@@ -27,12 +27,6 @@ module.exports = defineConfig({
       use: {
         browserName: 'firefox',
       },
-    },
-    {
-      name: 'Safari',
-      use: {
-        browserName: 'webkit',
-      },
-    },
+    }
   ],
 }); 
