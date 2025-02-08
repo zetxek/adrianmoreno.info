@@ -135,7 +135,7 @@
   translation: '<a href="mailto:info@adrianmoreno.info">info@adrianmoreno.info</a>'
 
 - id: "contact_address_title"
-  translation: "Address"
+  translation: "Location"
 
 - id: "contact_address_address"
   translation: "Copenhagen (DK🇩🇰)"
