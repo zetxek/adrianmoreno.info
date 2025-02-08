@@ -110,7 +110,7 @@
 - id: "contact_title"
   translation: "Contact"
 
-- id: "contact_button_send"
+- id: "contact_button"
   translation: "Send message"
 
 - id: "contact_form_name"
