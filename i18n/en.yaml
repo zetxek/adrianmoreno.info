@@ -21,13 +21,13 @@
 
 ## Homepage showcase
 - id: "showcase_title"
-  translation: "Hello, I’m Adrián."
+  translation: "Hello, I'm Adrián."
 
 - id: "showcase_subtitle"
   translation: "VP of Engineering & Tribe Lead"
 
 - id: "showcase_description"
-  translation: "Based in Copenhagen 🇩🇰, I work at <a target='_blank' href='https://www.sumup.com/'>SumUp</a>, a fintech company empowering small businesses. Our vision is to build a world where anyone can create a thriving business through accessible tools and technology. <br/>A specialized generalist at heart, I bring a unique blend of expertise across backend systems, mobile development, and infrastructure. Over my career, I’ve led teams of all sizes—from hands-on coding to scaling engineering groups—always anchored in the 3P framework: <strong>People, Product, Process</strong>.</br>I’m driven by cultivating high-performing teams that embrace iterative improvement, psychological safety, and purpose-driven work. Whether refining agile workflows or mentoring future leaders, my goal is to build environments where both products <em>and</em> people thrive."
+  translation: "Based in Copenhagen 🇩🇰, I work at <a target='_blank' href='https://www.sumup.com/'>SumUp</a>, a fintech company empowering small businesses. Our vision is to build a world where anyone can create a thriving business through accessible tools and technology. <br/>A specialized generalist at heart, I bring a unique blend of expertise across backend systems, mobile development, and infrastructure. Over my career, I've led teams of all sizes—from hands-on coding to scaling engineering groups—always anchored in the 3P framework: <strong>People, Product, Process</strong>.</br>I'm driven by cultivating high-performing teams that embrace iterative improvement, psychological safety, and purpose-driven work. Whether refining agile workflows or mentoring future leaders, my goal is to build environments where both products <em>and</em> people thrive."
 
 - id: "showcase_button"
   translation: "Contact"
@@ -37,14 +37,14 @@
   translation: "Who am I?"
 
 - id: "about_content"
-  translation:  '<p class="lead">
-    I am an engineer by formation, curious and energetic - that applies technology to solve real-world problems. Personally, I’m a very easy going, sociable, fast-learner, curious and natural leader. I do what I love, and I love what I do. I lead by example and work side by side with my teams.
+  translation: '<p class="lead">
+    An engineer at heart and a problem-solver by nature, I channel curiosity and energy into creating technology that simplifies lives. Leadership, for me, means rolling up my sleeves: you’ll find me debugging code with engineers one hour and aligning product strategy the next.
     </p>
     <p class="lead">
-    I am a deliberate <em>jack of all trades, master of none</em>. My profile is a hybrid of technical and managerial experience, but always related to technological projects. I bring business and product vision to tech teams, partly thanks to having started an developed a company. I am a fast learner, curious to see how technology can improve the users experience in multiple areas. I have a strong motivation and sense of responsibility with myself, my team and clients (or peers), and people like my positive and easy going, can-do attitude.
+    I’m a <strong>T-shaped leader</strong> with 15+ years bridging technical execution and team growth. After founding my own small company, I learned to translate business vision into tech reality—whether scaling cloud infrastructure, mentoring junior devs, or advocating for user-centric design.
     </p>
-    <p class="lead">    
-    On the technical side, I’m a <em>specialized generalist</em>, always working between different areas and aiming to develop a holistic vision on what is involved into creating a successful tech product: mobile and web development, devops/SRE,... This has involved a variety of languages and frameworks in the web-side, both in the backend and in the client side.
+    <p class="lead">
+    <strong>My superpower?</strong> Versatility. From architecting backend systems (Node.js, Java or PHP) or mobile apps, to optimizing CI/CD pipelines, I connect dots across disciplines to build products that resonate. But technology alone isn’t the answer: I obsess over <em>how</em> teams work, fostering environments where psychological safety and iterative learning drive innovation.
     </p>'
 
 - id: "about_button"
@@ -110,7 +110,7 @@
 - id: "contact_title"
   translation: "Contact"
 
-- id: "contact_button"
+- id: "contact_button_send"
   translation: "Send message"
 
 - id: "contact_form_name"
@@ -139,9 +139,6 @@
 
 - id: "contact_address_address"
   translation: "Copenhagen (DK🇩🇰)"
-
-- id: "contact_button"
-  translation: "Send Message"
 
 ## Blog
 - id: "read_more"
