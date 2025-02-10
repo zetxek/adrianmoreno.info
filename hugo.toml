@@ -159,3 +159,13 @@ path="github.com/zetxek/adritian-free-hugo-theme"
 [taxonomies]
   book_author = "book_authors"
   book_category = "book_categories"
+
+[params.languages.selector.disable]
+footer = false
+header = false
+mobileHeader = false
+
+[params.colorTheme.selector.disable]
+footer = false
+header = true
+mobileHeader = false
