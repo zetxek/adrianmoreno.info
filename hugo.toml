@@ -3,162 +3,161 @@ languageCode = "en"
 DefaultContentLanguage = "en"
 
 _merge = "deep"
-  
+
 [module]
 [module.hugoVersion]
 # We use hugo.Deps to list dependencies, which was added in Hugo 0.92.0
 min = "0.92.0"
 
 [[module.imports]]
-path="github.com/zetxek/adritian-free-hugo-theme"
+path = "github.com/zetxek/adritian-free-hugo-theme"
+
+## Base mounts - so your site's assets are available
+[[module.mounts]]
+source = "archetypes"
+target = "archetypes"
+
+[[module.mounts]]
+source = "assets"
+target = "assets"
+
+[[module.mounts]]
+source = "i18n"
+target = "i18n"
+
+[[module.mounts]]
+source = "layouts"
+target = "layouts"
+
+[[module.mounts]]
+source = "static"
+target = "static"
 
 # The following mounts are required for the theme to be able to load bootstrap
 # Remember also to copy the theme's `package.json` to your site, and run `npm install`
-
- [[module.mounts]]
-    source = "archetypes"
-    target = "archetypes"
-
-  [[module.mounts]]
-    source = "assets"
-    target = "assets"
-
-  [[module.mounts]]
-    source = "i18n"
-    target = "i18n"
-
-  [[module.mounts]]
-    source = "layouts" 
-    target = "layouts"
-
-  [[module.mounts]]
-    source = "static"
-    target = "static"
-
+[[module.mounts]]
+source = "node_modules/bootstrap/scss"
+target = "assets/scss/bootstrap"
 
 [[module.mounts]]
-  source = "node_modules/bootstrap/scss"
-  target = "assets/scss/bootstrap"
+source = "node_modules/bootstrap/dist/js"
+target = "assets/js/bootstrap"
 
 [[module.mounts]]
-  source = "node_modules/bootstrap/dist/js"
-  target = "assets/js/bootstrap"
+source = "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+target = "assets/js/vendor/bootstrap.bundle.min.js"
 
 [[module.mounts]]
-  source = "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-  target = "assets/js/vendor/bootstrap.bundle.min.js"
+source = "node_modules/bootstrap-print-css/css/bootstrap-print.css"
+target = "assets/css/bootstrap-print.css"
 
 [params]
 
+title = "Adrián Moreno Peña | VP of Engineering based in Copenhagen (Denmark) ⸱ mobile apps, platforms, APIs, SaaS"
+description = "Personal site for Adrián Moreno Peña, VP of Engineering at SumUp. With a background as computer engineer and experience both as a web and mobile developer and team lead, in multi-cultural environments in Spain, the Netherlands and Denmark. You can find contact information, as well as availability for work, up-to-date curriculum and previous experience."
+images = ['/img/og-preview.png']
 
-  
-  title = "Adrián Moreno Peña | VP of Engineering based in Copenhagen (Denmark) ⸱ mobile apps, platforms, APIs, SaaS"
-  description = "Personal site for Adrián Moreno Peña, VP of Engineering at SumUp. With a background as computer engineer and experience both as a web and mobile developer and team lead, in multi-cultural environments in Spain, the Netherlands and Denmark. You can find contact information, as well as availability for work, up-to-date curriculum and previous experience."
-  images = ['/img/og-preview.png']
-  
-  sections = ["showcase", "about", "education", "experience", "contact"]
-  homepageExperienceCount = 6
+homepageExperienceCount = 6
 
-  [params.analytics]
-  # controls vercel page insights - disabled by default
-  # to enable, just set to true
-  vercelPageInsights = true
-  vercelAnalytics = true
-  
-  # google analytics and tag manager. to enable, set "enabled" to true
-  # and add the tracking code (UA-something for analytics, GTM-something for tag manager)
-  [params.analytics.googleAnalytics]
-      code = "UA-XXXXX-Y"
-      enabled = true
-  [params.analytics.googleTagManager]
-      code = "GTM-NVN2BJG"
-      enabled = false
+[params.analytics]
+# controls vercel page insights - disabled by default
+# to enable, just set to true
+vercelPageInsights = true
+vercelAnalytics = true
 
+# google analytics and tag manager. to enable, set "enabled" to true
+# and add the tracking code (UA-something for analytics, GTM-something for tag manager)
+[params.analytics.googleAnalytics]
+code = "UA-XXXXX-Y"
+enabled = true
+[params.analytics.googleTagManager]
+code = "GTM-NVN2BJG"
+enabled = false
 
 
 [build]
-  
 
-  writeStats = true
-  [build.buildStats]
-    disableClasses = false
-    disableIDs = false
-    disableTags = false
-    enable = true
+
+writeStats = true
+[build.buildStats]
+disableClasses = false
+disableIDs = false
+disableTags = false
+enable = true
 
 # Languages
 #   en
 #     weight: 1
 #   es
 #     weight: 2
-  
+
 # Plugins
 [params.plugins]
 
-  # CSS Plugins
-  [[params.plugins.css]]
-  URL = "css/adritian-icons.css"
-  [[params.plugins.css]]
-  URL = "css/custom.css"
+# CSS Plugins
+[[params.plugins.css]]
+URL = "css/adritian-icons.css"
+[[params.plugins.css]]
+URL = "css/custom.css"
 
-  # JS Plugins
-  [[params.plugins.js]]
-  URL = "js/rad-animations.js"
-  [[params.plugins.js]]
-  URL = "js/sticky-header.js"
-  [[params.plugins.js]]
-  URL = "js/library/fontfaceobserver.js"
+# JS Plugins
+[[params.plugins.js]]
+URL = "js/rad-animations.js"
+[[params.plugins.js]]
+URL = "js/sticky-header.js"
+[[params.plugins.js]]
+URL = "js/library/fontfaceobserver.js"
 
-  # SCSS Plugins
-  [[params.plugins.scss]]
-  URL = "scss/adritian.scss"
-  [[params.plugins.scss]]
-  URL = "scss/books.scss"
+# SCSS Plugins
+[[params.plugins.scss]]
+URL = "scss/adritian.scss"
+[[params.plugins.scss]]
+URL = "scss/books.scss"
 
 # navigation
 [menu]
 
-  [[menu.header]]
-  name = "About"
-  URL = "index.html#about"
-  weight = 2
+[[menu.header]]
+name = "About"
+URL = "index.html#about"
+weight = 2
 
-  [[menu.header]]
-  name = "Experience"
-  URL = "index.html#experience"
-  weight = 3
+[[menu.header]]
+name = "Experience"
+URL = "index.html#experience"
+weight = 3
 
-  [[menu.header]]
-  name = "Contact"
-  URL = "#contact"
-  weight = 4
-
-
-  [[menu.footer]]
-  name = "💁‍♂️ About"
-  URL = "index.html#about"
-  weight = 2
+[[menu.header]]
+name = "Contact"
+URL = "#contact"
+weight = 4
 
 
-  [[menu.footer]]
-  name = "📚 Books"
-  URL = "/books"
-  weight = 3
+[[menu.footer]]
+name = "💁‍♂️ About"
+URL = "index.html#about"
+weight = 2
 
-  [[menu.footer]]
-  name = "🎤 Public Speaking"
-  URL = "/public-speaking"
-  weight = 4
 
-  #[[menu.footer]]
-  #name = "📨 Contact"
-  #URL = "index.html#contact"
-  #weight = 5
+[[menu.footer]]
+name = "📚 Books"
+URL = "/books"
+weight = 3
+
+[[menu.footer]]
+name = "🎤 Public Speaking"
+URL = "/public-speaking"
+weight = 4
+
+#[[menu.footer]]
+#name = "📨 Contact"
+#URL = "index.html#contact"
+#weight = 5
 
 
 [taxonomies]
-  book_author = "book_authors"
-  book_category = "book_categories"
+book_author = "book_authors"
+book_category = "book_categories"
 
 [params.languages.selector.disable]
 footer = false
