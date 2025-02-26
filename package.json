@@ -6,8 +6,10 @@
     },
     "devDependencies": {
       "@fullhuman/postcss-purgecss": "project",
+      "@zetxek/adritian-theme-helper": "github.com/zetxek/adritian-free-hugo-theme",
       "autoprefixer": "project",
       "bootstrap": "github.com/zetxek/adritian-free-hugo-theme",
+      "bootstrap-print-css": "github.com/zetxek/adritian-free-hugo-theme",
       "browser-sync": "project",
       "critical": "project",
       "del": "project",
@@ -18,21 +20,28 @@
     }
   },
   "dependencies": {
-    "node-gyp": "^11.1.0"
+    "node-gyp": "^10.2.0",
+    "playwright": "^1.50.1"
+  },
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install"
   },
   "description": "JS automations for adrianmoreno.info",
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^7.0.2",
-    "@playwright/test": "^1.50.1",
+    "@zetxek/adritian-theme-helper": "^1.0.3",
     "autoprefixer": "^10.4.20",
     "bootstrap": "^5.3.3",
+    "bootstrap-print-css": "^1.0.0",
     "browser-sync": "^3.0.3",
     "critical": "^7.2.1",
     "del": "^8.0.0",
     "imagemin-mozjpeg": "^10.0.0",
-    "postcss": "^8.5.2",
+    "postcss": "^8.4.49",
     "postcss-cli": "^11.0.0",
-    "postcss-flexbugs-fixes": "^5.0.2"
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "@playwright/test": "^1.42.1"
   },
   "engines": {
     "node": "22.x",
@@ -46,8 +55,5 @@
     "url": "git+https://bitbucket.org/zetxek/adrianmoreno.info.git"
   },
   "type": "commonjs",
-  "version": "1.0.0",
-  "scripts": {
-    "test:e2e": "playwright test"
-  }
+  "version": "1.0.0"
 }
