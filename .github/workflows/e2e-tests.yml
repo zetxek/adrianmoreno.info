@@ -34,7 +34,7 @@ jobs:
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ steps.playwright-version.outputs.version }}
+          key: playwright-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
         run: npm ci
