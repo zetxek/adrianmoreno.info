@@ -22,7 +22,7 @@ test.describe('Homepage', () => {
 
     // Verify social links are present
     const socialLinks = page.locator('.platform-links a');
-    await expect(socialLinks).toHaveCount(7); // Based on homepage.yml config
+    await expect(socialLinks).toHaveCount(8); // Based on homepage.yml config
 
     // Take a screenshot for visual reference
     await page.screenshot({ path: 'test-results/homepage.png' });
