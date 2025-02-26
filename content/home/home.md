@@ -64,4 +64,6 @@ draft = false
     contact_email_title="My mail"
     contact_email_email="info@adrianmoreno.info"
     contact_address_title="My location"
-    contact_address_address="🇩🇰 Copenhagen, Denmark" >}}
+    contact_address_address="🇩🇰 Copenhagen, Denmark"
+    form_action="https://formspree.io/info@adrianmoreno.info"
+    form_method="POST" >}}
