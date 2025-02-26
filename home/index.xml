@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homes on</title><link>https://www.adrianmoreno.info/home/</link><description>Recent content in Homes on</description><generator>Hugo</generator><language>en</language><atom:link href="https://www.adrianmoreno.info/home/index.xml" rel="self" type="application/rss+xml"/><item><title>Home</title><link>https://www.adrianmoreno.info/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.adrianmoreno.info/home/home/</guid><description>&lt;section id="showcase" class="rad-showcase rad-showcase--index rad-animation-group rad-fade-down">
+ &lt;div id="main-content" class="container">
+ 
+
+
+ 
+ 
+
+ &lt;div class="showcase-section row flex-column-reverse flex-md-row rad-fade-down rad-waiting rad-animate">
+ &lt;div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+ &lt;h1 class="display-1">
+ Hello, I&amp;#39;m Adrián.
+ &lt;br />
+ &lt;span>VP of Engineering &amp; Tribe Lead&lt;/span>
+ &lt;/h1>
+ &lt;div class="lead">
+ Based in Copenhagen 🇩🇰, I work at &lt;a target='_blank' href='https://www.sumup.com/'>SumUp&lt;/a>, a fintech company empowering small businesses. Our vision is to build a world where anyone can create a thriving business through accessible tools and technology. &lt;br/>A specialized generalist at heart, I bring a unique blend of expertise across backend systems, mobile development, and infrastructure. Over my career, I've led teams of all sizes—from hands-on coding to scaling engineering groups—always anchored in the 3P framework: &lt;strong>People, Product, Process&lt;/strong>.&lt;br/>I'm driven by cultivating high-performing teams that embrace iterative improvement, psychological safety, and purpose-driven work. Whether refining agile workflows or mentoring future leaders, my goal is to build environments where both products &lt;em>and&lt;/em> people thrive.
+ &lt;/div>
+ 
+ &lt;a
+ href="#contact"
+ class="btn btn-primary"
+ >
+ &lt;i class="icon-email">&lt;/i>
+ Contact me
+ &lt;/a>
+ 
+ &lt;/div>
+ &lt;div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 profile-image">
+
+ 
+ 
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ &lt;picture>
+ &lt;source srcset="https://www.adrianmoreno.info/images/adrian_hu18116418615478989739.webp 1x, https://www.adrianmoreno.info/images/adrian@2x_hu3854046177713958716.webp 2x" type="image/webp" />
+ &lt;source srcset="https://www.adrianmoreno.info/images/adrian.jpg 1x, https://www.adrianmoreno.info/images/adrian@2x.jpg 2x" type="image/webp">
+ &lt;img
+ width="400"
+ height="400"
+ class="lozad img-responsive"
+ src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
+ srcset="https://www.adrianmoreno.info/images/adrian.jpg 1x, https://www.adrianmoreno.info/images/adrian@2x.jpg 2x"
+ data-src="https://www.adrianmoreno.info/images/adrian.jpg"
+ data-srcset="https://www.adrianmoreno.info/images/adrian.jpg 1x, https://www.adrianmoreno.info/images/adrian@2x.jpg 2x"
+ alt='A picture of Cool Name'
+ />
+ &lt;/picture>
+ 
+ 
+
+
+
+ &lt;/div>
+ &lt;div class="col-12 inner-content">
+ 
+
+ 
+
+&lt;div class="container">
+ &lt;div class="row platform-links shortcode">
+ &lt;div class="col-12">
+ 
+ 
+ &lt;a
+ href="https://facebook.com/zetxek"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="square-facebook"
+ >&lt;i class="icon-square-facebook">&lt;/i
+ >&lt;/a>
+
+ 
+ 
+ &lt;a
+ href="https://twitter.com/zetxek"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="square-twitter"
+ >&lt;i class="icon-square-twitter">&lt;/i
+ >&lt;/a>
+
+ 
+ 
+ &lt;a
+ href="https://www.linkedin.com/in/adrianmoreno/"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="linkedin"
+ >&lt;i class="icon-linkedin">&lt;/i
+ >&lt;/a>
+
+ 
+ 
+ &lt;a
+ href="https://github.com/zetxek"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="square-github"
+ >&lt;i class="icon-square-github">&lt;/i
+ >&lt;/a>
+
+ 
+ 
+ &lt;a
+ href="https://twitter.com/zetxek"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="x-twitter"
+ >&lt;i class="icon-x-twitter">&lt;/i
+ >&lt;/a>
+
+ 
+ 
+ &lt;a
+ href="https://www.instagram.com/zetxek/"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="instagram"
+ >&lt;i class="icon-instagram">&lt;/i
+ >&lt;/a>
+
+ 
+ 
+ &lt;a
+ href="https://www.bluesky.com/zetxek"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="bluesky"
+ >&lt;i class="icon-bluesky">&lt;/i
+ >&lt;/a>
+
+ 
+ 
+ &lt;a
+ href="https://www.threads.net/zetxek"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="threads"
+ >&lt;i class="icon-threads">&lt;/i
+ >&lt;/a>
+
+ &lt;/div>
+ &lt;/div>
+&lt;/div>
+
+
+ &lt;/div>
+ 
+
+ &lt;/div>
+
+
+ &lt;div class="row platform-links">
+ &lt;div class="col-12">&lt;/div>
+ &lt;/div>
+ &lt;/div>
+ 
+&lt;/section>
+
+
+
+
+
+
+&lt;section id="about" class="section rad-animation-group pb-0">
+ &lt;div class="container rad-fade-down">
+ &lt;div class="row d-flex flex-column-reverse flex-md-row">
+ &lt;div class="about__profile-picture col-12 col-md-6">
+ 
+ 
+ 
+ 
+ &lt;picture>
+ &lt;source srcset="https://www.adrianmoreno.info/images/working-left@2x_hu3957169385901490338.webp 1x, https://www.adrianmoreno.info/images/working-left@2x_hu3957169385901490338.webp 2x" type="image/webp" />
+ &lt;source srcset="https://www.adrianmoreno.info/images/working-left.webp 1x, https://www.adrianmoreno.info/images/working-left@2x.webp 2x" type="image/webp">
+ &lt;img
+ width="790"
+ height="768"
+ class="lozad img-responsive image-left-overflow"
+ src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
+ srcset="https://www.adrianmoreno.info/images/working-left.webp 1x, https://www.adrianmoreno.info/images/working-left@2x.webp 2x"
+ data-src="https://www.adrianmoreno.info/images/working-left.webp"
+ data-srcset="https://www.adrianmoreno.info/images/working-left.webp 1x, https://www.adrianmoreno.info/images/working-left@2x.webp 2x"
+ alt=''
+ />
+ &lt;/picture>
+ 
+ 
+ &lt;/div>
+ &lt;div class="col-12 col-md-6 my-auto my-auto">
+ &lt;h2>Who am I?&lt;/h2>
+ &lt;div class="about-me content lead">
+ &lt;p class='lead'>An engineer at heart and a problem-solver by nature, I channel curiosity and energy into creating technology that simplifies lives. Leadership, for me, means rolling up my sleeves: you'll find me debugging code with engineers one hour and aligning product strategy the next. I'm a &lt;strong>deliberate generalist&lt;/strong>, a T-shaped professional with a hybrid toolkit: part technical architect, part team builder. After founding a startup, I learned to bridge business vision and technical execution—scaling systems, mentoring teams, and advocating for user-centric design. My leadership thrives on three principles: &lt;ol>&lt;li>&lt;strong>Iterative Improvement:&lt;/strong> I foster teams that treat progress as a cycle of experimentation, feedback, and refinement.&lt;/li>&lt;li>&lt;strong>Radical Transparency:&lt;/strong> From blocks to wins, I believe open communication builds trust and aligns goals.&lt;/li>&lt;li>&lt;strong>Empathy as a Superpower:&lt;/strong> Understanding diverse perspectives—whether engineers, clients, or end-users—fuels better decisions and stronger collaboration.&lt;/li>&lt;/ol>&lt;br/>&lt;strong>My superpower?&lt;/strong> Versatility. From architecting backend systems (Node.js, Java or PHP) or mobile apps, to optimizing CI/CD pipelines, I connect dots across disciplines to build products that resonate. But technology alone isn't the answer: I obsess over &lt;em>how&lt;/em> teams work, fostering environments where psychological safety and iterative learning drive innovation.
+ &lt;/div>
+ 
+ &lt;/div>
+ &lt;/div>
+ &lt;/div>
+&lt;/section>
+
+
+&lt;section
+ id="education"
+ class="section section--border-bottom rad-animation-group"
+>
+ &lt;div class="container">
+ &lt;div class="row rad-fade-down">
+ &lt;div class="col-12">
+ &lt;h2>Education&lt;/h2>
+ &lt;div class="row pt-2 pt-md-4">
+ 
+ &lt;div class="col-12 col-sm-6 mb-4 mb-sm-0">
+ &lt;div class="education">
+ &lt;div class="education__date">2004-2007&lt;/div>
+ &lt;div class="education__title">University of Santiago de Compostela&lt;/div>
+ &lt;div class="education__degree">Technical Engineering in Computer Systems&lt;/div>
+ &lt;/div>
+ &lt;/div>
+ 
+ &lt;div class="col-12 col-sm-6 mb-4 mb-sm-0">
+ &lt;div class="education">
+ &lt;div class="education__date">2008-2010&lt;/div>
+ &lt;div class="education__title">University of Santiago de Compostela&lt;/div>
+ &lt;div class="education__degree">Master in Projects Management&lt;/div>
+ &lt;/div>
+ &lt;/div>
+ 
+ &lt;/div>
+ &lt;/div>
+ &lt;/div>
+ &lt;/div>
+&lt;/section>
+
+
+
+
+&lt;section id="experience-single" class="container section-experience section section--border-bottom rad-animation-group flex-grow-1">
+ &lt;div class="row flex-column-reverse flex-md-row rad-fade-down">
+ &lt;div class="experience-list col-12 col-md-6">
+ &lt;h2>
+ 
+ 
+ 
+ &lt;/h2>
+
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ &lt;div class="experience">
+ &lt;a href="https://www.adrianmoreno.info/experience/sumup/" class="experience__link">
+ &lt;div class="experience__header">
+ 
+ 
+ &lt;div class="experience__meta">
+ &lt;div class="experience__date">2021-present&lt;/div>
+ &lt;div class="experience__title">Engineering Manager → VP of Engineering &amp;amp; Tribe Lead&lt;/div>
+ &lt;div class="experience__company">
+ SumUp.
+ &lt;span class="experience__location">Copenhagen, Denmark&lt;/span>
+ &lt;/div>
+ &lt;/div>
+ &lt;div class="experience__description d-none d-print-block">
+ &lt;h1>VP of Engineering &amp;amp; Tribe Lead - SumUp&lt;/h1>
+ Moved to Denmark, joined an European Unicorn 🦄 After relocating from Amsterdam to Copenhagen - I joined SumUp to work in the danish headquarters as an Engineering Manager for the Accounting Squad, in the Merchant Growth Tribe. The team I joined had been part of a previous acquisition of SumUp (Debitoor): merging cultures and integrating into the overall company was a big challenge.
+At SumUp I got hands-on with a more complex organizational setup and map, with a tribalized setup; and highly enjoyed the reflective spirit of the company when finding new ways of working.
+Later, I got promoted to Director of Engineering, overseeing the engineering department of the Invoices Tribe (and its two products, SumUp Invoices &amp;amp; Accounting). As part of the Tribe leadership, I worked on aligning technology and product to ensure a solid foundation for quick iterations, and maximising merchants&amp;rsquo; value and developer experience (happy teams = happy product = happy customers!).
+Afterwards, I got another job change, transitioning to be the tribe lead for the Invoices &amp;amp; Accounting team. This role involves P&amp;amp;L responsibility, as well as accountability on financial results and product evolution.
+The team size is around 30 FTE - organized in 4 squads + QA, each with an Engineering Manager. We provide mobile app services (from the context of the SumUp SuperApp) as well as web experience.
+Additionally, I expanded my scope on Engineering, by driving the global Incident Response process. Without direct reports, the responsibility includes to lead the implementation of the processes and tools. The role involves intense collaboration with other functions (such as Risk, Compliance and Operations) to implement the process in a holistic, customer-centric manner.
+After being focused on growth, aligned with the global economical context in 2023 there was a strong company-wide pivot to profitability. This resulted on achieving a funding round of €285 million in december, fueling the growth ambition (with a economically sustainable approach).
+
+ &lt;/div>
+ &lt;/div>
+ &lt;/a>
+ &lt;/div>
+ 
+ &lt;div class="experience">
+ &lt;a href="https://www.adrianmoreno.info/experience/vanmoof/" class="experience__link">
+ &lt;div class="experience__header">
+ 
+ 
+ &lt;div class="experience__meta">
+ &lt;div class="experience__date">2019-2021&lt;/div>
+ &lt;div class="experience__title">Technical Lead → Engineering Manager&lt;/div>
+ &lt;div class="experience__company">
+ VanMoof.
+ &lt;span class="experience__location">Amsterdam, The Netherlands&lt;/span>
+ &lt;/div>
+ &lt;/div>
+ &lt;div class="experience__description d-none d-print-block">
+ &lt;h1>Tech Lead - VanMoof&lt;/h1>
+ Startup-life VanMoof is a developer and designer of urban e-bikes, with a Direct-to-consumer model.
+With retail locations in Tokyo, Berlin, San Francisco, London, Paris, Taipei - I joined in the moment that the company started to shape as a scale-up - joining just before the Series-A ($13.5M) and B ($40M) investment rounds.
+During my work at VanMoof I participated in in-sourcing efforts, to bring technology closer to the core of the company, especially in the digital ecosystem (which included the content and marketing sites, e-commerce systems, ERP, customer support, and other custom-developed solutions both for internal and customer use).
+The team grew fast while I worked at VanMoof. In the early stage I worked as Tech Lead, focusing in an Individual Contributor track mixed with technical leadership, and participated in in-sourcing the development of the platform and setting up fundaments like continous integration, pull request review processes, or infrastructure as code and 24x7 service. As the team scaled up in the hypergrowth phase, I participated in the organization of the teams, shaping my role as an Engineering Manager, and setting new disciplines (such as QA department, frontend-development), new platforms (such as the definition and launch of the partner network, shaping the collaboration with the development partners Info.nl).
+
+ &lt;/div>
+ &lt;/div>
+ &lt;/a>
+ &lt;/div>
+ 
+ &lt;div class="experience">
+ &lt;a href="https://www.adrianmoreno.info/experience/emakinanl/" class="experience__link">
+ &lt;div class="experience__header">
+ 
+ 
+ &lt;div class="experience__meta">
+ &lt;div class="experience__date">2017-2019&lt;/div>
+ &lt;div class="experience__title">Technical Lead&lt;/div>
+ &lt;div class="experience__company">
+ Emakina.NL.
+ &lt;span class="experience__location">Amsterdam, The Netherlands&lt;/span>
+ &lt;/div>
+ &lt;/div>
+ &lt;div class="experience__description d-none d-print-block">
+ &lt;h1>Technical Lead - Emakina.NL&lt;/h1>
+ Agency-life Emakina.NL is a digital agency with a strong focus in e-commerce and enterprise content management systems. Emakina.NL is a strategic solution partner for Salesforce Commerce Cloud (https://blog.emakina.com/2017/06/20/emakina-salesforce-commerce-cloud-partner/), and has also experience in cross-cloud solutions across the Salesforce ecosystem.
+In Emakina.NL I was part of a multidisciplinar agile team, with a cross-functional combination of roles from different providers, and the client, working together. The technical team was up to 10 people, but it was only a part of the whole - which included a dedicated QA engineering team, Product Owner, Scrum Master, and Business Analysts.
+The solution I worked on for 2 years was a cross-cloud implementation in SFCC, with a tech stack strongly oriented towards the Salesforce ecosystem: Javascript in the backend and frontend, SASS, Mulesoft &amp;amp; Java as middleware, Azure as the cloud infrastructure, and the Atlassian ecosystem (JIRA, Confluence, Bamboo) for the day to to day.
+My role as tech lead was to provide solutions that would fit in the technical and functional landscape, ensuring maintainability, quality and the right knowledge distribution in the team. For this, the role included coaching new team members, hands-on (pair) programming, and intensive code review to ensure the highest standards and continuous improvement. It also involved the creation of plannings and estimations, and definitions of roadmaps.
+As a side track at Emakina.NL I also participated in some public speaking sessions, internally and also externally:
+Web Accessibility Live 2018, organised by SiteImprove in Amsterdam: https://siteimprove.com/nl-nl/events/web-accessibility-live-2018/, with a talk about the technical implementation of the accessibility requirements in a e-commerce project. Continuous Delivery Amsterdam, https://www.meetup.com/Continuous-Delivery-Amsterdam/events/247988829/, with a talk about CD/CI in Salesforce Commerce Cloud. 
+ &lt;/div>
+ &lt;/div>
+ &lt;/a>
+ &lt;/div>
+ 
+ &lt;div class="experience">
+ &lt;a href="https://www.adrianmoreno.info/experience/pocketmedia/" class="experience__link">
+ &lt;div class="experience__header">
+ 
+ 
+ &lt;div class="experience__meta">
+ &lt;div class="experience__date">2015-2017&lt;/div>
+ &lt;div class="experience__title">CTO&lt;/div>
+ &lt;div class="experience__company">
+ Pocket Media.
+ &lt;span class="experience__location">Amsterdam, The Netherlands&lt;/span>
+ &lt;/div>
+ &lt;/div>
+ &lt;div class="experience__description d-none d-print-block">
+ &lt;h1>CTO - Pocket Media&lt;/h1>
+ First time leading a multi-cultural team At Pocket Media I lead the tech team of the company, in a process of product creation and launch to market. I was a member of the management team of the company, and lead up to 10 FTE, in charge of hiring, role definition, and performance management.
+As part of my (team) tasks, I executed mobile and web (high scalability) development projects. I defined the products roadmap, milestones, and plans to achieve the objectives, as well as the talent acquisition.
+The company focus as an advertisement agency was strongly towards app installs and mobile entertainment, and the product definition spiralled around those verticals. The focus of the native advertisement platform we developed was in customisability, ease to adopt by mobile and web developers and media, and transparency towards the partners.
+
+ &lt;/div>
+ &lt;/div>
+ &lt;/a>
+ &lt;/div>
+ 
+ &lt;div class="experience">
+ &lt;a href="https://www.adrianmoreno.info/experience/themobilecompany/" class="experience__link">
+ &lt;div class="experience__header">
+ 
+ 
+ &lt;div class="experience__meta">
+ &lt;div class="experience__date">2015&lt;/div>
+ &lt;div class="experience__title">Senior Mobile Apps Developer (iOS &amp;amp; Android)&lt;/div>
+ &lt;div class="experience__company">
+ The Mobile Company.
+ &lt;span class="experience__location">Amsterdam, The Netherlands&lt;/span>
+ &lt;/div>
+ &lt;/div>
+ &lt;div class="experience__description d-none d-print-block">
+ &lt;h1>Mobile Apps Developer - The Mobile Company&lt;/h1>
+ First job abroad By 2015 I was looking for a life change - and this was accompanied by a professional &amp;ldquo;reinvention&amp;rdquo;. After years growing Zadia together with my co-founder and partner, I exited the venture with the aim of starting afresh in a new location, new culture, and discover new ways of working.
+After an evaluation of potential locations where to relocate to, I chose Amsterdam as a city, and The Mobile Company as my company. There I worked with an excellent group of professionals, highly specialised in native, high quality mobile application development for some of the largest apps in the Netherlands.
+At TMC I developed innovative new apps (ie: using Bluetooth BLE beacons technology, which in 2015 was an emerging technology) and also maintained apps with a large and complex codebase and numerous users, among top Dutch apps. I helped tackling complex problems and long-standing bugs, and participated in an agile teams that included the client.
+
+ &lt;/div>
+ &lt;/div>
+ &lt;/a>
+ &lt;/div>
+ 
+ &lt;div class="experience">
+ &lt;a href="https://www.adrianmoreno.info/experience/zadiasoftware/" class="experience__link">
+ &lt;div class="experience__header">
+ 
+ 
+ &lt;div class="experience__meta">
+ &lt;div class="experience__date">2011-2015&lt;/div>
+ &lt;div class="experience__title">Co-Founder &amp;amp; Technical Lead&lt;/div>
+ &lt;div class="experience__company">
+ Zadia Software.
+ &lt;span class="experience__location">Santiago de Compostela, Spain&lt;/span>
+ &lt;/div>
+ &lt;/div>
+ &lt;div class="experience__description d-none d-print-block">
+ &lt;h1>Co-Founder - Zadia Software&lt;/h1>
+ Co-founder and technical lead At Zadia I co-Founded and bootstrapped a software development studio. From its origin as a part time job, to leading and coordinating a team of 5 engineers on the technical side.
+Revenue-wise, we were doubling the revenue every year, helping make the company sustainable ant have a self-sustained growth.
+The company provided software development services and advice to a range of companies, from small ones looking to digitalize their business or improve their online presence, to larger enterprise-level projects, where we would oversee the integration of multiple services, and complement the existing teams.
+The portfolio of services offered while I was at Zadia ranged from web development services (including CMS-based projects, such as Wordpress or Drupal) to mobile app development (both native in iOS and Android, or hybrid/multiplatform development), as well as custom development services like Service Oriented Architecture projects, or e-commerce platforms development.
+As usual in a bootstrapped company, the tasks done during this experience didn&amp;rsquo;t limit to technical ones. I worked on customer acquisition and account management, accounting of the company, promotion and management of the social media profiles (including content creation and SEO optimizations), and everything that could be needed.
+
+ &lt;/div>
+ &lt;/div>
+ &lt;/a>
+ &lt;/div>
+ 
+
+ 
+ &lt;div class="all-experience-container">
+ 
+ &lt;em>And 2 more&lt;/em>&lt;br />
+ &lt;a href="https://www.adrianmoreno.info/experience" class="btn btn-primary btn-all-experience">
+ &lt;i class="icon-circle-arrow-right">&lt;/i>
+ All experience
+ &lt;/a>
+ &lt;/div>
+ 
+ &lt;/div>
+ &lt;div class="experience-description col-12 col-md-6">
+ 
+ 
+
+
+
+
+
+
+
+&lt;div class="container-experience">
+ &lt;div class="row">
+ &lt;h2>Experience&lt;/h2>
+ &lt;p class="lead">Over 17 years of experience working in all kind of project sizes and teams. I have architected &amp; developed digital products to help businesses and improve people's lives, solving complex problems with simple solutions.&lt;/p></description></item></channel></rss>
