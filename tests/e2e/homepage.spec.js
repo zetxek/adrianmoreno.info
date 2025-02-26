@@ -13,7 +13,7 @@ test.describe('Homepage', () => {
 
     // Verify key sections are present
     await expect(page.locator('#about')).toBeVisible();
-    await expect(page.locator('#experience')).toBeVisible();
+    await expect(page.locator('#experience-single')).toBeVisible();
     await expect(page.locator('#contact')).toBeVisible();
 
     // Verify header navigation
@@ -36,8 +36,8 @@ test.describe('Homepage', () => {
     await expect(page.locator('#about')).toBeInViewport();
 
     // Click Experience link and verify scroll
-    await page.click('header a[href*="#experience"]');
-    await expect(page.locator('#experience')).toBeInViewport();
+    await page.click('header a[href*="#experience-single"]');
+    await expect(page.locator('#experience-single')).toBeInViewport();
 
     // Click Contact link and verify scroll
     await page.click('header a[href*="#contact"]');
