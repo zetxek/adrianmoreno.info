@@ -24,7 +24,8 @@
     "playwright": "^1.50.1"
   },
   "scripts": {
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install"
   },
   "description": "JS automations for adrianmoreno.info",
   "devDependencies": {
@@ -39,7 +40,8 @@
     "imagemin-mozjpeg": "^10.0.0",
     "postcss": "^8.4.49",
     "postcss-cli": "^11.0.0",
-    "postcss-flexbugs-fixes": "^5.0.2"
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "@playwright/test": "^1.42.1"
   },
   "engines": {
     "node": "22.x",
