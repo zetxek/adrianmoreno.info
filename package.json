@@ -22,6 +22,9 @@
   "dependencies": {
     "node-gyp": "^10.2.0"
   },
+  "scripts": {
+    "test:e2e": "playwright test"
+  },
   "description": "JS automations for adrianmoreno.info",
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^7.0.2",
