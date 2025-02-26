@@ -15,16 +15,18 @@ draft = false
     image2x="images/adrian@2x.jpg"
  >}}
 
-{{< platform-links >}}
-    {{< link icon="square-facebook" url="https://facebook.com/zetxek" >}}
-    {{< link icon="square-twitter" url="https://twitter.com/zetxek" >}}
-    {{< link icon="linkedin" url="https://www.linkedin.com/in/adrianmoreno/" >}}
-    {{< link icon="square-github" url="https://github.com/zetxek" >}}
-    {{< link icon="x-twitter" url="https://twitter.com/zetxek" >}}
-    {{< link icon="instagram" url="https://www.instagram.com/zetxek/" >}}
-    {{< link icon="bluesky" url="https://www.bluesky.com/zetxek" >}}
-    {{< link icon="threads" url="https://www.threads.net/zetxek" >}}
-{{< /platform-links >}}
+    {{< platform-links >}}
+        {{< link icon="square-facebook" url="https://facebook.com/zetxek" >}}
+        {{< link icon="square-twitter" url="https://twitter.com/zetxek" >}}
+        {{< link icon="linkedin" url="https://www.linkedin.com/in/adrianmoreno/" >}}
+        {{< link icon="square-github" url="https://github.com/zetxek" >}}
+        {{< link icon="x-twitter" url="https://twitter.com/zetxek" >}}
+        {{< link icon="instagram" url="https://www.instagram.com/zetxek/" >}}
+        {{< link icon="bluesky" url="https://www.bluesky.com/zetxek" >}}
+        {{< link icon="threads" url="https://www.threads.net/zetxek" >}}
+    {{< /platform-links >}}
+{{< /showcase-section >}}
+
 
 {{< about-section
     title="Who am I?"
