@@ -4,7 +4,6 @@
 
 
  
- 
 
  &lt;div class="showcase-section row flex-column-reverse flex-md-row rad-fade-down rad-waiting rad-animate">
  &lt;div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -18,7 +17,7 @@
  &lt;/div>
  
  &lt;a
- href="#contact"
+ href=""
  class="btn btn-primary"
  >
  &lt;i class="icon-email">&lt;/i>
@@ -27,37 +26,41 @@
  
  &lt;/div>
  &lt;div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 profile-image">
+ 
+
+
+
+
+
+
+
+
+
 
  
  
 
- 
- 
 
- 
- 
- 
- 
 
  
  
 
- &lt;picture>
- &lt;source srcset="https://www.adrianmoreno.info/images/adrian_hu18116418615478989739.webp 1x, https://www.adrianmoreno.info/images/adrian@2x_hu3854046177713958716.webp 2x" type="image/webp" />
- &lt;source srcset="https://www.adrianmoreno.info/images/adrian.jpg 1x, https://www.adrianmoreno.info/images/adrian@2x.jpg 2x" type="image/webp">
+
+ &lt;picture class="">
+ 
+ 
+
+ &lt;source srcset="https://www.adrianmoreno.info/images/adrian@2x_hu5216263286038285200.webp 1x, https://www.adrianmoreno.info/images/adrian@2x_hu3854046177713958716.webp 2x" type="image/webp" />
+ &lt;source srcset="https://www.adrianmoreno.info/images/adrian@2x_hu17947456356788333215.jpg 1x, https://www.adrianmoreno.info/images/adrian@2x_hu12206620427421187993.jpg 2x" type="image/jpeg">
+
  &lt;img
  width="400"
- height="400"
- class="lozad img-responsive"
- src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
- srcset="https://www.adrianmoreno.info/images/adrian.jpg 1x, https://www.adrianmoreno.info/images/adrian@2x.jpg 2x"
- data-src="https://www.adrianmoreno.info/images/adrian.jpg"
- data-srcset="https://www.adrianmoreno.info/images/adrian.jpg 1x, https://www.adrianmoreno.info/images/adrian@2x.jpg 2x"
- alt='A picture of Cool Name'
+ class="lozad img-responsive "
+ data-src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
+ alt=''
  />
  &lt;/picture>
- 
- 
+
 
 
 
@@ -173,30 +176,48 @@
 
 
 
+
+
+
 &lt;section id="about" class="section rad-animation-group pb-0">
  &lt;div class="container rad-fade-down">
  &lt;div class="row d-flex flex-column-reverse flex-md-row">
  &lt;div class="about__profile-picture col-12 col-md-6">
  
+
+
+
+
+
+
+
+
+
+
  
  
+
+
+
  
- &lt;picture>
- &lt;source srcset="https://www.adrianmoreno.info/images/working-left@2x_hu3957169385901490338.webp 1x, https://www.adrianmoreno.info/images/working-left@2x_hu3957169385901490338.webp 2x" type="image/webp" />
- &lt;source srcset="https://www.adrianmoreno.info/images/working-left.webp 1x, https://www.adrianmoreno.info/images/working-left@2x.webp 2x" type="image/webp">
+ 
+
+
+ &lt;picture class="">
+ 
+ 
+
+ &lt;source srcset="https://www.adrianmoreno.info/images/working-left@2x_hu64792707364868390.webp 1x, https://www.adrianmoreno.info/images/working-left@2x_hu18062588421335557846.webp 2x" type="image/webp" />
+ &lt;source srcset="https://www.adrianmoreno.info/images/working-left@2x_hu64792707364868390.webp 1x, https://www.adrianmoreno.info/images/working-left@2x_hu18062588421335557846.webp 2x" type="image/webp">
+
  &lt;img
  width="790"
- height="768"
  class="lozad img-responsive image-left-overflow"
- src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
- srcset="https://www.adrianmoreno.info/images/working-left.webp 1x, https://www.adrianmoreno.info/images/working-left@2x.webp 2x"
- data-src="https://www.adrianmoreno.info/images/working-left.webp"
- data-srcset="https://www.adrianmoreno.info/images/working-left.webp 1x, https://www.adrianmoreno.info/images/working-left@2x.webp 2x"
+ data-src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
  alt=''
  />
  &lt;/picture>
- 
- 
+
  &lt;/div>
  &lt;div class="col-12 col-md-6 my-auto my-auto">
  &lt;h2>Who am I?&lt;/h2>
@@ -423,7 +444,7 @@ As usual in a bootstrapped company, the tasks done during this experience didn&a
  
  &lt;em>And 2 more&lt;/em>&lt;br />
  &lt;a href="https://www.adrianmoreno.info/experience" class="btn btn-primary btn-all-experience">
- &lt;i class="icon-circle-arrow-right">&lt;/i>
+ &lt;i class="">&lt;/i>
  All experience
  &lt;/a>
  &lt;/div>
@@ -444,4 +465,111 @@ As usual in a bootstrapped company, the tasks done during this experience didn&a
 &lt;div class="container-experience">
  &lt;div class="row">
  &lt;h2>Experience&lt;/h2>
- &lt;p class="lead">Over 17 years of experience working in all kind of project sizes and teams. I have architected &amp; developed digital products to help businesses and improve people's lives, solving complex problems with simple solutions.&lt;/p></description></item></channel></rss>
+ &lt;div class="lead">Over 17 years of experience working in all kind of project sizes and teams. I have architected &amp; developed digital products to help businesses and improve people's lives, solving complex problems with simple solutions.&lt;/div>
+ &lt;/div>
+
+ &lt;div class="row">
+ 
+ &lt;div class="col-12 col-lg-4">
+ &lt;a
+ href='https://linkedin.com/in/adrianmoreno'
+ class="btn btn-primary btn-block w-100"
+ target="_blank"
+ rel="noopener noreferrer"
+ >
+ &lt;i class="icon-linkedin">&lt;/i>
+ See in LinkedIn
+ &lt;i class="icon-arrow-right">&lt;/i>
+ &lt;/a>
+ &lt;/div>
+ 
+
+ 
+ &lt;div class="col-12 col-lg-4">
+ &lt;a
+ href='https://www.adrianmoreno.info/files/cv_adrian_moreno_english.pdf'
+ class="btn btn-frameless w-100"
+ target="_blank"
+ rel="noopener noreferrer"
+ >
+ 
+ Download résumé
+ &lt;/a>
+ &lt;/div>
+ 
+
+ 
+ &lt;div class="col-12 col-lg-4">
+ &lt;a
+ href='https://www.adrianmoreno.info/experience'
+ class="btn btn-frameless w-100"
+ rel="noopener noreferrer"
+ >
+ 
+ All experience
+ &lt;/a>
+ &lt;/div>
+ 
+ &lt;/div>
+&lt;/div>
+
+ &lt;/div>
+ &lt;/div>
+&lt;/section>
+
+
+
+
+
+
+&lt;section id="contact" class="section section--contact pt-0">
+ &lt;div class="container">
+ &lt;div class="contact">
+ &lt;h2>Reach out&lt;/h2>
+
+ &lt;div class="row pt-2">
+ &lt;div class="col-12 col-lg-7">
+ &lt;form action="https://formspree.io/info@adrianmoreno.info" method="POST">
+ &lt;div class="row">
+ &lt;div class="col-12 col-sm-6">
+ &lt;input type="text" name="full_name" id="full_name" placeholder="Your name"/>
+ &lt;/div>
+ &lt;div class="col-12 col-sm-6">
+ &lt;input type="text" name="email" id="email" placeholder="Your e-mail"/>
+ &lt;/div>
+ &lt;/div>
+ &lt;div class="row pt-4">
+ &lt;div class="col-12">
+ &lt;textarea name="message" id="message" cols="30" rows="3" placeholder="Your message">&lt;/textarea>
+ &lt;/div>
+ &lt;/div>
+ &lt;div class="row pt-4">
+ &lt;div class="col-12">
+ &lt;button type="submit" class="btn btn-primary">
+ &lt;i class="">&lt;/i>
+ Send message
+ &lt;/button>
+ &lt;/div>
+ &lt;/div>
+ &lt;/form>
+ &lt;/div>
+ &lt;div class="col-12 col-lg-5 contact__info">
+ 
+ &lt;h3>My phone&lt;/h3>
+ &lt;span>&lt;a href='tel:+4531579827'>+4131579827&lt;/a>&lt;/span>
+ 
+
+ 
+ &lt;h3>My mail&lt;/h3>
+ &lt;span>info@adrianmoreno.info&lt;/span>
+ 
+ 
+ 
+ &lt;h3>My location&lt;/h3>
+ &lt;span>🇩🇰 Copenhagen, Denmark&lt;/span>
+ 
+ &lt;/div>
+ &lt;/div>
+ &lt;/div>
+ &lt;/div>
+&lt;/section></description></item></channel></rss>
