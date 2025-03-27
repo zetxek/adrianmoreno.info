@@ -6,6 +6,9 @@ on:
 jobs:
   generate-critical-css:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -44,3 +47,4 @@ jobs:
         with:
           message: 'Update critical CSS'
           add: 'assets/css/critical.css'
+          token: ${{ secrets.GITHUB_TOKEN }}
