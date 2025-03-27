@@ -11,6 +11,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
       
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
@@ -41,7 +44,7 @@ jobs:
             git push origin $BRANCH_NAME
             
             # Get the updated module versions for PR description
-            UPDATES=$(git diff main...HEAD go.mod | grep -E '^\+.*v[0-9]' || echo "No version changes found")
+            UPDATES=$(git diff origin/main...HEAD go.mod | grep -E '^\+.*v[0-9]' || echo "No version changes found")
             
             # Create PR
             gh pr create \
@@ -53,4 +56,4 @@ jobs:
             echo "No updates found for Hugo modules"
           fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
