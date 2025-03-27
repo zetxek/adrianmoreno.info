@@ -119,39 +119,39 @@ URL = "scss/books.scss"
 
 [[menu.header]]
 name = "About"
-URL = "index.html#about"
+url = "index.html#about"
 weight = 2
 
 [[menu.header]]
 name = "Experience"
-URL = "index.html#experience-single"
+url = "index.html#experience-single"
 weight = 3
 
 [[menu.header]]
 name = "Contact"
-URL = "#contact"
+url = "#contact"
 weight = 4
 
 
 [[menu.footer]]
 name = "💁‍♂️ About"
-URL = "index.html#about"
+url = "index.html#about"
 weight = 2
 
 
 [[menu.footer]]
 name = "📚 Books"
-URL = "/books"
+url = "/books"
 weight = 3
 
 [[menu.footer]]
 name = "🎤 Public Speaking"
-URL = "/public-speaking"
+url = "/public-speaking"
 weight = 4
 
 #[[menu.footer]]
 #name = "📨 Contact"
-#URL = "index.html#contact"
+#url = "index.html#contact"
 #weight = 5
 
 
