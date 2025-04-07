@@ -34,7 +34,7 @@
     "autoprefixer": "^10.4.21",
     "bootstrap": "^5.3.3",
     "bootstrap-print-css": "^1.0.0",
-    "browser-sync": "^3.0.3",
+    "browser-sync": "^3.0.4",
     "critical": "^7.2.1",
     "del": "^8.0.0",
     "imagemin-mozjpeg": "^10.0.0",
