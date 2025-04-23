@@ -5,4 +5,4 @@ go 1.20
 // for local development
 //replace github.com/zetxek/adritian-free-hugo-theme => ../adritian-free-hugo-theme
 
-require github.com/zetxek/adritian-free-hugo-theme v1.7.10 // indirect
+require github.com/zetxek/adritian-free-hugo-theme v1.7.11 // indirect
