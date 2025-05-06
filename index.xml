@@ -44,26 +44,28 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
 
  &lt;div class="row pt-2">
  &lt;div class="col-12 col-lg-7">
- &lt;form action="https://formspree.io/info@adrianmoreno.info" method="POST">
+ &lt;form action="https://formspree.io/info@adrianmoreno.info" method="POST" class="contact__form">
  &lt;div class="row">
  &lt;div class="col-12 col-sm-6">
- &lt;input type="text" name="full_name" id="full_name" placeholder="Your name">
+ &lt;input type="text" name="full_name" class="form-control" placeholder="Your name">
  &lt;/div>
  &lt;div class="col-12 col-sm-6">
- &lt;input type="text" name="email" id="email" placeholder="Your e-mail">
+ &lt;input type="email" name="email" class="form-control" placeholder="Your e-mail">
  &lt;/div>
  &lt;/div>
  &lt;div class="row pt-4">
  &lt;div class="col-12">
- &lt;textarea name="message" id="message" cols="30" rows="3" placeholder="Your message">&lt;/textarea>
+ &lt;input type="text" name="phone" class="form-control" >
  &lt;/div>
  &lt;/div>
  &lt;div class="row pt-4">
  &lt;div class="col-12">
- &lt;button type="submit" class="btn btn-primary">
- &lt;i class="">&lt;/i>
- Send message
- &lt;/button>
+ &lt;textarea name="message" class="form-control" rows="2" placeholder="Your message">&lt;/textarea>
+ &lt;/div>
+ &lt;/div>
+ &lt;div class="row pt-4">
+ &lt;div class="col-12">
+ &lt;button type="submit" class="btn btn-primary">Send message&lt;/button>
  &lt;/div>
  &lt;/div>
  &lt;/form>
@@ -161,6 +163,8 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
 
  
 
+
+
 &lt;div class="container">
  &lt;div class="row platform-links shortcode">
  &lt;div class="col-12">
@@ -171,8 +175,8 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
  target="_blank"
  rel="noopener noreferrer"
  aria-label="square-facebook"
- >&lt;i class="icon-square-facebook">&lt;/i
- >&lt;/a>
+ >&lt;i class="icon-square-facebook">&lt;/i>
+ &lt;/a>
 
  
  
@@ -181,8 +185,8 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
  target="_blank"
  rel="noopener noreferrer"
  aria-label="square-twitter"
- >&lt;i class="icon-square-twitter">&lt;/i
- >&lt;/a>
+ >&lt;i class="icon-square-twitter">&lt;/i>
+ &lt;/a>
 
  
  
@@ -191,8 +195,8 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
  target="_blank"
  rel="noopener noreferrer"
  aria-label="linkedin"
- >&lt;i class="icon-linkedin">&lt;/i
- >&lt;/a>
+ >&lt;i class="icon-linkedin">&lt;/i>
+ &lt;/a>
 
  
  
@@ -201,8 +205,8 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
  target="_blank"
  rel="noopener noreferrer"
  aria-label="square-github"
- >&lt;i class="icon-square-github">&lt;/i
- >&lt;/a>
+ >&lt;i class="icon-square-github">&lt;/i>
+ &lt;/a>
 
  
  
@@ -211,8 +215,8 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
  target="_blank"
  rel="noopener noreferrer"
  aria-label="x-twitter"
- >&lt;i class="icon-x-twitter">&lt;/i
- >&lt;/a>
+ >&lt;i class="icon-x-twitter">&lt;/i>
+ &lt;/a>
 
  
  
@@ -221,8 +225,8 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
  target="_blank"
  rel="noopener noreferrer"
  aria-label="instagram"
- >&lt;i class="icon-instagram">&lt;/i
- >&lt;/a>
+ >&lt;i class="icon-instagram">&lt;/i>
+ &lt;/a>
 
  
  
@@ -231,8 +235,8 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
  target="_blank"
  rel="noopener noreferrer"
  aria-label="bluesky"
- >&lt;i class="icon-bluesky">&lt;/i
- >&lt;/a>
+ >&lt;i class="icon-bluesky">&lt;/i>
+ &lt;/a>
 
  
  
@@ -241,8 +245,8 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
  target="_blank"
  rel="noopener noreferrer"
  aria-label="threads"
- >&lt;i class="icon-threads">&lt;/i
- >&lt;/a>
+ >&lt;i class="icon-threads">&lt;/i>
+ &lt;/a>
 
  &lt;/div>
  &lt;/div>
@@ -261,6 +265,9 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
  &lt;/div>
  
 &lt;/section>
+
+
+
 
 
 
@@ -323,6 +330,8 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
 &lt;/section>
 
 
+
+
 &lt;section
  id="education"
  class="section section--border-bottom rad-animation-group"
@@ -356,6 +365,12 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
 &lt;/section>
 
 
+
+
+
+
+
+ 
 
 
 &lt;section id="experience-single" class="section-experience section section--border-bottom rad-animation-group flex-grow-1">
