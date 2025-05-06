@@ -32,7 +32,7 @@
     "@fullhuman/postcss-purgecss": "^7.0.2",
     "@zetxek/adritian-theme-helper": "^1.0.4",
     "autoprefixer": "^10.4.21",
-    "bootstrap": "^5.3.5",
+    "bootstrap": "^5.3.6",
     "bootstrap-print-css": "^1.0.0",
     "browser-sync": "^3.0.4",
     "critical": "^7.2.1",
