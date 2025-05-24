@@ -55,7 +55,7 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
  &lt;/div>
  &lt;div class="row pt-4">
  &lt;div class="col-12">
- &lt;input type="text" name="phone" class="form-control" >
+ &lt;input type="tel" name="phone" class="form-control" >
  &lt;/div>
  &lt;/div>
  &lt;div class="row pt-4">
@@ -142,15 +142,18 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
  
  
 
- &lt;source srcset="https://www.adrianmoreno.info/images/adrian@2x_hu_6a64df879ac399df.webp 1x, https://www.adrianmoreno.info/images/adrian@2x_hu_cc037d90eafe9d81.webp 2x" type="image/webp" />
- &lt;source srcset="https://www.adrianmoreno.info/images/adrian@2x_hu_106763694d6e20d0.jpg 1x, https://www.adrianmoreno.info/images/adrian@2x_hu_93fb0c0230eeff70.jpg 2x" type="image/jpeg">
+ &lt;source srcset="https://www.adrianmoreno.info/images/adrian@2x_hu_fe073e529831bc4b.webp 1x, https://www.adrianmoreno.info/images/adrian@2x_hu_2002e9562ece44ba.webp 2x" type="image/webp" />
+ &lt;source srcset="https://www.adrianmoreno.info/images/adrian@2x_hu_78ae58eb99774e2d.jpg 1x, https://www.adrianmoreno.info/images/adrian@2x_hu_57746ba638c781df.jpg 2x" type="image/jpeg">
 
  &lt;img
  width="400"
+ height="400"
  class="lozad img-responsive "
- data-src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
+ data-src="https://www.adrianmoreno.info/images/adrian@2x_hu_78ae58eb99774e2d.jpg"
  alt=''
- src="https://www.adrianmoreno.info/images/adrian@2x_hu_106763694d6e20d0.jpg"
+ src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
+ loading="lazy"
+ decoding="async"
  />
  &lt;/picture>
 
@@ -277,6 +280,8 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
 
 
 
+
+
 &lt;section id="about" class="section rad-animation-group pb-0">
  &lt;div class="rad-fade-down">
  &lt;div class="row d-flex flex-column-reverse flex-md-row">
@@ -305,20 +310,23 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
  
  
 
- &lt;source srcset="https://www.adrianmoreno.info/images/working-left@2x_hu_a778c3a285e5cff4.webp 1x, https://www.adrianmoreno.info/images/working-left@2x_hu_3cc046b77d8a882a.webp 2x" type="image/webp" />
- &lt;source srcset="https://www.adrianmoreno.info/images/working-left@2x_hu_c5940a1dff77e724.webp 1x, https://www.adrianmoreno.info/images/working-left@2x_hu_5a0b5f5ba0c6b33f.webp 2x" type="image/webp">
+ &lt;source srcset="https://www.adrianmoreno.info/images/working-left@2x_hu_58e9ea8b714d2694.webp 1x, https://www.adrianmoreno.info/images/working-left@2x_hu_7879cc15cad9f4b2.webp 2x" type="image/webp" />
+ &lt;source srcset="https://www.adrianmoreno.info/images/working-left@2x_hu_e24fb47b96f1574a.webp 1x, https://www.adrianmoreno.info/images/working-left@2x_hu_62dced51bb25a859.webp 2x" type="image/webp">
 
  &lt;img
  width="790"
+ height="768"
  class="lozad img-responsive image-left-overflow"
- data-src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
+ data-src="https://www.adrianmoreno.info/images/working-left@2x_hu_e24fb47b96f1574a.webp"
  alt=''
- src="https://www.adrianmoreno.info/images/working-left@2x_hu_c5940a1dff77e724.webp"
+ src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
+ loading="lazy"
+ decoding="async"
  />
  &lt;/picture>
 
  &lt;/div>
- &lt;div class="col-12 col-md-6 my-auto my-auto">
+ &lt;div class="col-12 col-md-6 my-auto">
  &lt;h1>Who am I?&lt;/h1>
  &lt;div class="about-me content lead">
  &lt;p class='lead'>An engineer at heart and a problem-solver by nature, I channel curiosity and energy into creating technology that simplifies lives. Leadership, for me, means rolling up my sleeves: you'll find me debugging code with engineers one hour and aligning product strategy the next. I'm a &lt;strong>deliberate generalist&lt;/strong>, a T-shaped professional with a hybrid toolkit: part technical architect, part team builder. After founding a startup, I learned to bridge business vision and technical execution—scaling systems, mentoring teams, and advocating for user-centric design. My leadership thrives on three principles: &lt;ol>&lt;li>&lt;strong>Iterative Improvement:&lt;/strong> I foster teams that treat progress as a cycle of experimentation, feedback, and refinement.&lt;/li>&lt;li>&lt;strong>Radical Transparency:&lt;/strong> From blocks to wins, I believe open communication builds trust and aligns goals.&lt;/li>&lt;li>&lt;strong>Empathy as a Superpower:&lt;/strong> Understanding diverse perspectives—whether engineers, clients, or end-users—fuels better decisions and stronger collaboration.&lt;/li>&lt;/ol>&lt;br/>&lt;strong>My superpower?&lt;/strong> Versatility. From architecting backend systems (Node.js, Java or PHP) or mobile apps, to optimizing CI/CD pipelines, I connect dots across disciplines to build products that resonate. But technology alone isn't the answer: I obsess over &lt;em>how&lt;/em> teams work, fostering environments where psychological safety and iterative learning drive innovation.
@@ -370,6 +378,9 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
 
 
 
+
+ 
+ 
  
 
 
