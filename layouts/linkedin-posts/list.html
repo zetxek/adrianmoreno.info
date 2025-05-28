@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="container">
+    <h1>LinkedIn Posts</h1>
+    <div class="posts-list">
+        {{ range .Pages }}
+        <div class="post-item">
+            <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+            <div class="post-meta">
+                <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                    {{ .Date.Format "January 2, 2006" }}
+                </time>
+            </div>
+            <div class="post-summary">
+                {{ .Summary }}
+            </div>
+            <a href="{{ .Permalink }}" class="read-more">Read more</a>
+        </div>
+        {{ end }}
+    </div>
+</div>
+{{ end }}
