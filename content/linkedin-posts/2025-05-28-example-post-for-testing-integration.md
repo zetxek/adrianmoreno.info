@@ -1,20 +1,12 @@
----
-title: "LinkedIn Post: Example post for testing integration"
-date: "2025-05-28T13:56:00"
-draft: false
-tags:
-  - linkedin
-  - social-media
-  - test
-categories:
-  - posts
-layout: post
-linkedin_url: "https://www.linkedin.com/in/adrianmoreno/recent-activity/"
-linkedin_stats:
-  likes: 42
-  comments: 7
-  shares: 3
----
++++
+title = "LinkedIn Post: Example post for testing integration"
+date = "2025-05-28T13:56:00"
+draft = false
+tags = ["linkedin", "social-media", "test"]
+categories = ["posts"]
+type = "post"
+linkedin_url = "https://www.linkedin.com/in/adrianmoreno/recent-activity/"
++++
 
 This is an example LinkedIn post to test the integration with the Hugo website. 
 
