@@ -1,6 +1,6 @@
 +++
 title = "LinkedIn Article: Making explicit the implicit: Exploring parallel universes while creating alignment"
-date = "2025-05-29T13:56:45"
+date = "2025-05-29T14:42:08"
 draft = false
 tags = ["linkedin", "social-media"]
 categories = ["posts"]

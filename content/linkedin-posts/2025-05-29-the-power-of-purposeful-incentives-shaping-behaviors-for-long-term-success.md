@@ -1,6 +1,6 @@
 +++
 title = "LinkedIn Article: The Power of Purposeful Incentives: Shaping Behaviors for Long-Term Success"
-date = "2025-05-29T13:56:45"
+date = "2025-05-29T14:42:08"
 draft = false
 tags = ["linkedin", "social-media"]
 categories = ["posts"]

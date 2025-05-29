@@ -1,6 +1,6 @@
 +++
 title = "LinkedIn Article: Last Friday Night (T.G.I.F.)"
-date = "2025-05-29T13:56:46"
+date = "2025-05-29T14:42:09"
 draft = false
 tags = ["linkedin", "social-media"]
 categories = ["posts"]
