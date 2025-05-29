@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Sunsetting 2024 with some relax… and thankfulness"
 date = "2025-01-02T07:54:58"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7280491749565714432"
 +++

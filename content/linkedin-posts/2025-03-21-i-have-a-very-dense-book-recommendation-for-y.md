@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: I have a (very dense) book recommendation for y..."
 date = "2025-03-21T18:35:10"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7308919114306084864"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: It's nice when you still feel proud about your ..."
 date = "2021-11-19T08:22:53"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6867376608471207936"
 +++

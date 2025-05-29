@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: First month at VanMoof, first bike recovered fr..."
 date = "2019-11-07T12:20:07"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6598182127362207744"
 +++

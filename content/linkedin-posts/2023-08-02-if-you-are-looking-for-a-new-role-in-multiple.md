@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: If you are looking for a new role (in multiple ..."
 date = "2023-08-02T12:31:43"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:7092482093972078592"
 +++

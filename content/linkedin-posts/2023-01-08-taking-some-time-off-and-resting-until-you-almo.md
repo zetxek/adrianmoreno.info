@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Taking some time off and resting until you almo..."
 date = "2023-01-08T21:56:16"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7017972265069723649"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Knowing how to program for iOS makes programmin..."
 date = "2015-04-06T13:04:24"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:5990831209909878784"
 +++

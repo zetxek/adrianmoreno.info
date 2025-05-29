@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: If I wouldn't already be working with Jan (alth..."
 date = "2023-03-05T17:12:29"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7038194570467110912"
 +++

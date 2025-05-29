@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: "The long-term value of a company is ultimately..."
+title = "LinkedIn Post: 'The long-term value of a company is ultimately..."
 date = "2015-10-09T09:56:21"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6058188029644857345"
 +++

@@ -1,8 +1,5 @@
 +++
-title = "LinkedIn Post: Genchi Genbutsu: "go and seedate = "2023-02-19T15:14:06"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
+title = "LinkedIn Post: Genchi Genbutsu: 'go and seedate = '2023-02-19T15:14:06"
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7033091349553803264"
 +++

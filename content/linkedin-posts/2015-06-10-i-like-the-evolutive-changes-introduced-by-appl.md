@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: I like the evolutive changes introduced by Appl..."
 date = "2015-06-10T20:58:34"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6014505747117862912"
 +++

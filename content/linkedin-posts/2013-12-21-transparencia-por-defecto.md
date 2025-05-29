@@ -1,14 +1,13 @@
 +++
-title = "LinkedIn Post: "Transparencia por defectodate = "2013-12-21T02:31:16"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
+title = "LinkedIn Post: Transparencia por defecto"
+date = "2013-12-21T02:31:16"
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:5819984677368664067"
 +++
 
-"Transparencia por defecto""
-"[http://lnkd.in/dEg9wHy](http://lnkd.in/dEg9wHy)
+"Transparencia por defecto"
+
+[http://lnkd.in/dEg9wHy](http://lnkd.in/dEg9wHy)
 
 ---
 

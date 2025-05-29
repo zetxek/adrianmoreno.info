@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: The unfairness, the lies, the false pretences"
 date = "2022-02-26T19:05:33"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6903414741423783936"
 +++

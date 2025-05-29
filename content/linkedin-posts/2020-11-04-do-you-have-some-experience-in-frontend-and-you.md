@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Do you have some experience in frontend and you..."
 date = "2020-11-04T11:51:51"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6729721809081520128"
 +++

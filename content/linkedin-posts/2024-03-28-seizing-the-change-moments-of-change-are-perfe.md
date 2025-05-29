@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Seizing the change: moments of change are perfe..."
 date = "2024-03-28T18:07:10"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:7179177212586180609"
 +++

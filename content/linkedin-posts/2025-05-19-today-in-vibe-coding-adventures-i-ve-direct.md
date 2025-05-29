@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: Today, in "vibe coding adventures": I've direct..."
+title = "LinkedIn Post: Today, in 'vibe coding adventures': I've direct..."
 date = "2025-05-19T19:45:29"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7330317694556069888"
 +++

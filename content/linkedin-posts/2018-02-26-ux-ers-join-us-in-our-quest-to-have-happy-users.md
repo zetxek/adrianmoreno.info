@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: UX'ers, join us in our quest to have happy users"
 date = "2018-02-26T13:47:58"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6373886145452998656"
 +++

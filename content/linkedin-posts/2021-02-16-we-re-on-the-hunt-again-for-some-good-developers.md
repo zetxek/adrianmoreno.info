@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: We're on the hunt again for some good developers"
 date = "2021-02-16T16:29:57"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6767480133021405184"
 +++

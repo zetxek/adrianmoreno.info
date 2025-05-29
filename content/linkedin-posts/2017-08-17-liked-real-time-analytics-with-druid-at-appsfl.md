@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: Liked "Real-time analytics with Druid at Appsfl..."
+title = "LinkedIn Post: Liked 'Real-time analytics with Druid at Appsfl..."
 date = "2017-08-17T16:50:51"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6303991311116615681"
 +++

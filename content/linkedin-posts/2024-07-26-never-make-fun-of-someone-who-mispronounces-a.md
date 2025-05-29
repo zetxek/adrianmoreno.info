@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: "Never make fun of someone who mispronounces a ..."
+title = "LinkedIn Post: 'Never make fun of someone who mispronounces a ..."
 date = "2024-07-26T12:33:42"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7222579834403639296"
 +++

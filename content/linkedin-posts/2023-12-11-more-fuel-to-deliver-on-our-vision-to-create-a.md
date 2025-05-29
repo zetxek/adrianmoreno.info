@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: More fuel to deliver on our vision: to create a..."
 date = "2023-12-11T12:53:21"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7139960351504097280"
 +++

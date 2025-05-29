@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: This is a sad outcome - although not surprising..."
 date = "2023-07-18T09:27:31"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7086999919827267585"
 +++

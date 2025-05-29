@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Being a direct B2C company where we sell our bi..."
 date = "2020-09-21T07:56:06"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6713717414565056512"
 +++

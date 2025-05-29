@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Thoughts about financing options for someone th..."
 date = "2015-08-26T17:54:19"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6042363244461514752"
 +++

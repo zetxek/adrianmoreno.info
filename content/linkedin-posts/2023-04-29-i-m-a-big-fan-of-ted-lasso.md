@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: I'm a big fan of Ted Lasso"
 date = "2023-04-29T19:14:45"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7058156670958333952"
 +++

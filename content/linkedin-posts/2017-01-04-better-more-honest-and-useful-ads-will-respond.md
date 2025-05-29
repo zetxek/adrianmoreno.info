@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Better, more honest and useful ads will respond"
 date = "2017-01-04T12:32:19"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6222388980265160704"
 +++

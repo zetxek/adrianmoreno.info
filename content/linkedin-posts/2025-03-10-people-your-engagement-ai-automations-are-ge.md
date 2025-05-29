@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: People, your "engagement AI automations" are ge..."
+title = "LinkedIn Post: People, your 'engagement AI automations' are ge..."
 date = "2025-03-10T15:43:17"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7304889591239471105"
 +++

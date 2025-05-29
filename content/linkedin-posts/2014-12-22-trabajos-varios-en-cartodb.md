@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Trabajos varios en CartoDB"
 date = "2014-12-22T13:19:56"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:5952784393775915009"
 +++

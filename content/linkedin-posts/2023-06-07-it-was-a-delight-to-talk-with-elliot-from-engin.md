@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: It was a delight to talk with Elliot from Engin..."
 date = "2023-06-07T19:32:53"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7072294366156845057"
 +++

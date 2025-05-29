@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Sharing for my network it mobile development: g..."
 date = "2025-02-21T15:55:34"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7298732089489682432"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: With the surge of Search Engines we had the ris..."
 date = "2023-02-23T16:00:05"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:7034552473864306689"
 +++

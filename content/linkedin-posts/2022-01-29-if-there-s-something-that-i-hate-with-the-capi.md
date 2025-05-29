@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: If there's something that I HATE (with the capi..."
 date = "2022-01-29T20:51:37"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6893294574538768384"
 +++

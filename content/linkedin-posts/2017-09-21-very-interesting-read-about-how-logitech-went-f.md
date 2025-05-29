@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Very interesting read about how Logitech went f..."
 date = "2017-09-21T09:11:13"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6316559219206160384"
 +++

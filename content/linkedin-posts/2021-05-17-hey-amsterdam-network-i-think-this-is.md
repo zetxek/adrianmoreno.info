@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: Hey Amsterdam network ❌❌❌""I think this is ..."
+title = "LinkedIn Post: Hey Amsterdam network ❌❌❌'I think this is ..."
 date = "2021-05-17T15:31:40"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6800080371661733890"
 +++

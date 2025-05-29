@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: 💡 Sometimes, instead of reinventing the wheel -..."
 date = "2024-06-22T13:51:46"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7210278297023238145"
 +++

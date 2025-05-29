@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Interested in high traffic node"
 date = "2022-02-18T23:17:16"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6900578983537184768"
 +++

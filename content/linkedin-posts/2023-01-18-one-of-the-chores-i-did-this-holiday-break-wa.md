@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: One of the "chores" I did this holiday break wa..."
+title = "LinkedIn Post: One of the 'chores' I did this holiday break wa..."
 date = "2023-01-18T21:12:29"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:7021585126799110144"
 +++

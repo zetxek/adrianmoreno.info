@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: It's not only engineering positions in Copenhag..."
 date = "2024-12-18T18:20:51"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7275213443257761793"
 +++

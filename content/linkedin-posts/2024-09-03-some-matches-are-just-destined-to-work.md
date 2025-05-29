@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Some matches are just destined to work"
 date = "2024-09-03T12:48:33"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7236716702305054720"
 +++

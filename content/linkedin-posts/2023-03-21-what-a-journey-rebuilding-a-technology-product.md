@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: What a journey: rebuilding a technology product..."
 date = "2023-03-21T21:29:47"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7044057528615215105"
 +++

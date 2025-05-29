@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: "Yes, you're an imposter"
+title = "LinkedIn Post: 'Yes, you're an imposter"
 date = "2017-10-29T22:32:11"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6330531524433317888"
 +++

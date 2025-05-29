@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: We've all been there: you want to communicate e..."
 date = "2025-04-01T07:54:20"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7312744112338735104"
 +++

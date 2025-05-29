@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: 💡A mind shift to start being part of the soluti..."
 date = "2024-08-23T21:28:29"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7232861281630736385"
 +++

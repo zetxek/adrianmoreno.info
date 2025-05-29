@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Next February 8th, Emakina"
 date = "2018-01-25T14:53:04"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6362306119917981696"
 +++

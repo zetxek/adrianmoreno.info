@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: How much do you like these kind of posts that p..."
 date = "2021-09-30T20:54:09"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6849446278791741440"
 +++

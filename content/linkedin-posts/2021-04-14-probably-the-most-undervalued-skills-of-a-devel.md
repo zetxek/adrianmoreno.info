@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Probably the most undervalued skills of a devel..."
 date = "2021-04-14T13:45:04"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6788094747325014016"
 +++

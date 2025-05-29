@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: When working in a remote environment it's so ea..."
 date = "2019-04-28T20:28:26"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6528364159455756289"
 +++

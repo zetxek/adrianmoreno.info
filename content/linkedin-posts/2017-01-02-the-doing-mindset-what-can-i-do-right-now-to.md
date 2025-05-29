@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: The doing mindset: "What can I do right now to ..."
+title = "LinkedIn Post: The doing mindset: 'What can I do right now to ..."
 date = "2017-01-02T13:43:35"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6221682140107673600"
 +++

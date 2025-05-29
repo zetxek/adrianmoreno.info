@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Nice to have Mickael representing our Engineeri..."
 date = "2022-02-23T14:27:35"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6902257624767705088"
 +++

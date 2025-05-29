@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Our was great to bond, and network ( - and anot..."
 date = "2023-09-18T19:42:43"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:7109622787828314112"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: This year I culminated a process in which I hav..."
 date = "2021-12-21T20:46:08"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:6879160066663100417"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: En Softwhisper buscan a un developers para trab..."
 date = "2014-02-08T15:22:25"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:5837936078254153736"
 +++

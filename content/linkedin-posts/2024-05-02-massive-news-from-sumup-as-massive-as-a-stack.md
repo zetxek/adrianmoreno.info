@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Massive news from SumUp: as massive as a stack ..."
 date = "2024-05-02T09:17:03"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7191727379461849090"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: I keep my productivity high by working for myse..."
 date = "2024-09-25T18:55:11"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7244781502016700419"
 +++

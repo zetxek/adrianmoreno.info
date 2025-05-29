@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Very interesting panel discussion yesterday at ..."
 date = "2018-10-10T07:16:44"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6455687347840303104"
 +++

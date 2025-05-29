@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: With Copenhagen fully covered in snow and ice l..."
 date = "2022-12-17T12:59:04"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7009864540733505538"
 +++

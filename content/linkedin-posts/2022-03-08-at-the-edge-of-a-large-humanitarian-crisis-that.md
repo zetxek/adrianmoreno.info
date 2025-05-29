@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: At the edge of a large humanitarian crisis that..."
 date = "2022-03-08T15:49:53"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6906989376472018944"
 +++

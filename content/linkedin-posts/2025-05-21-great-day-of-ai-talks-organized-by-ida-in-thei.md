@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Great day of AI talks organized by IDA, in thei..."
 date = "2025-05-21T05:08:44"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7330821829634297856"
 +++

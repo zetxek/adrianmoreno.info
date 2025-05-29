@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: En Zadia Software buscamos gente para trabajar ..."
 date = "2014-08-06T12:10:32"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:5902757402649858048"
 +++

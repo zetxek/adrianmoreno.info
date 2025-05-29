@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Do you know the creepy feeling of entering a ca..."
 date = "2025-01-29T16:15:49"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7290402264773517312"
 +++

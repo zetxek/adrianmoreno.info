@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: It felt that participating in the launch of the..."
 date = "2020-05-06T21:49:37"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6663917650684456961"
 +++

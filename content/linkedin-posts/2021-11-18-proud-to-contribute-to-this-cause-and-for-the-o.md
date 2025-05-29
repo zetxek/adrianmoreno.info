@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Proud to contribute to this cause and for the o..."
 date = "2021-11-18T22:13:47"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6867223325412741120"
 +++

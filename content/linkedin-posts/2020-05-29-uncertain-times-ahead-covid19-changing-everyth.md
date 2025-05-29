@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Uncertain times ahead, covid19 changing everyth..."
 date = "2020-05-29T08:27:56"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6672050820575567872"
 +++

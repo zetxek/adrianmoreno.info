@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: STOP THE PRESS 🛑" "(ok, now that you have stopp..."
+title = "LinkedIn Post: STOP THE PRESS 🛑' '(ok, now that you have stopp..."
 date = "2024-01-17T13:03:48"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7153371326177579010"
 +++

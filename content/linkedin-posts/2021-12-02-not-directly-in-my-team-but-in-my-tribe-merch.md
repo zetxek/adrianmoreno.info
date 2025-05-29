@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Not directly in my team, but in my Tribe (Merch..."
 date = "2021-12-02T16:59:53"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6872217760072527872"
 +++

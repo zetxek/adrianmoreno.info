@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: At Pocket we're redefining out technology stack..."
 date = "2017-05-31T21:30:39"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6275795471839694848"
 +++

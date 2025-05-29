@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: "Failure is the key to success; each mistake te..."
+title = "LinkedIn Post: 'Failure is the key to success; each mistake te..."
 date = "2015-10-20T11:56:22"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6062204499513139200"
 +++

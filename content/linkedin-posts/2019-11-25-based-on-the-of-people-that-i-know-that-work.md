@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Based on the % of people that I know that work ..."
 date = "2019-11-25T10:02:05"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6604670372774244352"
 +++

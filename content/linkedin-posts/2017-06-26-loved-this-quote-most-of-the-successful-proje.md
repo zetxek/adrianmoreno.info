@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: Loved this quote: "Most of the successful proje..."
+title = "LinkedIn Post: Loved this quote: 'Most of the successful proje..."
 date = "2017-06-26T23:18:17"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6285244642879504384"
 +++

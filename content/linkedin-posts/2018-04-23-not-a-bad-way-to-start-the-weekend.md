@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Not a bad way to start the weekend"
 date = "2018-04-23T20:47:25"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6394285424038203392"
 +++

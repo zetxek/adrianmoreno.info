@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: I've liked this talk from Randy Shoup about how..."
 date = "2021-10-11T07:51:02"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6853235465500315648"
 +++

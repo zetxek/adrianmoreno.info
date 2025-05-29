@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Hey, vrienden in Nederland 🇳🇱 - if you want to ..."
 date = "2023-08-22T20:23:58"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7099848698431459328"
 +++

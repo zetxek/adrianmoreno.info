@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: 🛫 "Remember, put your mask on first before help..."
+title = "LinkedIn Post: 🛫 'Remember, put your mask on first before help..."
 date = "2023-11-07T21:43:29"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7127772572196212737"
 +++

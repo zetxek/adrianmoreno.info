@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: I've been thinking a bit lately about setting a..."
 date = "2023-12-17T22:19:32"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:7142277160307777536"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: At Pocket Media we are looking for a new collea..."
 date = "2016-02-19T08:40:22"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6106366491320471553"
 +++

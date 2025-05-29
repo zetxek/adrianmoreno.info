@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: One of the best things to work at SumUp is to s..."
 date = "2022-12-10T17:17:00"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7007392736664248320"
 +++

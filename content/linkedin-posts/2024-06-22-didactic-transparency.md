@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Article: Didactic transparency"
 date = "2024-06-22T00:00:00"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/in/adrianmoreno/detail/recent-activity/posts/"
 +++

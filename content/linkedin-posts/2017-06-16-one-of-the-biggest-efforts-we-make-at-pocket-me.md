@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: One of the biggest efforts we make at Pocket Me..."
 date = "2017-06-16T10:57:23"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6281434310524436480"
 +++

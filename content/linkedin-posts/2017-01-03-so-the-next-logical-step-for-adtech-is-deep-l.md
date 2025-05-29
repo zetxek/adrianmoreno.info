@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: "So the next logical step for adtech is "Deep L..."
+title = "LinkedIn Post: 'So the next logical step for adtech is 'Deep L..."
 date = "2017-01-03T10:49:04"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6222000607893553152"
 +++

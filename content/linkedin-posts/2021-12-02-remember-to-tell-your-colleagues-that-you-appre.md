@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Remember to tell your colleagues that you appre..."
 date = "2021-12-02T19:03:27"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6872248855262445568"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: I met Zahra during the React meetup we hosted i..."
 date = "2023-05-04T12:48:42"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:7059871460307152897"
 +++

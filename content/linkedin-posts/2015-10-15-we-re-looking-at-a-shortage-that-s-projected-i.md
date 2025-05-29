@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: “We’re looking at a shortage that’s projected i..."
 date = "2015-10-15T14:29:34"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6060431112470085632"
 +++

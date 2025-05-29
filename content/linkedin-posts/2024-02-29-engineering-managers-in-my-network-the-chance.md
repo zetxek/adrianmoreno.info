@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Engineering Managers in my network - the chance..."
 date = "2024-02-29T21:01:30"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7169074225595584512"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: By the way - if customer-facing systems are you..."
 date = "2021-02-17T15:02:47"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6767820584555474944"
 +++

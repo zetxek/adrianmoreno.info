@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Talent is overrated"
 date = "2018-03-02T09:47:34"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6375275198891069440"
 +++

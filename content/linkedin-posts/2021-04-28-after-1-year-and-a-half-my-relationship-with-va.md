@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: After 1 year and a half my relationship with Va..."
 date = "2021-04-28T12:08:22"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6793143841839968256"
 +++

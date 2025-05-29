@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: RT @vazqueznaya: Urge contratar Ingeniero Infor..."
 date = "2012-06-28T14:56:02"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:1256440790"
 +++

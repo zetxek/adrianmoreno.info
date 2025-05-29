@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Come and be my tech buddy"
 date = "2018-09-28T08:58:16"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6451364246642061312"
 +++

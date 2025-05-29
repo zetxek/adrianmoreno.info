@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: I love working in multi cultural environments, ..."
 date = "2022-11-03T21:35:59"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6994049565419020288"
 +++

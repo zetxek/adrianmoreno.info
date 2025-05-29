@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Interactions like this really make my day to da..."
 date = "2023-03-27T13:46:43"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7046115320511492096"
 +++

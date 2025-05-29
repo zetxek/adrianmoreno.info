@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Great recap by our David of the results of the ..."
 date = "2023-07-15T21:04:32"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:7086088168290021376"
 +++

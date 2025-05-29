@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: One (humbling) learning for me working in Finte..."
 date = "2023-09-22T11:22:13"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7110946387965407234"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Do you know that feeling that you get sometimes..."
 date = "2021-10-06T08:18:56"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6851430551560187905"
 +++

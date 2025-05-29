@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: A reflection on one of the changes that you exp..."
 date = "2021-09-28T08:31:25"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6848534588185214976"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Here we go, to a new country 🇦🇺🦘"
 date = "2023-08-16T08:13:31"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7097490546398568448"
 +++

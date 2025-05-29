@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: New podcast announcement 🎙️: This was a quite n..."
 date = "2023-07-26T20:15:39"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7090062131366092800"
 +++

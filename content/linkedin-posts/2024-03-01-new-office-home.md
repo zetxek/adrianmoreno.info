@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: New office home"
 date = "2024-03-01T16:57:53"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:7169375304405258240"
 +++

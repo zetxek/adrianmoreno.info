@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: It would be cool having real time updates for b..."
 date = "2015-11-02T10:49:36"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6066898737614118914"
 +++

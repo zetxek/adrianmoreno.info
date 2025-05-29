@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: En Bahia Software están buscando varios perfile..."
 date = "2014-12-15T13:23:18"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:5950248525261475841"
 +++

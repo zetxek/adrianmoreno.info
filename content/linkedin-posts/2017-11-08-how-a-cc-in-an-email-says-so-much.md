@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: How a cc in an email says so much"
 date = "2017-11-08T00:11:37"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6333818041750609921"
 +++

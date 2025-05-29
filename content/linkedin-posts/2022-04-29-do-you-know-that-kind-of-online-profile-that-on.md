@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Do you know that kind of online profile that on..."
 date = "2022-04-29T05:10:51"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6925672727441719296"
 +++

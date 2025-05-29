@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Nice to chat about ☁️ and everything around"
 date = "2021-04-09T08:57:38"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6786210471570624512"
 +++

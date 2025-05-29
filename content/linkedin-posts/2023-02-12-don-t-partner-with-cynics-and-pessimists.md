@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: "Don’t partner with cynics and pessimists"
+title = "LinkedIn Post: 'Don’t partner with cynics and pessimists"
 date = "2023-02-12T16:26:40"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7030572897538572289"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Investment round announcement ➝ so many new fri..."
 date = "2022-06-29T13:41:00"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6947906773571792896"
 +++

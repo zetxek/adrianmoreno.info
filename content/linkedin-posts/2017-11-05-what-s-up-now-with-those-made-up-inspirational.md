@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: What's up now with those made up "inspirational..."
+title = "LinkedIn Post: What's up now with those made up 'inspirational..."
 date = "2017-11-05T21:13:24"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6333048416045797376"
 +++

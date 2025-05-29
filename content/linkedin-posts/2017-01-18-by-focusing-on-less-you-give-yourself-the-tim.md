@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: "By focusing on less, you give yourself the tim..."
+title = "LinkedIn Post: 'By focusing on less, you give yourself the tim..."
 date = "2017-01-18T14:16:59"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6227488751623512064"
 +++

@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: When you manage people you are "management" - a..."
+title = "LinkedIn Post: When you manage people you are 'management' - a..."
 date = "2024-07-13T12:01:18"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7217860640621678592"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Or if you were luckier"
 date = "2023-03-24T22:34:31"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7045160984117698560"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Last week I had a talk (in Spanish) with Júlia ..."
 date = "2017-03-19T17:08:26"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6249275171610464256"
 +++

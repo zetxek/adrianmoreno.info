@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: A very interesting article by Segment about dua..."
 date = "2021-06-14T13:05:08"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6810190355686809600"
 +++

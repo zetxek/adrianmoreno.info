@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: What a blast this event is"
 date = "2022-05-12T15:06:06"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6930533571593920513"
 +++

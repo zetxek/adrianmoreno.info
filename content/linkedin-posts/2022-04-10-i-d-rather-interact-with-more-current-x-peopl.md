@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: I'd rather interact with more "current-X" peopl..."
+title = "LinkedIn Post: I'd rather interact with more 'current-X' peopl..."
 date = "2022-04-10T16:45:50"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6918962256726695936"
 +++

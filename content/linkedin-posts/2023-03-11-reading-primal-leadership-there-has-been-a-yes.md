@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: Reading Primal Leadership there has been a "yes..."
+title = "LinkedIn Post: Reading Primal Leadership there has been a 'yes..."
 date = "2023-03-11T17:56:12"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7040379900767191040"
 +++

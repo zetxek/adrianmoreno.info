@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Really looking forward to this"
 date = "2023-09-09T11:16:41"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7106233951932792832"
 +++

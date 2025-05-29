@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: 💳 In a time where payments get more expensive i..."
 date = "2023-12-07T12:45:53"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7138508919366160384"
 +++

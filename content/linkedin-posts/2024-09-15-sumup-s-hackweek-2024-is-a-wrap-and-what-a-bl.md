@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: SumUp's Hackweek 2024 is a wrap - and what a bl..."
 date = "2024-09-15T14:06:48"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:7241085048790142977"
 +++

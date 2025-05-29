@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Vibe coding has made programming fun for me aga..."
 date = "2025-05-07T19:25:38"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:7325964043024777216"
 +++

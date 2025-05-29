@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: > Above all, we'll all need greater literacy ab..."
 date = "2017-02-23T14:07:56"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6240532438355968000"
 +++

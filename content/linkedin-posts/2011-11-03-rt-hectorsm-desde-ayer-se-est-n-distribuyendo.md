@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: RT @hectorsm: Desde ayer se están distribuyendo..."
 date = "2011-11-03T12:26:34"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:677537692"
 +++

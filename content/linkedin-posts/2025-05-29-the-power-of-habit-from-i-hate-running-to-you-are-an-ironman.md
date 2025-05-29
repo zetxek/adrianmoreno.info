@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Article: The power of habit: from "I hate running"​ to "You are an Ironman"​"
+title = "LinkedIn Article: The power of habit: from 'I hate running'​ to 'You are an Ironman'​"
 date = "2025-05-29T14:42:09"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/in/adrianmoreno/detail/recent-activity/posts/"
 +++

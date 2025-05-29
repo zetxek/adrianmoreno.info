@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Being able to define something makes conversati..."
 date = "2022-11-20T17:43:14"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7000151582906445824"
 +++

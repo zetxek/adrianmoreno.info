@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: We’re at SumUp in Copenhagen - now for a differ..."
 date = "2025-01-16T13:09:11"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:7285644257179131907"
 +++

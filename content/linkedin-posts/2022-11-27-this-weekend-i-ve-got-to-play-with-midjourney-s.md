@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: This weekend I've got to play with Midjourney's..."
 date = "2022-11-27T17:33:57"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7002685964946915328"
 +++

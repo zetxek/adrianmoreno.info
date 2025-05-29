@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: For me the key is this point: "Remaining techni..."
+title = "LinkedIn Post: For me the key is this point: 'Remaining techni..."
 date = "2021-01-11T15:46:16"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6754423178996572160"
 +++

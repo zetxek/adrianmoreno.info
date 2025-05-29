@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Jodie's team (Global Bank) is really global 🌏, ..."
 date = "2023-01-05T09:45:51"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7016701289614958592"
 +++

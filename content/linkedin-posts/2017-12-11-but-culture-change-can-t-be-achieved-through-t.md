@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: "But culture change can’t be achieved through t..."
+title = "LinkedIn Post: 'But culture change can’t be achieved through t..."
 date = "2017-12-11T12:41:45"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6345965617757118464"
 +++

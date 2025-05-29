@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: Lista de Google Groups""Hola"
+title = "LinkedIn Post: Lista de Google Groups'Hola"
 date = "2012-04-17T23:03:47"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:groupPost:4333610-108578016"
 +++

@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: You will start seeing these beauties soon at th..."
 date = "2022-11-17T07:05:31"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6998903936560545792"
 +++

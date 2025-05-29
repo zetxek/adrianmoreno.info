@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: "In order to protect the team, you have to go a..."
+title = "LinkedIn Post: 'In order to protect the team, you have to go a..."
 date = "2015-10-28T12:38:09"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6065114114848546816"
 +++

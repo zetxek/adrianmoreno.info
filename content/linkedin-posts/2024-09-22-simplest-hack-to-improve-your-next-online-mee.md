@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: 🎤 Simplest hack to improve your next online mee..."
 date = "2024-09-22T11:05:57"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7243576252752662528"
 +++

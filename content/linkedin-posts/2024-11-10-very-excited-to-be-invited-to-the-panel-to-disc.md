@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Very excited to be invited to the panel to disc..."
 date = "2024-11-10T19:26:05"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7261459118794690561"
 +++

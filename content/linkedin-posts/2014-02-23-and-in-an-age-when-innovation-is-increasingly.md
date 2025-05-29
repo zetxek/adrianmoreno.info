@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: "And in an age when innovation is increasingly ..."
+title = "LinkedIn Post: 'And in an age when innovation is increasingly ..."
 date = "2014-02-23T02:00:51"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:5843166330370805769"
 +++

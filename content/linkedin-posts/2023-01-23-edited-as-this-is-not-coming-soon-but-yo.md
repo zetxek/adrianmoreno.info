@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: Edited✍️ - as this is not "coming soon", but yo..."
+title = "LinkedIn Post: Edited✍️ - as this is not 'coming soon', but yo..."
 date = "2023-01-23T17:27:26"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:7023340433724342272"
 +++

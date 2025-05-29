@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: As in many other cities, housing in Amsterdam i..."
 date = "2019-03-16T19:33:26"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6512767636969971712"
 +++

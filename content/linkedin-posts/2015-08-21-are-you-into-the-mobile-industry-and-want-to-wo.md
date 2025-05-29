@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Are you into the mobile industry and want to wo..."
 date = "2015-08-21T09:28:58"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6040424130329792512"
 +++

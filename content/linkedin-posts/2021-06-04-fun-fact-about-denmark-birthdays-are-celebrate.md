@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Fun fact about Denmark: birthdays are celebrate..."
 date = "2021-06-04T13:05:49"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6806566651979415552"
 +++

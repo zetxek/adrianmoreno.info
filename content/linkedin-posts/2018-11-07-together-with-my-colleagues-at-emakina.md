@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: Together with my colleagues at Emakina"
 date = "2018-11-07T15:52:12"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6465963931092475905"
 +++

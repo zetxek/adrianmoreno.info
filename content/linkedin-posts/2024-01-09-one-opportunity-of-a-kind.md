@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: 💥 One opportunity of a kind"
 date = "2024-01-09T08:57:56"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7150410351853854722"
 +++

@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: "In order to surmount the diversity of problems..."
+title = "LinkedIn Post: 'In order to surmount the diversity of problems..."
 date = "2017-08-15T09:51:46"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6303161071125479424"
 +++

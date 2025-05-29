@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: This was a nice fun talk about Communication du..."
 date = "2024-03-26T18:43:54"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:ugcPost:7178461680647979008"
 +++

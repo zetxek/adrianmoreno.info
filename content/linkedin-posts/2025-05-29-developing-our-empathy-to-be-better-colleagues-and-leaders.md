@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Article: Developing our empathy to be better colleagues and leaders"
 date = "2025-05-29T14:42:09"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/in/adrianmoreno/detail/recent-activity/posts/"
 +++

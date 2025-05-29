@@ -1,9 +1,6 @@
 +++
-title = "LinkedIn Post: "Innovation in an existing company is not just ..."
+title = "LinkedIn Post: 'Innovation in an existing company is not just ..."
 date = "2015-10-19T12:16:20"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:6061847136268533761"
 +++

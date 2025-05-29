@@ -1,9 +1,6 @@
 +++
 title = "LinkedIn Post: If you're looking for your next summer read - m..."
 date = "2023-08-06T19:51:36"
-draft = false
-tags = ["linkedin", "social-media"]
-categories = ["posts"]
 type = "post"
 linkedin_url = "https://www.linkedin.com/feed/update/urn:li:share:7094042345540567041"
 +++
