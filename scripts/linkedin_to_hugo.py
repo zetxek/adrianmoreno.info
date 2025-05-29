@@ -215,6 +215,29 @@ class LinkedInToHugo:
         else:
             return "LinkedIn Post"
     
+    def _sanitize_toml_string(self, s):
+        """Properly sanitize a string for TOML format"""
+        if s is None:
+            return ""
+        
+        # Remove any existing quotes within the string to avoid nesting
+        s = s.replace('"', "'")
+        
+        # Remove any trailing empty quotes that might have been added
+        s = re.sub(r'\s*""\s*$', '', s)
+        
+        # Replace backslashes first to avoid double escaping
+        s = s.replace('\\', '\\\\')
+        
+        # Replace other special characters
+        s = s.replace('\b', '\\b')
+        s = s.replace('\t', '\\t')
+        s = s.replace('\n', '\\n')
+        s = s.replace('\f', '\\f')
+        s = s.replace('\r', '\\r')
+        
+        return s
+    
     def convert_to_markdown(self, posts):
         """Convert posts to Hugo Markdown files"""
         if not posts:
@@ -237,15 +260,19 @@ class LinkedInToHugo:
                 # Generate front matter
                 title_prefix = "LinkedIn Article: " if post_type == 'article' else "LinkedIn Post: "
                 
+                # Sanitize title and other string fields for TOML
+                safe_title = self._sanitize_toml_string(title_prefix + post.get('title', 'Untitled'))
+                safe_url = self._sanitize_toml_string(post.get('url', ''))
+                
                 # Create TOML front matter
                 front_matter = f"""+++
-title = "{title_prefix}{post.get('title', 'Untitled')}"
+title = "{safe_title}"
 date = "{post.get('datetime', datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S'))}"
 draft = false
 tags = ["linkedin", "social-media"]
 categories = ["posts"]
 type = "post"
-linkedin_url = "{post.get('url', '')}"
+linkedin_url = "{safe_url}"
 +++
 
 """
@@ -301,6 +328,53 @@ linkedin_url = "{post.get('url', '')}"
             slug = 'post'
         
         return slug
+    
+    def validate_toml_front_matter(self, file_path):
+        """Validate TOML front matter in a markdown file"""
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            # Extract front matter
+            front_matter_match = re.search(r'^\+\+\+(.*?)\+\+\+', content, re.DOTALL)
+            if not front_matter_match:
+                return False, "No front matter found"
+            
+            front_matter = front_matter_match.group(1)
+            
+            # Check for common TOML errors
+            # 1. Nested quotes in title
+            title_match = re.search(r'title\s*=\s*"(.*?)"', front_matter)
+            if title_match:
+                title = title_match.group(1)
+                if '"' in title:
+                    # Fix the title by replacing inner quotes with single quotes
+                    fixed_title = title.replace('"', "'")
+                    fixed_front_matter = front_matter.replace(title, fixed_title)
+                    fixed_content = content.replace(front_matter, fixed_front_matter)
+                    
+                    # Write fixed content back to file
+                    with open(file_path, 'w', encoding='utf-8') as f:
+                        f.write(fixed_content)
+                    
+                    return False, f"Fixed nested quotes in title: {title}"
+            
+            # 2. Check for trailing empty quotes
+            if '""' in front_matter:
+                # Fix trailing empty quotes
+                fixed_front_matter = re.sub(r'\s*""\s*', '', front_matter)
+                fixed_content = content.replace(front_matter, fixed_front_matter)
+                
+                # Write fixed content back to file
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    f.write(fixed_content)
+                
+                return False, "Fixed trailing empty quotes"
+            
+            return True, "Front matter is valid"
+            
+        except Exception as e:
+            return False, f"Error validating front matter: {str(e)}"
 
 def create_index_file(output_dir):
     """Create _index.md file for LinkedIn posts section"""
@@ -326,13 +400,45 @@ This section contains posts that were originally shared on LinkedIn.
             
         print(f"Created LinkedIn posts index at {index_path}")
 
+def validate_all_markdown_files(directory):
+    """Validate all markdown files in a directory"""
+    if not os.path.exists(directory):
+        print(f"Directory not found: {directory}")
+        return False
+    
+    all_valid = True
+    validator = LinkedInToHugo()
+    
+    for filename in os.listdir(directory):
+        if filename.endswith('.md') and filename != '_index.md':
+            file_path = os.path.join(directory, filename)
+            valid, message = validator.validate_toml_front_matter(file_path)
+            if not valid:
+                all_valid = False
+                print(f"Fixed {filename}: {message}")
+    
+    return all_valid
+
 def main():
     """Main entry point"""
     parser = argparse.ArgumentParser(description="Convert LinkedIn posts to Hugo Markdown")
     parser.add_argument("--export", help="Path to LinkedIn export file (ZIP, CSV, or HTML)")
     parser.add_argument("--output-dir", default=DEFAULT_OUTPUT_DIR, help="Output directory for Markdown files")
+    parser.add_argument("--validate", action="store_true", help="Validate existing markdown files")
     
     args = parser.parse_args()
+    
+    if args.validate:
+        if args.output_dir:
+            print(f"Validating markdown files in {args.output_dir}")
+            all_valid = validate_all_markdown_files(args.output_dir)
+            if all_valid:
+                print("All markdown files have valid TOML front matter")
+            else:
+                print("Some markdown files were fixed. Please check the output directory.")
+        else:
+            print("Please specify an output directory to validate")
+        return
     
     if not args.export:
         parser.print_help()
@@ -349,6 +455,9 @@ def main():
     
     # Create index file
     create_index_file(args.output_dir)
+    
+    # Validate all markdown files
+    validate_all_markdown_files(args.output_dir)
     
     print(f"Converted {count} posts to Markdown")
 

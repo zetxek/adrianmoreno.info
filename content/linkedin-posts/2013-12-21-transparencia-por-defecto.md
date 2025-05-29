@@ -1,6 +1,5 @@
 +++
-title = "LinkedIn Post: "Transparencia por defecto"" ""
-date = "2013-12-21T02:31:16"
+title = "LinkedIn Post: "Transparencia por defectodate = "2013-12-21T02:31:16"
 draft = false
 tags = ["linkedin", "social-media"]
 categories = ["posts"]

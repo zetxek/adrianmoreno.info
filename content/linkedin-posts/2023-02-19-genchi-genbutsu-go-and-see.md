@@ -1,6 +1,5 @@
 +++
-title = "LinkedIn Post: Genchi Genbutsu: "go and see""
-date = "2023-02-19T15:14:06"
+title = "LinkedIn Post: Genchi Genbutsu: "go and seedate = "2023-02-19T15:14:06"
 draft = false
 tags = ["linkedin", "social-media"]
 categories = ["posts"]

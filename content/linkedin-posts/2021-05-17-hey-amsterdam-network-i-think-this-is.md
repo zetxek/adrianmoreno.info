@@ -1,5 +1,5 @@
 +++
-title = "LinkedIn Post: Hey Amsterdam network ❌❌❌" "" "I think this is ..."
+title = "LinkedIn Post: Hey Amsterdam network ❌❌❌""I think this is ..."
 date = "2021-05-17T15:31:40"
 draft = false
 tags = ["linkedin", "social-media"]

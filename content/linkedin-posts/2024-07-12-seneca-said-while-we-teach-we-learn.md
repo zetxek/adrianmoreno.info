@@ -1,6 +1,5 @@
 +++
-title = "LinkedIn Post: Seneca said, "While we teach, we learn""
-date = "2024-07-12T18:59:39"
+title = "LinkedIn Post: Seneca said, "While we teach, we learndate = "2024-07-12T18:59:39"
 draft = false
 tags = ["linkedin", "social-media"]
 categories = ["posts"]
