@@ -1,43 +1,59 @@
-{{ define "main" }}
-<div class="container">
-    <article class="mb-5">
-        <header class="mb-4">
-            <div class="text-muted mb-2">
-                <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
-                    {{ .Date.Format "January 2, 2006" }}
-                </time>
-            </div>
-            <h1 class="display-5">{{ .Title | replaceRE "^LinkedIn (Post|Article): " "" }}</h1>
-        </header>
-        
-        <div class="content mb-4">
-            {{ .Content }}
-        </div>
-        
-        <footer class="border-top pt-3">
-            <div class="mb-3">
-                {{ if .Params.linkedin_url }}
-                <a href="{{ .Params.linkedin_url }}" target="_blank" rel="noopener" class="d-inline-flex align-items-center text-decoration-none">
-                    <span class="icon-linkedin me-2" style="font-size: 1.2rem;"></span>
-                    <span>View original post on LinkedIn</span>
-                </a>
-                {{ end }}
+<!-- inject:../components/baseHead/baseHeadStart.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{ partial "head.html" . }} {{ partial "head_custom.html" . }}
+  </head>
+
+  <body>
+    {{ partial "header.html" . }}
+
+    <section id="linkedin-post" class="section section--border-bottom rad-animation-group">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-8 mt-7 mt-sm-0">
+            <div class="linkedin-post-meta mb-3">
+              <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" class="text-muted">
+                {{ .Date.Format "January 2, 2006" }}
+              </time>
             </div>
             
-            {{ if .Params.tags }}
-            <div class="mb-3">
+            <h2>{{ .Title | replaceRE "^LinkedIn (Post|Article): " "" }}</h2>
+            
+            <div class="linkedin-post-content mt-4">
+              {{ .Content }}
+            </div>
+            
+            <div class="linkedin-post-footer mt-5 pt-3 border-top">
+              {{ if .Params.linkedin_url }}
+              <div class="mb-3">
+                <a href="{{ .Params.linkedin_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
+                  <span class="icon-linkedin"></span>
+                  View original on LinkedIn
+                </a>
+              </div>
+              {{ end }}
+              
+              {{ if .Params.tags }}
+              <div class="mb-4">
                 {{ range .Params.tags }}
-                <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="badge bg-light text-dark text-decoration-none me-1">{{ . }}</a>
+                <span class="badge bg-light text-dark me-1">{{ . }}</span>
                 {{ end }}
-            </div>
-            {{ end }}
-            
-            <div class="mt-4">
-                <a href="{{ "/linkedin-posts/" | relURL }}" class="btn btn-sm btn-primary">
-                    <span>← Back to all LinkedIn posts</span>
+              </div>
+              {{ end }}
+              
+              <div class="mt-4">
+                <a href="{{ "/linkedin-posts/" | relURL }}" class="btn btn-primary">
+                  ← Back to all LinkedIn posts
                 </a>
+              </div>
             </div>
-        </footer>
-    </article>
-</div>
-{{ end }}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {{ partial "footer.html" . }} {{ partial "base-foot.html" . }}
+  </body>
+</html>
+<!-- endinject -->
