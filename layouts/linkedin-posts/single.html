@@ -1,27 +1,180 @@
 {{ define "main" }}
 <div class="container">
-    <article class="post">
-        <header class="post-header">
-            <h1 class="post-title">{{ .Title }}</h1>
-            <div class="post-meta">
-                <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+    <article class="linkedin-post">
+        <header class="linkedin-post-header">
+            <div class="linkedin-post-meta">
+                <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" class="linkedin-post-date">
                     {{ .Date.Format "January 2, 2006" }}
                 </time>
-                {{ if .Params.linkedin_url }}
-                · <a href="{{ .Params.linkedin_url }}" target="_blank" rel="noopener">View on LinkedIn</a>
-                {{ end }}
             </div>
+            <h1 class="linkedin-post-title">{{ .Title | replaceRE "^LinkedIn (Post|Article): " "" }}</h1>
         </header>
-        <div class="post-content">
+        
+        <div class="linkedin-post-content">
             {{ .Content }}
         </div>
-        {{ if .Params.tags }}
-        <div class="post-tags">
-            {{ range .Params.tags }}
-            <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
+        
+        <footer class="linkedin-post-footer">
+            <div class="linkedin-source">
+                {{ if .Params.linkedin_url }}
+                <a href="{{ .Params.linkedin_url }}" target="_blank" rel="noopener" class="linkedin-original-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="#0A66C2">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                    View original post on LinkedIn
+                </a>
+                {{ end }}
+            </div>
+            
+            {{ if .Params.tags }}
+            <div class="linkedin-post-tags">
+                {{ range .Params.tags }}
+                <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="linkedin-tag">{{ . }}</a>
+                {{ end }}
+            </div>
             {{ end }}
-        </div>
-        {{ end }}
+            
+            <div class="linkedin-post-navigation">
+                <a href="{{ "/linkedin-posts/" | relURL }}" class="linkedin-back-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Back to all LinkedIn posts
+                </a>
+            </div>
+        </footer>
     </article>
+    
+    <style>
+        .linkedin-post {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        .linkedin-post-header {
+            padding: 2rem 2rem 1rem;
+        }
+        
+        .linkedin-post-meta {
+            margin-bottom: 1rem;
+        }
+        
+        .linkedin-post-date {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .linkedin-post-title {
+            margin: 0;
+            font-size: 2rem;
+            line-height: 1.3;
+            color: #0A66C2;
+        }
+        
+        .linkedin-post-content {
+            padding: 0 2rem 2rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .linkedin-post-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .linkedin-post-content a {
+            color: #0A66C2;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(10, 102, 194, 0.3);
+            transition: border-color 0.2s;
+        }
+        
+        .linkedin-post-content a:hover {
+            border-color: #0A66C2;
+        }
+        
+        .linkedin-post-footer {
+            padding: 1.5rem 2rem;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        
+        .linkedin-source {
+            margin-bottom: 1.5rem;
+        }
+        
+        .linkedin-original-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #0A66C2;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .linkedin-original-link:hover {
+            color: #004182;
+            text-decoration: underline;
+        }
+        
+        .linkedin-post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .linkedin-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: rgba(10, 102, 194, 0.1);
+            color: #0A66C2;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        
+        .linkedin-tag:hover {
+            background-color: rgba(10, 102, 194, 0.2);
+        }
+        
+        .linkedin-post-navigation {
+            border-top: 1px solid #eee;
+            padding-top: 1.5rem;
+        }
+        
+        .linkedin-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .linkedin-back-link:hover {
+            color: #0A66C2;
+        }
+        
+        @media (max-width: 768px) {
+            .linkedin-post-header,
+            .linkedin-post-content,
+            .linkedin-post-footer {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            
+            .linkedin-post-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
 </div>
 {{ end }}
