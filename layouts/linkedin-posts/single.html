@@ -1,59 +1,49 @@
-<!-- inject:../components/baseHead/baseHeadStart.html -->
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    {{ partial "head.html" . }} {{ partial "head_custom.html" . }}
-  </head>
-
-  <body>
-    {{ partial "header.html" . }}
-
-    <section id="linkedin-post" class="section section--border-bottom rad-animation-group">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-md-8 mt-7 mt-sm-0">
-            <div class="linkedin-post-meta mb-3">
-              <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" class="text-muted">
-                {{ .Date.Format "January 2, 2006" }}
-              </time>
-            </div>
-            
-            <h2>{{ .Title | replaceRE "^LinkedIn (Post|Article): " "" }}</h2>
-            
-            <div class="linkedin-post-content mt-4">
-              {{ .Content }}
-            </div>
-            
-            <div class="linkedin-post-footer mt-5 pt-3 border-top">
-              {{ if .Params.linkedin_url }}
-              <div class="mb-3">
-                <a href="{{ .Params.linkedin_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
-                  <span class="icon-linkedin"></span>
-                  View original on LinkedIn
-                </a>
-              </div>
-              {{ end }}
-              
-              {{ if .Params.tags }}
-              <div class="mb-4">
-                {{ range .Params.tags }}
-                <span class="badge bg-light text-dark me-1">{{ . }}</span>
-                {{ end }}
-              </div>
-              {{ end }}
-              
-              <div class="mt-4">
-                <a href="{{ "/linkedin-posts/" | relURL }}" class="btn btn-primary">
-                  ← Back to all LinkedIn posts
-                </a>
-              </div>
-            </div>
+{{ define "main" }}
+<div class="linkedin-container">
+  <div class="container">
+    <article class="linkedin-single">
+      <header class="linkedin-single-header">
+        <div class="linkedin-single-meta">
+          <div class="linkedin-single-date">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+              {{ .Date.Format "January 2, 2006" }}
+            </time>
           </div>
         </div>
+        <h1 class="linkedin-single-title">{{ .Title | replaceRE "^LinkedIn (Post|Article): " "" }}</h1>
+      </header>
+      
+      <div class="linkedin-single-content">
+        {{ .Content }}
       </div>
-    </section>
-
-    {{ partial "footer.html" . }} {{ partial "base-foot.html" . }}
-  </body>
-</html>
-<!-- endinject -->
+      
+      <footer class="linkedin-single-footer">
+        <div class="linkedin-single-source">
+          {{ if .Params.linkedin_url }}
+          <a href="{{ .Params.linkedin_url }}" target="_blank" rel="noopener" class="linkedin-single-original">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            View original on LinkedIn
+          </a>
+          {{ end }}
+        </div>
+        
+        {{ if .Params.tags }}
+        <div class="linkedin-single-tags">
+          {{ range .Params.tags }}
+          <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="linkedin-tag">{{ . }}</a>
+          {{ end }}
+        </div>
+        {{ end }}
+        
+        <div>
+          <a href="{{ "/linkedin-posts/" | relURL }}" class="linkedin-back">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back to all LinkedIn posts
+          </a>
+        </div>
+      </footer>
+    </article>
+  </div>
+</div>
+{{ end }}
