@@ -30,7 +30,7 @@
   "description": "JS automations for adrianmoreno.info",
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^7.0.2",
-    "@zetxek/adritian-theme-helper": "^1.0.4",
+    "@zetxek/adritian-theme-helper": "^1.0.5",
     "autoprefixer": "^10.4.21",
     "bootstrap": "^5.3.6",
     "bootstrap-print-css": "^1.0.0",
