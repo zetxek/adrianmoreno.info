@@ -38,7 +38,7 @@
     "critical": "^7.2.1",
     "del": "^8.0.0",
     "imagemin-mozjpeg": "^10.0.0",
-    "postcss": "^8.5.3",
+    "postcss": "^8.5.4",
     "postcss-cli": "^11.0.1",
     "postcss-flexbugs-fixes": "^5.0.2",
     "@playwright/test": "^1.52.0"
