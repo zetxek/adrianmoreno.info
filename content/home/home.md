@@ -10,10 +10,11 @@ draft = false
     subtitle="Engineering Leader"
     button_text="Contact me"
     button_icon="icon-email"
-    description="Based in Copenhagen 🇩🇰, I work at <a target='_blank' href='https://www.sumup.com/'>SumUp</a>, a fintech company empowering small businesses. Our vision is to build a world where anyone can create a thriving business through accessible tools and technology. <br/>A specialized generalist at heart, I bring a unique blend of expertise across backend systems, mobile development, and infrastructure. Over my career, I've led teams of all sizes—from hands-on coding to scaling engineering groups—always anchored in the 3P framework: <strong>People, Product, Process</strong>.<br/>I'm driven by cultivating high-performing teams that embrace iterative improvement, psychological safety, and purpose-driven work. Whether refining agile workflows or mentoring future leaders, my goal is to build environments where both products <em>and</em> people thrive."
+    description="Based in Copenhagen 🇩🇰, I work at <a target='_blank' href='https://www.worksome.com/'>Worksome</a>, a Danish company redefining how businesses and independent professionals collaborate. Our mission is to enable frictionless, compliant, and global access to top talent—empowering companies to adapt to the future of work. <br/>A specialized generalist at heart, I bring a unique blend of expertise across backend systems, mobile development, and infrastructure. Over my career, I've led teams of all sizes—from hands-on coding to scaling engineering organizations—always grounded in the 3P framework: <strong>People, Product, Process</strong>.<br/>I'm passionate about building high-performing teams rooted in psychological safety, continuous learning, and meaningful impact. Whether it's refining delivery practices or mentoring future leaders, I focus on shaping environments where both products <em>and</em> people thrive."
     imgSrc="images/adrian@2x.jpg"
     imgScale="0.5"
  >}}
+
 
     {{< platform-links >}}
         {{< link icon="square-facebook" url="https://facebook.com/zetxek" >}}
