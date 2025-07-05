@@ -14,20 +14,20 @@
 
 ## Homepage head title
 - id: "head_title"
-  translation: "Adrián Moreno Peña | VP of Engineering based in Copenhagen (Denmark) ⸱ mobile apps, platforms, APIs, SaaS"
+  translation: "Adrián Moreno Peña | Engineering Leader based in Copenhagen (Denmark) ⸱ mobile apps, platforms, APIs, SaaS"
 
 - id: "head_description"
-  translation: "Personal site for Adrián Moreno Peña, VP of Engineering at SumUp. With a background as computer engineer and experience both as a web and mobile developer and team lead, in multi-cultural environments in Spain, the Netherlands and Denmark. You can find contact information, as well as availability for work, up-to-date curriculum and previous experience."
+  translation: "Personal site for Adrián Moreno Peña, Head of Software at Worksome. With a background as computer engineer and experience both as a web and mobile developer and team lead, in multi-cultural environments in Spain, the Netherlands and Denmark. You can find contact information, as well as availability for work, up-to-date curriculum and previous experience."
 
 ## Homepage showcase
 - id: "showcase_title"
   translation: "Hello, I'm Adrián."
 
 - id: "showcase_subtitle"
-  translation: "VP of Engineering & Tribe Lead"
+  translation: "Engineering Leader"
 
 - id: "showcase_description"
-  translation: "Based in Copenhagen 🇩🇰, I work at <a target='_blank' href='https://www.sumup.com/'>SumUp</a>, a fintech company empowering small businesses. Our vision is to build a world where anyone can create a thriving business through accessible tools and technology. <br/>A specialized generalist at heart, I bring a unique blend of expertise across backend systems, mobile development, and infrastructure. Over my career, I've led teams of all sizes—from hands-on coding to scaling engineering groups—always anchored in the 3P framework: <strong>People, Product, Process</strong>.<br/>I'm driven by cultivating high-performing teams that embrace iterative improvement, psychological safety, and purpose-driven work. Whether refining agile workflows or mentoring future leaders, my goal is to build environments where both products <em>and</em> people thrive."
+  translation: "Based in Copenhagen 🇩🇰, I work at <a target='_blank' href='https://www.worksome.com/'>Worksome</a>, a danish startup empowering the future of work. Our vision is to build a world where companies and freelancers connect and work together through accessible tools and technology. <br/>A specialized generalist at heart, I bring a unique blend of expertise across backend systems, mobile development, and infrastructure. Over my career, I've led teams of all sizes—from hands-on coding to scaling engineering groups—always anchored in the 3P framework: <strong>People, Product, Process</strong>.<br/>I'm driven by cultivating high-performing teams that embrace iterative improvement, psychological safety, and purpose-driven work. Whether refining agile workflows or mentoring future leaders, my goal is to build environments where both products <em>and</em> people thrive."
 
 - id: "showcase_button"
   translation: "Contact"
