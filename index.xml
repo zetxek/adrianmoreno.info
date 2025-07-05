@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://www.adrianmoreno.info/</link><description>Recent content on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 25 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://www.adrianmoreno.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Building trust through incident communication with Adrián Moreno, VP of Engineering at SumUp</title><link>https://www.adrianmoreno.info/public-speaking/2024-04-17-incidentio/</link><pubDate>Mon, 25 Mar 2024 00:00:00 +0000</pubDate><guid>https://www.adrianmoreno.info/public-speaking/2024-04-17-incidentio/</guid><description>&lt;p>Today, good incident communication isn&amp;rsquo;t a nice to have—it&amp;rsquo;s an absolute must.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://www.adrianmoreno.info/</link><description>Recent content on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 01 Jul 2025 00:00:00 +0100</lastBuildDate><atom:link href="https://www.adrianmoreno.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Worksome</title><link>https://www.adrianmoreno.info/experience/worksome/</link><pubDate>Tue, 01 Jul 2025 00:00:00 +0100</pubDate><guid>https://www.adrianmoreno.info/experience/worksome/</guid><description>&lt;h3 id="joined-a-danish-startup-revolutionizing-the-future-of-work">Joined a Danish startup revolutionizing the future of work&lt;/h3>
+&lt;p>In July 2025, I joined &lt;a href="https://www.worksome.com/">Worksome, a Danish startup focused on transforming how companies and freelancers connect and work together&lt;/a>. Based in Copenhagen, Worksome is building innovative solutions for the modern workforce, creating a platform that streamlines the process of finding, hiring, and managing freelance talent.&lt;/p>
+&lt;p>At Worksome, I&amp;rsquo;m leveraging my experience in engineering leadership to help scale the technology organization and drive product innovation. Working in a fast-paced startup environment allows me to contribute to both strategic direction and hands-on implementation of key initiatives.&lt;/p></description></item><item><title>Building trust through incident communication with Adrián Moreno, VP of Engineering at SumUp</title><link>https://www.adrianmoreno.info/public-speaking/2024-04-17-incidentio/</link><pubDate>Mon, 25 Mar 2024 00:00:00 +0000</pubDate><guid>https://www.adrianmoreno.info/public-speaking/2024-04-17-incidentio/</guid><description>&lt;p>Today, good incident communication isn&amp;rsquo;t a nice to have—it&amp;rsquo;s an absolute must.&lt;/p>
 &lt;p>But where do you even start? To help answer that question, we sat down with the VP of Engineering at SumUp, ⁠Adrián Moreno Peña⁠, to get his perspective on how organizations of all sizes can share stellar comms no matter the situation. We discuss:&lt;/p>
 &lt;ul>
 &lt;li>What it means to communicate during incidents&lt;/li>
@@ -102,7 +104,7 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
  Hello, I&amp;#39;m Adrián.
  &lt;/h1>
  &lt;h2 class="display-5">
- &lt;span>VP of Engineering&lt;/span>
+ &lt;span>Engineering Leader&lt;/span>
  &lt;/h2>
  &lt;div class="lead">
  Based in Copenhagen 🇩🇰, I work at &lt;a target='_blank' href='https://www.sumup.com/'>SumUp&lt;/a>, a fintech company empowering small businesses. Our vision is to build a world where anyone can create a thriving business through accessible tools and technology. &lt;br/>A specialized generalist at heart, I bring a unique blend of expertise across backend systems, mobile development, and infrastructure. Over my career, I've led teams of all sizes—from hands-on coding to scaling engineering groups—always anchored in the 3P framework: &lt;strong>People, Product, Process&lt;/strong>.&lt;br/>I'm driven by cultivating high-performing teams that embrace iterative improvement, psychological safety, and purpose-driven work. Whether refining agile workflows or mentoring future leaders, my goal is to build environments where both products &lt;em>and&lt;/em> people thrive.
@@ -404,12 +406,36 @@ talent acquisition.&lt;/p></description></item><item><title>Mobile Apps Develope
 
  
  &lt;div class="experience">
+ &lt;a href="https://www.adrianmoreno.info/experience/worksome/" class="experience__link">
+ &lt;div class="experience__header">
+ 
+ 
+ &lt;div class="experience__meta">
+ &lt;div class="experience__date">2025-present&lt;/div>
+ &lt;div class="experience__title">Head of Software&lt;/div>
+ &lt;div class="experience__company">
+ Worksome.
+ &lt;span class="experience__location">Copenhagen, Denmark&lt;/span>
+ &lt;/div>
+ &lt;/div>
+ &lt;div class="experience__description d-none d-print-block">
+ &lt;h1>Worksome&lt;/h1>
+ Joined a Danish startup revolutionizing the future of work In July 2025, I joined Worksome, a Danish startup focused on transforming how companies and freelancers connect and work together. Based in Copenhagen, Worksome is building innovative solutions for the modern workforce, creating a platform that streamlines the process of finding, hiring, and managing freelance talent.
+At Worksome, I&amp;rsquo;m leveraging my experience in engineering leadership to help scale the technology organization and drive product innovation. Working in a fast-paced startup environment allows me to contribute to both strategic direction and hands-on implementation of key initiatives.
+The role combines my passion for building high-performing engineering teams with the opportunity to shape the future of work in an increasingly freelance-oriented global economy.
+
+ &lt;/div>
+ &lt;/div>
+ &lt;/a>
+ &lt;/div>
+ 
+ &lt;div class="experience">
  &lt;a href="https://www.adrianmoreno.info/experience/sumup/" class="experience__link">
  &lt;div class="experience__header">
  
  
  &lt;div class="experience__meta">
- &lt;div class="experience__date">2021-present&lt;/div>
+ &lt;div class="experience__date">2021-2025&lt;/div>
  &lt;div class="experience__title">Engineering Manager → VP of Engineering &amp;amp; Tribe Lead&lt;/div>
  &lt;div class="experience__company">
  SumUp.
@@ -530,37 +556,11 @@ At TMC I developed innovative new apps (ie: using Bluetooth BLE beacons technolo
  &lt;/a>
  &lt;/div>
  
- &lt;div class="experience">
- &lt;a href="https://www.adrianmoreno.info/experience/zadiasoftware/" class="experience__link">
- &lt;div class="experience__header">
- 
- 
- &lt;div class="experience__meta">
- &lt;div class="experience__date">2011-2015&lt;/div>
- &lt;div class="experience__title">Co-Founder &amp;amp; Technical Lead&lt;/div>
- &lt;div class="experience__company">
- Zadia Software.
- &lt;span class="experience__location">Santiago de Compostela, Spain&lt;/span>
- &lt;/div>
- &lt;/div>
- &lt;div class="experience__description d-none d-print-block">
- &lt;h1>Co-Founder - Zadia Software&lt;/h1>
- Co-founder and technical lead At Zadia I co-Founded and bootstrapped a software development studio. From its origin as a part time job, to leading and coordinating a team of 5 engineers on the technical side.
-Revenue-wise, we were doubling the revenue every year, helping make the company sustainable ant have a self-sustained growth.
-The company provided software development services and advice to a range of companies, from small ones looking to digitalize their business or improve their online presence, to larger enterprise-level projects, where we would oversee the integration of multiple services, and complement the existing teams.
-The portfolio of services offered while I was at Zadia ranged from web development services (including CMS-based projects, such as Wordpress or Drupal) to mobile app development (both native in iOS and Android, or hybrid/multiplatform development), as well as custom development services like Service Oriented Architecture projects, or e-commerce platforms development.
-As usual in a bootstrapped company, the tasks done during this experience didn&amp;rsquo;t limit to technical ones. I worked on customer acquisition and account management, accounting of the company, promotion and management of the social media profiles (including content creation and SEO optimizations), and everything that could be needed.
-
- &lt;/div>
- &lt;/div>
- &lt;/a>
- &lt;/div>
- 
 
  
  &lt;div class="all-experience-container">
  
- &lt;em>And 2 more&lt;/em>&lt;br />
+ &lt;em>And 3 more&lt;/em>&lt;br />
  &lt;a href="https://www.adrianmoreno.info/experience" class="btn btn-primary btn-all-experience">
  &lt;i class="">&lt;/i>
  All experience
