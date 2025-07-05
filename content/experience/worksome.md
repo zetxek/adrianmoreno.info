@@ -9,7 +9,7 @@ duration: "2025-present"
 ---
 ### Joined a Danish startup revolutionizing the future of work
 
-In July 2025, I joined Worksome, a Danish startup focused on transforming how companies and freelancers connect and work together. Based in Copenhagen, Worksome is building innovative solutions for the modern workforce, creating a platform that streamlines the process of finding, hiring, and managing freelance talent.
+In July 2025, I joined [Worksome, a Danish startup focused on transforming how companies and freelancers connect and work together](https://www.worksome.com/). Based in Copenhagen, Worksome is building innovative solutions for the modern workforce, creating a platform that streamlines the process of finding, hiring, and managing freelance talent.
 
 At Worksome, I'm leveraging my experience in engineering leadership to help scale the technology organization and drive product innovation. Working in a fast-paced startup environment allows me to contribute to both strategic direction and hands-on implementation of key initiatives.
 
