@@ -9,7 +9,7 @@ test.describe('Homepage', () => {
     expect(response.status()).toBeLessThan(400);
 
     // Check page title matches expected
-    await expect(page).toHaveTitle('Adrián Moreno Peña | VP of Engineering based in Copenhagen (Denmark) ⸱ mobile apps, platforms, APIs, SaaS');
+    await expect(page).toHaveTitle('Adrián Moreno Peña | Engineering Leader based in Copenhagen (Denmark) ⸱ mobile apps, platforms, APIs, SaaS');
 
     // Verify key sections are present
     await expect(page.locator('#about')).toBeVisible();
