@@ -41,7 +41,7 @@
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "postcss-flexbugs-fixes": "^5.0.2",
-    "@playwright/test": "^1.53.2"
+    "@playwright/test": "^1.54.1"
   },
   "engines": {
     "node": "22.x",
