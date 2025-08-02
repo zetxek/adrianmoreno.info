@@ -15,9 +15,9 @@ Tests the homepage functionality:
 ### `experience.spec.js`
 Tests the experience page functionality:
 - Page loads successfully with correct content structure
-- Experience entries are displayed correctly with proper data
+- Experience entries are displayed correctly with proper data (dynamically counts entries)
 - Navigation links work properly
-- Experience entry links are clickable and point to correct URLs
+- Experience entry links are clickable and point to correct URLs (dynamically counts links)
 - Meta information is correct
 - Page is responsive and accessible across different viewport sizes
 
