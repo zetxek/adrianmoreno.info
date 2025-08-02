@@ -49,7 +49,7 @@ test.describe('Experience Page', () => {
     const experienceEntries = page.locator('.experience');
     const experienceCount = await experienceEntries.count();
     expect(experienceCount).toBeGreaterThan(0); // Ensure there are experience entries
-    console.log(`Found ${experienceCount} experience entries`);
+    test.info().log(`Found ${experienceCount} experience entries`);
 
     // Check first experience entry (most recent - Worksome)
     if (experienceCount >= 1) {
