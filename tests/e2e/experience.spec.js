@@ -76,7 +76,10 @@ test.describe('Experience Page', () => {
 
     // Verify header navigation links work
     const headerLinks = page.locator('header nav a');
-    await expect(headerLinks).toHaveCount(4); // Updated count based on actual page structure
+    // Check for presence of required navigation links instead of hard-coded count
+    await expect(page.locator('header nav a[href*="#about"]')).toBeVisible();
+    await expect(page.locator('header nav a[href*="#experience-single"]')).toBeVisible();
+    await expect(page.locator('header nav a[href*="#contact"]')).toBeVisible();
 
     // Test navigation to About section
     await page.click('header a[href*="#about"]');
