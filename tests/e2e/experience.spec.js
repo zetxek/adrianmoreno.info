@@ -63,7 +63,7 @@ test.describe('Experience Page', () => {
     // Check second experience entry (SumUp)
     if (experienceCount >= 2) {
       const secondEntry = experienceEntries.nth(1);
-      await expect(secondEntry.locator('.experience__date')).toHaveText('2021-2025');
+      await expect(secondEntry.locator('.experience__date')).toHaveText(`2021-${currentYear}`);
       await expect(secondEntry.locator('.experience__title')).toHaveText(/Engineering Manager.*VP of Engineering/);
       await expect(secondEntry.locator('.experience__company')).toContainText('SumUp');
       await expect(secondEntry.locator('.experience__location')).toContainText('Copenhagen, Denmark');
