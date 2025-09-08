@@ -20,7 +20,7 @@
     }
   },
   "dependencies": {
-    "node-gyp": "^11.2.0",
+    "node-gyp": "^11.4.2",
     "playwright": "^1.54.2"
   },
   "scripts": {
