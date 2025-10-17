@@ -11,7 +11,7 @@ draft = false
     contact_form_message="Your message"
     contact_button="Send message"
     contact_phone_title="My phone"
-    contact_phone_number="<a href='tel:+4531579827'>+4131579827</a>"
+    contact_phone_number="<a href='tel:+4531579827'>+4531579827</a>"
     contact_email_title="My mail"
     contact_email_email="info@adrianmoreno.info"
     contact_address_title="My location"
