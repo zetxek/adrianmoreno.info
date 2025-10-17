@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "node-gyp": "^11.4.2",
-    "playwright": "^1.54.2"
+    "playwright": "^1.56.1"
   },
   "scripts": {
     "test:e2e": "playwright test",
