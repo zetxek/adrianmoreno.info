@@ -128,7 +128,7 @@ url = "index.html#experience-single"
 weight = 3
 
 [[menu.header]]
-name = "Blog"
+name = "Articles"
 url = "/blog"
 weight = 4
 
