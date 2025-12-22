@@ -20,6 +20,8 @@
     }
   },
   "dependencies": {
+    "dompurify": "^3.3.1",
+    "fuse.js": "^7.1.0",
     "node-gyp": "^11.4.2",
     "playwright": "^1.56.1"
   },
@@ -30,6 +32,7 @@
   "description": "JS automations for adrianmoreno.info",
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^7.0.2",
+    "@playwright/test": "^1.56.1",
     "@zetxek/adritian-theme-helper": "^1.0.5",
     "autoprefixer": "^10.4.21",
     "bootstrap": "^5.3.8",
@@ -40,8 +43,7 @@
     "imagemin-mozjpeg": "^10.0.0",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
-    "postcss-flexbugs-fixes": "^5.0.2",
-    "@playwright/test": "^1.56.1"
+    "postcss-flexbugs-fixes": "^5.0.2"
   },
   "engines": {
     "node": "22.x",
