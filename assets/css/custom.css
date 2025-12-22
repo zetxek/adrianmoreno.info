@@ -1,0 +1,24 @@
+/* Original LinkedIn article source styling */
+.original-source {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.original-source p {
+    margin-bottom: 0;
+}
+
+.original-source .icon-linkedin {
+    margin-right: 0.5rem;
+    color: #0077b5;
+}
+
+.original-source a {
+    color: #0077b5;
+    font-weight: 500;
+}
+
+.original-source a:hover {
+    text-decoration: underline;
+}
