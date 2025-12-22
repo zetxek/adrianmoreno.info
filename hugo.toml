@@ -161,6 +161,8 @@ weight = 5
 
 
 [taxonomies]
+tag = "tags"
+category = "categories"
 book_author = "book_authors"
 book_category = "book_categories"
 

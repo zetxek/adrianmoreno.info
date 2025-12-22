@@ -22,3 +22,4 @@ hugo_stats.json
 # Tests
 playwright-report/*
 test-results/*
+scripts/linkedin/*.zip*
