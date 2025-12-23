@@ -26,7 +26,7 @@ This Go script imports LinkedIn posts and articles from a LinkedIn data export a
 
 2. Run the import script:
    ```bash
-   go run scripts/import_linkedin_posts.go
+   go run scripts/import_linkedin/import_linkedin_posts.go
    ```
 
 ## What the Script Does
