@@ -22,3 +22,37 @@
 .original-source a:hover {
     text-decoration: underline;
 }
+
+.blog-topics-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.08);
+    color: inherit;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.blog-topics-cta:hover,
+.blog-topics-cta:focus-visible {
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.16);
+    color: #f8f9fa;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.blog-topics-cta-icon {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.blog-topics-cta:hover .blog-topics-cta-icon,
+.blog-topics-cta:focus-visible .blog-topics-cta-icon {
+    transform: translateX(3px);
+}
