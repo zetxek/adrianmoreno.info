@@ -3,10 +3,11 @@ title = "Didactic transparency"
 date = "2024-06-22T10:12:21Z"
 draft = false
 tags = ["linkedin", "imported", "article"]
-categories = ["Professional"]
+categories = ["Engineering & Product"]
 layout = "blog"
 originalDate = "June 22, 2024"
 +++
+
 
 # Didactic transparency
 

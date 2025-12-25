@@ -3,11 +3,12 @@
 	date = "2023-01-02T20:19:10Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7015773503643623424"
 originalDate = "January 2, 2023"
 +++
+
 
 One reflection to start the year: instead of setting big goals and objectives, focus on something that you can control, and the change you will commit to.
 

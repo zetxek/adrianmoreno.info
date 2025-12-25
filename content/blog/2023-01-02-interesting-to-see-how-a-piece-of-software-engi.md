@@ -3,11 +3,12 @@
 	date = "2023-01-02T20:13:12Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7015772004129644544"
 originalDate = "January 2, 2023"
 +++
+
 
 Interesting to see how a piece of software engineering jargon like "technical debt" makes it to the mainstream media - and quite a cautionary tale in favour of taking good care of it.Can't argue with the conclusion (ok, a bit of a spoiler on the article, but no surprise if you had read the news): "Technical debt is real debt.
 

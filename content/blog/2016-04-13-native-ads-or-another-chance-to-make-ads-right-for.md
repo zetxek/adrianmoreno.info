@@ -3,10 +3,11 @@ title = "Native Ads or another chance to make ads right for the users"
 date = "2016-04-13T10:26:00Z"
 draft = false
 tags = ["linkedin", "imported", "article"]
-categories = ["Professional"]
+categories = ["General"]
 layout = "blog"
 originalDate = "April 13, 2016"
 +++
+
 
 ![](https://media.licdn.com/mediaC4D12AQHt88yBn29rpQ)
 

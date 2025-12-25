@@ -3,11 +3,12 @@
 	date = "2023-11-19T21:28:41Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Engineering & Product"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7132117504251817985"
 originalDate = "November 19, 2023"
 +++
+
 
 This."There shouldn't be a separate "engineering roadmap" to start with.
 

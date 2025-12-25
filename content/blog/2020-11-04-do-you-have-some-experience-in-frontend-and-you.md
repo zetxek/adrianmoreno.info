@@ -3,11 +3,12 @@
 	date = "2020-11-04T11:51:51Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6729721809081520128"
 originalDate = "November 4, 2020"
 +++
+
 
 Do you have some experience in frontend and you're ready to take the next step in your career?
 

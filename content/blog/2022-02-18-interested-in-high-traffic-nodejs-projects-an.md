@@ -3,11 +3,12 @@
 	date = "2022-02-18T23:17:16Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6900578983537184768"
 originalDate = "February 18, 2022"
 +++
+
 
 Interested in high traffic node.js projects, and a chance to drive a super impactful initiative that powers the ecosystem that allows millions of small merchants to do business?
 

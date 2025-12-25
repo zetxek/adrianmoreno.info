@@ -3,11 +3,12 @@
 	date = "2022-11-17T07:05:31Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6998903936560545792"
 originalDate = "November 17, 2022"
 +++
+
 
 You will start seeing these beauties soon at the desk our your favourite local merchants  🤩A beautiful piece of hardware with no strings attached (aka no monthly fees), competitive payment fees, and powerful software running it.
 

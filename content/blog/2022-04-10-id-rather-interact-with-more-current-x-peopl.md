@@ -3,11 +3,12 @@
 	date = "2022-04-10T16:45:50Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6918962256726695936"
 originalDate = "April 10, 2022"
 +++
+
 
 I'd rather interact with more "current-X" people than "ex-Y" 🧐Let me extend on this thought.
 

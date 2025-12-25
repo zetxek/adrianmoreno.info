@@ -3,11 +3,12 @@
 	date = "2023-03-11T17:56:12Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Leadership & Culture"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7040379900767191040"
 originalDate = "March 11, 2023"
 +++
+
 
 Reading Primal Leadership there has been a "yes that's it!!" moment - something that resonated strongly with my experience:Research on humor at work reveals that a well-timed joke or playful laugher can stimulate creativity, open lines of communication, enhance a sense of connection and trust, and, of course, make work more fun.
 

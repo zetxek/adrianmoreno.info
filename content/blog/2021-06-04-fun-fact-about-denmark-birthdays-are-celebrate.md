@@ -3,11 +3,12 @@
 	date = "2021-06-04T13:05:49Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Work & Life"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6806566651979415552"
 originalDate = "June 4, 2021"
 +++
+
 
 Fun fact about Denmark: birthdays are celebrated with (lots of) flags.
 

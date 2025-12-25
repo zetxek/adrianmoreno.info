@@ -3,11 +3,12 @@
 	date = "2022-11-03T21:35:59Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6994049565419020288"
 originalDate = "November 3, 2022"
 +++
+
 
 I love working in multi cultural environments, across countries, and doing business with all kind of nationalities and backgrounds. I really appreciate the different ways of approaching a situation, let it be solving a problem, sharing a responsibility, or celebrating success.But it was not always like that!
 

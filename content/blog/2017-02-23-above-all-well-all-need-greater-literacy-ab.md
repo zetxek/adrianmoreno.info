@@ -3,11 +3,12 @@
 	date = "2017-02-23T14:07:56Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Engineering & Product"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6240532438355968000"
 originalDate = "February 23, 2017"
 +++
+
 
 > Above all, we'll all need greater literacy about the place of algorithms in the modern world, and more ability to affect their ultimate outcomes.
 

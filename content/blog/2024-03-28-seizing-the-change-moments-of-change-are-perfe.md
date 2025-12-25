@@ -3,11 +3,12 @@
 	date = "2024-03-28T18:07:10Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7179177212586180609"
 originalDate = "March 28, 2024"
 +++
+
 
 Seizing the change: moments of change are perfect for creating new habits (or reinforcing them) 💡We just moved our offices in Copenhagen at SumUp, which has created a perfect opportunity for me to try new habits.
 

@@ -3,10 +3,11 @@ title = "Developing our empathy to be better colleagues and leaders"
 date = "2023-05-28T12:47:00Z"
 draft = false
 tags = ["linkedin", "imported", "article"]
-categories = ["Professional"]
+categories = ["Leadership & Culture"]
 layout = "blog"
 originalDate = "May 28, 2023"
 +++
+
 
 ![Generated with midjourney 5](https://media.licdn.com/mediaD4E12AQFOEy41G1LdDg)
 

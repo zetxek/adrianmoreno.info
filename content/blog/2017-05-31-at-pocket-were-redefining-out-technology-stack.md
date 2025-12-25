@@ -3,11 +3,12 @@
 	date = "2017-05-31T21:30:39Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6275795471839694848"
 originalDate = "May 31, 2017"
 +++
+
 
 At Pocket we're redefining out technology stack and preparing a future-proof platform.
 

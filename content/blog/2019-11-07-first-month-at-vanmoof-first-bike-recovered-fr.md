@@ -3,11 +3,12 @@
 	date = "2019-11-07T12:20:07Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Work & Life"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6598182127362207744"
 originalDate = "November 7, 2019"
 +++
+
 
 First month at VanMoof, first bike recovered from the thieves! 🕵️‍♂️ (I star at 4:32, supervising 😂)Some context: VanMoof's bikes are tracked via GPS when stolen, and with the Peace of Mind service, we will get them wherever they are.
 

@@ -3,10 +3,11 @@ title = "Making explicit the implicit: Exploring parallel universes while creati
 date = "2024-03-03T18:08:00Z"
 draft = false
 tags = ["linkedin", "imported", "article"]
-categories = ["Professional"]
+categories = ["General"]
 layout = "blog"
 originalDate = "March 3, 2024"
 +++
+
 
 ![In a way, creating something together is like exploring the ](https://media.licdn.com/mediaD4D12AQGY8axfaTOJXA)
 

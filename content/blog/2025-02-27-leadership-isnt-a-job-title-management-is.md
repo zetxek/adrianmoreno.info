@@ -3,11 +3,12 @@ title = "Leadership isn’t a job title. Management is. 🧭\""
 date = "2025-02-27T09:01:30Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
+categories = ["Career & Hiring"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7300802214669746177"
 originalDate = "February 27, 2025"
 +++
+
 
 Leadership isn’t a job title. Management is. 🧭"
 "

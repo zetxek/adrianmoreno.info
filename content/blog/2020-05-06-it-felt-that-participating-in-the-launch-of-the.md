@@ -3,11 +3,12 @@
 	date = "2020-05-06T21:49:37Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6663917650684456961"
 originalDate = "May 6, 2020"
 +++
+
 
 It felt that participating in the launch of the S3 and X3 bikes with VanMoof has been a beautiful step and milestone in my career.
 

@@ -3,11 +3,12 @@ title = "🤬You might be outraged at the wrong thing about AI"
 date = "2025-10-18T17:17:11Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
+categories = ["General"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7385363330649104384"
 originalDate = "October 18, 2025"
 +++
+
 
 🤬You might be outraged at the wrong thing about AI
 

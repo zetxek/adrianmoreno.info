@@ -3,11 +3,12 @@ title = "STOP THE PRESS 🛑"
 date = "2024-01-17T13:03:48Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
+categories = ["Fintech & Business"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7153371326177579010"
 originalDate = "January 17, 2024"
 +++
+
 
 STOP THE PRESS 🛑
 

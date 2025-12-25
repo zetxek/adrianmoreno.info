@@ -3,11 +3,12 @@
 	date = "2025-06-19T17:01:54Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7341510552357081089"
 originalDate = "June 19, 2025"
 +++
+
 
 I don't know who needs to hear this - but I would, many times in my career: Stop Trying to "Fit In" at work.
 

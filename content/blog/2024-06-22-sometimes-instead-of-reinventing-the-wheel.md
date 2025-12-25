@@ -3,11 +3,12 @@
 	date = "2024-06-22T13:51:46Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Engineering & Product"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7210278297023238145"
 originalDate = "June 22, 2024"
 +++
+
 
 💡 Sometimes, instead of reinventing the wheel - it's best to find the wheel blueprint, use it, and work with it.
 

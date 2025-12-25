@@ -3,11 +3,12 @@
 	date = "2015-04-06T13:04:24Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A5990831209909878784"
 originalDate = "April 6, 2015"
 +++
+
 
 Knowing how to program for iOS makes programming for OS X (Cocoa) easier, but it's not inmediate.
 

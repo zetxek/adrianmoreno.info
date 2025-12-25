@@ -3,11 +3,12 @@
 	date = "2025-04-01T07:54:20Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7312744112338735104"
 originalDate = "April 1, 2025"
 +++
+
 
 We've all been there: you want to communicate effectively and use some obvious and harmless acronyms.
 

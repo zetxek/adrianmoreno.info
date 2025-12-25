@@ -3,11 +3,12 @@
 	date = "2017-11-05T21:13:24Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6333048416045797376"
 originalDate = "November 5, 2017"
 +++
+
 
 What's up now with those made up "inspirational" stories?There was this good guy that was mismanaged and had an asshole as boss.
 

@@ -3,11 +3,12 @@
 	date = "2025-08-29T18:22:54Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7367260472498216960"
 originalDate = "August 29, 2025"
 +++
+
 
 The most overlooked professional skill that you can start practicing today:  curiosity 🧐In a world that rewards quick answers and surface-level knowledge, deep curiosity is a superpower.
 

@@ -3,11 +3,12 @@
 	date = "2025-07-01T19:03:12Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7345889730841960451"
 originalDate = "July 1, 2025"
 +++
+
 
 The update you were expecting: what comes next?
 

@@ -3,11 +3,12 @@ title = "What a blast this event is!"
 date = "2022-05-12T15:06:06Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
+categories = ["Engineering & Product"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6930533571593920513"
 originalDate = "May 12, 2022"
 +++
+
 
 What a blast this event is!
 

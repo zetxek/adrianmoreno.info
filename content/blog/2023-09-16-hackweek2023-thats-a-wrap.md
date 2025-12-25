@@ -3,11 +3,12 @@ title = "#hackweek2023 - that's a wrap!"
 date = "2023-09-16T06:43:40Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
+categories = ["Events & Community"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7108701958953148416"
 originalDate = "September 16, 2023"
 +++
+
 
 #hackweek2023 - that's a wrap!
 

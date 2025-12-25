@@ -3,11 +3,12 @@
 	date = "2023-04-14T18:09:47Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Events & Community"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7052704508547600384"
 originalDate = "April 14, 2023"
 +++
+
 
 It was really nice to host the meetup in our office in Copenhagen 🇩🇰.
 

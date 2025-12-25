@@ -3,11 +3,12 @@
 	date = "2020-05-29T08:27:56Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6672050820575567872"
 originalDate = "May 29, 2020"
 +++
+
 
 Uncertain times ahead, covid19 changing everything we took for granted - but one thing seems to be be proven: bikes are the future.And that's what you can help us create at VanMoof "as a fullstack developer.
 

@@ -3,11 +3,12 @@
 	date = "2025-02-04T21:41:33Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Leadership & Culture"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7292658564781740034"
 originalDate = "February 4, 2025"
 +++
+
 
 Leadership isn't about staying in the spotlight—it's about knowing when to step aside so others can step up." 🌟Being away of work and its packed schedules is giving me some quality time to experiment with AI tooling, but also to reflect.
 

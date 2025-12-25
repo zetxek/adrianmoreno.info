@@ -3,11 +3,12 @@
 	date = "2024-02-14T12:02:26Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Career & Hiring"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7163502749127544833"
 originalDate = "February 14, 2024"
 +++
+
 
 The job itself is interesting (high availability, large amounts of data, enabling many internal and customer-facing use cases...).
 

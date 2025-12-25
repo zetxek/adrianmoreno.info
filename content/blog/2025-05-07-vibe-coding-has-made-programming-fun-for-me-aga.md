@@ -3,11 +3,12 @@
 	date = "2025-05-07T19:25:38Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Engineering & Product"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7325964043024777216"
 originalDate = "May 7, 2025"
 +++
+
 
 Vibe coding has made programming fun for me again 🔮, and reconnected me with the eagerness to create.My sabbatical at SumUp started on January this year, which means that around Christmas time, I got myself an "assignment" to play with some of the coding assistants (Copilot and Cursor mainly).I took the chance to make some improvements on my website template (https://lnkd.in/dPz6DUS6), which is the open-source theme behind my own site (https://lnkd.in/dTv6XuT).
 

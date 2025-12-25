@@ -3,11 +3,12 @@ title = "Hey Amsterdam network ❌❌❌"
 date = "2021-05-17T15:31:40Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
+categories = ["Career & Hiring"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6800080371661733890"
 originalDate = "May 17, 2021"
 +++
+
 
 Hey Amsterdam network ❌❌❌
 

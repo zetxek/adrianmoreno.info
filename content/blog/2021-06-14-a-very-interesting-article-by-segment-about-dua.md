@@ -3,11 +3,12 @@
 	date = "2021-06-14T13:05:08Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Leadership & Culture"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6810190355686809600"
 originalDate = "June 14, 2021"
 +++
+
 
 A very interesting article by Segment about dual leadership that an Engineering Manager and a Product Manager have in a product teamSince my first day - my biggest ally and "sparring partner" has been Hannah.
 

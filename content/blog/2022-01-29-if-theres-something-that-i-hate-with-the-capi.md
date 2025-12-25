@@ -3,11 +3,12 @@
 	date = "2022-01-29T20:51:37Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6893294574538768384"
 originalDate = "January 29, 2022"
 +++
+
 
 If there's something that I HATE (with the capital letters) of "business talk" is referring to people as "resources".Already from the time of studying Engineering and Project Management I despised it, because of how lying, misleading and de-humanizing it is: you can exchange resources (bricks, metal, wood, money...) because you know how they compare, interact with each other, etc.
 

@@ -3,11 +3,12 @@
 	date = "2024-07-26T12:33:42Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7222579834403639296"
 originalDate = "July 26, 2024"
 +++
+
 
 Never make fun of someone who mispronounces a word - it means they learned it by reading.I can't find whom to attribute this quote to, but think of this when working with people with a different pronunciation than you.
 

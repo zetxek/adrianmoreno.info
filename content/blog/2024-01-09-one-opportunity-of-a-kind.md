@@ -3,11 +3,12 @@ title = "💥 One opportunity of a kind!"
 date = "2024-01-09T08:57:56Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
+categories = ["Career & Hiring"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7150410351853854722"
 originalDate = "January 9, 2024"
 +++
+
 
 💥 One opportunity of a kind!
 

@@ -3,11 +3,12 @@
 	date = "2020-09-21T07:56:06Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6713717414565056512"
 originalDate = "September 21, 2020"
 +++
+
 
 Being a direct B2C company where we sell our bikes directly to our riders is great.
 

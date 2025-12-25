@@ -3,10 +3,11 @@ title = "Last Friday Night (T.G.I.F.)"
 date = "2018-06-16T13:04:00Z"
 draft = false
 tags = ["linkedin", "imported", "article"]
-categories = ["Professional"]
+categories = ["General"]
 layout = "blog"
 originalDate = "June 16, 2018"
 +++
+
 
 ![](https://media.licdn.com/mediaC4E12AQHHlCymB1TMtA)
 

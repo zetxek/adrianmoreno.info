@@ -3,11 +3,12 @@
 	date = "2022-02-23T14:27:35Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Leadership & Culture"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6902257624767705088"
 originalDate = "February 23, 2022"
 +++
+
 
 Nice to have Mickael representing our Engineering team in the podcast about leading tech teams with other leaders from Copenhagen 🇩🇰Also so happy to see that Mickael really impersonated some of the value that are expected from the leaders at SumUp (https://lnkd.in/gsxt7Byx).
 

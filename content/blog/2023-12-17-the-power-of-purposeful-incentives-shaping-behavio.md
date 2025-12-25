@@ -3,10 +3,11 @@ title = "The Power of Purposeful Incentives: Shaping Behaviors for Long-Term Suc
 date = "2023-12-17T21:44:00Z"
 draft = false
 tags = ["linkedin", "imported", "article"]
-categories = ["Professional"]
+categories = ["General"]
 layout = "blog"
 originalDate = "December 17, 2023"
 +++
+
 
 ![](https://media.licdn.com/mediaD4D12AQEkgqjYgHd3XQ)
 

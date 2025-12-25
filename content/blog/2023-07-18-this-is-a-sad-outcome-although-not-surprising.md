@@ -3,11 +3,12 @@
 	date = "2023-07-18T09:27:31Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7086999919827267585"
 originalDate = "July 18, 2023"
 +++
+
 
 This is a sad outcome - although not surprising given the last developments around the economical viability of VanMoof, and the attempts to gather investment.🚲 I'm proud to have been part of the ride of the company, and I still think they're the most beautiful e-bikes out there - and will continue to ride by S3 (until I can't).
 

@@ -3,10 +3,11 @@ title = "The power of habit: from \"I hate running\"​ to \"You are an Ironman\
 date = "2021-12-21T19:49:00Z"
 draft = false
 tags = ["linkedin", "imported", "article"]
-categories = ["Professional"]
+categories = ["General"]
 layout = "blog"
 originalDate = "December 21, 2021"
 +++
+
 
 ![Ironman Italy 2021, shining at the finish line after 11h46 of effort](https://media.licdn.com/mediaC4E12AQGO9tsuCBji3Q)
 

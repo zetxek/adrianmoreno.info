@@ -3,11 +3,12 @@ title = "Genchi Genbutsu: \"go and see\"."
 date = "2023-02-19T15:14:06Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
+categories = ["General"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7033091349553803264"
 originalDate = "February 19, 2023"
 +++
+
 
 Genchi Genbutsu: "go and see".
 

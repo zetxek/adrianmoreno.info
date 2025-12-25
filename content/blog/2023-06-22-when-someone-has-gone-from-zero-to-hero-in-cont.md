@@ -3,11 +3,12 @@
 	date = "2023-06-22T14:55:14Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7077660309494059008"
 originalDate = "June 22, 2023"
 +++
+
 
 When someone has gone from zero to hero in content creation in the post-chatGPT era, I don't need zeroGPT to check if it's AI-generated or not 🙈💡 Remember that whenever you're publishing something online you're attaching your personal brand to it.
 

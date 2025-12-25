@@ -3,11 +3,12 @@
 	date = "2017-01-04T12:32:19Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6222388980265160704"
 originalDate = "January 4, 2017"
 +++
+
 
 Better, more honest and useful ads will respond.
 

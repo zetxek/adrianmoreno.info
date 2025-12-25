@@ -3,11 +3,12 @@
 	date = "2022-04-29T05:10:51Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6925672727441719296"
 originalDate = "April 29, 2022"
 +++
+
 
 Do you know that kind of online profile that only gives bad reviews, and complains about everything?
 

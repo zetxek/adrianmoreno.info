@@ -3,11 +3,12 @@
 	date = "2025-05-21T05:08:44Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7330821829634297856"
 originalDate = "May 21, 2025"
 +++
+
 
 Great day of AI talks organized by IDA, in their yearly "Driving AI" event."It was really inspiring to see real-world usage of (gen)AI in different environments such as energy trading (Casper Kaae Sønderby from twig.energy), e-commerce recommendations (Mathias Grønne from Roccai), with the combination of more "philosophical" topics like what are agents, or how to orchestrate agents in a multi-agent environment.The closing speech from Jacob Sherson resonated strongly with me.
 

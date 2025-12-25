@@ -3,11 +3,12 @@
 	date = "2025-06-16T19:20:04Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7340458157984362497"
 originalDate = "June 16, 2025"
 +++
+
 
 I bet that this will paint a familiar picture. A new joiner who thinks everything is wrong but happens to know the perfect tool to solve it. A team that needs to make its mark in a "brownfield" area.
 

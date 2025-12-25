@@ -3,11 +3,12 @@ title = "Nice! And... did you tell them?\" 💭\""
 date = "2024-10-29T20:14:22Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
+categories = ["Leadership & Culture"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7257122615499104258"
 originalDate = "October 29, 2024"
 +++
+
 
 Nice! And... did you tell them?" 💭"
 "

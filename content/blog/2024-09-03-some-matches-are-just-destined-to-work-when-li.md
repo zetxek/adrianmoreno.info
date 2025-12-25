@@ -3,11 +3,12 @@ title = "Some matches are just destined to work. When Li..."
 date = "2024-09-03T12:48:33Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
+categories = ["Engineering & Product"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7236716702305054720"
 originalDate = "September 3, 2024"
 +++
+
 
 Some matches are just destined to work. When Liza and I came in contact from Mirela from Product People we KNEW we had to do something together 🙌
 

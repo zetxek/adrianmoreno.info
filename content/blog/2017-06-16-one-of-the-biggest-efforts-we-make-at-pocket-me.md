@@ -3,11 +3,12 @@
 	date = "2017-06-16T10:57:23Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Engineering & Product"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6281434310524436480"
 originalDate = "June 16, 2017"
 +++
+
 
 One of the biggest efforts we make at Pocket Media is to detect and prevent fraud.
 

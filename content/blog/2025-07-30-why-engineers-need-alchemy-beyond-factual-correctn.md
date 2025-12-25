@@ -3,10 +3,11 @@ title = "🦄 Why Engineers Need \"Alchemy\": Beyond Factual Correctness to Huma
 date = "2025-07-30T20:08:00Z"
 draft = false
 tags = ["linkedin", "imported", "article"]
-categories = ["Professional"]
+categories = ["Engineering & Product"]
 layout = "blog"
 originalDate = "July 30, 2025"
 +++
+
 
 ![Created with microsoft copilot](https://media.licdn.com/mediaD4D12AQGpqiqocFEPFw)
 

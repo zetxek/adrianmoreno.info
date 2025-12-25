@@ -3,11 +3,12 @@ title = "We're on the hunt again for some good developers!"
 date = "2021-02-16T16:29:57Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
+categories = ["Engineering & Product"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6767480133021405184"
 originalDate = "February 16, 2021"
 +++
+
 
 We're on the hunt again for some good developers!
 

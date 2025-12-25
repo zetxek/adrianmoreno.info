@@ -3,11 +3,12 @@
 	date = "2023-03-27T13:46:43Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Engineering & Product"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7046115320511492096"
 originalDate = "March 27, 2023"
 +++
+
 
 Interactions like this really make my day to day meaningful :-)Having the chance to work in a product that helps people run their business (or their good cause initiatives as this case) it's a great feeling.
 

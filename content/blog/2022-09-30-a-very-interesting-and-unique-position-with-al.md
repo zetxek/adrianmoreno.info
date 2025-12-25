@@ -3,11 +3,12 @@
 	date = "2022-09-30T15:23:00Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Career & Hiring"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6981634513093152768"
 originalDate = "September 30, 2022"
 +++
+
 
 A very interesting and unique position, with almost instant positive impact in the large scale operations of the software/hardware product.
 

@@ -3,11 +3,12 @@
 	date = "2018-10-10T07:16:44Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Engineering & Product"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6455687347840303104"
 originalDate = "October 10, 2018"
 +++
+
 
 Very interesting panel discussion yesterday at WeWork, organized by Codemotion, with the tech leaders at Adyen, Schuberg Philis and Relay42.
 

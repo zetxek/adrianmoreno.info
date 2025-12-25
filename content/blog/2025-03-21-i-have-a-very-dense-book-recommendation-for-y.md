@@ -3,11 +3,12 @@
 	date = "2025-03-21T18:35:10Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Engineering & Product"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7308919114306084864"
 originalDate = "March 21, 2025"
 +++
+
 
 I have a (very dense) book recommendation for you today: Thinking, Fast and Slow by Daniel Kahneman.Most business books could be condensed into a simpler blog post, but "Thinking, Fast and Slow" stands apart for me.
 

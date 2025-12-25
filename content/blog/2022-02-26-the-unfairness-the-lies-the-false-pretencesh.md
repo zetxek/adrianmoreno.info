@@ -3,11 +3,12 @@
 	date = "2022-02-26T19:05:33Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6903414741423783936"
 originalDate = "February 26, 2022"
 +++
+
 
 The unfairness, the lies, the false pretences.
 

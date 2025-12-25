@@ -3,11 +3,12 @@
 	date = "2025-05-19T19:45:29Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["Engineering & Product"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7330317694556069888"
 originalDate = "May 19, 2025"
 +++
+
 
 Today, in "vibe coding adventures": I've directed Manus AI to:1. propose improvements to my website (adrianmoreno.info), without more instruction - to see where it would focus"2. understand that the code of my website is open source - but split in two repositories (theme and content)"3. implement the theme fixes in a way that are usable for anyone using the themeThe challenges faced were quite interesting."Manus could do a lot of the operations with github via API, but initially it refused and wanted me to copy/paste the code changes."Same with the improvements: initially it would propose changes that broke the theme.
 

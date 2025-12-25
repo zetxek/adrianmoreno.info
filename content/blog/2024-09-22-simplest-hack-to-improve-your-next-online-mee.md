@@ -3,11 +3,12 @@
 	date = "2024-09-22T11:05:57Z"
 	draft = false
 	tags = ["linkedin", "imported", "share"]
-	categories = ["Professional"]
+	categories = ["General"]
 	layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7243576252752662528"
 originalDate = "September 22, 2024"
 +++
+
 
 🎤 Simplest hack to improve your next online meeting: check (and fix) how you sound to others."Yes, image is a big part of others' perception of us.
 
