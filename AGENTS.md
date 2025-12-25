@@ -1,48 +1,74 @@
-# Guidelines for contributors
+@@ -0,0 +1,72 @@
+# GitHub Copilot Instructions for adrianmoreno.info
 
-This repository contains the source for a Hugo-based personal website for Adrián Moreno Peña, a hands-on technology leader.
+## Project Overview
+This is a personal portfolio website built with Hugo static site generator, using the custom [Adritian theme](https://github.com/zetxek/adritian-free-hugo-theme) as a Hugo module. The site showcases books, experience, and speaking engagements with an emphasis on performance optimization.
 
-He's based in Copenhagen (Denmark) and the audience is primarily English-speaking tech professionals.
+## Architecture & Key Components
 
-Follow these instructions when working in this project.
+### Hugo Theme Module System
+- Theme imported via `hugo.toml` module imports: `github.com/zetxek/adritian-free-hugo-theme`
+- Complex mount system overlays Bootstrap and theme assets into the project structure
+- Theme assets are mounted from `node_modules/bootstrap/` into `assets/scss/bootstrap` and `assets/js/bootstrap`
 
-The website uses a custom Hugo theme module, developed by the same author, available at https://github.com/zetxek/adritian-free-hugo-theme. You can contribute there as well - iff you are contributing to that project, please refer to the [AGENTS.md](./AGENTS.md) file in that repository for specific instructions.
+### Content Structure
+- **Books**: Individual markdown files in `content/book/` with frontmatter including `book_authors`, `book_categories`, `featured`, and `cover` fields
+- **Experience/Education**: Structured content sections with custom layouts
+- **Homepage**: Configuration driven by `data/homepage.yml` (currently minimal)
 
-## Pre-requisites
+### Build Pipeline & Performance Optimization
+- **CSS Optimization**: PostCSS with PurgeCSS removes unused CSS based on `hugo_stats.json`
+- **Critical CSS**: Automated generation via GitHub Actions on PRs using the `critical` npm package
+- **Asset Processing**: Hugo Pipes handles SCSS compilation and minification
 
-1. Install [Hugo Extended](https://gohugo.io/getting-started/installing/) (version 0.123 or newer is recommended)
-2. Install [Node.js](https://nodejs.org/en/download/) (version 16 or newer is recommended)
+## Development Workflows
 
-## Setup
+### Local Development
+```bash
+hugo serve  # Start local development server on localhost:1313
+```
 
-1. After cloning, run `hugo mod get -u github.com/zetxek/adritian-free-hugo-theme` to fetch the latest version of the theme.
-2. Install Node.js dependencies with:
-   ```bash
-   npm install
-   ```
+### Testing
+```bash
+npm run test:e2e           # Run Playwright tests
+npm run test:e2e:install   # Install Playwright browsers
+```
 
-## Development
+### Book Management
+- Use `scripts/fetch_book_covers.go` to automatically fetch book covers from Google Books API
+- Book covers stored in `static/images/books/` and referenced in frontmatter
 
-- To preview the site locally run:
-  ```bash
-  hugo serve -D
-  ```
-  This includes draft content.
-- Build the production version with:
-  ```bash
-  hugo --minify
-  ```
+## Project-Specific Conventions
 
-The generated HTML lives in the `public/` directory.
-Do not commit it - it will be generated during deployment, and published to Vercel.
+### CSS Architecture
+- PurgeCSS safelist includes header components and icon patterns: `/header.*/, /.*icon.*/, /btn$/, /.*\[class.*/`
+- Critical CSS extracted for above-the-fold content and committed to repository
+- Bootstrap customization through SCSS overwrites in `assets/scss/`
 
-## Content and code style
+### Deployment Strategy
+- **Vercel**: Primary deployment platform with custom build script (`vercel-build.sh`)
+- **Branch-specific builds**: `gh-pages` branch explicitly skipped in Vercel deployments
+- **Environment-aware builds**: Different base URLs for production vs preview deployments
 
-- Write posts in the `content/` directory using Markdown with YAML front matter.
-- Indent HTML, Markdown lists, and TOML/YAML blocks with **two spaces**.
-- Keep commit messages concise and written in English.
+### GitHub Actions Workflows
+- **Main workflow**: Builds Hugo site with npm dependencies and Python setup
+- **Critical CSS workflow**: Generates critical CSS on PRs to main branch
+- **E2E testing**: Automated Playwright tests for homepage and experience pages
+- **Dependency management**: Automated Hugo module and submodule updates
 
-## Tests
+## Testing Patterns
+- E2E tests verify dynamic content counts (experience entries, social links)
+- Tests assume localhost:1313 as base URL (Hugo development server)
+- Visual regression via Playwright screenshots stored in `test-results/`
 
-1. Run `hugo --minify` to verify that the site builds
-2. Run the local e2e tests, with `npm test`
+## External Integrations
+- **Form handling**: Contact form connected to formspree.io
+- **Book data**: Google Books API integration for cover image fetching
+- **Theme updates**: Dependabot configured for Hugo modules and npm dependencies
+
+## Key Files to Reference
+- `hugo.toml`: Module imports and asset mounting configuration
+- `postcss.config.js`: PurgeCSS configuration with Hugo stats integration
+- `vercel-build.sh`: Production build logic with branch-specific handling
+- `tests/e2e/`: Playwright test patterns for dynamic content validation
+No newline at end of file
