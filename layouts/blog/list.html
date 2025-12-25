@@ -50,7 +50,7 @@
                   <a class="fw-semibold text-decoration-none" href="{{ $latest.RelPermalink }}">{{ $latest.LinkTitle }}</a>
                 </div>
               {{ end }}
-              {{ with .Site.GetPage "taxonomyTerm" "tags" }}
+              {{ with .Site.GetPage "topics" }}
                 <div class="mt-3">
                   <a class="blog-topics-cta" href="{{ .RelPermalink }}">
                     <span>Browse topics</span>
