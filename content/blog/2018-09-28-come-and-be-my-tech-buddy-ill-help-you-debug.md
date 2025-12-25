@@ -1,7 +1,7 @@
 +++
 	title = "Come and be my tech buddy! I'll help you debug ..."
 	date = "2018-09-28T08:58:16Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

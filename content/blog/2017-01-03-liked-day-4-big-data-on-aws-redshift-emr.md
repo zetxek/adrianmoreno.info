@@ -1,7 +1,7 @@
 +++
 	title = "Liked \"Day 4 - Big Data on AWS - RedShift, EMR ..."
 	date = "2017-01-03T23:24:57Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

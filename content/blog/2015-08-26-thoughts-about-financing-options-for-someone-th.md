@@ -1,7 +1,7 @@
 +++
 	title = "Thoughts about financing options for someone th..."
 	date = "2015-08-26T17:54:19Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

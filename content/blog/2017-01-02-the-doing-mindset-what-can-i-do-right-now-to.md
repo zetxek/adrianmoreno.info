@@ -1,7 +1,7 @@
 +++
 	title = "The doing mindset: \"What can I do right now to ..."
 	date = "2017-01-02T13:43:35Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

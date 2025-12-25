@@ -1,7 +1,7 @@
 +++
 	title = "In order to surmount the diversity of problems ..."
 	date = "2017-08-15T09:51:46Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

@@ -1,7 +1,7 @@
 +++
 	title = "Want to learn a little bit about mobile apps mo..."
 	date = "2015-05-21T07:24:27Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

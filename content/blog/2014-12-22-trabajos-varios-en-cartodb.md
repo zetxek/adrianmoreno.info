@@ -1,7 +1,7 @@
 +++
 title = "Trabajos varios en CartoDB!"
 date = "2014-12-22T13:19:56Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"

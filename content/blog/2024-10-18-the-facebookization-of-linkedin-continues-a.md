@@ -1,7 +1,7 @@
 +++
 	title = "The \"Facebookization\" of LinkedIn continues - a..."
 	date = "2024-10-18T06:10:30Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

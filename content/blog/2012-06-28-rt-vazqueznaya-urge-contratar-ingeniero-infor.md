@@ -1,7 +1,7 @@
 +++
 	title = "RT @vazqueznaya: Urge contratar Ingeniero Infor..."
 	date = "2012-06-28T14:56:02Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

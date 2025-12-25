@@ -1,7 +1,7 @@
 +++
 	title = "How a cc in an email says so much.Letting your ..."
 	date = "2017-11-08T00:11:37Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

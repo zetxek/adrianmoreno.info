@@ -1,7 +1,7 @@
 +++
 	title = "If you are around the MWC in Barcelona, go and ..."
 	date = "2016-02-22T10:27:35Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

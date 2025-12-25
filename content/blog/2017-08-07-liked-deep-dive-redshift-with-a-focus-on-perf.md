@@ -1,7 +1,7 @@
 +++
 	title = "Liked \"Deep Dive Redshift, with a focus on perf..."
 	date = "2017-08-07T16:04:59Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

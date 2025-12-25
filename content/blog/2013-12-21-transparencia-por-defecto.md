@@ -1,7 +1,7 @@
 +++
 title = "Transparencia por defecto"
 date = "2013-12-21T02:31:16Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"

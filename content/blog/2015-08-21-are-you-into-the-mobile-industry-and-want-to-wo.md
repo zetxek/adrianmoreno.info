@@ -1,7 +1,7 @@
 +++
 	title = "Are you into the mobile industry and want to wo..."
 	date = "2015-08-21T09:28:58Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

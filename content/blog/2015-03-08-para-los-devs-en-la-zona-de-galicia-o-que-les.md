@@ -1,7 +1,7 @@
 +++
 	title = "Para los devs en la zona de Galicia (o que les ..."
 	date = "2015-03-08T19:46:11Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

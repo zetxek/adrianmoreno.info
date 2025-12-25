@@ -1,7 +1,7 @@
 +++
 	title = "So the next logical step for adtech is \"Deep Le..."
 	date = "2017-01-03T10:49:04Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

@@ -1,7 +1,7 @@
 +++
 	title = "Also in tech we're in the hunt for many positio..."
 	date = "2017-02-02T14:49:16Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

@@ -1,7 +1,7 @@
 +++
 	title = "Liked \"Streaming Data Analytics with Amazon Kin..."
 	date = "2017-04-24T22:20:32Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

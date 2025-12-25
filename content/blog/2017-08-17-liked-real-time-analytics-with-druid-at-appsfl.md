@@ -1,7 +1,7 @@
 +++
 	title = "Liked \"Real-time analytics with Druid at Appsfl..."
 	date = "2017-08-17T16:50:51Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

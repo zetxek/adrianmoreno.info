@@ -1,7 +1,7 @@
 +++
 	title = "It's not only engineering positions in Copenhag..."
 	date = "2024-12-18T18:20:51Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

@@ -1,7 +1,7 @@
 +++
 	title = "RT @emilio_diez: Curioso cartel publicitario de..."
 	date = "2011-07-28T20:04:27Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

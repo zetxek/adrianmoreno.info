@@ -1,7 +1,7 @@
 +++
 title = "Nice to chat about ☁️ and everything around!"
 date = "2021-04-09T08:57:38Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"

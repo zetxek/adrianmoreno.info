@@ -1,7 +1,7 @@
 +++
 	title = "Experiencia con Java?En SetPay buscan un par de..."
 	date = "2014-10-17T07:22:03Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

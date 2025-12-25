@@ -1,7 +1,7 @@
 +++
 	title = "By the way - if customer-facing systems are you..."
 	date = "2021-02-17T15:02:47Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

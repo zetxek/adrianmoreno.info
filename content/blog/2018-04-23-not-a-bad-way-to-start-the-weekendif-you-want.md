@@ -1,7 +1,7 @@
 +++
 	title = "Not a bad way to start the weekend!If you want ..."
 	date = "2018-04-23T20:47:25Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

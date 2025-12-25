@@ -1,7 +1,7 @@
 +++
 	title = "Sharing for my #amsterdam network it mobile dev..."
 	date = "2025-02-21T15:55:34Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

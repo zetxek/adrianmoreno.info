@@ -1,7 +1,7 @@
 +++
 title = "Atentos, webdevs y rubystas!"
 date = "2015-01-13T12:38:10Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"

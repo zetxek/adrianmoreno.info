@@ -1,7 +1,7 @@
 +++
 title = "Internet está controlado por 14 personas..."
 date = "2014-03-02T17:36:16Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"

@@ -1,7 +1,7 @@
 +++
 	title = "En Bahia Software están buscando varios perfile..."
 	date = "2014-12-15T13:23:18Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

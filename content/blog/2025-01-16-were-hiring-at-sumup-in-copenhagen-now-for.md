@@ -1,7 +1,7 @@
 +++
 	title = "We’re #hiring at SumUp in Copenhagen - now for ..."
 	date = "2025-01-16T13:09:11Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

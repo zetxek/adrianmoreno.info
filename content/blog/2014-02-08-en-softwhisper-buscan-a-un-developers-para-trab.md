@@ -1,7 +1,7 @@
 +++
 	title = "En Softwhisper buscan a un developers para trab..."
 	date = "2014-02-08T15:22:25Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

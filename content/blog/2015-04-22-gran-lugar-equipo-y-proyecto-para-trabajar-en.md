@@ -1,7 +1,7 @@
 +++
 	title = "Gran lugar, equipo y proyecto para trabajar en ..."
 	date = "2015-04-22T20:56:39Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

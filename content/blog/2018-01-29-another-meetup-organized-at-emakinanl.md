@@ -1,7 +1,7 @@
 +++
 title = "Another meetup organized at Emakina.NL!"
 date = "2018-01-29T08:14:45Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"

@@ -1,7 +1,7 @@
 +++
 	title = "http://lnkd.in/dEg9wHy"
 	date = "2013-12-21T02:31:06Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

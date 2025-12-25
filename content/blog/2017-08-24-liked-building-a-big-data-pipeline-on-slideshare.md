@@ -1,7 +1,7 @@
 +++
 	title = "Liked \"Building a Big Data Pipeline\" on SlideShare"
 	date = "2017-08-24T12:54:14Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

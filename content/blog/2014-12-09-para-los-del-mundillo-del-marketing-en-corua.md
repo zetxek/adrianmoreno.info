@@ -1,7 +1,7 @@
 +++
 	title = "Para los del mundillo del marketing, en Coruña!"
 	date = "2014-12-09T00:25:59Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

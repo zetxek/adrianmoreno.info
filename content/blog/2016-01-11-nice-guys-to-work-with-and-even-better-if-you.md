@@ -1,7 +1,7 @@
 +++
 	title = "Nice guys to work with (and even better if you ..."
 	date = "2016-01-11T12:38:06Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

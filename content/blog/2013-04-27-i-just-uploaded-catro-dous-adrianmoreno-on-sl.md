@@ -1,7 +1,7 @@
 +++
 	title = "I just uploaded \"Catro dous adrianmoreno\" on Sl..."
 	date = "2013-04-27T09:32:02Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"

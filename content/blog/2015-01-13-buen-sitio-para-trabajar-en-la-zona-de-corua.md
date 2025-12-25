@@ -1,7 +1,7 @@
 +++
 	title = "Buen sitio para trabajar en la zona de Coruña, ..."
 	date = "2015-01-13T12:34:09Z"
-	draft = false
+	draft = true
 	tags = ["linkedin", "imported", "share"]
 	categories = ["Professional"]
 	layout = "blog"
