@@ -4,6 +4,12 @@ name: Update Hugo modules
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      run_go_mod_tidy:
+        description: 'Run go mod tidy before verification'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   update:
@@ -20,6 +26,10 @@ jobs:
         with:
           hugo-version: 'latest'
           extended: true
+
+      - name: Run go mod tidy
+        if: ${{ inputs.run_go_mod_tidy }}
+        run: go mod tidy
 
       - name: Update Hugo Modules
         run: |
