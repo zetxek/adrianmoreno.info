@@ -1,0 +1,13 @@
++++
+	title = "This.When a conversation reaches by DM, send it..."
+	date = "2024-02-26T21:56:32Z"
+	draft = false
+	tags = ["linkedin", "imported", "share"]
+	categories = ["General"]
+	layout = "blog"
+originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7168000913159266304"
+originalDate = "February 26, 2024"
++++
+
+
+This.When a conversation reaches by DM, send it to a channel (either private or public depending on context).And nudging team members to understand that posting in a public channel is not spamming, given the right etiquette (right tagging - so not @here to say good morning; right context setting, using threads for related follow ups)…

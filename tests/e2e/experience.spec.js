@@ -25,7 +25,7 @@ test.describe('Experience Page', () => {
     // Check breadcrumb links
     const breadcrumbLinks = page.locator('.breadcrumbs a');
     await expect(breadcrumbLinks).toHaveCount(2);
-    await expect(breadcrumbLinks.nth(0)).toHaveText('Home');
+    await expect(breadcrumbLinks.nth(0)).toHaveText(/🏠\s*Home/);
     await expect(breadcrumbLinks.nth(1)).toHaveText('Experience');
 
     // Verify main content section

@@ -1,0 +1,16 @@
++++
+	title = "So the next logical step for adtech is \"Deep Le..."
+	date = "2017-01-03T10:49:04Z"
+	draft = true
+	tags = ["linkedin", "imported", "share"]
+	categories = ["Professional"]
+	layout = "blog"
+originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6222000607893553152"
+originalDate = "January 3, 2017"
++++
+
+So the next logical step for adtech is "Deep Learning", which goes beyond ML.
+
+It defines the features to be analysed and offering an (intelligent) optimisation.
+
+Forming a brain, going inside, a neural network, a human brain of learning.

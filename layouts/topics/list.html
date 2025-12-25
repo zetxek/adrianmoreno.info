@@ -1,0 +1,51 @@
+++ 
+{{ define "main" }}
+{{ $tags := .Site.Taxonomies.tags }}
+{{ $categories := .Site.Taxonomies.categories }}
+<section id="topics" class="section section--border-bottom rad-animation-group flex-grow-1">
+  <div class="container">
+    <header class="mb-4">
+      <h1 class="mb-2">Topics</h1>
+      <p class="lead text-muted mb-0">Browse tags and categories from across the blog.</p>
+    </header>
+
+    <div class="row g-4">
+      <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body">
+            <h2 class="h5 mb-3">Tags</h2>
+            {{ if $tags }}
+              <div class="d-flex flex-wrap gap-2">
+                {{ range $name, $pages := sort $tags }}
+                  {{ $termPage := site.GetPage (printf "/tags/%s" $name) }}
+                  <a class="badge bg-light text-dark text-decoration-none border" href="{{ $termPage.RelPermalink }}">#{{ $name }} <span class="text-muted">({{ len $pages }})</span></a>
+                {{ end }}
+              </div>
+            {{ else }}
+              <p class="text-muted mb-0">No tags yet.</p>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body">
+            <h2 class="h5 mb-3">Categories</h2>
+            {{ if $categories }}
+              <div class="d-flex flex-wrap gap-2">
+                {{ range $name, $pages := sort $categories }}
+                  {{ $termPage := site.GetPage (printf "/categories/%s" $name) }}
+                  <a class="badge bg-light text-dark text-decoration-none border" href="{{ $termPage.RelPermalink }}">{{ $name }} <span class="text-muted">({{ len $pages }})</span></a>
+                {{ end }}
+              </div>
+            {{ else }}
+              <p class="text-muted mb-0">No categories yet.</p>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

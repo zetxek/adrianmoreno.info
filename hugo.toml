@@ -51,6 +51,15 @@ target = "assets/js/vendor/bootstrap.bundle.min.js"
 source = "node_modules/bootstrap-print-css/css/bootstrap-print.css"
 target = "assets/css/bootstrap-print.css"
 
+## Search & sanitization
+[[module.mounts]]
+source = "node_modules/fuse.js/dist/fuse.min.js"
+target = "static/js/fuse.min.js"
+
+[[module.mounts]]
+source = "node_modules/dompurify/dist/purify.min.js"
+target = "static/js/purify.min.js"
+
 [params]
 
 title = "Adrián Moreno Peña | Engineering Leader based in Copenhagen (Denmark) ⸱ mobile apps, platforms, APIs, SaaS"
@@ -77,13 +86,15 @@ enabled = false
 
 [build]
 
-
 writeStats = true
 [build.buildStats]
 disableClasses = false
 disableIDs = false
 disableTags = false
 enable = true
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
 
 # Languages
 #   en
@@ -128,9 +139,20 @@ url = "index.html#experience-single"
 weight = 3
 
 [[menu.header]]
+name = "Articles"
+url = "/blog"
+weight = 4
+
+[[menu.header]]
 name = "Contact"
 url = "#contact"
-weight = 4
+weight = 5
+
+[[menu.header]]
+pre = "search"
+name = "Search"
+url = "/search"
+weight = 6
 
 
 [[menu.footer]]
@@ -149,15 +171,17 @@ name = "🎤 Public Speaking"
 url = "/public-speaking"
 weight = 4
 
-#[[menu.footer]]
-#name = "📨 Contact"
-#url = "index.html#contact"
-#weight = 5
+[[menu.footer]]
+name = "📝 Blog"
+url = "/blog"
+weight = 5
 
 
 [taxonomies]
+tag = "tags"
+category = "categories"
 book_author = "book_authors"
-book_category = "book_categories"
+book_catefalsy = "book_categories"
 
 [params.languages.selector.disable]
 footer = false
@@ -166,5 +190,5 @@ mobileHeader = false
 
 [params.colorTheme.selector.disable]
 footer = false
-header = true
+header = false
 mobileHeader = false
