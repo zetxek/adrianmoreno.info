@@ -68,6 +68,9 @@ images = ['/img/og-preview.png']
 
 homepageExperienceCount = 6
 
+[params.blog]
+listLayout = "cards"
+
 [params.analytics]
 # controls vercel page insights - disabled by default
 # to enable, just set to true
