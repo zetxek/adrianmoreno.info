@@ -34,7 +34,7 @@
     "@fullhuman/postcss-purgecss": "^7.0.2",
     "@playwright/test": "^1.56.1",
     "@zetxek/adritian-theme-helper": "^1.0.5",
-    "autoprefixer": "^10.4.21",
+    "autoprefixer": "^10.4.23",
     "bootstrap": "^5.3.8",
     "bootstrap-print-css": "^1.0.0",
     "browser-sync": "^3.0.4",
