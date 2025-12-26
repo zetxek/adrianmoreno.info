@@ -13,7 +13,6 @@
       "browser-sync": "project",
       "critical": "project",
       "del": "project",
-      "imagemin-mozjpeg": "project",
       "postcss": "project",
       "postcss-cli": "project",
       "postcss-flexbugs-fixes": "project"
@@ -26,6 +25,7 @@
     "playwright": "^1.56.1"
   },
   "scripts": {
+    "test": "npm run test:e2e",
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install"
   },
@@ -40,7 +40,6 @@
     "browser-sync": "^3.0.4",
     "critical": "^7.2.1",
     "del": "^8.0.1",
-    "imagemin-mozjpeg": "^10.0.0",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "postcss-flexbugs-fixes": "^5.0.2"
