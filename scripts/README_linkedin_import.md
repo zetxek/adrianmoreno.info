@@ -16,25 +16,49 @@ This Go script imports LinkedIn posts and articles from a LinkedIn data export a
 
 ## Usage
 
-1. Place your LinkedIn export files in the `scripts/linkedin/` directory:
+1. Place your LinkedIn export files in one of these locations:
+   - `scripts/linkedin/` directory, or
+   - `scripts/Complete_LinkedInDataExport_YYYY-MM-DD.zip/` directory (extracted export)
+   
+   Required files:
    ```
-   scripts/linkedin/
    ├── Shares.csv          # Contains your posts/shares
+   ├── Rich_Media.csv      # Contains image URLs for posts (optional but recommended)
    └── Articles/
        └── Articles/       # Contains your articles as HTML files
    ```
 
-2. Run the import script:
+2. Run the import script with your desired mode:
    ```bash
-   go run scripts/import_linkedin/import_linkedin_posts.go
+   # Default: create new posts, skip existing
+   go run scripts/import_linkedin/import_linkedin_posts.go --mode=create
+   
+   # Update existing posts with new data and images
+   go run scripts/import_linkedin/import_linkedin_posts.go --mode=update
+   
+   # Full sync: create new + update existing
+   go run scripts/import_linkedin/import_linkedin_posts.go --mode=sync
+   
+   # Only add images to existing posts (skip posts that already have images)
+   go run scripts/import_linkedin/import_linkedin_posts.go --mode=images-only
    ```
+
+### Import Modes
+
+- **`create`** (default): Creates new posts, skips existing ones. Use for first-time imports.
+- **`update`**: Updates existing posts with new frontmatter and images, creates new posts. Use when re-importing with a fresh export.
+- **`sync`**: Full synchronization - creates new posts and updates existing ones. Best for keeping everything in sync.
+- **`images-only`**: Only adds images to existing posts that don't have any. Skips new posts. Perfect for enriching already-imported content.
 
 ## What the Script Does
 
 - **Shares.csv Processing**: Reads your LinkedIn posts from the CSV file, extracting date, content, and any linked URLs
+- **Rich_Media.csv Processing**: Matches image URLs to posts by date and content similarity, then downloads images locally
 - **Articles Processing**: Reads your LinkedIn articles from HTML files, extracting title, date, and content
 - **Content Conversion**: Converts HTML content to clean markdown-like text
-- **Hugo Post Creation**: Creates individual Hugo blog posts in `content/blog/` with proper frontmatter
+- **Image Download**: Downloads post images from LinkedIn CDN URLs and stores them locally
+- **Hugo Post Creation**: Creates individual Hugo blog posts in `content/blog/` with proper frontmatter including image references
+- **Duplicate Detection**: Intelligently detects existing posts by URL, content hash, or date+slug to prevent duplicates
 
 ## Output
 
@@ -44,6 +68,27 @@ Each LinkedIn post/article becomes a Hugo blog post with:
 - Attribution to the original LinkedIn post
 - Tags indicating it's an imported LinkedIn post
 - URL-friendly slug based on the title
+- **Images** (if available): Downloaded images stored in `static/images/linkedin/` and referenced in frontmatter
+- **Content hash**: SHA256 hash for duplicate detection
+
+### Image Handling
+
+The script automatically:
+1. Parses `Rich_Media.csv` to find image URLs associated with posts
+2. Matches images to posts using:
+   - **Date matching**: Within 5-minute tolerance
+   - **Content similarity**: Fuzzy matching on post content vs media description
+3. Downloads images from LinkedIn CDN URLs to `static/images/linkedin/`
+4. Adds image references to Hugo frontmatter:
+   ```toml
+   images = ["/images/linkedin/2025-10-18-post-slug-1.jpg"]
+   featuredImage = "/images/linkedin/2025-10-18-post-slug-1.jpg"
+   ```
+
+**Important Notes:**
+- LinkedIn CDN URLs expire after ~3-4 weeks. Use a fresh export for best results.
+- Images are only added to posts that don't already have images when using `images-only` mode.
+- If image downloads fail (expired URLs), posts are still created/updated but without images.
 
 ## File Structure After Import
 
@@ -52,18 +97,51 @@ content/blog/
 ├── 2024-01-15-my-first-linkedin-post.md
 ├── 2024-02-20-another-share.md
 └── 2024-03-10-article-title.md
+
+static/images/linkedin/
+├── 2025-10-18-post-slug-1.jpg
+├── 2025-10-18-post-slug-2.jpg
+└── 2025-07-01-another-post-1.png
 ```
 
 ## Notes
 
 - The script skips empty posts automatically
-- If a post with the same date and title already exists, it will be skipped
+- **Duplicate Detection**: Posts are matched by:
+  - `originalURL` (if available)
+  - Content hash (SHA256 of first 200 characters)
+  - Date + slug combination
 - HTML content is converted to plain text with basic formatting preserved
 - Original LinkedIn URLs are included when available
 - All imported posts are marked as `draft = false` so they publish immediately
+- **Image URLs expire**: LinkedIn CDN URLs typically expire 3-4 weeks after export. For best results, use a fresh export and run the script soon after downloading.
+- **Image matching**: Uses intelligent matching with 5-minute date tolerance and content similarity scoring
 
 ## Troubleshooting
 
-- **"LinkedIn export directory not found"**: Make sure you've placed the export files in `scripts/linkedin/`
+- **"LinkedIn export directory not found"**: Make sure you've placed the export files in `scripts/linkedin/` or `scripts/Complete_LinkedInDataExport_YYYY-MM-DD.zip/`
 - **"Could not find required columns"**: Your Shares.csv may have different column names than expected
+- **"Warning: Failed to download image"**: Image URLs may have expired. Try with a fresh export (downloaded within the last few weeks)
+- **Images not matching to posts**: The matching algorithm uses date (5-min tolerance) and content similarity. If dates don't match closely, ensure the post content is similar to the media description in Rich_Media.csv
+- **"File already exists"**: In `create` mode, existing posts are skipped. Use `update` or `sync` mode to update existing posts
 - **Compilation errors**: Make sure you have Go installed and the script is syntactically correct
+
+## Example Workflows
+
+### First-Time Import
+```bash
+# Import all posts with images
+go run scripts/import_linkedin/import_linkedin_posts.go --mode=create
+```
+
+### Adding Images to Existing Posts
+```bash
+# Get a fresh export, then add images to posts that don't have them
+go run scripts/import_linkedin/import_linkedin_posts.go --mode=images-only
+```
+
+### Full Re-import with Fresh Export
+```bash
+# Download new export, then sync everything
+go run scripts/import_linkedin/import_linkedin_posts.go --mode=sync
+```
