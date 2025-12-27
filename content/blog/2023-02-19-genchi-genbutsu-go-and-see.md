@@ -7,7 +7,16 @@ categories = ["General"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7033091349553803264"
 originalDate = "February 19, 2023"
+contentHash = "5aa570494b183976b3c3a4b31a50dbaa0a5beab21c93fe62c3706701f945ccc0"
 +++
+
+
+
+
+
+
+
+
 
 
 Genchi Genbutsu: "go and see".

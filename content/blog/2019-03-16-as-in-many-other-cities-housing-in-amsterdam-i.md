@@ -1,13 +1,22 @@
 +++
-	title = "As in many other cities, housing in Amsterdam i..."
-	date = "2019-03-16T19:33:26Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Work & Life"]
-	layout = "blog"
+title = "As in many other cities, housing in Amsterdam i..."
+date = "2019-03-16T19:33:26Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6512767636969971712"
 originalDate = "March 16, 2019"
+contentHash = "539d86521b8271c945da151c97c0f19e277be54f1819c20def525a09cd2232da"
 +++
+
+
+
+
+
+
+
+
 
 
 As in many other cities, housing in Amsterdam is in a complicated situation - with a city that is very interesting to live in and people moving, it puts pressure on the housing market.

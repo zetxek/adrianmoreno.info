@@ -7,7 +7,16 @@ categories = ["Fintech & Business"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A6956371848737525760"
 originalDate = "July 22, 2022"
+contentHash = "2109b4cba697a0003114197c9f6852c12022e0edb5532fca7ff19dcf99aa9799"
 +++
+
+
+
+
+
+
+
+
 
 
 This was quite a blast. Getting so many colleagues from all SumUp for a week, from every discipline of Engineering, Product & Design, together in the same location - and having full freedom to create something together.

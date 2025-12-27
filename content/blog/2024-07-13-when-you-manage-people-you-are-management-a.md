@@ -1,13 +1,23 @@
 +++
-	title = "When you manage people you are \"management\" - a..."
-	date = "2024-07-13T12:01:18Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Leadership & Culture"]
-	layout = "blog"
+title = "When you manage people you are \"management\" - a..."
+date = "2024-07-13T12:01:18Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7217860640621678592"
 originalDate = "July 13, 2024"
+contentHash = "b5b2135e9d2f7b4e5a0e52a26f0666ace7caaba86bbf2e5ad2175f1ab56ef2e7"
 +++
+
+
+
+
+
+
+
+
+
 
 
 When you manage people you are "management" - and you now have a new team you're part of (in addition to your own).I have seen how difficult this can be, especially for first-time managers.

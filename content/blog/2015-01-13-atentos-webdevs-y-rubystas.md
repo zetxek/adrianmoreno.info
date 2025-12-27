@@ -6,9 +6,25 @@ tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A5960746415851339776"
+resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:5960719933343047680/"
 originalDate = "January 13, 2015"
+contentHash = "ec0bfd33aae1f7614f8619fd7c4d763a21b7e99e4f3957a1e4cb7f87086e34fc"
 +++
+
+
+
+
+
+
+
+
+
 
 Atentos, webdevs y rubystas!
 
 Buen sitio para currar en la zona de Coruña, en Softwhisper buscan a alguien nuevo para su equipo.
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:5960719933343047680/)*

@@ -6,7 +6,16 @@ tags = ["linkedin", "imported", "article"]
 categories = ["Engineering & Product"]
 layout = "blog"
 originalDate = "June 22, 2024"
+contentHash = "27bbf545d08dbe3b3bcf4dcb79318ce022c79c74e6b7d85135612eeefa8e5c2e"
 +++
+
+
+
+
+
+
+
+
 
 
 # Didactic transparency

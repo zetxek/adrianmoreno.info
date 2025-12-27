@@ -1,13 +1,24 @@
 +++
-	title = "These thoughts from Sam have resonated with me ..."
-	date = "2025-08-28T11:27:16Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Career & Hiring"]
-	layout = "blog"
+title = "These thoughts from Sam have resonated with me ..."
+date = "2025-08-28T11:27:16Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7366793491319812096"
 originalDate = "August 28, 2025"
+contentHash = "884bdf0e0ad4ad50bc4894b557ec70e733108a6b86e3a9535ccc282e471379d7"
 +++
+
+
+
+
+
+
+
+
+
+
 
 
 These thoughts from Sam have resonated with me - especially the bit about the uncertain world.

@@ -1,13 +1,25 @@
 +++
 title = "💥 One opportunity of a kind!"
 date = "2024-01-09T08:57:56Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Career & Hiring"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7150410351853854722"
+resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7150400473848520704/"
 originalDate = "January 9, 2024"
+contentHash = "2d15a49df764d052fe20428125fb22a627fd181e4aedad01059ef6613b05d786"
 +++
+
+
+
+
+
+
+
+
+
+
 
 
 💥 One opportunity of a kind!
@@ -15,3 +27,8 @@ originalDate = "January 9, 2024"
 A skilled and cross-functional team, broad impact (in terms of business and geographical reach), and exciting challenges at the core of the journey for SumU merchants.
 
 And the chance to work closely with Tobias as I have done - what else?! Apply now, share with your friends!
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7150400473848520704/)*

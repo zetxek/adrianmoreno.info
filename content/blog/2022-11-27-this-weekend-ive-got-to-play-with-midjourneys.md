@@ -1,13 +1,22 @@
 +++
-	title = "This weekend I've got to play with Midjourney's..."
-	date = "2022-11-27T17:33:57Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Engineering & Product"]
-	layout = "blog"
+title = "This weekend I've got to play with Midjourney's..."
+date = "2022-11-27T17:33:57Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7002685964946915328"
 originalDate = "November 27, 2022"
+contentHash = "f4951d7de6922fb716f1c9e5dc6d2a00d722b0f1337a8976b5eeb45bbd037b89"
 +++
+
+
+
+
+
+
+
+
 
 
 This weekend I've got to play with Midjourney's last version, v4.

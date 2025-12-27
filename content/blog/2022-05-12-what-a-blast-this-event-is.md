@@ -6,8 +6,20 @@ tags = ["linkedin", "imported", "share"]
 categories = ["Engineering & Product"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6930533571593920513"
+resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6929846712240877568/"
 originalDate = "May 12, 2022"
+contentHash = "ad43293384722c1940526c427a1af1f2dde4592242dae2bb23b0bd04a15aed1d"
 +++
+
+
+
+
+
+
+
+
+
+
 
 
 What a blast this event is!
@@ -17,3 +29,8 @@ I'm having such a great time joining others' ideas and following David and Sandy
 Pairing up with other engineers while unrusting my DevOps skills (from idea to deployment in one day!), reviewing ideas together, and thinking how the creative ideas we're coming with can help our merchants be more successful ⚡️
 
 And especially - meeting colleagues that I interact on a daily basis in person!
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:6929846712240877568/)*

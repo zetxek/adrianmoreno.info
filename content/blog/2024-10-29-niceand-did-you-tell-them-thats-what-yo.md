@@ -1,13 +1,23 @@
 +++
-	title = "Nice!And... did you tell them?\" 💭That's what yo..."
-	date = "2024-10-29T20:14:22Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Leadership & Culture"]
-	layout = "blog"
+title = "Nice! And... did you tell them?\" 💭"
+date = "2024-10-29T20:14:22Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7257122615499104258"
 originalDate = "October 29, 2024"
+contentHash = "e89c626dbff675551f62ded5943953801a78f3f6f476f56846e6dc6762512dbb"
 +++
+
+
+
+
+
+
+
+
+
 
 
 Nice!

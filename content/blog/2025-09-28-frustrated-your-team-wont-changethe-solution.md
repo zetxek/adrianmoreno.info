@@ -1,13 +1,24 @@
 +++
-	title = "Frustrated your team won't change?The solution ..."
-	date = "2025-09-28T18:17:46Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "Frustrated your team won't change? The solution..."
+date = "2025-09-28T18:17:46Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7378130818700853248"
 originalDate = "September 28, 2025"
+contentHash = "01d9df3e0cfa4a9774edcdce4b6d951ec19b2a3b5dbe1413cb0be6e8728c8036"
 +++
+
+
+
+
+
+
+
+
+
+
 
 
 Frustrated your team won't change?

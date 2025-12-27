@@ -1,13 +1,22 @@
 +++
-	title = "Uncertain times ahead, covid19 changing everyth..."
-	date = "2020-05-29T08:27:56Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "Uncertain times ahead, covid19 changing everyth..."
+date = "2020-05-29T08:27:56Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6672050820575567872"
 originalDate = "May 29, 2020"
+contentHash = "a1e7ae7c53980201671930c8c73ff03c4c47a4ad24ceec4e9855599d2b8af353"
 +++
+
+
+
+
+
+
+
+
 
 
 Uncertain times ahead, covid19 changing everything we took for granted - but one thing seems to be be proven: bikes are the future.And that's what you can help us create at VanMoof "as a fullstack developer.
