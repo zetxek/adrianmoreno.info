@@ -23,5 +23,8 @@ hugo_stats.json
 playwright-report/*
 test-results/*
 scripts/linkedin/*.zip*
+scripts/linkedin/*zip*/*
 import_linkedin_posts
 _vendor/*
+scripts/*zip/*/*
+scripts/*.zip/*
