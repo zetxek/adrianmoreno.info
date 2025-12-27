@@ -1,14 +1,16 @@
 +++
 title = "The job itself is interesting (high availabilit..."
 date = "2024-02-14T12:02:26Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7163502749127544833"
+resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7163471881617018880/"
 originalDate = "February 14, 2024"
 contentHash = "482f0d97bdf120243bb5e58688883ebc3fb21a32c8315061931b6b9c3da2731f"
 +++
+
 
 
 

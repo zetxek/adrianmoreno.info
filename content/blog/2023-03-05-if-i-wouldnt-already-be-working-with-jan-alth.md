@@ -1,14 +1,16 @@
 +++
 title = "If I wouldn't already be working with Jan (alth..."
 date = "2023-03-05T17:12:29Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7038194570467110912"
+resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7032358670113873920/"
 originalDate = "March 5, 2023"
 contentHash = "e41bb2ff6db693631acdfbe35d188c6e7a9dc6d3dc357f7fa54ee9e6e1178234"
 +++
+
 
 
 

@@ -1,7 +1,7 @@
 +++
 title = "Esto es fantástico! Javascrip para automatizar ..."
 date = "2015-01-22T21:12:38Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"

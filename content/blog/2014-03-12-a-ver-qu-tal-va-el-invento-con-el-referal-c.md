@@ -1,7 +1,7 @@
 +++
 title = "A ver qué tal va el invento... con el referal c..."
 date = "2014-03-12T09:25:23Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"

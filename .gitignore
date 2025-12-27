@@ -28,3 +28,4 @@ import_linkedin_posts
 _vendor/*
 scripts/*zip/*/*
 scripts/*.zip/*
+.linkedin-browser-profile/

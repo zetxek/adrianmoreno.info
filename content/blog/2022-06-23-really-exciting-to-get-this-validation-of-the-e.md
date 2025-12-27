@@ -6,9 +6,11 @@ tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6945815319626059776"
+resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6945657732993593344/"
 originalDate = "June 23, 2022"
 contentHash = "15182cff7c4e6380892b165f382aeff9604d1e21ac962c782573690ea13512af"
 +++
+
 
 
 

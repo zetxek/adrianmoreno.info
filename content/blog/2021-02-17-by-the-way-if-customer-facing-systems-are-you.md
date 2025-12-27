@@ -1,14 +1,16 @@
 +++
 title = "By the way - if customer-facing systems are you..."
 date = "2021-02-17T15:02:47Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6767820584555474944"
+resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6767435325770870784/"
 originalDate = "February 17, 2021"
 contentHash = "2654307914223b4c6633e0b8da046511dbc5a52c02483212caf9c01bffe1eb10"
 +++
+
 
 
 

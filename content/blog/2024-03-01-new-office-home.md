@@ -12,6 +12,8 @@ contentHash = "d2c9a4f963a7916f48988d99bf5ca540297200166a1c6e2cc567a7672d86d077"
 +++
 
 
+
+
 New office home!
 
 Soon we’re ready for a visit - couldn’t be best located 🤩, and better welcomed.

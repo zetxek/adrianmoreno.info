@@ -1,7 +1,7 @@
 +++
 title = "Not directly in my team, but in my Tribe (Merch..."
 date = "2021-12-02T16:59:53Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"

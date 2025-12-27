@@ -1,7 +1,7 @@
 +++
 title = "New office home!"
 date = "2024-03-01T16:57:53Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"

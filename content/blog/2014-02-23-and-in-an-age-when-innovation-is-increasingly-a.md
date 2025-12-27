@@ -1,7 +1,7 @@
 +++
 title = "And in an age when innovation is increasingly a..."
 date = "2014-02-23T02:00:51Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"

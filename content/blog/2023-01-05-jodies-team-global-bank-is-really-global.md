@@ -1,14 +1,16 @@
 +++
 title = "Jodie's team (Global Bank) is really global 🌏, ..."
 date = "2023-01-05T09:45:51Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7016701289614958592"
+resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7015398959510659072/"
 originalDate = "January 5, 2023"
 contentHash = "e86a4b1e713d1f6463896c6941f5cbb56125d7fd4aff8016aaac5e133f033a68"
 +++
+
 
 
 
