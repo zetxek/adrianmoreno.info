@@ -17,6 +17,14 @@ contentHash = "bd15605280152bf032213383f676c2b2bef4cf25afe178998df6061c5cd864a9"
 
 
 
+
+
+
 Do you have some experience in frontend and you're ready to take the next step in your career?
 
 On top of that do you love bikes and do you want your work to have a positive impact on the world?Join our Team Digital in VanMoof then!We work agile: each team member has a voice that is heard, and you will learn from the experience team mates you will have around while delivering nice user experiences :-)
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:6729702460073512960/)*

@@ -16,6 +16,8 @@ contentHash = "85d14d01505c6748140fd22d2e176961a88b0e8904fa7b42da949b6bf0c4a815"
 
 
 
+
+
 ![Created with microsoft copilot](https://media.licdn.com/mediaD4D12AQGpqiqocFEPFw)
 
 # [🦄 Why Engineers Need "Alchemy": Beyond Factual Correctness to Human Magic](https://www.linkedin.com/pulse/why-engineers-need-alchemy-beyond-factual-correctness-moreno-pe%C3%B1a-m1yef)

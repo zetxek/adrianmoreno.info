@@ -17,4 +17,6 @@ contentHash = "93703a8046bd1dffa819414a6b4f044c045fa36a39976408c4458595861a0b8e"
 
 
 
+
+
 I met Zahra during the React meetup we hosted in SumUp Copenhagen. I really enjoyed the chat with her, and her background - and I'm sure that she can be a great teammate for a danish tech team looking for a frontend developer.If you're looking for frontenders in your team - have a chat with her!#frontenddeveloper #copenhagen #denmark #denmarkjobs

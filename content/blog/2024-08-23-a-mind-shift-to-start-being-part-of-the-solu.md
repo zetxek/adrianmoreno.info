@@ -18,6 +18,8 @@ contentHash = "2d18d4e663d6bd6e00aba4f09a51838f19702f7d68f620189393f7e9b6666551"
 
 
 
+
+
 - 💡A mind shift to start being part of the solution, instead of tolerating broken things: replace "it's not my job" with "let's find out how to solve this".
 
 🪟The broken windows theory states that visible signs of crime or antisocial behavior encourage further crimes - leading to an escalation in violence. The same thing can happen in a workplace when small things are observed that do not work as they should, and no one does anything to fix or prevent them.

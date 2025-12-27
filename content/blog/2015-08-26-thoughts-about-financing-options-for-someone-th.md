@@ -16,4 +16,6 @@ contentHash = "47c99be017771abdb9d54d73b45bc1301d410811d5e8d760d445859ec91de96c"
 
 
 
+
+
 Thoughts about financing options for someone that has first person experience about both, with their pros and cons

@@ -16,6 +16,8 @@ contentHash = "7f0e5c176221415112cc38bb33eefd18bf753c267cf172fe4a594a3bedf1bbef"
 
 
 
+
+
 ![In a way, creating something together is like exploring the ](https://media.licdn.com/mediaD4D12AQGY8axfaTOJXA)
 
 # [Making explicit the implicit: Exploring parallel universes while creating alignment](https://www.linkedin.com/pulse/making-explicit-implicit-exploring-parallel-universes-moreno-pe%C3%B1a-nvzwf)

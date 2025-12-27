@@ -17,6 +17,8 @@ contentHash = "e74948156ac041e0d6d1999f1182ef2fc761c5f7c13ac2dc5388d70e2815bb92"
 
 
 
+
+
 Last week I had a talk (in Spanish) with Júlia and Mario from Startup León about what I'm doing at Pocket Media, about (performance) marketing, and the differences I see between Spain and Netherlands related to the work culture.
 
 It was a nice talk, thanks so much for inviting me guys!

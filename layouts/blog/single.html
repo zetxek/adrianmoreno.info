@@ -38,16 +38,42 @@
 
     {{ partial "toc.html" . }}
 
+    {{/* Display images if available */}}
+    {{ if .Params.images }}
+    <div class="post-images mb-4">
+      {{ range $index, $img := .Params.images }}
+        {{ if eq $index 0 }}
+          {{/* Featured image - larger display */}}
+          <figure class="featured-image">
+            <img src="{{ $img }}" alt="{{ $.Title }}" class="img-fluid rounded mb-3" loading="lazy">
+          </figure>
+        {{ else }}
+          {{/* Additional images */}}
+          <figure class="post-image">
+            <img src="{{ $img }}" alt="{{ $.Title }} - Image {{ add $index 1 }}" class="img-fluid rounded mb-2" loading="lazy">
+          </figure>
+        {{ end }}
+      {{ end }}
+    </div>
+    {{ end }}
+
     <div class="row flex-column-reverse flex-md-row rad-fade-down">
       <div class="col-12">{{ .Content | safeHTML }}</div>
     </div>
 
-    {{/* Original LinkedIn article link - only shown for imported posts */}}
-    {{ if and .Params.originalURL .Params.originalDate }}
+    {{/* Original LinkedIn article link and reshared post - only shown for imported posts */}}
+    {{ if or (and .Params.originalURL .Params.originalDate) .Params.resharedPostURL }}
     <aside class="original-source light-border-top">
       <p class="text-muted">
+        {{ if and .Params.originalURL .Params.originalDate }}
         <i class="icon-linkedin"></i>
-        Original article published on <a href="{{ .Params.originalURL }}" target="_blank" rel="noopener">LinkedIn</a> on {{ .Params.originalDate }}.
+        Original {{ if .Params.resharedPostURL }}reshare{{ else }}post{{ end }} published on <a href="{{ .Params.originalURL }}" target="_blank" rel="noopener">LinkedIn</a> on {{ .Params.originalDate }}.
+        {{ end }}
+        {{ if .Params.resharedPostURL }}
+        <br>
+        <i class="icon-share"></i>
+        Reshared from: <a href="{{ .Params.resharedPostURL }}" target="_blank" rel="noopener">View original post on LinkedIn</a>.
+        {{ end }}
       </p>
     </aside>
     {{ end }}

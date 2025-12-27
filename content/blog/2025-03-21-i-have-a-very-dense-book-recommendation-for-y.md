@@ -19,6 +19,8 @@ contentHash = "4e8bb14daa9c15491faa07235fbac72479b87df23dc98f278ee90a7394c4fab7"
 
 
 
+
+
 I have a (very dense) book recommendation for you today: Thinking, Fast and Slow by Daniel Kahneman.Most business books could be condensed into a simpler blog post, but "Thinking, Fast and Slow" stands apart for me.
 
 Each chapter explores cognitive biases that are so fascinating and applicable to business and daily life that Kahneman could have expanded any single one into the book.

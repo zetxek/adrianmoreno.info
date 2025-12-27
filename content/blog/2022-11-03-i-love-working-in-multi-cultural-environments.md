@@ -17,6 +17,8 @@ contentHash = "fcb2a22dffd4c134db70707531b7c18351277f3b75ea86d942a4a27e8f1d8e0e"
 
 
 
+
+
 I love working in multi cultural environments, across countries, and doing business with all kind of nationalities and backgrounds. I really appreciate the different ways of approaching a situation, let it be solving a problem, sharing a responsibility, or celebrating success.But it was not always like that!
 
 When I first moved from Galicia (Spain) to Amsterdam, I had not worked in a multi cultural environment - having worked in a quite homogenous setup.

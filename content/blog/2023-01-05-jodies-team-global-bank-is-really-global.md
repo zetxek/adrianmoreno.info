@@ -17,6 +17,14 @@ contentHash = "e86a4b1e713d1f6463896c6941f5cbb56125d7fd4aff8016aaac5e133f033a68"
 
 
 
+
+
+
 Jodie's team (Global Bank) is really global 🌏, and has a huge impact in helping merchants all over the world run their business (and finances) smoothly 🏦.
 
 If you're thinking of a change in 2023 - check the open roles!"(as always feel free to reach out for a connection or information)
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7015398959510659072/)*

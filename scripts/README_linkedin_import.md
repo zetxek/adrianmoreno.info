@@ -41,6 +41,9 @@ This Go script imports LinkedIn posts and articles from a LinkedIn data export a
    
    # Only add images to existing posts (skip posts that already have images)
    go run scripts/import_linkedin/import_linkedin_posts.go --mode=images-only
+   
+   # Extract reshared LinkedIn post URLs (requires browser automation, slower)
+   go run scripts/import_linkedin/import_linkedin_posts.go --mode=sync --extract-reshares
    ```
 
 ### Import Modes
@@ -50,14 +53,25 @@ This Go script imports LinkedIn posts and articles from a LinkedIn data export a
 - **`sync`**: Full synchronization - creates new posts and updates existing ones. Best for keeping everything in sync.
 - **`images-only`**: Only adds images to existing posts that don't have any. Skips new posts. Perfect for enriching already-imported content.
 
+### Draft Post Handling
+
+When extracting reshared post URLs (with `--extract-reshares`), the script automatically **skips draft posts**. This means:
+- Posts with `draft = true` in their frontmatter are not processed
+- Only published posts (`draft = false` or no draft field) are checked for reshared URLs
+- This saves time and avoids unnecessary browser operations for unpublished content
+
+You can still manually add `resharedPostURL` to draft posts if needed.
+
 ## What the Script Does
 
 - **Shares.csv Processing**: Reads your LinkedIn posts from the CSV file, extracting date, content, and any linked URLs
 - **Rich_Media.csv Processing**: Matches image URLs to posts by date and content similarity, then downloads images locally
+- **Shared URL Handling**: Captures external links being shared (`SharedUrl` column) and includes them in frontmatter
+- **Reshared Post Extraction**: Optionally extracts URLs of reshared LinkedIn posts using browser automation (requires `--extract-reshares` flag)
 - **Articles Processing**: Reads your LinkedIn articles from HTML files, extracting title, date, and content
 - **Content Conversion**: Converts HTML content to clean markdown-like text
 - **Image Download**: Downloads post images from LinkedIn CDN URLs and stores them locally
-- **Hugo Post Creation**: Creates individual Hugo blog posts in `content/blog/` with proper frontmatter including image references
+- **Hugo Post Creation**: Creates individual Hugo blog posts in `content/blog/` with proper frontmatter including image references and shared/reshared URLs
 - **Duplicate Detection**: Intelligently detects existing posts by URL, content hash, or date+slug to prevent duplicates
 
 ## Output
@@ -69,7 +83,22 @@ Each LinkedIn post/article becomes a Hugo blog post with:
 - Tags indicating it's an imported LinkedIn post
 - URL-friendly slug based on the title
 - **Images** (if available): Downloaded images stored in `static/images/linkedin/` and referenced in frontmatter
+- **Shared URLs** (if available): External links being shared, included in frontmatter as `sharedURL`
+- **Reshared post URLs** (if extracted): Links to original LinkedIn posts being reshared, included in frontmatter as `resharedPostURL` and referenced in content
 - **Content hash**: SHA256 hash for duplicate detection
+
+### Reshared Posts
+
+When you reshare a LinkedIn post, the export may not include the original post URL in the `SharedUrl` field. The script can extract this using browser automation:
+
+- **Automatic detection**: For posts with short content (< 500 chars) and empty `SharedUrl`, the script attempts to detect potential reshares
+- **Browser extraction**: With `--extract-reshares` flag, uses Playwright to visit the share page and extract the reshared post URL
+- **Content reference**: Adds a reference at the end of the post: `*Reshared from: [View original post on LinkedIn](URL)*`
+
+**Note**: Browser extraction requires:
+- Playwright installed (`npm install` in project root)
+- LinkedIn posts to be publicly accessible (or you'll need to authenticate)
+- More time to process (browser automation is slower)
 
 ### Image Handling
 
@@ -145,3 +174,21 @@ go run scripts/import_linkedin/import_linkedin_posts.go --mode=images-only
 # Download new export, then sync everything
 go run scripts/import_linkedin/import_linkedin_posts.go --mode=sync
 ```
+
+### Extracting Reshared Post URLs
+```bash
+# Extract reshared LinkedIn post URLs (slower, requires browser automation)
+go run scripts/import_linkedin/import_linkedin_posts.go --mode=sync --extract-reshares
+```
+
+**Behavior**:
+- **Skips draft posts**: Only processes posts with `draft = false` (or no draft field)
+- **Skips existing URLs**: Posts that already have `resharedPostURL` are skipped
+- **Incremental saving**: Posts are saved immediately after extraction (no need to wait for all)
+
+**Note**: Reshared post extraction may not work if:
+- Posts require LinkedIn authentication to view
+- LinkedIn's page structure has changed
+- The post is not actually a reshare
+
+In these cases, you can manually add the `resharedPostURL` field to the post's frontmatter.

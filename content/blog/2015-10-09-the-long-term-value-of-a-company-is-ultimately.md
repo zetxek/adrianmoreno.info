@@ -17,6 +17,8 @@ contentHash = "761160f61d1ba1c378e0932f90ef4ca5f5957848246ca4e4bc2c8b450cb99651"
 
 
 
+
+
 The long-term value of a company is ultimately determined by the speed and quality of its decision makingOne of the managerial principles of Linkedin's Jeff Weiner.
 
 And I cannot do other thing that totally agree.

@@ -17,6 +17,8 @@ contentHash = "0d4270163ae4e74132071aa88395a1dc4abc7b09c18364b692181f4607f2e1f3"
 
 
 
+
+
 Very interesting panel discussion yesterday at WeWork, organized by Codemotion, with the tech leaders at Adyen, Schuberg Philis and Relay42.
 
 The title was "How to Become a Good Tech Lead" and it was lead with the questions of the attendants, covering common doubts such as how to organize the teams at the company, how to align a non-tech company towards an agile approach, how they deal with bad colleagues or toxic employees and how to reward the good ones, or what technical leadership means to them.Something that I didn't find so mature is that the reaction we (as tech-involved audience and panellists) have to a question about how to manage stress and burnouts: we laugh. I think that's not taken too seriously, and it's easy to fall into the trap of idealizing long hours, just because we like what we do.The way I see it, work and life need to be balanced to be a successful person that is able to work and for that, the company needs to give you support to achieve it, but it also starts by taking one's mental health seriously.

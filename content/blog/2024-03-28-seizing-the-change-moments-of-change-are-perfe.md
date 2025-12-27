@@ -17,6 +17,8 @@ contentHash = "3cd7e0c119b1607a0a1ce1a3b5e9f7d7d12f0d9a96d225b9dca226d274d46aa7"
 
 
 
+
+
 Seizing the change: moments of change are perfect for creating new habits (or reinforcing them) 💡We just moved our offices in Copenhagen at SumUp, which has created a perfect opportunity for me to try new habits.
 
 One thing I have tried recently is changing my commute: instead of cycling straight to work, I take the race bike and add some extra kilometers, or I run to the office.The new office location next to Vesterport is very good for this... but so was the previous one too 😅.

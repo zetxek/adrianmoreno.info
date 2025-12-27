@@ -19,6 +19,8 @@ contentHash = "f2949ecc823c2448f7629e818af37c2f9167e65457e1cc5550d9254e0a1717b0"
 
 
 
+
+
 🪄Latest vibe coding fun: https://lnkd.in/dYrcdK5Q.
 
 Made with Lovable in some minutes. ⌚️ Inspired by the (also vibe coded) app to display QR/barcodes in your Garmin watch (https://lnkd.in/dwv4bKrp), I thought of the possibilities of QR codes that are usually not utilized.📇 For example, the option to link to a vCard with contact details.

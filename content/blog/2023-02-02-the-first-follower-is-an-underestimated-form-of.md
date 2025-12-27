@@ -17,6 +17,8 @@ contentHash = "3c7997e45405bbfaadf3217b1adb1e8be54f4e9298a3d2a1fce921560a71aa1d"
 
 
 
+
+
 The first follower is an underestimated form of leadershipDon't get the wrong idea that to lead others you need to be the one that has to always make the first move.
 
 Support others.

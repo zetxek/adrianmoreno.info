@@ -17,6 +17,8 @@ contentHash = "9fdbe367ce7c1a4d6c54e5b0af801bb660efe6ccb6484d999969c0a1bdf21ab3"
 
 
 
+
+
 This is a sad outcome - although not surprising given the last developments around the economical viability of VanMoof, and the attempts to gather investment.🚲 I'm proud to have been part of the ride of the company, and I still think they're the most beautiful e-bikes out there - and will continue to ride by S3 (until I can't).
 
 Sadly, the economics of building a smart consumer product (with in-house hardware and software) are quite tough - and proves the difficultly of consumer hardware.Also - one word of support for everyone that has worked on building the company, the brand and the products - the fact that the economics didn't work out doesn't say anything about the outstanding work that you have done.

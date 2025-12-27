@@ -17,6 +17,9 @@ contentHash = "57c97cdd99517b584cb17f9231740caf74168c4690040189f2e909dc395bc86e"
 
 
 
+
+
+
 While one could think "why celebrate if we're equal"... that's not fully true.
 
 Glass ceilings, lack of diversity, career truncation after maternity...
@@ -25,3 +28,8 @@ Personally, I'm grateful for all the great female colleagues I've worked with an
 
 
 #embraceequity
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7044283108413571072/)*

@@ -11,6 +11,8 @@ contentHash = "08b10f3393702f0ad9b6e8900d179b6ca03013d65a28ad0420e73e242f35909d"
 +++
 
 
+
+
 🧱🏡🧱 LinkedIn is becoming more and more of a walled garden.
 
 While you own the data you post here, LinkedIn makes it quite hard to access it in any way other than browsing their site. That doesn't really scale for automated usage.

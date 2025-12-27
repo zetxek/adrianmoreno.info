@@ -17,6 +17,8 @@ contentHash = "28768f22367c94f491d2f448deb32d4ebc1d298f886aaa5558ab5eabe8f21199"
 
 
 
+
+
 2021 has been... quite a year 🤪
 
 Neck down in the not-so-ending pandemic, surfing through covid variants, country lockdowns and all the uncertainties that this brings (will I be able to travel? To take holidays? To go to a concert?), and all the doubts of being in a situation that we had not been before.

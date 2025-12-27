@@ -17,6 +17,8 @@ contentHash = "d04b99daf97fcb0a5f452e56bb6fe558a00c3389e1b3a71aad0f06877f129c5e"
 
 
 
+
+
 🛫 "Remember, put your mask on first before helping othersYou might know these words during the safety briefing before taking off on a plane. I had always thought that they were strange - why would you let a kid suffocate, while you get the oxygen mask on yourself first?
 
 It seems selfish, at least.

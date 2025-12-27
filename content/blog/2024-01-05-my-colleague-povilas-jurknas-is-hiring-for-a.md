@@ -16,6 +16,14 @@ contentHash = "d63fbf0ddf46b4554c81fffeb645f5e9b2161d4b4c8e6a055ac6ab168665992f"
 
 
 
+
+
+
 My colleague Povilas Jurkūnas is #hiring for a Go backend engineer in Vilnius 🇱🇹.Great position in our Global Bank 🏦, lots of impact, and exciting challenges (both engineering and product).
 
 If you know anyone, recommend them!
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/analytics/post-summary/urn:li:activity:7148980696324239360/)*

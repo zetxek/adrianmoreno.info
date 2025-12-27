@@ -17,6 +17,8 @@ contentHash = "539d86521b8271c945da151c97c0f19e277be54f1819c20def525a09cd2232da"
 
 
 
+
+
 As in many other cities, housing in Amsterdam is in a complicated situation - with a city that is very interesting to live in and people moving, it puts pressure on the housing market.
 
 As internationals, we're attracted to work and live here - and yet we're blamed because of the rise in prices and scarcity.

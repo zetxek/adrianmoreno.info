@@ -17,6 +17,8 @@ contentHash = "ede5c97904f466c0def1e45c6415ba83d19570c218469faed453e9cfa36ad936"
 
 
 
+
+
 This year I culminated a process in which I have invested more than at many of the jobs or education I've had. A journey of stubbornness and self-believe that has led me to complete my first Ironman triathlon, enduring with training during the weird pandemic months - just because I really wanted to finish the process I started.Why?
 
 Maybe just to prove that I'm capable of it to myself, who knows 🤷‍♂️ "But I've definitely taken many learnings that I carry with me for any ambit of my life, including the professional one (that is the one that matters for Linkedin, right? 😅) #ironman #triathlon #endurancetraining #perseverance

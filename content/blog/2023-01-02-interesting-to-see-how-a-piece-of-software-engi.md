@@ -17,6 +17,8 @@ contentHash = "01bdd8ede7436904ba34f156144a94d66d7fef8b94ea400e3c8c3ce225530faa"
 
 
 
+
+
 Interesting to see how a piece of software engineering jargon like "technical debt" makes it to the mainstream media - and quite a cautionary tale in favour of taking good care of it.Can't argue with the conclusion (ok, a bit of a spoiler on the article, but no surprise if you had read the news): "Technical debt is real debt.
 
 It will eventually be paid by someone".A good way to get the feeling of how tech debt disrupts everyday's business is taking a "gemba walk" and getting close to where the action happens.

@@ -6,9 +6,12 @@ tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6362306119917981696"
+sharedURL = "Emakina.NL"
 originalDate = "January 25, 2018"
 contentHash = "609146f85e416cd672f0d020981f7e34a36b659c4d9937c395b43f22cd0c7e71"
 +++
+
+
 
 
 

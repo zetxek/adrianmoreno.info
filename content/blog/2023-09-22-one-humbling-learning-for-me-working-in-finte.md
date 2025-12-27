@@ -17,4 +17,12 @@ contentHash = "f0e24d58f8e2d56bd267604f0737f75f73a631970ce6393ed0fba95387491014"
 
 
 
+
+
+
 One (humbling) learning for me working in Fintech is that many innovations are fueled as much by technology as by our finance, legal, and "supporting" functions.Innovating and being able to iterate on products on an area where it's so important to have all the details covered is challenging - but so rewarding, because of the positive impact it has for our merchants and their network! 💪
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7110586960548638720/)*

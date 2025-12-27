@@ -17,6 +17,8 @@ contentHash = "feb289bad9fbaa958cd4e19743f15b6d104377544b70da61a158c6fe98aa6c21"
 
 
 
+
+
 Nice to have Mickael representing our Engineering team in the podcast about leading tech teams with other leaders from Copenhagen 🇩🇰Also so happy to see that Mickael really impersonated some of the value that are expected from the leaders at SumUp (https://lnkd.in/gsxt7Byx).
 
 At the heart of the company are our teams, and they need to be lead with humility and really putting ourselves at the service of our colleagues to help them.

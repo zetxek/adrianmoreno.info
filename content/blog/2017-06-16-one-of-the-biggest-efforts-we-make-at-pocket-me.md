@@ -17,6 +17,8 @@ contentHash = "8d0247f831af53e5af7c82454eaca3847a1ee509018f7520af31427418107be3"
 
 
 
+
+
 One of the biggest efforts we make at Pocket Media is to detect and prevent fraud.
 
 Mobile advertising is very dynamic and changes fast - but we've tried to shared some of the techniques we used to combat it in this article by my workmate Ignas van den Eindehttps://lnkd.in/gpQu-tVAnd btw, does all this sea of data-driven decisions and big-data sound interesting to you?

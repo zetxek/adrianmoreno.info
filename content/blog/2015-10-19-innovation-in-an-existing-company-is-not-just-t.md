@@ -17,6 +17,8 @@ contentHash = "47661060be45fe6a430949e7db1ae3ddb88ddf081e49726f9b34a58f5f2ba088"
 
 
 
+
+
 Innovation in an existing company is not just the sum of great technology, key acquisitions, or smart people.
 
 Corporate innovation needs a culture that matches and supports it.

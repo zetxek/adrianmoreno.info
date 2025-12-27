@@ -17,6 +17,8 @@ contentHash = "06fd325008624d3ce2fecfe53f69c512bdaafa217f2cacdc7ceb13c8676058e8"
 
 
 
+
+
 I've been thinking a bit lately about setting and aligning incentives.
 
 It's quite a journey - and it can be both the path to success by aligning every gear around you, or the path to a very hard time.

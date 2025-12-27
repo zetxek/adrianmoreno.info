@@ -17,6 +17,8 @@ contentHash = "ffabc6e08bbc674eece2494f8b0724ea62e8283f71bfdee34a7a1e57379785a5"
 
 
 
+
+
 One of the "chores" I did this holiday break was to give some love to my Linkedin inbox.
 
 It was a bit of a jungle - and despite the shame of reacting with months of delay 🙈, it has brought some great follow ups.One was to catch up with Jakub's proposal to participate in STX Next podcast, Tech Leaders Hub.

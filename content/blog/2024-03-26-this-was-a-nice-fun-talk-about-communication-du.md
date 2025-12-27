@@ -17,6 +17,8 @@ contentHash = "6473adef229bebefbb3f23bd66ea2b728f5adbc9625526477a4d2ed9d38aaec6"
 
 
 
+
+
 This was a nice fun talk about Communication during incidents, with Luis from incident.io!Most of the tips or learnings I shared scale at any size, as it's mainly a mindset and practices to make incident management an inclusive discipline.Something we've been applying at SumUp is breaking down the barriers of "incidents are an engineering topic", using more inclusive processes and vocabulary, and putting customers at the center of our response.Is there anything I didn't mention that you missed?
 
 Or something you might have a different opinion on?#incidentmanagement #softwareengineering #productdevelopment #podcast

@@ -17,6 +17,8 @@ contentHash = "234ddf8e6571e9541b0f2261e6400d1c5a99169abf990a801fb162cac0e81969"
 
 
 
+
+
 The unfairness, the lies, the false pretences.
 
 How can the whole world just look while we let Putin play with Ukraine, a country with more than 44 million of people.And some of them are my dear colleagues.

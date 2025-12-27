@@ -19,6 +19,8 @@ featuredImage = "/images/linkedin/2025-05-19-today-in-vibe-coding-adventures-ive
 
 
 
+
+
 Today, in "vibe coding adventures": I've directed Manus AI to:1. propose improvements to my website (adrianmoreno.info), without more instruction - to see where it would focus"2. understand that the code of my website is open source - but split in two repositories (theme and content)"3. implement the theme fixes in a way that are usable for anyone using the themeThe challenges faced were quite interesting."Manus could do a lot of the operations with github via API, but initially it refused and wanted me to copy/paste the code changes."Same with the improvements: initially it would propose changes that broke the theme.
 
 Once I called out this - Manus "learned" and, in the very recognizable LLM style, apologized and proposed an alternative.

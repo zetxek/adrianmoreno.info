@@ -6,9 +6,12 @@ tags = ["linkedin", "imported", "share"]
 categories = ["Fintech & Business"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7153371326177579010"
+sharedURL = "https://www.sumup.com/careers/positions/copenhagen-denmark/engineering/senior-android-engineer/7097645002/?gh_src=4d73fb202us&gh_jid=7097645002"
 originalDate = "January 17, 2024"
 contentHash = "41ffa78b07ca06b415bd8c6aef0f8f7d116dd395d751c7356450e48cf9785bed"
 +++
+
+
 
 
 
@@ -32,3 +35,8 @@ While we are part of SumUp (with all the 💪 that it implies), we are about 20 
 If you have any questions - I'm going to be very biased, but I will be excited to tell you everything about what we are building 🚀.
 
 #android #jobopportunity #sumup #copenhagen #denmarkjobs #androidjobs
+
+
+---
+
+*Shared link: [https://www.sumup.com/careers/positions/copenhagen-denmark/engineering/senior-android-engineer/7097645002/?gh_src=4d73fb202us&gh_jid=7097645002](https://www.sumup.com/careers/positions/copenhagen-denmark/engineering/senior-android-engineer/7097645002/?gh_src=4d73fb202us&gh_jid=7097645002)*

@@ -17,8 +17,16 @@ contentHash = "63e714dd2e84f8c775e27ce87ca1716540c0eb87fe88ef83abdb3cd05ee23464"
 
 
 
+
+
+
 At the edge of a large humanitarian crisis that will demand the best of each one of us, I'm proud that at SumUp we're trying to channel the great wave of goodwill and solidarity of all our network.
 
 In such difficult situation - helping the ones doing work on the ground is so important.
 
 Donate, and SumUp will match your amount towards the Red Cross! 💙💛🇺🇦
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:6906979673688158208/)*

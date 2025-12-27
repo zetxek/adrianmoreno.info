@@ -17,6 +17,8 @@ contentHash = "00cc14934c3b0a6f8f31a7b2a4b1a4bee12e85ad7060834c2a1d46b857e0be24"
 
 
 
+
+
 In order to protect the team, you have to go against the real interests of your customers.
 
 You simply can't be in the same boat with them.I have seen this happening too many times.

@@ -17,6 +17,8 @@ contentHash = "e306a11f977de3d011efe27637f12263966e34a53e5c1144e91f9a465a53936f"
 
 
 
+
+
 Lista de Google Groups
 
 Hola! Para dotar de un poco más de dinamismo a las comunicaciones entre los miembros del grupo, Pablo ha creado un grupo de Google Groups: https://groups.google.com/group/galicia-mobile-developers

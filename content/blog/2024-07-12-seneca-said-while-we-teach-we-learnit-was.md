@@ -18,6 +18,8 @@ contentHash = "fcd45260dc40c1fcce8dd9f385f90db0c2239b5192cdccd91dc45cd32856de0b"
 
 
 
+
+
 Seneca said, "While we teach, we learn".It was energising to share some of the learnings with my peers at SumUp, and participate in the impactful global leadership program as a facilitator.
 
 Together, we make each other so much better.

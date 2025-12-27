@@ -17,6 +17,8 @@ contentHash = "88b5efb8e1fd0e0728c6659941fecf8bdb4873e2ad091ffa8356bc57826e42cf"
 
 
 
+
+
 It was really nice to host the meetup in our office in Copenhagen 🇩🇰.
 
 Great talks, both the organized ones and the informal.Meetups are great for networking, learning how others are tackling similar challenges, and why not - also share back learnings!As our colleague Jonathan M.

@@ -13,6 +13,8 @@ featuredImage = "/images/linkedin/2025-11-04-ai-isnt-replacing-people-its-freein
 +++
 
 
+
+
 🪄AI isn’t replacing people, it’s freeing them to do more meaningful work.
 
 At Worksome's  Product Innovation Webinar on November 13, I’ll be talking about "The Art of Possibility", exploring how AI and human collaboration are shaping the next phase of workforce management.

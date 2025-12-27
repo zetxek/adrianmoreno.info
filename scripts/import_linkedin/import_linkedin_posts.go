@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"crypto/sha256"
 	"encoding/csv"
 	"encoding/hex"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
@@ -11,6 +13,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -25,14 +28,17 @@ const (
 )
 
 type LinkedInPost struct {
-	Date        time.Time
-	Content     string
-	URL         string
-	ContentType string // "share" or "article"
-	Title       string
-	ImageURLs   []string // URLs from Rich_Media.csv
-	LocalImages []string // Local file paths after download
-	ContentHash string   // SHA256 hash for duplicate detection
+	Date           time.Time
+	Content        string
+	URL            string   // ShareLink - link to the share itself
+	SharedURL      string   // SharedUrl - external link being shared, or reshared LinkedIn post URL (if extracted)
+	ContentType    string   // "share" or "article"
+	Title          string
+	ImageURLs      []string // URLs from Rich_Media.csv
+	LocalImages    []string // Local file paths after download
+	ContentHash    string   // SHA256 hash for duplicate detection
+	IsReshare      bool     // True if this is a reshare of another LinkedIn post
+	ResharedPostURL string  // URL of the original LinkedIn post being reshared (extracted via browser)
 }
 
 type RichMediaEntry struct {
@@ -49,18 +55,21 @@ type PostIndex struct {
 }
 
 type PostMetadata struct {
-	FilePath    string
-	OriginalURL string
-	ContentHash string
-	Date        time.Time
-	Slug        string
-	HasImages   bool
-	Images      []string
+	FilePath        string
+	OriginalURL     string
+	ContentHash     string
+	Date            time.Time
+	Slug            string
+	HasImages       bool
+	Images          []string
+	ResharedPostURL string
+	IsDraft         bool
 }
 
 func main() {
 	// Parse CLI flags
 	modeFlag := flag.String("mode", "create", "Import mode: create, update, sync, or images-only")
+	extractResharesFlag := flag.Bool("extract-reshares", false, "Extract reshared LinkedIn post URLs using browser automation (slower)")
 	flag.Parse()
 
 	mode := *modeFlag
@@ -68,6 +77,8 @@ func main() {
 		fmt.Printf("Invalid mode: %s. Must be one of: create, update, sync, images-only\n", mode)
 		return
 	}
+	
+	extractReshares := *extractResharesFlag
 
 	// Get the current working directory
 	projectRoot, err := os.Getwd()
@@ -215,6 +226,70 @@ func main() {
 				}
 				posts[i].LocalImages = append(posts[i].LocalImages, localPath)
 			}
+		}
+	}
+
+	// Extract reshared post URLs for posts that might be reshares (if enabled)
+	if extractReshares {
+		fmt.Println("Extracting reshared post URLs (browser will open - please log in)...")
+		
+		// Collect all URLs that need extraction
+		var urlsToExtract []urlToExtract
+		
+		for i := range posts {
+			// If SharedURL is empty but we have a ShareLink, try to extract reshared post URL
+			if posts[i].SharedURL == "" && posts[i].URL != "" && posts[i].ContentType == "share" {
+				// Check if post already has resharedPostURL in frontmatter or is a draft
+				existingFile := findExistingPost(posts[i], postIndex)
+				if existingFile != "" {
+					// Read the file to check for resharedPostURL and draft status
+					fullPath := filepath.Join(projectRoot, existingFile)
+					content, err := os.ReadFile(fullPath)
+					if err == nil {
+						metadata := parseFrontmatter(string(content), existingFile)
+						if metadata != nil {
+							// Skip draft posts
+							if metadata.IsDraft {
+								fmt.Printf("  ⊘ Skipping '%s' - post is a draft\n", truncateTitle(posts[i].Title, 50))
+								continue
+							}
+							// Skip if already has resharedPostURL
+							if metadata.ResharedPostURL != "" {
+								fmt.Printf("  ⊘ Skipping '%s' - already has resharedPostURL\n", truncateTitle(posts[i].Title, 50))
+								continue
+							}
+						}
+					}
+				}
+				
+				// Heuristic: short commentary might indicate a reshare
+				contentPreview := strings.TrimSpace(posts[i].Content)
+				if len(contentPreview) < 500 { // Short posts are more likely to be reshares
+					urlsToExtract = append(urlsToExtract, urlToExtract{
+						index: i,
+						url:   posts[i].URL,
+						title: posts[i].Title,
+					})
+				}
+			}
+		}
+		
+		if len(urlsToExtract) > 0 {
+			fmt.Printf("Found %d posts that might be reshares. Processing in single browser session...\n", len(urlsToExtract))
+			fmt.Println("(Posts will be saved incrementally as URLs are extracted)\n")
+			
+			// Extract URLs incrementally and save posts as we go
+			extractCount := 0
+			err := extractResharedPostURLsIncremental(urlsToExtract, projectRoot, posts, &extractCount)
+			if err != nil {
+				fmt.Printf("Warning: Batch extraction failed: %v\n", err)
+			} else {
+				if extractCount > 0 {
+					fmt.Printf("\n✓ Successfully extracted %d reshared post URLs\n", extractCount)
+				}
+			}
+		} else {
+			fmt.Println("No posts found that need reshared URL extraction.")
 		}
 	}
 
@@ -546,6 +621,155 @@ func generateContentHash(content string) string {
 	return hex.EncodeToString(hash[:])
 }
 
+type extractionResult struct {
+	Index           int
+	ShareURL        string
+	ResharedPostURL string
+	Error           string
+}
+
+type urlToExtract struct {
+	index int
+	url   string
+	title string
+}
+
+func extractResharedPostURLsIncremental(urlsToExtract []urlToExtract, projectRoot string, posts []LinkedInPost, extractCount *int) error {
+	if len(urlsToExtract) == 0 {
+		return nil
+	}
+
+	// Build command with all URLs
+	scriptPath := filepath.Join(projectRoot, "scripts", "import_linkedin", "extract_reshared_urls_batch.js")
+	
+	// Prepare command args
+	args := []string{scriptPath}
+	for _, item := range urlsToExtract {
+		args = append(args, item.url)
+	}
+	
+	cmd := exec.Command("node", args...)
+	cmd.Dir = projectRoot
+	
+	// Create URL to index mapping
+	urlToIndex := make(map[string]int)
+	for _, item := range urlsToExtract {
+		urlToIndex[item.url] = item.index
+	}
+	
+	// Get stdout pipe to read line by line
+	stdout, err := cmd.StdoutPipe()
+	if err != nil {
+		return fmt.Errorf("failed to create stdout pipe: %w", err)
+	}
+	
+	// Also capture stderr for debugging output
+	cmd.Stderr = os.Stderr
+	
+	// Start command
+	if err := cmd.Start(); err != nil {
+		return fmt.Errorf("failed to start extraction script: %w", err)
+	}
+	
+	// Read results line by line (each line is a JSON object)
+	scanner := bufio.NewScanner(stdout)
+	lineNum := 0
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+		if line == "" {
+			continue
+		}
+		
+		// Parse JSON result
+		var raw struct {
+			ShareURL        string `json:"shareURL"`
+			ResharedPostURL string `json:"resharedPostURL"`
+			Error           string `json:"error"`
+			Index           int    `json:"index"`
+		}
+		
+		if err := json.Unmarshal([]byte(line), &raw); err != nil {
+			fmt.Printf("Warning: Could not parse result line %d: %v\n", lineNum+1, err)
+			continue
+		}
+		
+		// Find the post index
+		postIndex, exists := urlToIndex[raw.ShareURL]
+		if !exists {
+			fmt.Printf("Warning: Could not find post for URL: %s\n", raw.ShareURL)
+			continue
+		}
+		
+		// Update post with reshared URL
+		if raw.ResharedPostURL != "" {
+			posts[postIndex].ResharedPostURL = raw.ResharedPostURL
+			posts[postIndex].IsReshare = true
+			*extractCount++
+			
+			// Save the post immediately
+			fmt.Printf("  → Saving post: %s\n", truncateTitle(posts[postIndex].Title, 50))
+			if err := savePostIncrementally(projectRoot, posts[postIndex]); err != nil {
+				fmt.Printf("  ✗ Warning: Failed to save post: %v\n", err)
+			} else {
+				fmt.Printf("  ✓ Saved: %s\n", truncateTitle(posts[postIndex].Title, 50))
+			}
+		} else if raw.Error != "" {
+			fmt.Printf("  ✗ Could not extract for '%s': %s\n", truncateTitle(posts[postIndex].Title, 50), raw.Error)
+		}
+		
+		lineNum++
+	}
+	
+	// Wait for command to finish
+	if err := cmd.Wait(); err != nil {
+		return fmt.Errorf("extraction script failed: %w", err)
+	}
+	
+	if err := scanner.Err(); err != nil {
+		return fmt.Errorf("error reading output: %w", err)
+	}
+	
+	return nil
+}
+
+func savePostIncrementally(projectRoot string, post LinkedInPost) error {
+	// Find existing post file
+	slug := createSlug(post.Title)
+	filename := fmt.Sprintf("%s-%s.md", post.Date.Format("2006-01-02"), slug)
+	filePath := filepath.Join(projectRoot, contentDir, filename)
+	
+	// Check if file exists
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+		// Post doesn't exist yet, skip (will be created later)
+		return nil
+	}
+	
+	// Read existing file
+	content, err := os.ReadFile(filePath)
+	if err != nil {
+		return fmt.Errorf("failed to read file: %w", err)
+	}
+	
+	contentStr := string(content)
+	
+	// Extract frontmatter and body
+	frontmatterRegex := regexp.MustCompile(`(?s)\+\+\+\n(.*?)\n\+\+\+\n(.*)`)
+	matches := frontmatterRegex.FindStringSubmatch(contentStr)
+	if len(matches) < 3 {
+		return fmt.Errorf("could not parse frontmatter")
+	}
+	
+	oldFrontmatter := matches[1]
+	body := matches[2]
+	
+	// Build new frontmatter with updated reshared URL
+	newFrontmatter := buildFrontmatter(post, oldFrontmatter, "update")
+	
+	// Write updated file
+	newContent := fmt.Sprintf("+++\n%s\n+++\n\n%s", newFrontmatter, body)
+	return os.WriteFile(filePath, []byte(newContent), 0644)
+}
+
 func processSharesCSV(csvPath string) ([]LinkedInPost, error) {
 	file, err := os.Open(csvPath)
 	if err != nil {
@@ -567,7 +791,7 @@ func processSharesCSV(csvPath string) ([]LinkedInPost, error) {
 
 	// Find column indices
 	headers := records[0]
-	var dateCol, shareLinkCol, shareCommentaryCol int = -1, -1, -1
+	var dateCol, shareLinkCol, shareCommentaryCol, sharedUrlCol int = -1, -1, -1, -1
 	for i, header := range headers {
 		switch strings.ToLower(strings.TrimSpace(header)) {
 		case "date":
@@ -576,6 +800,8 @@ func processSharesCSV(csvPath string) ([]LinkedInPost, error) {
 			shareLinkCol = i
 		case "sharecommentary":
 			shareCommentaryCol = i
+		case "sharedurl":
+			sharedUrlCol = i
 		}
 	}
 
@@ -594,6 +820,18 @@ func processSharesCSV(csvPath string) ([]LinkedInPost, error) {
 		if shareLinkCol != -1 && len(record) > shareLinkCol {
 			url = strings.TrimSpace(record[shareLinkCol])
 		}
+		
+		sharedURL := ""
+		isReshare := false
+		if sharedUrlCol != -1 && len(record) > sharedUrlCol {
+			sharedURL = strings.TrimSpace(record[sharedUrlCol])
+			// Check if SharedURL is a LinkedIn post URL (reshare) vs external link
+			if sharedURL != "" {
+				if strings.Contains(sharedURL, "linkedin.com") && (strings.Contains(sharedURL, "/feed/update/") || strings.Contains(sharedURL, "urn:li:activity:")) {
+					isReshare = true
+				}
+			}
+		}
 
 		// Parse date (format: 2025-10-18 17:17:11)
 		parsedDate, err := time.Parse("2006-01-02 15:04:05", dateStr)
@@ -608,11 +846,14 @@ func processSharesCSV(csvPath string) ([]LinkedInPost, error) {
 		title := createTitle(content)
 
 		posts = append(posts, LinkedInPost{
-			Date:        parsedDate,
-			Content:     content,
-			URL:         url,
-			ContentType: "share",
-			Title:       title,
+			Date:           parsedDate,
+			Content:        content,
+			URL:            url,
+			SharedURL:      sharedURL,
+			ContentType:    "share",
+			Title:          title,
+			IsReshare:      isReshare,
+			ResharedPostURL: sharedURL, // Will be updated if we extract via browser
 		})
 	}
 
@@ -971,6 +1212,13 @@ func createTitle(content string) string {
 	return title
 }
 
+func truncateTitle(title string, maxLen int) string {
+	if len(title) <= maxLen {
+		return title
+	}
+	return title[:maxLen]
+}
+
 func createSlug(title string) string {
 	// Clean title first - remove control characters
 	title = regexp.MustCompile(`[\x00-\x1F\x7F-\x9F]`).ReplaceAllString(title, "")
@@ -1095,6 +1343,20 @@ func parseFrontmatter(content, filePath string) *PostMetadata {
 		metadata.HasImages = len(metadata.Images) > 0
 	}
 
+	// Extract resharedPostURL
+	resharedRegex := regexp.MustCompile(`resharedPostURL\s*=\s*"([^"]+)"`)
+	if resharedMatch := resharedRegex.FindStringSubmatch(frontmatter); len(resharedMatch) >= 2 {
+		metadata.ResharedPostURL = resharedMatch[1]
+	}
+
+	// Extract draft status (defaults to false if not present)
+	draftRegex := regexp.MustCompile(`draft\s*=\s*(true|false)`)
+	if draftMatch := draftRegex.FindStringSubmatch(frontmatter); len(draftMatch) >= 2 {
+		metadata.IsDraft = draftMatch[1] == "true"
+	} else {
+		metadata.IsDraft = false // Default to false if not specified
+	}
+
 	// Extract slug from filename
 	filename := filepath.Base(filePath)
 	if dateSlugMatch := regexp.MustCompile(`^\d{4}-\d{2}-\d{2}-(.+)\.md$`).FindStringSubmatch(filename); len(dateSlugMatch) >= 2 {
@@ -1164,8 +1426,22 @@ func updateHugoPost(projectRoot string, post LinkedInPost, existingFilePath stri
 	// Build new frontmatter
 	newFrontmatter := buildFrontmatter(post, oldFrontmatter, mode)
 
+	// Add reshared content reference if not already present in body
+	bodyWithReshare := body
+	if post.IsReshare && post.ResharedPostURL != "" {
+		// Check if reshared reference already exists
+		if !strings.Contains(body, "Reshared from:") && !strings.Contains(body, post.ResharedPostURL) {
+			bodyWithReshare = body + fmt.Sprintf("\n\n---\n\n*Reshared from: [View original post on LinkedIn](%s)*", post.ResharedPostURL)
+		}
+	} else if post.SharedURL != "" && !post.IsReshare {
+		// External link being shared
+		if !strings.Contains(body, "Shared link:") && !strings.Contains(body, post.SharedURL) {
+			bodyWithReshare = body + fmt.Sprintf("\n\n---\n\n*Shared link: [%s](%s)*", post.SharedURL, post.SharedURL)
+		}
+	}
+
 	// Write updated file
-	newContent := fmt.Sprintf("+++\n%s\n+++\n\n%s", newFrontmatter, body)
+	newContent := fmt.Sprintf("+++\n%s\n+++\n\n%s", newFrontmatter, bodyWithReshare)
 	return os.WriteFile(fullPath, []byte(newContent), 0644)
 }
 
@@ -1205,6 +1481,23 @@ func buildFrontmatter(post LinkedInPost, oldFrontmatter string, mode string) str
 	if post.URL != "" {
 		parts = append(parts, fmt.Sprintf(`originalURL = "%s"`, post.URL))
 	}
+	
+	// Add shared/reshared URL information
+	if post.SharedURL != "" {
+		if post.IsReshare {
+			// Reshared LinkedIn post
+			parts = append(parts, fmt.Sprintf(`resharedPostURL = "%s"`, post.SharedURL))
+		} else {
+			// External link being shared
+			parts = append(parts, fmt.Sprintf(`sharedURL = "%s"`, post.SharedURL))
+		}
+	}
+	
+	// If we extracted a reshared post URL via browser, use that instead
+	if post.ResharedPostURL != "" && post.ResharedPostURL != post.SharedURL {
+		parts = append(parts, fmt.Sprintf(`resharedPostURL = "%s"`, post.ResharedPostURL))
+	}
+	
 	parts = append(parts, fmt.Sprintf(`originalDate = "%s"`, post.Date.Format("January 2, 2006")))
 	parts = append(parts, fmt.Sprintf(`contentHash = "%s"`, post.ContentHash))
 
@@ -1234,7 +1527,19 @@ func createHugoPost(projectRoot string, post LinkedInPost) error {
 	// Build frontmatter using shared function
 	frontmatter := buildFrontmatter(post, "", "create")
 
-	fullContent := fmt.Sprintf("+++\n%s\n+++\n\n%s\n", frontmatter, post.Content)
+	// Build content with shared/reshared references
+	content := post.Content
+	
+	// Add reference to shared/reshared content
+	if post.IsReshare && post.ResharedPostURL != "" {
+		// Reshared LinkedIn post - add reference
+		content += fmt.Sprintf("\n\n---\n\n*Reshared from: [View original post on LinkedIn](%s)*", post.ResharedPostURL)
+	} else if post.SharedURL != "" && !post.IsReshare {
+		// External link being shared - add reference
+		content += fmt.Sprintf("\n\n---\n\n*Shared link: [%s](%s)*", post.SharedURL, post.SharedURL)
+	}
+
+	fullContent := fmt.Sprintf("+++\n%s\n+++\n\n%s\n", frontmatter, content)
 
 	// Write file
 	return os.WriteFile(filePath, []byte(fullContent), 0644)

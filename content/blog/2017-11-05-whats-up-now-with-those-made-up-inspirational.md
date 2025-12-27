@@ -17,6 +17,8 @@ contentHash = "2498f6002436e7ab5cf761741a867015bea4ea1b51da10bf151e57706e71783b"
 
 
 
+
+
 What's up now with those made up "inspirational" stories?There was this good guy that was mismanaged and had an asshole as boss.
 
 He talked to me. I told him things would get better.

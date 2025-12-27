@@ -17,6 +17,14 @@ contentHash = "15182cff7c4e6380892b165f382aeff9604d1e21ac962c782573690ea13512af"
 
 
 
+
+
+
 Really exciting to get this validation of the ecosystem that we're creating for the merchants of all over the world - great team effort to keep focused and deliver real value.And we would be worth nothing without the merchants using us - that's the most exciting part: continuing to create great products for them to delight their customers.
 
 For more big things to come! 🎉
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:6945657732993593344/)*

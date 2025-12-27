@@ -17,4 +17,12 @@ contentHash = "b915363d1779d2134be98dd97f98beb348e2be87a3a2720dbca08c61f15a956b"
 
 
 
+
+
+
 Hey, vrienden in Nederland 🇳🇱 - if you want to try something that feels like the future give this a try."Convince your favorite biertje, biterballen or kaastengel dealer to give it a try (or get a SumUp account to try - you only pay a % on transaction fee), and feel the magic of paying directly on the phone ✨(ok, other merchant kinds will also be welcome to try - but those are still some of my favourite words and Dutch snacks, I had to find a excuse to drop them)
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7099692030989074433/)*

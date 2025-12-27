@@ -1,11 +1,12 @@
 +++
 title = "Sharing for my #amsterdam network it mobile dev..."
 date = "2025-02-21T15:55:34Z"
-draft = false
+draft = true
 tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7298732089489682432"
+resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7298695522788278273/"
 originalDate = "February 21, 2025"
 contentHash = "2ba99b0eba6254b56451352cc283fad5a59fc540f52adcb583aab57874ad6099"
 +++
@@ -18,4 +19,15 @@ contentHash = "2ba99b0eba6254b56451352cc283fad5a59fc540f52adcb583aab57874ad6099"
 
 
 
+
+
+
+
+
+
 Sharing for my #amsterdam network it mobile development: go listen to Mohamed in the Appdevcon if you have a chance - you won't regret it!!
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7298695522788278273/)*

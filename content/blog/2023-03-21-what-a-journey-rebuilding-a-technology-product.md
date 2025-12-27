@@ -17,6 +17,8 @@ contentHash = "3035b9f16da3801eff9d27403666d0862d892aa36f82e41ff0ffc6fffe835ad1"
 
 
 
+
+
 What a journey: rebuilding a technology product while delivering incremental business value is an amazing feeling.Instead of doing "the same thing" (but better, don't we always think we'll do better than last time?) - we're paying technical debt, while chasing improvement opportunities along, in multiple areas like systems infrastructure, security, UX/UI or Developer Experience.A real cross-functional collaboration across all areas - to find the best possible iteration to chase next 🕵️‍♂️"This is being a blast, I hope that you like our product as much as we're liking building it!
 
 🚀#agile #technicaldebt #productdevelopment

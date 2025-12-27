@@ -17,6 +17,8 @@ contentHash = "a040f0e0187a0c135f4379831cba4cff8f5c86d28514e387c7087860f8708c3e"
 
 
 
+
+
 When working in a remote environment it's so easy to fall into the trap of monotony and sticking to remote presence only for the minimal interaction required to get the work done.But appreciating your colleagues, having fun and trying to elevate the remote meetings from what they tend to be (the lowest common denominator that just lets things get done) should be normal, to be able to collaborate remotely as satisfying as doing it in person.
 
 

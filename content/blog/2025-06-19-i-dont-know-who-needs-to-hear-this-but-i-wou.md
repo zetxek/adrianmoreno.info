@@ -19,6 +19,8 @@ featuredImage = "/images/linkedin/2025-06-19-i-dont-know-who-needs-to-hear-this-
 
 
 
+
+
 I don't know who needs to hear this - but I would, many times in my career: Stop Trying to "Fit In" at work.
 
 And anywhere else.Your Weirdness is your trait.They’ll hand you scripts, in the form of feedback or advice:"- “Say this.”"- “Present like that.”"- “Copy their tone.”"🔥Burn the manual.🪨 Feedback isn’t gospel—it’s raw material that you should process.Appreciate every feedback, but filter it smartly.

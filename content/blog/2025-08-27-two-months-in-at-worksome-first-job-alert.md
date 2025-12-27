@@ -6,9 +6,12 @@ tags = ["linkedin", "imported", "share"]
 categories = ["Career & Hiring"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7366480696669802497"
+sharedURL = "https://grnh.se/b13uwgu2teu"
 originalDate = "August 27, 2025"
 contentHash = "8550d5e4d3b690d06dc0296560dd8eb904e8c21d93ba099d85f56ba1a394f037"
 +++
+
+
 
 
 
@@ -27,3 +30,8 @@ contentHash = "8550d5e4d3b690d06dc0296560dd8eb904e8c21d93ba099d85f56ba1a394f037"
 " "
 "If you have someone in mind, feel free to put us in contact! "
 "https://lnkd.in/dty7UQtU
+
+
+---
+
+*Shared link: [https://grnh.se/b13uwgu2teu](https://grnh.se/b13uwgu2teu)*

@@ -19,6 +19,8 @@ featuredImage = "/images/linkedin/2025-07-01-the-update-you-were-expecting-what-
 
 
 
+
+
 The update you were expecting: what comes next?
 
 Worksome it is 🎉🚀From the moment I spoke with the team, I felt this was special.

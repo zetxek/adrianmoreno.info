@@ -17,6 +17,8 @@ contentHash = "795fc804bf1fc88edd840afefd7e1ae071b3527b75b0b84360a8032fa5c797b9"
 
 
 
+
+
 Taking some time off and resting until you almost get bored is powerful to reconnect with yourself 🥱Last December I enjoyed quite some days off, and made an explicit effort on not hovering around the team work.
 
 First reason, to not turn myself into a "do as I say, not as I do", and show my teams that it's very much fine and expected to be disconnected from work to fully recharge.And second - to see where my "inner itch" would take me.

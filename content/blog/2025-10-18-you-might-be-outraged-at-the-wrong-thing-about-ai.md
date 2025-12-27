@@ -21,6 +21,8 @@ featuredImage = "/images/linkedin/2025-10-18-you-might-be-outraged-at-the-wrong-
 
 
 
+
+
 🤬You might be outraged at the wrong thing about AI
 
 The problem isn't "AI", in general. The problem, as with most tools, is how we use it.

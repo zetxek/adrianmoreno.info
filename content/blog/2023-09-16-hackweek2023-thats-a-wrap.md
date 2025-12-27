@@ -17,6 +17,8 @@ contentHash = "827a716b6a67b406e7f2b750358c05acf43b758202dce2d6f01289f847a0a57a"
 
 
 
+
+
 #hackweek2023 - that's a wrap!
 
 For one full week, the members of the Engineering, Product and Design teams of SumUp gathered together again, in person, to experiment and create together.

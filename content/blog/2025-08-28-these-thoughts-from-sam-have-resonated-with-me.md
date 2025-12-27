@@ -19,6 +19,8 @@ contentHash = "884bdf0e0ad4ad50bc4894b557ec70e733108a6b86e3a9535ccc282e471379d7"
 
 
 
+
+
 These thoughts from Sam have resonated with me - especially the bit about the uncertain world.
 
 That's a problem I'm loving to learn more about with Worksome (and hopefully contribute to a solution and new ways of working).We completely divide the workforce in "temporary" (contingent, freelancer, etc) workers and "permanent".

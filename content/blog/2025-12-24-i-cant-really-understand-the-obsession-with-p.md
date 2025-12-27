@@ -13,6 +13,8 @@ featuredImage = "/images/linkedin/2025-12-24-i-cant-really-understand-the-obsess
 +++
 
 
+
+
 I can't really understand the obsession with "protecting developers" and preventing them from speaking with clients. It's a mix of infantilising and applying a "manufacturing chain" mindset to a work that is far from being "industrializable".
 
 Talking to your users - therefore to your clients - is when you learn 𝐭𝐡𝐞 𝐦𝐨𝐬𝐭.

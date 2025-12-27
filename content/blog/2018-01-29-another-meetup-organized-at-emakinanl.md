@@ -16,6 +16,8 @@ contentHash = "21743513d10935f7ad89b341ee1210cf982e2fcbb8d684973409c5263ba6eecc"
 
 
 
+
+
 Another meetup organized at Emakina.NL!
 
 This one more technical, about @Kentico Software - an with a colleague as a speaker, @David te Kloese :-)

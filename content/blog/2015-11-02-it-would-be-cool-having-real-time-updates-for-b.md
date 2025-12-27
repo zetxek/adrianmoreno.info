@@ -17,6 +17,8 @@ contentHash = "85bf8b9bc066866ffb742f5cf84f49596efae86f81259e2b8cf30c51086ad889"
 
 
 
+
+
 It would be cool having real time updates for billboards or TV ads depending on the real-life conditions, like time of the day, weather, etc.
 
 And all that powered by programmatic real-time bidding so advertisers can choose what to display at any moment!

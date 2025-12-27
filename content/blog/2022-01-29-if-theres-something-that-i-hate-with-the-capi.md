@@ -17,6 +17,8 @@ contentHash = "a8c3a33011399cbd034fd4facd6f2daa2463ef9c61cd6ef81b98fa953c4236de"
 
 
 
+
+
 If there's something that I HATE (with the capital letters) of "business talk" is referring to people as "resources".Already from the time of studying Engineering and Project Management I despised it, because of how lying, misleading and de-humanizing it is: you can exchange resources (bricks, metal, wood, money...) because you know how they compare, interact with each other, etc.
 
 But you can't do that with people!When exchanging an engineer by another you can't expect the same output.

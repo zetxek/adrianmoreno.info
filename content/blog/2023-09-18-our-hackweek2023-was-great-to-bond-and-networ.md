@@ -17,6 +17,8 @@ contentHash = "f0b7c5c3aa49ef560c55506cb023bccdbfc0b38472ec3063efb244c2eaf364d6"
 
 
 
+
+
 Our #hackweek2023 was great to bond, and network (https://lnkd.in/g86X7DFW) - and another side effect for me was to reconnect with my craft (as a software engineer).In the world of continuous improvement, there's a powerful principle called "Genchi Genbutsu," which translates to "Go and See." It's not just a concept; it's a mindset that can transform how we approach our work and spot opportunities for improvement."In our fast-paced professional lives, getting caught up in the whirlwind of emails, meetings, and deadlines is easy.
 
 But to truly excel and drive positive change, we must embrace the craft of what we do - stay connected with the production process.Enter "Genchi Genbutsu":"This concept means getting out of our offices, hitting the factory floor, or immersing ourselves in the customer's shoes.

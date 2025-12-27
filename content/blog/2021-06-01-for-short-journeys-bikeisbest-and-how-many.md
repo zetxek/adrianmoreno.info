@@ -16,6 +16,13 @@ contentHash = "b59ec4e38e855857cbe571e66553614075356108552e16f815b79279f9d9cdd6"
 
 
 
+
+
 For short journeys #bikeisbest :-)And how many of our trips around the city are short?
 
 Most of them!
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:6805042040049610752/)*

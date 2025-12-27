@@ -18,6 +18,8 @@ contentHash = "b5b2135e9d2f7b4e5a0e52a26f0666ace7caaba86bbf2e5ad2175f1ab56ef2e7"
 
 
 
+
+
 When you manage people you are "management" - and you now have a new team you're part of (in addition to your own).I have seen how difficult this can be, especially for first-time managers.
 
 Before, it could have been enough to point out situations that needed solutions.

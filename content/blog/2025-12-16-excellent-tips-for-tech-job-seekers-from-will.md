@@ -11,6 +11,8 @@ contentHash = "610b6d212a5bc14509fcf967c84712970b92b5a118d797e847bec9ce39f2a521"
 +++
 
 
+
+
 Excellent tips for tech job seekers from Will.
 
 This is the way I'd recommend approaching both looking for a job and keeping an eye on the market.
@@ -24,3 +26,7 @@ I'd add a few more tips:
 3. Make sure to get feedback on your CV/applications.
 
 If you are on the job hunt right now, as you have probably noticed, the market is weird, so don't give up! Set up a system and persevere.
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7406705418665676800)*

@@ -17,4 +17,6 @@ contentHash = "db7f19dd59c14a089baba6717b576fc1963d979bd821a367070ac1d84a432f7a"
 
 
 
+
+
 New podcast announcement 🎙️: This was a quite nice chat with Majbritt an Benjamin about workplace and team culture in distributed teams.I like to think of teams a “distributed” because this applies also when the teams are in offices, but collaborating with people in other locations.We got some conversation about challenges for these setups, learnings and ideas. I hope you enjoy the podcast!Thanks also to Sam for hosting the talk - it was a pleasure!#podcast #workplaceculture #officeculture

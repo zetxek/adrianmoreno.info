@@ -19,6 +19,8 @@ featuredImage = "/images/linkedin/2025-05-21-great-day-of-ai-talks-organized-by-
 
 
 
+
+
 Great day of AI talks organized by IDA, in their yearly "Driving AI" event."It was really inspiring to see real-world usage of (gen)AI in different environments such as energy trading (Casper Kaae Sønderby from twig.energy), e-commerce recommendations (Mathias Grønne from Roccai), with the combination of more "philosophical" topics like what are agents, or how to orchestrate agents in a multi-agent environment.The closing speech from Jacob Sherson resonated strongly with me.
 
 His concept of "Hybrid intelligence" that puts the human at the center (and controlling seat) of the AI systems feels like the direction we should move towards.

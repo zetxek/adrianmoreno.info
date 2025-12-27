@@ -16,4 +16,6 @@ contentHash = "5cd1cff44fa4ca63005ce0b831cc4cb0fedf4ba0a02f2dcc857af1e2a81e0c76"
 
 
 
+
+
 Liked "Streaming Data Analytics with Amazon Kinesis Firehose and Redshift" on SlideShare

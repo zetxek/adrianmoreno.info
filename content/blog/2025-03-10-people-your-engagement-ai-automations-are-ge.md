@@ -19,6 +19,8 @@ contentHash = "24a4bc9ad861fea83d0ceba5741de52250089082dde7ce2639585925d9f2c993"
 
 
 
+
+
 People, your "engagement AI automations" are getting out of hand.
 
 It's not "increasing engagement and visibility" of your brand, but giving a shit first impression.As with anything computer-generated, you need to supervise what these random tools do in your behalf, such as:🤦‍♂️ useless comments: "What a great summary of news, thanks for sharing".

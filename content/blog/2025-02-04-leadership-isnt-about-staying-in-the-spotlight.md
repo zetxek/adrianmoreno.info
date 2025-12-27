@@ -19,6 +19,8 @@ contentHash = "5c62d252688dde5e137288d9721e08c1122898e5d60c98586bc4adec2c08a881"
 
 
 
+
+
 Leadership isn't about staying in the spotlight—it's about knowing when to step aside so others can step up." 🌟Being away of work and its packed schedules is giving me some quality time to experiment with AI tooling, but also to reflect.
 
 Something I've given some thought is precisely on being away.

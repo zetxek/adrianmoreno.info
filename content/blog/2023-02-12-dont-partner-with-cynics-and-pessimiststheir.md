@@ -17,6 +17,8 @@ contentHash = "d8ef01acf03964d3ad98f231c7840315ed8c87eb0540075b9f836c1bbcabbbed"
 
 
 
+
+
 Don’t partner with cynics and pessimists.
 
 Their beliefs are self-fulfilling" - Naval Ravikant (https://lnkd.in/eMeEx8iD).The Navalmanack (https://lnkd.in/eUznewHR) by Eric Jorgenson is a very interesting read that summarizes and puts together some of the disjoint thoughts that N.

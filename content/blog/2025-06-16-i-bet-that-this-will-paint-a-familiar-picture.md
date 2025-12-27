@@ -19,6 +19,8 @@ contentHash = "18a7e852a85e1ba5898f19d13144644c81cb1e898c1ea522446cbc45257ab7ab"
 
 
 
+
+
 I bet that this will paint a familiar picture. A new joiner who thinks everything is wrong but happens to know the perfect tool to solve it. A team that needs to make its mark in a "brownfield" area.
 
 In short: thinking that you can solve system problems by swapping tools, and you end up with the same brokenness, but shinier ✨I am 100% sure that I have been the "new tool prophet" before - but as you get older, you get wiser, I guess.

@@ -19,6 +19,8 @@ contentHash = "fba0167954e75a8de78d0542d94f30a99db5012bc17132056d469c98a4a6cc7b"
 
 
 
+
+
 Leadership isn’t a job title. Management is. 🧭"
 "
 "Let’s clear something up: Leadership and management get mixed around like synonyms, but they’re different concepts. Sometimes they overlap, but they're not the same."

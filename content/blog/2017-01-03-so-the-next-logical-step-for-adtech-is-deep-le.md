@@ -16,6 +16,8 @@ contentHash = "3f310cb30384adce510298ad6dcec1b7521934bf759fa6f995fbb2de3f515112"
 
 
 
+
+
 So the next logical step for adtech is "Deep Learning", which goes beyond ML.
 
 It defines the features to be analysed and offering an (intelligent) optimisation.

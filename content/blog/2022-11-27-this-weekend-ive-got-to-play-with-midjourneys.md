@@ -17,6 +17,8 @@ contentHash = "f4951d7de6922fb716f1c9e5dc6d2a00d722b0f1337a8976b5eeb45bbd037b89"
 
 
 
+
+
 This weekend I've got to play with Midjourney's last version, v4.
 
 The improvements are amazing 🤯, generating images on the text inputs (or "prompts") provided to the system.What fascinates me the most is the usability of the system itself.

@@ -17,6 +17,8 @@ contentHash = "2ae2d5169492cf2ec68edbaf0bab7286e90f4222ea5f9a6584e912640ffcea01"
 
 
 
+
+
 One reflection to start the year: instead of setting big goals and objectives, focus on something that you can control, and the change you will commit to.
 
 That habit will lead you (or not) to the goal, but will definitely make you happier, while you make it stick.As Marcus Aurelius put it: "You have power over your mind — not outside events.

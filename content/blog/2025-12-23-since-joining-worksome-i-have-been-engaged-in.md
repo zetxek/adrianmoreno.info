@@ -13,6 +13,8 @@ featuredImage = "/images/linkedin/2025-12-23-since-joining-worksome-i-have-been-
 +++
 
 
+
+
 Since joining Worksome, I have been engaged in intense experimentation with (agentic) AI. My usage pattern of models in Cursor shows it: from early curiosity to "all-in" when the models have delivered consistently (hello Anthropic's Claude 4.5 Opus ❤️‍🔥).
 
 This era of software engineering is the perfect moment to reconnect with our skills. The human connections become more important than ever ("s̶o̶f̶t̶ ̶s̶k̶i̶l̶l̶s̶ ➝ 𝐜𝐨𝐫𝐞 𝐬𝐤𝐢𝐥𝐥𝐬), because work can be more "outsourced" to agentic colleagues.

@@ -17,6 +17,8 @@ contentHash = "5aa570494b183976b3c3a4b31a50dbaa0a5beab21c93fe62c3706701f945ccc0"
 
 
 
+
+
 Genchi Genbutsu: "go and see".
 
 As a manager, it's easy to rely on your team to tell how things are working, and gradually lose contact with the process on itself. The problems they face, the challenges they solve, the issues they experience in their day to day - will flow through your interactions with them.

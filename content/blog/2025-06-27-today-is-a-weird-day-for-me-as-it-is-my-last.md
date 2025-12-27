@@ -21,6 +21,8 @@ featuredImage = "/images/linkedin/2025-06-27-today-is-a-weird-day-for-me-as-it-i
 
 
 
+
+
 🥲 Today is a weird day for me, as it is my last day at SumUp.
 
 This has been my longest ride ever - 4+ years.

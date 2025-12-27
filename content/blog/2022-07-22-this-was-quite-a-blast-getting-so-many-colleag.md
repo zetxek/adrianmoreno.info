@@ -17,6 +17,8 @@ contentHash = "2109b4cba697a0003114197c9f6852c12022e0edb5532fca7ff19dcf99aa9799"
 
 
 
+
+
 This was quite a blast. Getting so many colleagues from all SumUp for a week, from every discipline of Engineering, Product & Design, together in the same location - and having full freedom to create something together.
 
 It was really fun to be part of a team and work hands on in a new problem to solve - but it was as interesting to walk around and ask other teams what they were working. It was really energizing to see the customer centricity, and how so many of those ideas could make a real difference for our merchants!

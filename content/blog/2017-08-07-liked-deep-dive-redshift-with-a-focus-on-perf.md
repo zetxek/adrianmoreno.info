@@ -16,4 +16,6 @@ contentHash = "4690e408a258a4b74c800b3ea5a0f2e37765cb24553946330f461e11c8935093"
 
 
 
+
+
 Liked "Deep Dive Redshift, with a focus on performance" on SlideShare

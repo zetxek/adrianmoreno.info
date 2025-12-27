@@ -21,6 +21,8 @@ featuredImage = "/images/linkedin/2025-05-07-vibe-coding-has-made-programming-fu
 
 
 
+
+
 Vibe coding has made programming fun for me again 🔮, and reconnected me with the eagerness to create.My sabbatical at SumUp started on January this year, which means that around Christmas time, I got myself an "assignment" to play with some of the coding assistants (Copilot and Cursor mainly).I took the chance to make some improvements on my website template (https://lnkd.in/dPz6DUS6), which is the open-source theme behind my own site (https://lnkd.in/dTv6XuT).
 
 That way, I added support for some features I wanted to implement, such as dark mode, responsive improvements, etc.As I have been working more with both tools and different versions of the LLMs I have been refining the kind of prompts, and some intuition for where the process would end at a dead end.Before the code assistants, I could rarely find time to focus on coding and would often get sidetracked by dependency installing or who knows what. I found myself "talking" to the LLMs as if they were my rubber duck.

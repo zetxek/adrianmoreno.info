@@ -17,6 +17,8 @@ contentHash = "d154c8160bbfe7ae4a81574f1a37e3ee62a0d850b77896d1cfa98a853c9f4e65"
 
 
 
+
+
 I'm a big fan of Ted Lasso.
 
 Not only the Apple TV+ comedy series about an American football coach who becomes the manager of a struggling English soccer team - but also Ted Lasso as a fictional leader.If you haven't watched it yet, I highly recommend it.

@@ -16,6 +16,8 @@ contentHash = "5c3f42d348ffe88067e39862b9937fbaa3744b848bdc1f248c6a8f45809f62fb"
 
 
 
+
+
 ![](https://media.licdn.com/mediaC4E12AQHHlCymB1TMtA)
 
 # [Last Friday Night (T.G.I.F.)](https://www.linkedin.com/pulse/last-friday-night-tgif-adri%C3%A1n-moreno-pe%C3%B1a)

@@ -18,6 +18,8 @@ contentHash = "c80ac69049d105c12e6924c9cbbcaffa13b2754b14535ab07af3745ae4423a6a"
 
 
 
+
+
 Never make fun of someone who mispronounces a word - it means they learned it by reading.I can't find whom to attribute this quote to, but think of this when working with people with a different pronunciation than you.
 
 When someone mispronounces something, it is likely not their native language, so they're already on a mental stretch.Coming from Spain, if you try to speak English you likely get mocked by peers and target of jokes.

@@ -16,6 +16,14 @@ contentHash = "89dd3b5d04196e0a1d469b93dd27559b7e9652776ae4f0a2e54dacff9114c176"
 
 
 
+
+
+
 In the hunt for a great TA colleague? Reach to Karim, let's bring him to the North!
 
 Sharing for some Scandinavian reach with my 🇩🇰 network :)
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7178330399356444675/)*

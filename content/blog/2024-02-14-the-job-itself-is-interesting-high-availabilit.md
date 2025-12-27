@@ -17,6 +17,14 @@ contentHash = "482f0d97bdf120243bb5e58688883ebc3fb21a32c8315061931b6b9c3da2731f"
 
 
 
+
+
+
 The job itself is interesting (high availability, large amounts of data, enabling many internal and customer-facing use cases...).
 
 But even more of a reason for me to promote and vouch for it is the chance to work with Jake!
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7163471881617018880/)*

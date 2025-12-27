@@ -17,6 +17,8 @@ contentHash = "242ac78dbe791fe37e06d758ef8105e3bf2ebb81eae702aa952c9562cc35267d"
 
 
 
+
+
 Being able to define something makes conversations way more engaging and deep than when you're trying to figure out how to call things... 🙊 Let me elaborate on the idea💡 and bring a practical example + a book recommendation (combo!).This lies behind the linguistic relativity hypothesis -- that explores if language influences the way that we think.
 
 The idea is that having specific words for something makes us faster at processing it.I find that this comes to practice when working on teams quite often.

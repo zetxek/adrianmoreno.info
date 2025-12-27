@@ -18,6 +18,8 @@ contentHash = "9e220a917a5170f73d4d9231d2b0f49aa89888aac444b3ca7a746b632077e696"
 
 
 
+
+
 Sunsetting 2024 with some relax… and thankfulness!
 
 🏖️The end of 2024 and the beginning of 2025 are being quite unique for me - as I’m writing from the beach at 30 degrees, far from the near-freezing temperatures at home.

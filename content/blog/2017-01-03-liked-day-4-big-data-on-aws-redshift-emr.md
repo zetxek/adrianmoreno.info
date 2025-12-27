@@ -16,4 +16,6 @@ contentHash = "21466a6c33f5090cc23bd37f6ea1a26f4b0063a078ad7a99f240c99d0ec000aa"
 
 
 
+
+
 Liked "Day 4 - Big Data on AWS - RedShift, EMR & the Internet of Things" on SlideShare

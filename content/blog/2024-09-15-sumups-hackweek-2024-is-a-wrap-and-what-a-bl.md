@@ -18,6 +18,8 @@ contentHash = "a6b193d993fc4d89e4a3d8836113a8a0ce884b31e66d44c0f30b1bca96935161"
 
 
 
+
+
 SumUp's Hackweek 2024 is a wrap - and what a blast it was! 🤩. I'm still absorbing how great this week has been.Do you know when, as a kid, you're looking forward to the field trip with the class, or the finals with your sports team?
 
 That's what the Hackweek feels like at SumUp - both combined.In this yearly event, SumUp's Engineering, Product, and Design teams (EP&D) get together in a shared location to CREATE as much as possible and collaborate with people you don't usually have the chance with.In line with our Founder's Mentality value, we self-organize in teams, set a goal (which should cover engineering, product, design, and business plans), and SHIP IT 🚢From the incredible Pyramid of Tirana, this year 200+ Sumuppers joined to unleash our creation process.

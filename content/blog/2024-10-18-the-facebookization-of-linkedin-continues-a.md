@@ -6,6 +6,7 @@ tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7252923984764125184"
+resharedPostURL = "https://www.linkedin.com/analytics/post-summary/urn:li:activity:7252923985695232000/"
 originalDate = "October 18, 2024"
 contentHash = "f8641355e801d1cee0619f796028ccc64227454364ec6c6526244cf2de4b5350"
 +++
@@ -17,4 +18,14 @@ contentHash = "f8641355e801d1cee0619f796028ccc64227454364ec6c6526244cf2de4b5350"
 
 
 
+
+
+
+
+
 The "Facebookization" of LinkedIn continues - after "stories" (reels), now we have the games. I wonder how long until there's a "new LinkedIn" focused on being the "professional community, this time for real".
+
+
+---
+
+*Reshared from: [View original post on LinkedIn](https://www.linkedin.com/analytics/post-summary/urn:li:activity:7252923985695232000/)*

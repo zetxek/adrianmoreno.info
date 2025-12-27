@@ -17,6 +17,8 @@ contentHash = "7766173f58f5112086faa5005fcddf1a7d2bc43b12d1a8d425732bf39dc3c090"
 
 
 
+
+
 Remember to tell your colleagues that you appreciate them.
 
 Don't take it for granted, don't take those things you like of them as "normal".You might make somebody blush for a moment, but there's nothing like knowing that your colleagues appreciate those small things you do, and others would take for granted!#appreciation #positiveworkenvironment

@@ -17,6 +17,8 @@ contentHash = "4cf3a1dcdeae2e0789df921216ac03fc6c49d6950613cb7aa6781444b905257e"
 
 
 
+
+
 One of the best things to work at SumUp is to see how our work directly helps small merchants run their businesses.
 
 It is great to be in contact with our merchants, understanding them and learning from their entrepreneurial stories.We do that in multiple ways: by talking to merchants on their businesses, feedback that is provided to us to improve our products - or interviews where we can dive deeper into how they use our technology, what they like about it and what we can do better.In the photo you can see the team in our Invoices tribe paying lots of attention to one of our merchant interview sessions, greatly lead by Neža being "our voice" with the merchant.
