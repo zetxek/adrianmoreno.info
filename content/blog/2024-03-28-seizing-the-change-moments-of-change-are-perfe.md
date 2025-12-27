@@ -1,13 +1,20 @@
 +++
-	title = "Seizing the change: moments of change are perfe..."
-	date = "2024-03-28T18:07:10Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "Seizing the change: moments of change are perfe..."
+date = "2024-03-28T18:07:10Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7179177212586180609"
 originalDate = "March 28, 2024"
+contentHash = "3cd7e0c119b1607a0a1ce1a3b5e9f7d7d12f0d9a96d225b9dca226d274d46aa7"
 +++
+
+
+
+
+
+
 
 
 Seizing the change: moments of change are perfect for creating new habits (or reinforcing them) 💡We just moved our offices in Copenhagen at SumUp, which has created a perfect opportunity for me to try new habits.

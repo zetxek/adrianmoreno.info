@@ -1,13 +1,20 @@
 +++
-	title = "Remember to tell your colleagues that you appre..."
-	date = "2021-12-02T19:03:27Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "Remember to tell your colleagues that you appre..."
+date = "2021-12-02T19:03:27Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6872248855262445568"
 originalDate = "December 2, 2021"
+contentHash = "7766173f58f5112086faa5005fcddf1a7d2bc43b12d1a8d425732bf39dc3c090"
 +++
+
+
+
+
+
+
 
 
 Remember to tell your colleagues that you appreciate them.

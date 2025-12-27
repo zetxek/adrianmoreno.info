@@ -1,13 +1,21 @@
 +++
-	title = "SumUp's Hackweek 2024 is a wrap - and what a bl..."
-	date = "2024-09-15T14:06:48Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Engineering & Product"]
-	layout = "blog"
+title = "SumUp's Hackweek 2024 is a wrap - and what a bl..."
+date = "2024-09-15T14:06:48Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7241085048790142977"
 originalDate = "September 15, 2024"
+contentHash = "a6b193d993fc4d89e4a3d8836113a8a0ce884b31e66d44c0f30b1bca96935161"
 +++
+
+
+
+
+
+
+
 
 
 SumUp's Hackweek 2024 is a wrap - and what a blast it was! 🤩. I'm still absorbing how great this week has been.Do you know when, as a kid, you're looking forward to the field trip with the class, or the finals with your sports team?

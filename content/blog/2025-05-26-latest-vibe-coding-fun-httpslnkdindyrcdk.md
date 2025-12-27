@@ -1,13 +1,22 @@
 +++
-	title = "🪄Latest vibe coding fun: https://lnkd.in/dYrcdK..."
-	date = "2025-05-26T19:06:14Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Engineering & Product"]
-	layout = "blog"
+title = "🪄Latest vibe coding fun: https://lnkd.in/dYrcdK..."
+date = "2025-05-26T19:06:14Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7332844531358265344"
 originalDate = "May 26, 2025"
+contentHash = "f2949ecc823c2448f7629e818af37c2f9167e65457e1cc5550d9254e0a1717b0"
 +++
+
+
+
+
+
+
+
+
 
 
 🪄Latest vibe coding fun: https://lnkd.in/dYrcdK5Q.

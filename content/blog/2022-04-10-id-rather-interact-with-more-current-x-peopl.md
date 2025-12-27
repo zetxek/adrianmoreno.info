@@ -1,13 +1,20 @@
 +++
-	title = "I'd rather interact with more \"current-X\" peopl..."
-	date = "2022-04-10T16:45:50Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "I'd rather interact with more \"current-X\" peopl..."
+date = "2022-04-10T16:45:50Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6918962256726695936"
 originalDate = "April 10, 2022"
+contentHash = "6a45901881f6563d4d3c6021be31f6b207f818e5c5ba0efc30cfeac03f291fa4"
 +++
+
+
+
+
+
+
 
 
 I'd rather interact with more "current-X" people than "ex-Y" 🧐Let me extend on this thought.

@@ -1,13 +1,20 @@
 +++
-	title = "One reflection to start the year: instead of se..."
-	date = "2023-01-02T20:19:10Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "One reflection to start the year: instead of se..."
+date = "2023-01-02T20:19:10Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7015773503643623424"
 originalDate = "January 2, 2023"
+contentHash = "2ae2d5169492cf2ec68edbaf0bab7286e90f4222ea5f9a6584e912640ffcea01"
 +++
+
+
+
+
+
+
 
 
 One reflection to start the year: instead of setting big goals and objectives, focus on something that you can control, and the change you will commit to.

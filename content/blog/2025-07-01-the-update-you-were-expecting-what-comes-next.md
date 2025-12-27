@@ -1,13 +1,22 @@
 +++
-	title = "The update you were expecting: what comes next?..."
-	date = "2025-07-01T19:03:12Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "The update you were expecting: what comes next?"
+date = "2025-07-01T19:03:12Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7345889730841960451"
 originalDate = "July 1, 2025"
+contentHash = "44ed22f4f5c2e9f1913bf874c3c969c61454ff88420a1683c8637c7a40db4a9d"
+images = ["/images/linkedin/2025-07-01-the-update-you-were-expecting-what-comes-next-1.png"]
+featuredImage = "/images/linkedin/2025-07-01-the-update-you-were-expecting-what-comes-next-1.png"
 +++
+
+
+
+
+
+
 
 
 The update you were expecting: what comes next?

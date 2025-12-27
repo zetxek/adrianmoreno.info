@@ -1,13 +1,20 @@
 +++
-	title = "Being able to define something makes conversati..."
-	date = "2022-11-20T17:43:14Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Learning & Growth"]
-	layout = "blog"
+title = "Being able to define something makes conversati..."
+date = "2022-11-20T17:43:14Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7000151582906445824"
 originalDate = "November 20, 2022"
+contentHash = "242ac78dbe791fe37e06d758ef8105e3bf2ebb81eae702aa952c9562cc35267d"
 +++
+
+
+
+
+
+
 
 
 Being able to define something makes conversations way more engaging and deep than when you're trying to figure out how to call things... 🙊 Let me elaborate on the idea💡 and bring a practical example + a book recommendation (combo!).This lies behind the linguistic relativity hypothesis -- that explores if language influences the way that we think.

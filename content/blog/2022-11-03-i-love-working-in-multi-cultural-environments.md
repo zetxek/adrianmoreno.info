@@ -1,13 +1,20 @@
 +++
-	title = "I love working in multi cultural environments, ..."
-	date = "2022-11-03T21:35:59Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "I love working in multi cultural environments, ..."
+date = "2022-11-03T21:35:59Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6994049565419020288"
 originalDate = "November 3, 2022"
+contentHash = "fcb2a22dffd4c134db70707531b7c18351277f3b75ea86d942a4a27e8f1d8e0e"
 +++
+
+
+
+
+
+
 
 
 I love working in multi cultural environments, across countries, and doing business with all kind of nationalities and backgrounds. I really appreciate the different ways of approaching a situation, let it be solving a problem, sharing a responsibility, or celebrating success.But it was not always like that!

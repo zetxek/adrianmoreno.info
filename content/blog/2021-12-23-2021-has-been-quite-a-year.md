@@ -7,7 +7,14 @@ categories = ["General"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6879702626695487488"
 originalDate = "December 23, 2021"
+contentHash = "28768f22367c94f491d2f448deb32d4ebc1d298f886aaa5558ab5eabe8f21199"
 +++
+
+
+
+
+
+
 
 
 2021 has been... quite a year 🤪

@@ -7,7 +7,18 @@ categories = ["General"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7385363330649104384"
 originalDate = "October 18, 2025"
+contentHash = "f0a14973419c160dfa8aa65f6aef8ed7f54dc19946439666325a86c9b65e396d"
+images = ["/images/linkedin/2025-10-18-you-might-be-outraged-at-the-wrong-thing-about-ai-1.jpg"]
+featuredImage = "/images/linkedin/2025-10-18-you-might-be-outraged-at-the-wrong-thing-about-ai-1.jpg"
 +++
+
+
+
+
+
+
+
+
 
 
 🤬You might be outraged at the wrong thing about AI

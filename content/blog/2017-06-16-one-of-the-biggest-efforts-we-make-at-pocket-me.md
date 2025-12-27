@@ -1,13 +1,20 @@
 +++
-	title = "One of the biggest efforts we make at Pocket Me..."
-	date = "2017-06-16T10:57:23Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Engineering & Product"]
-	layout = "blog"
+title = "One of the biggest efforts we make at Pocket Me..."
+date = "2017-06-16T10:57:23Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6281434310524436480"
 originalDate = "June 16, 2017"
+contentHash = "8d0247f831af53e5af7c82454eaca3847a1ee509018f7520af31427418107be3"
 +++
+
+
+
+
+
+
 
 
 One of the biggest efforts we make at Pocket Media is to detect and prevent fraud.

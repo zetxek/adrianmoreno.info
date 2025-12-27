@@ -1,13 +1,20 @@
 +++
-	title = "One of the best things to work at SumUp is to s..."
-	date = "2022-12-10T17:17:00Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Fintech & Business"]
-	layout = "blog"
+title = "One of the best things to work at SumUp is to s..."
+date = "2022-12-10T17:17:00Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7007392736664248320"
 originalDate = "December 10, 2022"
+contentHash = "4cf3a1dcdeae2e0789df921216ac03fc6c49d6950613cb7aa6781444b905257e"
 +++
+
+
+
+
+
+
 
 
 One of the best things to work at SumUp is to see how our work directly helps small merchants run their businesses.

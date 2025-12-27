@@ -1,13 +1,20 @@
 +++
-	title = "This.\"There shouldn't be a separate \"engineerin..."
-	date = "2023-11-19T21:28:41Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Engineering & Product"]
-	layout = "blog"
+title = "This."
+date = "2023-11-19T21:28:41Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7132117504251817985"
 originalDate = "November 19, 2023"
+contentHash = "0ebd390257e8a998aea3d5d74dbfeb1c2af07142bf7c2f3385b8cf69e0f81d31"
 +++
+
+
+
+
+
+
 
 
 This."There shouldn't be a separate "engineering roadmap" to start with.

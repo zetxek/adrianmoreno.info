@@ -1,5 +1,5 @@
 +++
-title = "🚨 Two months in at Worksome, first job alert 🎉\""
+title = "🚨 Two months in at Worksome, first job alert 🎉"
 date = "2025-08-27T14:44:20Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
@@ -7,7 +7,16 @@ categories = ["Career & Hiring"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7366480696669802497"
 originalDate = "August 27, 2025"
+contentHash = "8550d5e4d3b690d06dc0296560dd8eb904e8c21d93ba099d85f56ba1a394f037"
 +++
+
+
+
+
+
+
+
+
 
 
 🚨 Two months in at Worksome, first job alert 🎉"

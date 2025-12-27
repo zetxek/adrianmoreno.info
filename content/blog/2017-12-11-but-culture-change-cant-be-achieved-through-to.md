@@ -1,13 +1,20 @@
 +++
-	title = "But culture change can’t be achieved through to..."
-	date = "2017-12-11T12:41:45Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Leadership & Culture"]
-	layout = "blog"
+title = "But culture change can’t be achieved through to..."
+date = "2017-12-11T12:41:45Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6345965617757118464"
 originalDate = "December 11, 2017"
+contentHash = "104fd7520cd94280c54a85397a7851ae64e6fc6448d9e803f6e8a0a22b2eb805"
 +++
+
+
+
+
+
+
 
 
 But culture change can’t be achieved through top-down mandate.

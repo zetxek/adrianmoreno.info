@@ -1,13 +1,21 @@
 +++
-	title = "🎤 Simplest hack to improve your next online mee..."
-	date = "2024-09-22T11:05:57Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "🎤 Simplest hack to improve your next online mee..."
+date = "2024-09-22T11:05:57Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7243576252752662528"
 originalDate = "September 22, 2024"
+contentHash = "5f7b2f973e45b9e0dc30cceb4b5845e3331f05980993f03b9449408f1c5b1473"
 +++
+
+
+
+
+
+
+
 
 
 🎤 Simplest hack to improve your next online meeting: check (and fix) how you sound to others."Yes, image is a big part of others' perception of us.

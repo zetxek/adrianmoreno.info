@@ -1,13 +1,22 @@
 +++
-	title = "Today, in \"vibe coding adventures\": I've direct..."
-	date = "2025-05-19T19:45:29Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Engineering & Product"]
-	layout = "blog"
+title = "Today, in \"vibe coding adventures\": I've direct..."
+date = "2025-05-19T19:45:29Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7330317694556069888"
 originalDate = "May 19, 2025"
+contentHash = "4af1ac0fa0454cd45dcb2b7ebb044599035c24ca3c92aa3c375a4765821cfe81"
+images = ["/images/linkedin/2025-05-19-today-in-vibe-coding-adventures-ive-direct-1.jpg"]
+featuredImage = "/images/linkedin/2025-05-19-today-in-vibe-coding-adventures-ive-direct-1.jpg"
 +++
+
+
+
+
+
+
 
 
 Today, in "vibe coding adventures": I've directed Manus AI to:1. propose improvements to my website (adrianmoreno.info), without more instruction - to see where it would focus"2. understand that the code of my website is open source - but split in two repositories (theme and content)"3. implement the theme fixes in a way that are usable for anyone using the themeThe challenges faced were quite interesting."Manus could do a lot of the operations with github via API, but initially it refused and wanted me to copy/paste the code changes."Same with the improvements: initially it would propose changes that broke the theme.

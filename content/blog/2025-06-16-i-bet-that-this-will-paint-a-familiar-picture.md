@@ -1,13 +1,22 @@
 +++
-	title = "I bet that this will paint a familiar picture. ..."
-	date = "2025-06-16T19:20:04Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "I bet that this will paint a familiar picture. ..."
+date = "2025-06-16T19:20:04Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7340458157984362497"
 originalDate = "June 16, 2025"
+contentHash = "18a7e852a85e1ba5898f19d13144644c81cb1e898c1ea522446cbc45257ab7ab"
 +++
+
+
+
+
+
+
+
+
 
 
 I bet that this will paint a familiar picture. A new joiner who thinks everything is wrong but happens to know the perfect tool to solve it. A team that needs to make its mark in a "brownfield" area.

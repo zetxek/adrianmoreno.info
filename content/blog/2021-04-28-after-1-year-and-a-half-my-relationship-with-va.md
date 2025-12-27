@@ -1,13 +1,20 @@
 +++
-	title = "After 1 year and a half my relationship with Va..."
-	date = "2021-04-28T12:08:22Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Engineering & Product"]
-	layout = "blog"
+title = "After 1 year and a half my relationship with Va..."
+date = "2021-04-28T12:08:22Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6793143841839968256"
 originalDate = "April 28, 2021"
+contentHash = "4679a78a00bd91b43b06f333dec1ffef88b5fef3cb8922a1923aaa3e8ca7466e"
 +++
+
+
+
+
+
+
 
 
 After 1 year and a half my relationship with VanMoof changes: from Tech Lead to Brand Ambassador 🚲 (in other words, I'm leaving the company ;-)It has been intense, with funding rounds, new product launches (S3/X3, powerbank), trail-blazing features (Find My network support 🍏)... and a lot of fun on the go.

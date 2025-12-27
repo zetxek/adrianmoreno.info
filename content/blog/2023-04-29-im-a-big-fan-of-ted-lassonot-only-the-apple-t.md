@@ -1,13 +1,20 @@
 +++
-	title = "I'm a big fan of Ted Lasso.Not only the Apple T..."
-	date = "2023-04-29T19:14:45Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "I'm a big fan of Ted Lasso. Not only the Apple ..."
+date = "2023-04-29T19:14:45Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7058156670958333952"
 originalDate = "April 29, 2023"
+contentHash = "d154c8160bbfe7ae4a81574f1a37e3ee62a0d850b77896d1cfa98a853c9f4e65"
 +++
+
+
+
+
+
+
 
 
 I'm a big fan of Ted Lasso.

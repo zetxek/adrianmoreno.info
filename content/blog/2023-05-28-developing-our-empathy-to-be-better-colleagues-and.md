@@ -6,7 +6,14 @@ tags = ["linkedin", "imported", "article"]
 categories = ["Leadership & Culture"]
 layout = "blog"
 originalDate = "May 28, 2023"
+contentHash = "3ffb14d383542df9e855220e0672dd404876fcce2d65168ce17d0c5f82df1a39"
 +++
+
+
+
+
+
+
 
 
 ![Generated with midjourney 5](https://media.licdn.com/mediaD4E12AQFOEy41G1LdDg)

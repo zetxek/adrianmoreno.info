@@ -1,13 +1,20 @@
 +++
-	title = "With Copenhagen fully covered in snow and ice l..."
-	date = "2022-12-17T12:59:04Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Work & Life"]
-	layout = "blog"
+title = "With Copenhagen fully covered in snow and ice l..."
+date = "2022-12-17T12:59:04Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7009864540733505538"
 originalDate = "December 17, 2022"
+contentHash = "41b7d72679e5e77c501fed4f270e2cfa12d6a50d7652a6dc980f8bf57d6033ee"
 +++
+
+
+
+
+
+
 
 
 With Copenhagen fully covered in snow and ice like a Christmas Wonderland - it made me reflect on how lucky we are to be able to see the whole 4 seasons changing from the office at SumUp in Copenhagen ☃️🍂🌞🌱I really appreciate having a place to go to work that is inspiring, and encourages you to take walking meetings around the lakes, or just enjoy the views together during lunch in the warm days.

@@ -1,13 +1,21 @@
 +++
-	title = "Do you know the creepy feeling of entering a ca..."
-	date = "2025-01-29T16:15:49Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "Do you know the creepy feeling of entering a ca..."
+date = "2025-01-29T16:15:49Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7290402264773517312"
 originalDate = "January 29, 2025"
+contentHash = "f9430c95d81fd272ab804b26a53c21d6846eb3499f79ee954d4744fd27e5894c"
 +++
+
+
+
+
+
+
+
 
 
 Do you know the creepy feeling of entering a calm shop to look around and feeling stalked by the shop "assistants"?

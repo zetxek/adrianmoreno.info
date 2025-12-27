@@ -7,7 +7,15 @@ categories = ["General"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7232861281630736385"
 originalDate = "August 23, 2024"
+contentHash = "2d18d4e663d6bd6e00aba4f09a51838f19702f7d68f620189393f7e9b6666551"
 +++
+
+
+
+
+
+
+
 
 
 - 💡A mind shift to start being part of the solution, instead of tolerating broken things: replace "it's not my job" with "let's find out how to solve this".

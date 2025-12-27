@@ -7,7 +7,15 @@ categories = ["General"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7280491749565714432"
 originalDate = "January 2, 2025"
+contentHash = "9e220a917a5170f73d4d9231d2b0f49aa89888aac444b3ca7a746b632077e696"
 +++
+
+
+
+
+
+
+
 
 
 Sunsetting 2024 with some relax… and thankfulness!
