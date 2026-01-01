@@ -1,13 +1,22 @@
 +++
-	title = "In order to protect the team, you have to go ag..."
-	date = "2015-10-28T12:38:09Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "In order to protect the team, you have to go ag..."
+date = "2015-10-28T12:38:09Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6065114114848546816"
 originalDate = "October 28, 2015"
+contentHash = "00cc14934c3b0a6f8f31a7b2a4b1a4bee12e85ad7060834c2a1d46b857e0be24"
 +++
+
+
+
+
+
+
+
+
 
 
 In order to protect the team, you have to go against the real interests of your customers.

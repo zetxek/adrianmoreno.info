@@ -1,13 +1,22 @@
 +++
-	title = "It felt that participating in the launch of the..."
-	date = "2020-05-06T21:49:37Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "It felt that participating in the launch of the..."
+date = "2020-05-06T21:49:37Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6663917650684456961"
 originalDate = "May 6, 2020"
+contentHash = "0038dbf6b75f9ec708c34a1910325ce9581e650c0ea2e3a856578fa2962ed81d"
 +++
+
+
+
+
+
+
+
+
 
 
 It felt that participating in the launch of the S3 and X3 bikes with VanMoof has been a beautiful step and milestone in my career.

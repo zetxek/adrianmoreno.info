@@ -1,13 +1,22 @@
 +++
-	title = "🛫 \"Remember, put your mask on first before help..."
-	date = "2023-11-07T21:43:29Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "🛫 \"Remember, put your mask on first before help..."
+date = "2023-11-07T21:43:29Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7127772572196212737"
 originalDate = "November 7, 2023"
+contentHash = "d04b99daf97fcb0a5f452e56bb6fe558a00c3389e1b3a71aad0f06877f129c5e"
 +++
+
+
+
+
+
+
+
+
 
 
 🛫 "Remember, put your mask on first before helping othersYou might know these words during the safety briefing before taking off on a plane. I had always thought that they were strange - why would you let a kid suffocate, while you get the oxygen mask on yourself first?

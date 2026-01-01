@@ -1,13 +1,24 @@
 +++
-	title = "Leadership isn't about staying in the spotlight..."
-	date = "2025-02-04T21:41:33Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Leadership & Culture"]
-	layout = "blog"
+title = "Leadership isn't about staying in the spotlight..."
+date = "2025-02-04T21:41:33Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7292658564781740034"
 originalDate = "February 4, 2025"
+contentHash = "5c62d252688dde5e137288d9721e08c1122898e5d60c98586bc4adec2c08a881"
 +++
+
+
+
+
+
+
+
+
+
+
 
 
 Leadership isn't about staying in the spotlight—it's about knowing when to step aside so others can step up." 🌟Being away of work and its packed schedules is giving me some quality time to experiment with AI tooling, but also to reflect.

@@ -1,13 +1,24 @@
 +++
-	title = "The most overlooked professional skill that you..."
-	date = "2025-08-29T18:22:54Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "The most overlooked professional skill that you..."
+date = "2025-08-29T18:22:54Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7367260472498216960"
 originalDate = "August 29, 2025"
+contentHash = "185bd54bc1f5233c089b4dbcd5c6e25c4d67d46c0898a3c9bebe8a58473d31fd"
 +++
+
+
+
+
+
+
+
+
+
+
 
 
 The most overlooked professional skill that you can start practicing today:  curiosity 🧐In a world that rewards quick answers and surface-level knowledge, deep curiosity is a superpower.

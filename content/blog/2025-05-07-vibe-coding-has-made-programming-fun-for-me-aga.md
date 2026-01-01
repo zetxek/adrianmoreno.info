@@ -1,13 +1,26 @@
 +++
-	title = "Vibe coding has made programming fun for me aga..."
-	date = "2025-05-07T19:25:38Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Engineering & Product"]
-	layout = "blog"
+title = "Vibe coding has made programming fun for me aga..."
+date = "2025-05-07T19:25:38Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7325964043024777216"
 originalDate = "May 7, 2025"
+contentHash = "b06f57c16fe52ad19e342760b5e32337f90d1d9982409ca8883e965e00a53484"
+images = ["/images/linkedin/2025-05-07-vibe-coding-has-made-programming-fun-for-me-aga-1.jpg"]
+featuredImage = "/images/linkedin/2025-05-07-vibe-coding-has-made-programming-fun-for-me-aga-1.jpg"
 +++
+
+
+
+
+
+
+
+
+
+
 
 
 Vibe coding has made programming fun for me again 🔮, and reconnected me with the eagerness to create.My sabbatical at SumUp started on January this year, which means that around Christmas time, I got myself an "assignment" to play with some of the coding assistants (Copilot and Cursor mainly).I took the chance to make some improvements on my website template (https://lnkd.in/dPz6DUS6), which is the open-source theme behind my own site (https://lnkd.in/dTv6XuT).

@@ -1,13 +1,22 @@
 +++
-	title = "The unfairness, the lies, the false pretences.H..."
-	date = "2022-02-26T19:05:33Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "The unfairness, the lies, the false pretences."
+date = "2022-02-26T19:05:33Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6903414741423783936"
 originalDate = "February 26, 2022"
+contentHash = "234ddf8e6571e9541b0f2261e6400d1c5a99169abf990a801fb162cac0e81969"
 +++
+
+
+
+
+
+
+
+
 
 
 The unfairness, the lies, the false pretences.

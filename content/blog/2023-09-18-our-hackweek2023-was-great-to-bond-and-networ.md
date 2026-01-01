@@ -1,13 +1,22 @@
 +++
-	title = "Our #hackweek2023 was great to bond, and networ..."
-	date = "2023-09-18T19:42:43Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "Our #hackweek2023 was great to bond, and networ..."
+date = "2023-09-18T19:42:43Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7109622787828314112"
 originalDate = "September 18, 2023"
+contentHash = "f0b7c5c3aa49ef560c55506cb023bccdbfc0b38472ec3063efb244c2eaf364d6"
 +++
+
+
+
+
+
+
+
+
 
 
 Our #hackweek2023 was great to bond, and network (https://lnkd.in/g86X7DFW) - and another side effect for me was to reconnect with my craft (as a software engineer).In the world of continuous improvement, there's a powerful principle called "Genchi Genbutsu," which translates to "Go and See." It's not just a concept; it's a mindset that can transform how we approach our work and spot opportunities for improvement."In our fast-paced professional lives, getting caught up in the whirlwind of emails, meetings, and deadlines is easy.

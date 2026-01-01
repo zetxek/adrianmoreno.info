@@ -1,13 +1,26 @@
 +++
-	title = "🥲 Today is a weird day for me, as it is my last..."
-	date = "2025-06-27T13:36:23Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Fintech & Business"]
-	layout = "blog"
+title = "🥲 Today is a weird day for me, as it is my last..."
+date = "2025-06-27T13:36:23Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7344357932358144001"
 originalDate = "June 27, 2025"
+contentHash = "beadb7cf91920fb5daf1af8cfbd89285aa7b7ade76528a818802006a8d805ac2"
+images = ["/images/linkedin/2025-06-27-today-is-a-weird-day-for-me-as-it-is-my-last-1.png"]
+featuredImage = "/images/linkedin/2025-06-27-today-is-a-weird-day-for-me-as-it-is-my-last-1.png"
 +++
+
+
+
+
+
+
+
+
+
+
 
 
 🥲 Today is a weird day for me, as it is my last day at SumUp.

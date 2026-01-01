@@ -1,13 +1,22 @@
 +++
-	title = "If you're looking for your next summer read - m..."
-	date = "2023-08-06T19:51:36Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Engineering & Product"]
-	layout = "blog"
+title = "If you're looking for your next summer read - m..."
+date = "2023-08-06T19:51:36Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7094042345540567041"
 originalDate = "August 6, 2023"
+contentHash = "21eb7e922315c679f942b41d7ec1a7bfae4213d9b19a51124651fbe9bf0950eb"
 +++
+
+
+
+
+
+
+
+
 
 
 If you're looking for your next summer read - maybe this one catches your eye 👀 (if it goes as it went with me).Scaling People: Tactics for Management and Company Building, by Claire Hughes Johnson is a fantastic book. I enjoyed reading if from the beginning to the end - and in opposition to many business or strategy books, I found it very insightful.When I read some of the reference books on how to treat people I feel that I have read a "glorified blogpost", that comes to be "be kind to people".

@@ -1,13 +1,24 @@
 +++
-	title = "People, your \"engagement AI automations\" are ge..."
-	date = "2025-03-10T15:43:17Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["Leadership & Culture"]
-	layout = "blog"
+title = "People, your \"engagement AI automations\" are ge..."
+date = "2025-03-10T15:43:17Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7304889591239471105"
 originalDate = "March 10, 2025"
+contentHash = "24a4bc9ad861fea83d0ceba5741de52250089082dde7ce2639585925d9f2c993"
 +++
+
+
+
+
+
+
+
+
+
+
 
 
 People, your "engagement AI automations" are getting out of hand.

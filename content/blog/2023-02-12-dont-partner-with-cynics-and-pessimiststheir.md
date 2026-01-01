@@ -1,13 +1,22 @@
 +++
-	title = "Don’t partner with cynics and pessimists.Their ..."
-	date = "2023-02-12T16:26:40Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "Don’t partner with cynics and pessimists. Their..."
+date = "2023-02-12T16:26:40Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7030572897538572289"
 originalDate = "February 12, 2023"
+contentHash = "d8ef01acf03964d3ad98f231c7840315ed8c87eb0540075b9f836c1bbcabbbed"
 +++
+
+
+
+
+
+
+
+
 
 
 Don’t partner with cynics and pessimists.

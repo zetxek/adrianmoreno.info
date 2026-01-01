@@ -6,8 +6,13 @@ tags = ["linkedin", "imported", "share"]
 categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7169375304405258240"
+resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7169322205489696768/"
 originalDate = "March 1, 2024"
+contentHash = "d2c9a4f963a7916f48988d99bf5ca540297200166a1c6e2cc567a7672d86d077"
 +++
+
+
+
 
 New office home!
 

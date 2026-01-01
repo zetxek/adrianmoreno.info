@@ -1,13 +1,24 @@
 +++
-	title = "Great day of AI talks organized by IDA, in thei..."
-	date = "2025-05-21T05:08:44Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "Great day of AI talks organized by IDA, in thei..."
+date = "2025-05-21T05:08:44Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7330821829634297856"
 originalDate = "May 21, 2025"
+contentHash = "efbda75d0eebc8a98e3d32c954beb70939ae918e04ee1ebd997a937f9d16ae90"
+images = ["/images/linkedin/2025-05-21-great-day-of-ai-talks-organized-by-ida-in-thei-1.jpg"]
+featuredImage = "/images/linkedin/2025-05-21-great-day-of-ai-talks-organized-by-ida-in-thei-1.jpg"
 +++
+
+
+
+
+
+
+
+
 
 
 Great day of AI talks organized by IDA, in their yearly "Driving AI" event."It was really inspiring to see real-world usage of (gen)AI in different environments such as energy trading (Casper Kaae Sønderby from twig.energy), e-commerce recommendations (Mathias Grønne from Roccai), with the combination of more "philosophical" topics like what are agents, or how to orchestrate agents in a multi-agent environment.The closing speech from Jacob Sherson resonated strongly with me.

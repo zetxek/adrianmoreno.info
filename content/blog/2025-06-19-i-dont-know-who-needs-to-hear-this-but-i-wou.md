@@ -1,13 +1,24 @@
 +++
-	title = "I don't know who needs to hear this - but I wou..."
-	date = "2025-06-19T17:01:54Z"
-	draft = false
-	tags = ["linkedin", "imported", "share"]
-	categories = ["General"]
-	layout = "blog"
+title = "I don't know who needs to hear this - but I wou..."
+date = "2025-06-19T17:01:54Z"
+draft = false
+tags = ["linkedin", "imported", "share"]
+categories = ["Professional"]
+layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7341510552357081089"
 originalDate = "June 19, 2025"
+contentHash = "5387132cefbe4ea6c38c0379b87eac16bf76396139dd40751f0e00197868e937"
+images = ["/images/linkedin/2025-06-19-i-dont-know-who-needs-to-hear-this-but-i-wou-1.jpg"]
+featuredImage = "/images/linkedin/2025-06-19-i-dont-know-who-needs-to-hear-this-but-i-wou-1.jpg"
 +++
+
+
+
+
+
+
+
+
 
 
 I don't know who needs to hear this - but I would, many times in my career: Stop Trying to "Fit In" at work.
