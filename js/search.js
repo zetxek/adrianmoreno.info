@@ -21,7 +21,13 @@ const fuseOptions = {
 function displayError(message) {
   const searchResultsElement = document.getElementById("search-results");
   if (searchResultsElement) {
-    const sanitizedMessage = DOMPurify.sanitize(message);
+    const resolvedMessage =
+      message ||
+      getSearchMessage(
+        "errorGeneric",
+        "There was a problem with search. Please try again later.",
+      );
+    const sanitizedMessage = DOMPurify.sanitize(resolvedMessage);
     searchResultsElement.innerHTML = `<div class="alert alert-danger">${sanitizedMessage}</div>`;
   } else {
     console.error("Search results container not found");
@@ -35,6 +41,37 @@ function getElement(id) {
     console.error(`Element with ID '${id}' not found`);
   }
   return element;
+}
+
+// Read translated search messages from the page when available.
+function getSearchMessage(key, fallback) {
+  if (
+    typeof window !== "undefined" &&
+    window.SEARCH_I18N &&
+    window.SEARCH_I18N.messages &&
+    window.SEARCH_I18N.messages[key]
+  ) {
+    return window.SEARCH_I18N.messages[key];
+  }
+  return fallback;
+}
+
+function getIndexUrl(searchResults) {
+  if (searchResults && searchResults.dataset && searchResults.dataset.indexUrl) {
+    return searchResults.dataset.indexUrl;
+  }
+
+  const formWithIndex = document.querySelector("form[data-index-url]");
+  if (formWithIndex && formWithIndex.dataset.indexUrl) {
+    return formWithIndex.dataset.indexUrl;
+  }
+
+  const dataIndexElement = document.querySelector("[data-search-index-url]");
+  if (dataIndexElement && dataIndexElement.dataset.searchIndexUrl) {
+    return dataIndexElement.dataset.searchIndexUrl;
+  }
+
+  return "/index.json";
 }
 
 // Debounce function to prevent excessive search calls
@@ -94,12 +131,18 @@ try {
     executeSearch(searchQuery);
   } else if (searchResults) {
     searchResults.innerHTML =
-      "<div class='alert'>Please enter at least 2 characters to search</div>";
+      `<div class='alert'>${getSearchMessage(
+        "minChars",
+        "Please enter at least 2 characters to search",
+      )}</div>`;
   }
 } catch (error) {
   console.error("Error initializing search:", error);
   displayError(
-    "There was a problem initializing the search. Please try again later.",
+    getSearchMessage(
+      "errorGeneric",
+      "There was a problem with search. Please try again later.",
+    ),
   );
 }
 
@@ -125,7 +168,10 @@ document.addEventListener("DOMContentLoaded", () => {
         executeSearch(query);
       } else if (query.length === 0 || query.length === 1) {
         searchResults.innerHTML =
-          "<div class='alert'>Please enter at least 2 characters to search</div>";
+          `<div class='alert'>${getSearchMessage(
+            "minChars",
+            "Please enter at least 2 characters to search",
+          )}</div>`;
       }
     }, 300);
 
@@ -150,7 +196,10 @@ document.addEventListener("DOMContentLoaded", () => {
   } catch (error) {
     console.error("Error setting up search event listeners:", error);
     displayError(
-      "There was a problem setting up the search functionality. Please try reloading the page.",
+      getSearchMessage(
+        "errorGeneric",
+        "There was a problem with search. Please try again later.",
+      ),
     );
   }
 });
@@ -168,9 +217,13 @@ function executeSearch(searchQuery) {
 
     // Show loading indicator
     searchResults.innerHTML =
-      '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>';
+      `<div class="spinner-border text-primary" role="status"><span class="visually-hidden">${getSearchMessage(
+        "loading",
+        "Loading...",
+      )}</span></div>`;
 
-    fetch("/index.json")
+    const indexUrl = getIndexUrl(searchResults);
+    fetch(indexUrl)
       .then((response) => {
         if (!response.ok) {
           throw new Error(
@@ -196,17 +249,20 @@ function executeSearch(searchQuery) {
         } else {
           searchResults.insertAdjacentHTML(
             "beforeend",
-            "<div class='alert'>No matches found</div>",
+            `<div class='alert'>${getSearchMessage(
+              "noMatches",
+              "No matches found",
+            )}</div>`,
           );
         }
       })
       .catch((error) => {
         console.error("Error executing search:", error);
-        displayError(`Failed to search: ${error.message}`);
+        displayError();
       });
   } catch (error) {
     console.error("Error in search execution:", error);
-    displayError("There was a problem with the search. Please try again later.");
+    displayError();
   }
 }
 
@@ -302,11 +358,11 @@ function populateResults(result) {
         const categories = value.item.categories || "";
         const output = render(templateDefinition, {
           key: key,
-          title: value.item.title || "Untitled",
+          title: value.item.title || getSearchMessage("untitled", "Untitled"),
           link: value.item.permalink || "#",
           tags: Array.isArray(tags) ? tags.join(',') : tags,
           categories: Array.isArray(categories) ? categories.join(',') : categories,
-          snippet: snippet || "No preview available",
+          snippet: snippet || getSearchMessage("noPreview", "No preview available"),
         });
         searchResults.insertAdjacentHTML("beforeend", output);
         
@@ -336,7 +392,12 @@ function populateResults(result) {
     }
   } catch (error) {
     console.error("Error populating results:", error);
-    displayError("There was a problem displaying search results.");
+    displayError(
+      getSearchMessage(
+        "errorGeneric",
+        "There was a problem with search. Please try again later.",
+      ),
+    );
   }
 }
 
@@ -381,6 +442,9 @@ function render(templateString, data) {
     return result;
   } catch (error) {
     console.error("Error rendering template:", error);
-    return '<div class="alert alert-danger">Error rendering result</div>';
+    return `<div class="alert alert-danger">${getSearchMessage(
+      "errorGeneric",
+      "There was a problem with search. Please try again later.",
+    )}</div>`;
   }
 }
