@@ -2,7 +2,7 @@ module github.com/zetxek/adrianmoreno.info
 
 go 1.20
 
-require github.com/zetxek/adritian-free-hugo-theme v1.9.1
+require github.com/zetxek/adritian-free-hugo-theme v1.9.2-0.20260118120936-d976eb7adb15 // indirect
 
 // for local development
-//replace github.com/zetxek/adritian-free-hugo-theme => ../adritian-free-hugo-theme
+// replace github.com/zetxek/adritian-free-hugo-theme => ../adritian-free-hugo-theme
