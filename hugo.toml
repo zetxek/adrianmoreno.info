@@ -97,7 +97,11 @@ disableTags = false
 enable = true
 
 [outputs]
+page = ["HTML"]
 home = ["HTML", "RSS", "JSON"]
+section = ["HTML", "RSS"]
+taxonomy = ["HTML", "RSS"]
+term = ["HTML", "RSS"]
 
 # Languages
 #   en
@@ -183,8 +187,10 @@ weight = 5
 [taxonomies]
 tag = "tags"
 category = "categories"
+author = "authors"
+series = "series"
 book_author = "book_authors"
-book_catefalsy = "book_categories"
+book_category = "book_categories"
 
 [params.languages.selector.disable]
 footer = false
