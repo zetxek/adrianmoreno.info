@@ -22,11 +22,6 @@ contentHash = "218a48632c9aec7f6e5ecf378e206008cfb3bf958a98637cea221b78b1be453c"
 
 # [Native Ads or another chance to make ads right for the users](https://www.linkedin.com/pulse/native-ads-another-chance-make-right-users-adri%C3%A1n-moreno-pe%C3%B1a)
 
-    Created on 2016-04-13 10:26
-
-  Published on 2016-04-13 10:45
-
-
 
   A couple of weeks ago we organized the [1st Pocket Media's Mobile Advertising Meetup of 2016](http://www.meetup.com/es-ES/Mobile-Advertising-Meetup/events/229148242/).
 

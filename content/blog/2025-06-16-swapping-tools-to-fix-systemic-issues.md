@@ -22,11 +22,6 @@ contentHash = "34a5f141fe747ddbc2fb31a7b623ec698e892c5861ef8e1f34d5a4baee850709"
 
 # [🔧 Swapping Tools to Fix Systemic Issues?](https://www.linkedin.com/pulse/swapping-tools-fix-systemic-issues-adri%C3%A1n-moreno-pe%C3%B1a-apnof)
 
-    Created on 2025-06-16 18:29
-
-  Published on 2025-06-16 19:20
-
-
 
 ### Nice Band-Aid. Too Bad the Patient’s Bleeding Internally.
 

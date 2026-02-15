@@ -22,11 +22,6 @@ contentHash = "3ffb14d383542df9e855220e0672dd404876fcce2d65168ce17d0c5f82df1a39"
 
 # [Developing our empathy to be better colleagues and leaders](https://www.linkedin.com/pulse/developing-our-empathy-better-colleagues-leaders-adri%C3%A1n-moreno-pe%C3%B1a)
 
-    Created on 2023-05-28 12:47
-
-  Published on 2023-05-28 14:12
-
-
 I often get asked what skills are most useful to develop to be a successful leader. I want to make a case for making **empathy** a top tool in our skillset.
 
 Empathy is the ability to *detect and understand other people’s feelings*. It’s a skill that we can all improve through training and practice. Empathy is not only good for our personal relationships but also for our professional ones. It can help us reduce stress, build more positive relationships, and even boost revenues.

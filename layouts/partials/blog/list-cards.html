@@ -1,0 +1,190 @@
+{{ $allPosts := where .RegularPages "Draft" false }}
+{{ $articles := where $allPosts "Params.tags" "intersect" (slice "article") }}
+{{ $shares := where $allPosts "Params.tags" "intersect" (slice "share") }}
+{{ $latestPosts := first 1 (sort $allPosts "Date" "desc") }}
+{{ $earliestPosts := first 1 (sort $allPosts "Date" "asc") }}
+{{ $topicsTaxonomy := .Site.Taxonomies.topics }}
+{{ if not $topicsTaxonomy }}
+  {{ $topicsTaxonomy = .Site.Taxonomies.tags }}
+{{ end }}
+{{ $topicsPage := .Site.GetPage "topics" }}
+{{ if not $topicsPage }}
+  {{ $topicsPage = .Site.GetPage "tags" }}
+{{ end }}
+<section id="main-content" tabindex="-1" class="blog blog-list section section--border-bottom rad-animation-group flex-grow-1" aria-labelledby="blog-list-title">
+  <div class="container">
+    <header class="blog-intro mb-5">
+      <div class="row gy-4 align-items-start">
+        <div class="col-12 col-lg-7">
+          <h1 id="blog-list-title" class="mb-3">{{ .Title }}</h1>
+          {{ if .Content }}
+            <div class="lead blog-intro-copy">{{ .Content }}</div>
+          {{ else if .Params.description }}
+            <p class="lead blog-intro-copy">{{ .Params.description }}</p>
+          {{ end }}
+        </div>
+        <div class="col-12 col-lg-5">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-6">
+                  <h3 class="text-muted small mb-1">{{ i18n "blog_stats_posts" }}</h3>
+                  <div class="h4 mb-0">{{ len $allPosts }}</div>
+                </div>
+                <div class="col-6">
+                  <h3 class="text-muted small mb-1">{{ i18n "blog_stats_last_updated" }}</h3>
+                  {{ with $latestPosts }}
+                    <div class="h4 mb-0">{{ (index . 0).Date.Format "Jan 2, 2006" }}</div>
+                  {{ end }}
+                </div>
+                <div class="col-6">
+                  <h3 class="text-muted small mb-1">{{ i18n "blog_stats_first_post" }}</h3>
+                  {{ with $earliestPosts }}
+                    <div class="h6 mb-0">{{ (index . 0).Date.Format "Jan 2, 2006" }}</div>
+                  {{ end }}
+                </div>
+                <div class="col-6">
+                  <h3 class="text-muted small mb-1">{{ i18n "blog_stats_topics" }}</h3>
+                  {{ with $topicsTaxonomy }}
+                    <div class="h6 mb-0">{{ len . }}</div>
+                  {{ else }}
+                    <div class="h6 mb-0">0</div>
+                  {{ end }}
+                </div>
+              </div>
+              {{ with $latestPosts }}
+                {{ $latest := index . 0 }}
+                <div class="mt-4">
+                  <h3 class="text-muted small mb-1">{{ i18n "blog_stats_latest_post" }}</h3>
+                  <a class="fw-semibold text-decoration-none" href="{{ $latest.RelPermalink }}">{{ $latest.LinkTitle }}</a>
+                </div>
+              {{ end }}
+              {{ with $topicsPage }}
+                <div class="mt-3">
+                  <a class="blog-topics-cta" href="{{ .RelPermalink }}">
+                    <span>Browse {{ .Title }}</span>
+                    <span class="blog-topics-cta-icon" aria-hidden="true">&rarr;</span>
+                  </a>
+                </div>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Filter tabs -->
+    <ul class="nav nav-pills mb-4" id="blogFilter" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="all-tab" data-bs-toggle="pill" data-bs-target="#all-posts" type="button" role="tab" aria-controls="all-posts" aria-selected="true">
+          All <span class="badge bg-secondary ms-1">{{ len $allPosts }}</span>
+        </button>
+      </li>
+      {{ if $articles }}
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="articles-tab" data-bs-toggle="pill" data-bs-target="#articles-posts" type="button" role="tab" aria-controls="articles-posts" aria-selected="false">
+          Articles <span class="badge bg-secondary ms-1">{{ len $articles }}</span>
+        </button>
+      </li>
+      {{ end }}
+      {{ if $shares }}
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="shares-tab" data-bs-toggle="pill" data-bs-target="#shares-posts" type="button" role="tab" aria-controls="shares-posts" aria-selected="false">
+          Short posts <span class="badge bg-secondary ms-1">{{ len $shares }}</span>
+        </button>
+      </li>
+      {{ end }}
+    </ul>
+
+    <div class="tab-content" id="blogFilterContent">
+      <!-- All posts -->
+      <div class="tab-pane fade show active" id="all-posts" role="tabpanel" aria-labelledby="all-tab">
+        {{ $paginator := .Paginate $allPosts }}
+        <div class="row g-4 blog-list">
+          {{ range $paginator.Pages }}
+            <div class="col-12 col-md-6 col-lg-4">
+              <article class="h-100 p-4 border rounded-3 shadow-sm">
+                <div class="text-muted small mb-2">{{ .Date.Format "Jan 2, 2006" }}</div>
+                <h2 class="h2 mb-3">
+                  <a class="text-decoration-none stretched-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h2>
+                {{ with .Summary }}
+                  <p class="mb-3">{{ . | plainify | truncate 200 }}</p>
+                {{ end }}
+                {{ $terms := or (.GetTerms "topics") (.GetTerms "tags") }}
+                {{ with $terms }}
+                  <ul class="list-inline small text-muted mb-0">
+                    {{ range first 3 . }}
+                      <li class="list-inline-item">#{{ .LinkTitle }}</li>
+                    {{ end }}
+                  </ul>
+                {{ end }}
+              </article>
+            </div>
+          {{ end }}
+        </div>
+        {{ if gt $paginator.TotalPages 1 }}
+          {{ template "_internal/pagination.html" . }}
+        {{ end }}
+      </div>
+
+      <!-- Articles only -->
+      {{ if $articles }}
+      <div class="tab-pane fade" id="articles-posts" role="tabpanel" aria-labelledby="articles-tab">
+        <div class="row g-4 blog-list">
+          {{ range $articles }}
+            <div class="col-12 col-md-6 col-lg-4">
+              <article class="h-100 p-4 border rounded-3 shadow-sm">
+                <div class="text-muted small mb-2">{{ .Date.Format "Jan 2, 2006" }}</div>
+                <h2 class="h2 mb-3">
+                  <a class="text-decoration-none stretched-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h2>
+                {{ with .Summary }}
+                  <p class="mb-3">{{ . | plainify | truncate 200 }}</p>
+                {{ end }}
+                {{ $terms := or (.GetTerms "topics") (.GetTerms "tags") }}
+                {{ with $terms }}
+                  <ul class="list-inline small text-muted mb-0">
+                    {{ range first 3 . }}
+                      <li class="list-inline-item">#{{ .LinkTitle }}</li>
+                    {{ end }}
+                  </ul>
+                {{ end }}
+              </article>
+            </div>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+
+      <!-- Short posts / shares only -->
+      {{ if $shares }}
+      <div class="tab-pane fade" id="shares-posts" role="tabpanel" aria-labelledby="shares-tab">
+        <div class="row g-4 blog-list">
+          {{ range $shares }}
+            <div class="col-12 col-md-6 col-lg-4">
+              <article class="h-100 p-4 border rounded-3 shadow-sm">
+                <div class="text-muted small mb-2">{{ .Date.Format "Jan 2, 2006" }}</div>
+                <h2 class="h2 mb-3">
+                  <a class="text-decoration-none stretched-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h2>
+                {{ with .Summary }}
+                  <p class="mb-3">{{ . | plainify | truncate 200 }}</p>
+                {{ end }}
+                {{ $terms := or (.GetTerms "topics") (.GetTerms "tags") }}
+                {{ with $terms }}
+                  <ul class="list-inline small text-muted mb-0">
+                    {{ range first 3 . }}
+                      <li class="list-inline-item">#{{ .LinkTitle }}</li>
+                    {{ end }}
+                  </ul>
+                {{ end }}
+              </article>
+            </div>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>

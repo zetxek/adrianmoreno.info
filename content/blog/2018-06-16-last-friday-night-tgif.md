@@ -22,11 +22,6 @@ contentHash = "5c3f42d348ffe88067e39862b9937fbaa3744b848bdc1f248c6a8f45809f62fb"
 
 # [Last Friday Night (T.G.I.F.)](https://www.linkedin.com/pulse/last-friday-night-tgif-adri%C3%A1n-moreno-pe%C3%B1a)
 
-    Created on 2018-06-16 13:04
-
-  Published on 2018-06-16 13:26
-
-
 
   So, how are Fridays at your company? I believe that at Emakina.NL we know how to make the best of them! #onedayatwork #lastfriday #fridayatemakina. I've written this article on the Saturday morning, because it seemed unreal how much fun I had at the office - not only with my workmates, but with clients, friends and visitors. I want to capture that day to revisit it any moment :-)
 
