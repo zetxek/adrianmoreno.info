@@ -10,7 +10,7 @@ draft = false
     subtitle="Engineering Leader"
     button_text="Contact me"
     button_icon="icon-email"
-    description="Based in Copenhagen 🇩🇰, I work at <a target='_blank' href='https://www.worksome.com/'>Worksome</a>, a Danish company redefining how businesses and independent professionals collaborate — empowering companies to adapt to the future of work.<br/><br/>With <strong>17+ years of experience</strong> across Spain, the Netherlands, and Denmark, I've grown from individual contributor to VP of Engineering. I thrive in diverse, multi-cultural environments and bring a unique blend of technical depth and business acumen — from architecting scalable platforms to owning P&amp;L responsibility.<br/><br/>I'm grounded in the <strong>3P framework: People, Product, Process</strong>. Whether refining delivery practices, mentoring future leaders, or driving product strategy, I focus on shaping environments where both products <em>and</em> people thrive."
+    description="Based in Copenhagen 🇩🇰, I work at <a target='_blank' href='https://www.worksome.com/'>Worksome</a>, a Danish company redefining how businesses and independent professionals collaborate — empowering companies to adapt to the future of work.<br/><br/>With <strong>nearly two decades of experience</strong> across Spain, the Netherlands, and Denmark, I've grown from individual contributor to VP of Engineering. I thrive in diverse, multi-cultural environments and bring a unique blend of technical depth and business acumen — from architecting scalable platforms to owning P&amp;L responsibility.<br/><br/>I'm grounded in the <strong>3P framework: People, Product, Process</strong>. Whether refining delivery practices, mentoring future leaders, or driving product strategy, I focus on shaping environments where both products <em>and</em> people thrive."
     imgSrc="images/adrian@2x.jpg"
     imgScale="0.5"
  >}}
@@ -44,7 +44,7 @@ draft = false
 {{< experience-section
     title=""
     intro_title="Experience"
-    intro_description="Over 17 years of experience working in all kind of project sizes and teams. I have architected & developed digital products to help businesses and improve people's lives, solving complex problems with simple solutions." 
+    intro_description="Nearly two decades of experience working in all kind of project sizes and teams. I have architected & developed digital products to help businesses and improve people's lives, solving complex problems with simple solutions." 
     button1_url="https://linkedin.com/in/adrianmoreno"
     button1_text="See in LinkedIn"
     button1_icon="icon-linkedin"

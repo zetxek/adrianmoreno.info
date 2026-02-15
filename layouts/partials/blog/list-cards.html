@@ -1,4 +1,9 @@
+{{/* Workaround: Hugo v0.155+ treats blog _index.md as kind=term, so .RegularPages is empty.
+     Fall back to querying .Site.RegularPages filtered by section. */}}
 {{ $allPosts := where .RegularPages "Draft" false }}
+{{ if eq (len $allPosts) 0 }}
+  {{ $allPosts = where (where .Site.RegularPages "Section" "blog") "Draft" false }}
+{{ end }}
 {{ $articles := where $allPosts "Params.tags" "intersect" (slice "article") }}
 {{ $shares := where $allPosts "Params.tags" "intersect" (slice "share") }}
 {{ $latestPosts := first 1 (sort $allPosts "Date" "desc") }}
