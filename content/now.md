@@ -1,7 +1,6 @@
 ---
 title: "Now"
-type: "page"
-layout: "single"
+type: "blog"
 ---
 
 # What I'm up to now
