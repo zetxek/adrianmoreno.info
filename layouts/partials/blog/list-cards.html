@@ -79,31 +79,37 @@
     </header>
 
     <!-- Filter tabs -->
-    <ul class="nav nav-pills mb-4" id="blogFilter" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="all-tab" data-bs-toggle="pill" data-bs-target="#all-posts" type="button" role="tab" aria-controls="all-posts" aria-selected="true">
-          All <span class="badge bg-secondary ms-1">{{ len $allPosts }}</span>
-        </button>
-      </li>
+    <style>
+      #blogFilter button{background:none;border:1px solid var(--bs-border-color,#dee2e6);border-radius:0.375rem;padding:0.5rem 1rem;cursor:pointer;color:var(--bs-body-color,#212529);font-weight:500;font-size:0.9rem;transition:all 0.15s ease-in-out}
+      #blogFilter button:hover{background:var(--bs-tertiary-bg,#f8f9fa)}
+      #blogFilter button.active{background:var(--bs-primary,#478079);color:#fff;border-color:var(--bs-primary,#478079)}
+      #blogFilter button.active .badge{background:rgba(255,255,255,0.25)!important;color:#fff}
+    </style>
+    <div id="blogFilter" style="display:flex;flex-wrap:wrap;gap:0.5rem;padding:0;margin-bottom:1.5rem" role="tablist">
       {{ if $articles }}
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="articles-tab" data-bs-toggle="pill" data-bs-target="#articles-posts" type="button" role="tab" aria-controls="articles-posts" aria-selected="false">
+      <div role="presentation">
+        <button class="nav-link active" id="articles-tab" data-bs-toggle="pill" data-bs-target="#articles-posts" type="button" role="tab" aria-controls="articles-posts" aria-selected="true">
           Articles <span class="badge bg-secondary ms-1">{{ len $articles }}</span>
         </button>
-      </li>
+      </div>
       {{ end }}
+      <div role="presentation">
+        <button class="nav-link" id="all-tab" data-bs-toggle="pill" data-bs-target="#all-posts" type="button" role="tab" aria-controls="all-posts" aria-selected="false">
+          All <span class="badge bg-secondary ms-1">{{ len $allPosts }}</span>
+        </button>
+      </div>
       {{ if $shares }}
-      <li class="nav-item" role="presentation">
+      <div role="presentation">
         <button class="nav-link" id="shares-tab" data-bs-toggle="pill" data-bs-target="#shares-posts" type="button" role="tab" aria-controls="shares-posts" aria-selected="false">
           Short posts <span class="badge bg-secondary ms-1">{{ len $shares }}</span>
         </button>
-      </li>
+      </div>
       {{ end }}
-    </ul>
+    </div>
 
     <div class="tab-content" id="blogFilterContent">
       <!-- All posts -->
-      <div class="tab-pane fade show active" id="all-posts" role="tabpanel" aria-labelledby="all-tab">
+      <div class="tab-pane fade" id="all-posts" role="tabpanel" aria-labelledby="all-tab">
         {{ $paginator := .Paginate $allPosts }}
         <div class="row g-4 blog-list">
           {{ range $paginator.Pages }}
@@ -135,7 +141,7 @@
 
       <!-- Articles only -->
       {{ if $articles }}
-      <div class="tab-pane fade" id="articles-posts" role="tabpanel" aria-labelledby="articles-tab">
+      <div class="tab-pane fade show active" id="articles-posts" role="tabpanel" aria-labelledby="articles-tab">
         <div class="row g-4 blog-list">
           {{ range $articles }}
             <div class="col-12 col-md-6 col-lg-4">
