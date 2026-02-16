@@ -55,7 +55,7 @@ test.describe('Experience Page', () => {
     if (experienceCount >= 1) {
       const firstEntry = experienceEntries.nth(0);
       await expect(firstEntry.locator('.experience__date')).toHaveText('2025-present');
-      await expect(firstEntry.locator('.experience__title')).toHaveText('Head of Software');
+      await expect(firstEntry.locator('.experience__title')).toHaveText('Head of Engineering');
       await expect(firstEntry.locator('.experience__company')).toContainText('Worksome');
       await expect(firstEntry.locator('.experience__location')).toContainText('Copenhagen, Denmark');
     }
@@ -134,11 +134,11 @@ test.describe('Experience Page', () => {
     await page.goto('/experience');
 
     // Verify meta description
-    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Personal site for Adrián Moreno Peña/);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Engineering Leader/);
 
     // Verify Open Graph meta tags
     await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', 'Experience');
-    await expect(page.locator('meta[property="og:description"]')).toHaveAttribute('content', /With over 17 years of hands-on experience/);
+    await expect(page.locator('meta[property="og:description"]')).toHaveAttribute('content', /experience.*engineering/i);
     await expect(page.locator('meta[property="og:type"]')).toHaveAttribute('content', 'website');
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', /.*\/experience/);
   });
