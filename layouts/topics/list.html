@@ -1,7 +1,4 @@
-++ 
 {{ define "main" }}
-{{ $tags := .Site.Taxonomies.tags }}
-{{ $categories := .Site.Taxonomies.categories }}
 <section id="topics" class="section section--border-bottom rad-animation-group flex-grow-1">
   <div class="container">
     <header class="mb-4">
@@ -14,11 +11,10 @@
         <div class="card border-0 shadow-sm h-100">
           <div class="card-body">
             <h2 class="h5 mb-3">Tags</h2>
-            {{ if $tags }}
+            {{ with site.Taxonomies.tags.Alphabetical }}
               <div class="d-flex flex-wrap gap-2">
-                {{ range $name, $pages := sort $tags }}
-                  {{ $termPage := site.GetPage (printf "/tags/%s" $name) }}
-                  <a class="badge bg-light text-dark text-decoration-none border" href="{{ $termPage.RelPermalink }}">#{{ $name }} <span class="text-muted">({{ len $pages }})</span></a>
+                {{ range . }}
+                  <a class="badge bg-light text-dark text-decoration-none border" href="{{ .Page.RelPermalink }}">#{{ .Term }} <span class="text-muted">({{ .Count }})</span></a>
                 {{ end }}
               </div>
             {{ else }}
@@ -32,11 +28,10 @@
         <div class="card border-0 shadow-sm h-100">
           <div class="card-body">
             <h2 class="h5 mb-3">Categories</h2>
-            {{ if $categories }}
+            {{ with site.Taxonomies.categories.Alphabetical }}
               <div class="d-flex flex-wrap gap-2">
-                {{ range $name, $pages := sort $categories }}
-                  {{ $termPage := site.GetPage (printf "/categories/%s" $name) }}
-                  <a class="badge bg-light text-dark text-decoration-none border" href="{{ $termPage.RelPermalink }}">{{ $name }} <span class="text-muted">({{ len $pages }})</span></a>
+                {{ range . }}
+                  <a class="badge bg-light text-dark text-decoration-none border" href="{{ .Page.RelPermalink }}">{{ .Term }} <span class="text-muted">({{ .Count }})</span></a>
                 {{ end }}
               </div>
             {{ else }}
