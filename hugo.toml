@@ -195,6 +195,10 @@ tag = "tags"
 category = "categories"
 book_author = "book_authors"
 book_category = "book_categories"
+# Disable theme-inherited taxonomies not used by this site
+topic = ""
+author = ""
+series = ""
 
 [params.languages.selector.disable]
 footer = false
