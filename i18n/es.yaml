@@ -105,3 +105,28 @@
 
 - id: copyright
   translation: "Por cierto, el <a target='_blank' href='https://github.com/zetxek/adrianmoreno.info/'>código está disponible online</a>"
+
+## Blog
+- id: "blog_stats_posts"
+  translation: "Total de posts"
+
+- id: "blog_stats_last_updated"
+  translation: "Última actualización"
+
+- id: "blog_stats_first_post"
+  translation: "Primer post"
+
+- id: "blog_stats_topics"
+  translation: "Temas"
+
+- id: "blog_stats_latest_post"
+  translation: "Último post"
+
+- id: "read_more"
+  translation: "Leer más"
+
+- id: "published_on"
+  translation: "Publicado en"
+
+- id: "continue_reading"
+  translation: "Seguir leyendo"

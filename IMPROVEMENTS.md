@@ -52,5 +52,5 @@ Analysis date: 2026-02-15
 
 ## Leverage Books Section Better (Done)
 
-- [x] Added "Books" to header navigation in `hugo.toml` (weight 4.5, between Articles and Contact)
+- [x] Added "Books" to header navigation in `hugo.toml` (weight 5, between Articles and Contact)
 - [ ] **Follow-up**: Consider adding a "Currently Reading" or "Top 5" featured section to the books page
