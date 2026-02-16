@@ -149,18 +149,18 @@ weight = 4
 [[menu.header]]
 name = "Books"
 url = "/books"
-weight = 4.5
+weight = 5
 
 [[menu.header]]
 name = "Contact"
 url = "#contact"
-weight = 5
+weight = 6
 
 [[menu.header]]
 pre = "search"
 name = "Search"
 url = "/search"
-weight = 6
+weight = 7
 
 
 [[menu.footer]]

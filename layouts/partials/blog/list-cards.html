@@ -85,7 +85,7 @@
       #blogFilter button.active{background:var(--bs-primary,#478079);color:#fff;border-color:var(--bs-primary,#478079)}
       #blogFilter button.active .badge{background:rgba(255,255,255,0.25)!important;color:#fff}
     </style>
-    <div id="blogFilter" style="display:flex;flex-wrap:wrap;gap:0.5rem;padding:0;margin-bottom:1.5rem" role="tablist">
+    <div id="blogFilter" class="d-flex flex-wrap gap-2 mb-4 p-0" role="tablist">
       {{ if $articles }}
       <div role="presentation">
         <button class="nav-link active" id="articles-tab" data-bs-toggle="pill" data-bs-target="#articles-posts" type="button" role="tab" aria-controls="articles-posts" aria-selected="true">
@@ -94,7 +94,7 @@
       </div>
       {{ end }}
       <div role="presentation">
-        <button class="nav-link" id="all-tab" data-bs-toggle="pill" data-bs-target="#all-posts" type="button" role="tab" aria-controls="all-posts" aria-selected="false">
+        <button class="nav-link{{ if not $articles }} active{{ end }}" id="all-tab" data-bs-toggle="pill" data-bs-target="#all-posts" type="button" role="tab" aria-controls="all-posts" aria-selected="{{ if not $articles }}true{{ else }}false{{ end }}">
           All <span class="badge bg-secondary ms-1">{{ len $allPosts }}</span>
         </button>
       </div>
@@ -109,7 +109,7 @@
 
     <div class="tab-content" id="blogFilterContent">
       <!-- All posts -->
-      <div class="tab-pane fade" id="all-posts" role="tabpanel" aria-labelledby="all-tab">
+      <div class="tab-pane fade{{ if not $articles }} show active{{ end }}" id="all-posts" role="tabpanel" aria-labelledby="all-tab">
         {{ $paginator := .Paginate $allPosts }}
         <div class="row g-4 blog-list">
           {{ range $paginator.Pages }}

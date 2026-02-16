@@ -1,7 +1,7 @@
 ---
 title: "Podcast with Startup León: Performance marketing and work culture in Spain vs Netherlands"
 type: ["podcast"]
-date: 2017-03-12
+date: 2017-03-19
 length: ""
 image: ""
 link: ""
