@@ -1,40 +1,52 @@
 {{ define "main" }}
-<section id="blog-single" class="blog-single section section--border-bottom rad-animation-group flex-grow-1">
-  <div id="main-content">
-    <h1><a href="{{ .RelPermalink }}">{{ .Title }}</a></h1>
+<section id="blog-single" class="blog blog-single section section--border-bottom rad-animation-group flex-grow-1">
+  <article id="main-content" tabindex="-1" class="blog-post" aria-labelledby="blog-post-title">
+    <header class="post-header">
+      <h1 id="blog-post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h1>
 
-    <aside id="meta" class="light-border-bottom">
-      <div>
-        <section>
-          {{ i18n "published_on" }}&nbsp;<h4 id="date">{{ .Date.Format "Mon Jan 2, 2006" }}</h4>
-          ·
-          <h4 id="wordcount">{{ .WordCount }} Words</h4>
-          {{ $readingTime := div .WordCount 200 }}
-          {{ if lt $readingTime 1 }}
-            {{ $readingTime = 1 }}
+      <div id="meta" class="light-border-bottom">
+        <div class="post-meta">
+          <div class="post-meta-info">
+            <span class="published-label">{{ i18n "published_on" }}</span>
+            <time id="date" class="date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Mon Jan 2, 2006" }}</time>
+            <span class="meta-separator" aria-hidden="true">·</span>
+            <span id="wordcount" class="wordcount">{{ .WordCount }} Words</span>
+            {{ $readingTime := div .WordCount 200 }}
+            {{ if lt $readingTime 1 }}
+              {{ $readingTime = 1 }}
+            {{ end }}
+            <span class="meta-separator" aria-hidden="true">·</span>
+            <span id="reading-time" class="reading-time">{{ $readingTime }} {{ i18n "min_read" | default "min read" }}</span>
+            {{ if .Params.lastmod }}
+              <span class="meta-separator" aria-hidden="true">·</span>
+              <span id="last-modified" class="last-modified">{{ i18n "last_updated" | default "Updated" }}: {{ .Lastmod.Format "Jan 2, 2006" }}</span>
+            {{ end }}
+          </div>
+          {{ $authorTerms := .GetTerms "authors" }}
+          {{ if $authorTerms }}
+          <div class="post-authors-inline">
+            <span class="post-authors-label">{{ i18n "authors" | default "Authors" }}:</span>
+            {{ range $index, $author := $authorTerms }}
+              {{ if gt $index 0 }}, {{ end }}<a href="{{ $author.RelPermalink }}"><strong>{{ $author.LinkTitle }}</strong></a>
+            {{ end }}
+          </div>
           {{ end }}
-          &nbsp;·&nbsp;
-          <h4 id="reading-time">{{ $readingTime }} {{ i18n "min_read" | default "min read" }}</h4>
-          {{ if .Params.lastmod }}
-          &nbsp;·&nbsp;
-          <h4 id="last-modified">{{ i18n "last_updated" | default "Updated" }}: {{ .Lastmod.Format "Jan 2, 2006" }}</h4>
+          {{ with .GetTerms "topics" }}
+          <ul id="topics">
+            {{ range . }}
+            <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+            {{ end }}
+          </ul>
+          {{ end }} {{ with .GetTerms "tags" }}
+          <ul class="tags">
+            {{ range . }}
+            <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+            {{ end }}
+          </ul>
           {{ end }}
-        </section>
-        {{ with .GetTerms "topics" }}
-        <ul id="topics">
-          {{ range . }}
-          <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
-          {{ end }}
-        </ul>
-        {{ end }} {{ with .GetTerms "tags" }}
-        <ul class="tags">
-          {{ range . }}
-          <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
-          {{ end }}
-        </ul>
-        {{ end }}
+        </div>
       </div>
-    </aside>
+    </header>
 
     {{ partial "toc.html" . }}
 
@@ -43,12 +55,10 @@
     <div class="post-images mb-4">
       {{ range $index, $img := .Params.images }}
         {{ if eq $index 0 }}
-          {{/* Featured image - larger display */}}
           <figure class="featured-image">
             <img src="{{ $img }}" alt="{{ $.Title }}" class="img-fluid rounded mb-3" loading="lazy">
           </figure>
         {{ else }}
-          {{/* Additional images */}}
           <figure class="post-image">
             <img src="{{ $img }}" alt="{{ $.Title }} - Image {{ add $index 1 }}" class="img-fluid rounded mb-2" loading="lazy">
           </figure>
@@ -58,7 +68,7 @@
     {{ end }}
 
     <div class="row flex-column-reverse flex-md-row rad-fade-down">
-      <div class="col-12">{{ .Content | safeHTML }}</div>
+      <div class="col-12 post-content">{{ .Content | safeHTML }}</div>
     </div>
 
     {{/* Original LinkedIn article link and reshared post - only shown for imported posts */}}
@@ -96,6 +106,6 @@
     </aside>
 
     {{ partial "comments.html" . }}
-  </div>
+  </article>
 </section>
 {{ end }}
