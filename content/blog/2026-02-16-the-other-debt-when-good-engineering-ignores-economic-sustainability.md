@@ -1,13 +1,11 @@
 +++
-title = "The Other Debt: When Good Engineering Ignores Economic Sustainability"
+title = "The Other Debt: When \"Good Engineering\" Ignores Economic Sustainability"
 date = "2026-02-16T22:00:00Z"
 draft = false
 tags = ["article"]
 categories = ["Engineering & Product"]
 layout = "blog"
 +++
-
-# The Other Debt: When "Good Engineering" Ignores Economic Sustainability
 
 We engineers love talking about technical debt. It's our go-to metaphor, and it works - people understand debt. But **we've been looking at sustainability through only one lens.** We obsess over code quality, architecture, test coverage - and we call the absence of these things "technical debt".
 
