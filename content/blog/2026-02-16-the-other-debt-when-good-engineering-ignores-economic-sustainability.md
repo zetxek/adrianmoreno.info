@@ -1,7 +1,7 @@
 +++
 title = "The Other Debt: When Good Engineering Ignores Economic Sustainability"
 date = "2026-02-16T22:00:00Z"
-draft = true
+draft = false
 tags = ["article"]
 categories = ["Engineering & Product"]
 layout = "blog"
