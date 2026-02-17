@@ -25,9 +25,14 @@
 
                <div class="row">
                 <ul class="row col-12 book-category-content">
-
-                  {{ range .Pages }}
-                    {{ .Render "summary"}} 
+                  {{/* Workaround: Hugo v0.155+ treats _index.md as kind=term, so .Pages is empty.
+                       Fall back to .Site.RegularPages filtered by section. */}}
+                  {{ $pages := .Pages }}
+                  {{ if eq (len $pages) 0 }}
+                    {{ $pages = where .Site.RegularPages "Section" "public-speaking" }}
+                  {{ end }}
+                  {{ range $pages }}
+                    {{ .Render "summary"}}
                   {{ end }}
                   </ul>
               </div>

@@ -63,7 +63,7 @@ target = "static/js/purify.min.js"
 [params]
 
 title = "Adrián Moreno Peña | Engineering Leader based in Copenhagen (Denmark) ⸱ mobile apps, platforms, APIs, SaaS"
-description = "Personal site for Adrián Moreno Peña, Head of Software at Worksome. With a background as computer engineer and experience both as a web and mobile developer and team lead, in multi-cultural environments in Spain, the Netherlands and Denmark. You can find contact information, as well as availability for work, up-to-date curriculum and previous experience."
+description = "Engineering Leader with nearly two decades of experience spanning individual contributor to VP level. Currently Head of Engineering at Worksome in Copenhagen. Background as computer engineer with hands-on experience in SaaS, e-commerce, and mobile — leading multi-cultural teams across Spain, the Netherlands, and Denmark. Passionate about building empathy across functions, breaking silos, and aligning technology with sustainable business outcomes."
 images = ['/img/og-preview.png']
 
 homepageExperienceCount = 6
@@ -81,7 +81,7 @@ vercelAnalytics = true
 # and add the tracking code (UA-something for analytics, GTM-something for tag manager)
 [params.analytics.googleAnalytics]
 code = "UA-XXXXX-Y"
-enabled = true
+enabled = false
 [params.analytics.googleTagManager]
 code = "GTM-NVN2BJG"
 enabled = false
@@ -147,15 +147,20 @@ url = "/blog"
 weight = 4
 
 [[menu.header]]
+name = "Books"
+url = "/books"
+weight = 5
+
+[[menu.header]]
 name = "Contact"
 url = "#contact"
-weight = 5
+weight = 6
 
 [[menu.header]]
 pre = "search"
 name = "Search"
 url = "/search"
-weight = 6
+weight = 7
 
 
 [[menu.footer]]
@@ -179,12 +184,21 @@ name = "📝 Blog"
 url = "/blog"
 weight = 5
 
+[[menu.footer]]
+name = "📌 Now"
+url = "/now"
+weight = 6
+
 
 [taxonomies]
 tag = "tags"
 category = "categories"
 book_author = "book_authors"
-book_catefalsy = "book_categories"
+book_category = "book_categories"
+# Disable theme-inherited taxonomies not used by this site
+topic = ""
+author = ""
+series = ""
 
 [params.languages.selector.disable]
 footer = false

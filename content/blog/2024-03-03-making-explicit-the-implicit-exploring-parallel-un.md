@@ -22,11 +22,6 @@ contentHash = "7f0e5c176221415112cc38bb33eefd18bf753c267cf172fe4a594a3bedf1bbef"
 
 # [Making explicit the implicit: Exploring parallel universes while creating alignment](https://www.linkedin.com/pulse/making-explicit-implicit-exploring-parallel-universes-moreno-pe%C3%B1a-nvzwf)
 
-    Created on 2024-03-03 18:08
-
-  Published on 2024-03-03 18:33
-
-
 *Making explicit the implicit* might be my most repeated mantra when working with software development teams - or product development by extension.
 
 When working in a technological context, with interrelated products, you are constantly faced with complex and ambiguous problems that require creative and innovative solutions. You have to make decisions based on incomplete or conflicting information, and communicate them effectively to your team and stakeholders. You also have to deal with the human and emotional aspects of leading people, such as motivating, coaching, and resolving conflicts.
