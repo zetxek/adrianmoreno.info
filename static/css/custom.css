@@ -1,0 +1,3 @@
+/* Profile image circle shape */
+.profile-image picture { border-radius: 50%; overflow: hidden; aspect-ratio: 1; }
+.profile-image img     { border-radius: 50%; aspect-ratio: 1/1; object-fit: cover; }
