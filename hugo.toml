@@ -170,11 +170,6 @@ weight = 5
 #weight = 6
 
 [[menu.header]]
-name = "Speaking"
-url = "/public-speaking"
-weight = 6
-
-[[menu.header]]
 name = "Contact"
 url = "#contact"
 weight = 7
