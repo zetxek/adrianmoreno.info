@@ -43,24 +43,37 @@ jobs:
           # Create new branch
           git checkout -b $BRANCH_NAME
           
+          # Capture theme version before update
+          OLD_THEME_VERSION=$(grep 'zetxek/adritian-free-hugo-theme' go.mod | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+[^ ]*' || echo "unknown")
+
           # Update Hugo modules
           hugo mod get -u
           hugo mod tidy
-          
+
+          # Capture theme version after update
+          NEW_THEME_VERSION=$(grep 'zetxek/adritian-free-hugo-theme' go.mod | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+[^ ]*' || echo "unknown")
+
           # Commit changes if any
           if [[ -n $(git status -s) ]]; then
             git add go.mod go.sum
-            git commit -m "Update Hugo modules"
+            git commit -m "chore: update Hugo modules (theme ${OLD_THEME_VERSION} -> ${NEW_THEME_VERSION})"
             git push origin $BRANCH_NAME
-            
+
             # Get the updated module versions for PR description
             UPDATES=$(git diff origin/main...HEAD go.mod | grep -E '^\+.*v[0-9]' || echo "No version changes found")
-            
+
+            # Build PR title
+            if [[ "$OLD_THEME_VERSION" != "$NEW_THEME_VERSION" ]]; then
+              PR_TITLE="chore: update adritian-free-hugo-theme ${OLD_THEME_VERSION} -> ${NEW_THEME_VERSION}"
+            else
+              PR_TITLE="chore: update Hugo modules"
+            fi
+
             # Create PR
             gh pr create \
               -B main \
               -H $BRANCH_NAME \
-              --title "Update Hugo modules" \
+              --title "$PR_TITLE" \
               --body $'🤖 This automated PR updates the Hugo modules to their latest versions.\n\nChanges in go.mod:\n```\n'"$UPDATES"$'\n```\n\n🔗 Triggered by GitHub action: https://github.com/'"$GITHUB_REPOSITORY"$'/actions/workflows/update-hugo-modules.yml'
           else
             echo "No updates found for Hugo modules"
