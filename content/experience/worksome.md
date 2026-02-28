@@ -2,7 +2,7 @@
 date: 2025-07-01T00:00:00+01:00
 draft: false
 title: "Worksome"
-jobTitle: "Head of Engineering"
+jobTitle: "Head of Engineering → VP of Technology"
 company: "Worksome"
 location: "Copenhagen, Denmark"
 duration: "2025-present"

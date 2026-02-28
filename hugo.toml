@@ -63,10 +63,23 @@ target = "static/js/purify.min.js"
 [params]
 
 title = "Adrián Moreno Peña | Engineering Leader based in Copenhagen (Denmark) ⸱ mobile apps, platforms, APIs, SaaS"
-description = "Engineering Leader with nearly two decades of experience spanning individual contributor to VP level. Currently Head of Engineering at Worksome in Copenhagen. Background as computer engineer with hands-on experience in SaaS, e-commerce, and mobile — leading multi-cultural teams across Spain, the Netherlands, and Denmark. Passionate about building empathy across functions, breaking silos, and aligning technology with sustainable business outcomes."
+description = "Engineering Leader with nearly two decades of experience spanning individual contributor to VP level. Currently VP of Technology at Worksome in Copenhagen. Background as computer engineer with hands-on experience in SaaS, e-commerce, and mobile — leading multi-cultural teams across Spain, the Netherlands, and Denmark. Passionate about building empathy across functions, breaking silos, and aligning technology with sustainable business outcomes."
 images = ['/img/og-preview.png']
 
 homepageExperienceCount = 6
+
+[params.seo]
+[params.seo.person]
+name = "Adrián Moreno Peña"
+url = "https://www.adrianmoreno.info/"
+image = "/img/og-preview.png"
+sameAs = [
+  "https://www.linkedin.com/in/adrianmoreno/",
+  "https://github.com/zetxek",
+  "https://bsky.app/profile/zetxek.bsky.social",
+  "https://www.threads.net/@zetxek",
+  "https://www.instagram.com/zetxek/"
+]
 
 [params.blog]
 listLayout = "cards"
@@ -152,15 +165,20 @@ url = "/books"
 weight = 5
 
 [[menu.header]]
+name = "Speaking"
+url = "/public-speaking"
+weight = 6
+
+[[menu.header]]
 name = "Contact"
 url = "#contact"
-weight = 6
+weight = 7
 
 [[menu.header]]
 pre = "search"
 name = "Search"
 url = "/search"
-weight = 7
+weight = 8
 
 
 [[menu.footer]]
