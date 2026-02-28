@@ -9,7 +9,7 @@ type: "blog"
 
 ## Work
 
-I'm **Head of Engineering at [Worksome](https://www.worksome.com/)** in Copenhagen, leading Product, Engineering & Design. We're building a Freelance Management System and marketplace that helps companies find, hire, and manage freelance talent compliantly and at scale.
+I'm **VP of Technology at [Worksome](https://www.worksome.com/)** in Copenhagen, leading Product, Engineering & Design. We're building a Freelance Management System and marketplace that helps companies find, hire, and manage freelance talent compliantly and at scale.
 
 I'm driving adoption of **gen-AI tools and processes** across the engineering organization — from code generation and AI-assisted data analysis to agentic coding for DevOps automation.
 
