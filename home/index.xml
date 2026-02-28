@@ -192,6 +192,8 @@
 
 
 
+
+
 &lt;section id="about" class="section rad-animation-group pb-0"&gt;
  &lt;div class="rad-fade-down"&gt;
  &lt;div class="row d-flex flex-column-reverse flex-md-row"&gt;
@@ -237,6 +239,6 @@
 
  &lt;/div&gt;
  &lt;div class="col-12 col-md-6 my-auto"&gt;
- &lt;h1&gt;Who am I?&lt;/h1&gt;
- &lt;div class="about-me content lead"&gt;
+ &lt;h2&gt;Who am I?&lt;/h2&gt;
+ &lt;div class="about-me content"&gt;
  &lt;p class='lead'&gt;An engineer at heart and a leader by practice. I channel curiosity and energy into building teams that deliver technology with real business impact. You'll find me debugging code with engineers one hour and aligning product strategy with stakeholders the next.&lt;/p&gt;</description></item></channel></rss>
