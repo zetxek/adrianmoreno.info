@@ -68,6 +68,13 @@
     transform: translateX(3px);
 }
 
+/* Abbreviation tooltips */
+abbr[title] {
+    text-decoration: underline dotted;
+    text-underline-offset: 2px;
+    cursor: help;
+}
+
 /* Improve readability of taxonomy count numbers */
 .taxonomy-count {
     display: inline-block;
