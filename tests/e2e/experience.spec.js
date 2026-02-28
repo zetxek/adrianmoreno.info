@@ -55,7 +55,7 @@ test.describe('Experience Page', () => {
     if (experienceCount >= 1) {
       const firstEntry = experienceEntries.nth(0);
       await expect(firstEntry.locator('.experience__date')).toHaveText('2025-present');
-      await expect(firstEntry.locator('.experience__title')).toHaveText('Head of Engineering');
+      await expect(firstEntry.locator('.experience__title')).toHaveText('Head of Engineering → VP of Technology');
       await expect(firstEntry.locator('.experience__company')).toContainText('Worksome');
       await expect(firstEntry.locator('.experience__location')).toContainText('Copenhagen, Denmark');
     }
