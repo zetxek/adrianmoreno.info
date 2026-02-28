@@ -1,1 +1,242 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home on</title><link>https://www.adrianmoreno.info/home/</link><description>Recent content in Home on</description><generator>Hugo</generator><language>en</language><atom:link href="https://www.adrianmoreno.info/home/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homes on</title><link>https://www.adrianmoreno.info/home/</link><description>Recent content in Homes on</description><generator>Hugo</generator><language>en</language><atom:link href="https://www.adrianmoreno.info/home/index.xml" rel="self" type="application/rss+xml"/><item><title>Home</title><link>https://www.adrianmoreno.info/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.adrianmoreno.info/home/home/</guid><description>&lt;section id="showcase" class="rad-showcase rad-showcase--index rad-animation-group rad-fade-down"&gt;
+ &lt;div&gt;
+ 
+
+
+ 
+
+ &lt;div class="showcase-section row flex-column-reverse flex-md-row rad-fade-down rad-waiting rad-animate"&gt;
+ &lt;div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"&gt;
+ &lt;h1 class="display-1"&gt;
+ Hello, I&amp;#39;m Adrián.
+ &lt;/h1&gt;
+ &lt;h2 class="display-5"&gt;
+ &lt;span&gt;Engineering Leader&lt;/span&gt;
+ &lt;/h2&gt;
+ &lt;div class="lead"&gt;
+ Based in Copenhagen 🇩🇰, I work at &lt;a target='_blank' rel='noopener noreferrer' href='https://www.worksome.com/'&gt;Worksome&lt;/a&gt;, a Danish company redefining how businesses and independent professionals collaborate — empowering companies to adapt to the future of work.&lt;br/&gt;&lt;br/&gt;With &lt;strong&gt;nearly two decades of experience&lt;/strong&gt; across Spain, the Netherlands, and Denmark, I've grown from individual contributor to VP of Engineering. I thrive in diverse, multi-cultural environments and bring a unique blend of technical depth and business acumen — from architecting scalable platforms to owning P&amp;amp;L responsibility.&lt;br/&gt;&lt;br/&gt;I'm grounded in the &lt;strong&gt;3P framework: People, Product, Process&lt;/strong&gt;. Whether refining delivery practices, mentoring future leaders, or driving product strategy, I focus on shaping environments where both products &lt;em&gt;and&lt;/em&gt; people thrive.
+ &lt;/div&gt;
+ 
+ &lt;a
+ href=""
+ class="btn btn-primary"
+ &gt;
+ &lt;i class="icon-email"&gt;&lt;/i&gt;
+ Contact me
+ &lt;/a&gt;
+ 
+ &lt;/div&gt;
+ &lt;div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 profile-image"&gt;
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+ 
+ 
+
+
+ &lt;picture class=""&gt;
+ 
+ 
+
+ &lt;source srcset="https://www.adrianmoreno.info/images/adrian@2x_hu_ae414f3d1f60120e.webp 1x, https://www.adrianmoreno.info/images/adrian@2x_hu_d9e361709be4c3ed.webp 2x" type="image/webp" /&gt;
+ &lt;source srcset="https://www.adrianmoreno.info/images/adrian@2x_hu_b899755a648e285c.jpg 1x, https://www.adrianmoreno.info/images/adrian@2x_hu_9931cbb612cb4944.jpg 2x" type="image/jpeg"&gt;
+
+ &lt;img
+ width="400"
+ height="400"
+ class="lozad img-responsive "
+ data-src="https://www.adrianmoreno.info/images/adrian@2x_hu_b899755a648e285c.jpg"
+ alt=''
+ src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
+ loading="lazy"
+ decoding="async"
+ /&gt;
+ &lt;/picture&gt;
+
+
+
+
+ &lt;/div&gt;
+ &lt;div class="col-12 inner-content"&gt;
+ 
+
+
+ 
+
+
+
+&lt;div class="container"&gt;
+ &lt;div class="row platform-links shortcode"&gt;
+ &lt;div class="col-12"&gt;
+ 
+ 
+ &lt;a
+ href="https://facebook.com/zetxek"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="square-facebook"
+ &gt;&lt;i class="icon-square-facebook"&gt;&lt;/i&gt;
+ &lt;/a&gt;
+
+ 
+ 
+ &lt;a
+ href="https://twitter.com/zetxek"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="square-twitter"
+ &gt;&lt;i class="icon-square-twitter"&gt;&lt;/i&gt;
+ &lt;/a&gt;
+
+ 
+ 
+ &lt;a
+ href="https://www.linkedin.com/in/adrianmoreno/"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="linkedin"
+ &gt;&lt;i class="icon-linkedin"&gt;&lt;/i&gt;
+ &lt;/a&gt;
+
+ 
+ 
+ &lt;a
+ href="https://github.com/zetxek"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="square-github"
+ &gt;&lt;i class="icon-square-github"&gt;&lt;/i&gt;
+ &lt;/a&gt;
+
+ 
+ 
+ &lt;a
+ href="https://twitter.com/zetxek"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="x-twitter"
+ &gt;&lt;i class="icon-x-twitter"&gt;&lt;/i&gt;
+ &lt;/a&gt;
+
+ 
+ 
+ &lt;a
+ href="https://www.instagram.com/zetxek/"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="instagram"
+ &gt;&lt;i class="icon-instagram"&gt;&lt;/i&gt;
+ &lt;/a&gt;
+
+ 
+ 
+ &lt;a
+ href="https://www.bluesky.com/zetxek"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="bluesky"
+ &gt;&lt;i class="icon-bluesky"&gt;&lt;/i&gt;
+ &lt;/a&gt;
+
+ 
+ 
+ &lt;a
+ href="https://www.threads.net/zetxek"
+ target="_blank"
+ rel="noopener noreferrer"
+ aria-label="threads"
+ &gt;&lt;i class="icon-threads"&gt;&lt;/i&gt;
+ &lt;/a&gt;
+
+ &lt;/div&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+ &lt;/div&gt;
+ 
+
+ &lt;/div&gt;
+
+
+ &lt;div class="row platform-links"&gt;
+ &lt;div class="col-12"&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ 
+&lt;/section&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;section id="about" class="section rad-animation-group pb-0"&gt;
+ &lt;div class="rad-fade-down"&gt;
+ &lt;div class="row d-flex flex-column-reverse flex-md-row"&gt;
+ &lt;div class="about__profile-picture col-12 col-md-6"&gt;
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+ 
+ 
+
+
+ &lt;picture class=""&gt;
+ 
+ 
+
+ &lt;source srcset="https://www.adrianmoreno.info/images/working-left@2x_hu_18e5888862c2272b.webp 1x, https://www.adrianmoreno.info/images/working-left@2x_hu_ed4da51dd91919d9.webp 2x" type="image/webp" /&gt;
+ &lt;source srcset="https://www.adrianmoreno.info/images/working-left@2x_hu_878cd220754a39c0.webp 1x, https://www.adrianmoreno.info/images/working-left@2x_hu_c26edbcc4ead508e.webp 2x" type="image/webp"&gt;
+
+ &lt;img
+ width="790"
+ height="768"
+ class="lozad img-responsive image-left-overflow"
+ data-src="https://www.adrianmoreno.info/images/working-left@2x_hu_878cd220754a39c0.webp"
+ alt=''
+ src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
+ loading="lazy"
+ decoding="async"
+ /&gt;
+ &lt;/picture&gt;
+
+ &lt;/div&gt;
+ &lt;div class="col-12 col-md-6 my-auto"&gt;
+ &lt;h1&gt;Who am I?&lt;/h1&gt;
+ &lt;div class="about-me content lead"&gt;
+ &lt;p class='lead'&gt;An engineer at heart and a leader by practice. I channel curiosity and energy into building teams that deliver technology with real business impact. You'll find me debugging code with engineers one hour and aligning product strategy with stakeholders the next.&lt;/p&gt;</description></item></channel></rss>
