@@ -6,6 +6,7 @@ jobTitle: "CTO"
 company: "Pocket Media"
 location: "Amsterdam, The Netherlands"
 duration: "2015-2017"
+companyLogo: "images/experience/pocketmedia.png"
 ---
 ### First time leading a multi-cultural team
 

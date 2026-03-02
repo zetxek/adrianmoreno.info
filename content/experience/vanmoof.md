@@ -6,6 +6,7 @@ jobTitle: "Technical Lead → Engineering Manager"
 company: "VanMoof"
 location: "Amsterdam, The Netherlands"
 duration: "2019-2021"
+companyLogo: "images/experience/vanmoof.png"
 ---
 ## Startup-life
 

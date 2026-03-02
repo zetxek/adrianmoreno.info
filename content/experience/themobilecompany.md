@@ -6,6 +6,7 @@ jobTitle: "Senior Mobile Apps Developer (iOS & Android)"
 company: "The Mobile Company"
 location: "Amsterdam, The Netherlands"
 duration: "2015"
+companyLogo: "images/experience/themobilecompany.png"
 ---
 
 ### First job abroad

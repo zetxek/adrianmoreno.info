@@ -6,6 +6,7 @@ jobTitle: "Engineering Manager → VP of Engineering & Tribe Lead"
 company: "SumUp"
 location: "Copenhagen, Denmark"
 duration: "2021-2025"
+companyLogo: "images/experience/sumup.png"
 ---
 ### Moved to Denmark, joined an European Unicorn 🦄
 

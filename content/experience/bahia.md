@@ -6,7 +6,7 @@ jobTitle: "Programmer Analyst"
 company: "Bahia Software"
 location: "Santiago de Compostela, Spain"
 duration: "2007-2011"
-
+companyLogo: "images/experience/bahia.png"
 ---
 ### First job as software engineer
 

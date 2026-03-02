@@ -6,6 +6,7 @@ jobTitle: "Technical Lead"
 company: "Emakina.NL"
 location: "Amsterdam, The Netherlands"
 duration: "2017-2019"
+companyLogo: "images/experience/emakinanl.png"
 ---
 ### Agency-life
 
