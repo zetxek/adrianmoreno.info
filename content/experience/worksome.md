@@ -6,6 +6,7 @@ jobTitle: "Head of Engineering → VP of Technology"
 company: "Worksome"
 location: "Copenhagen, Denmark"
 duration: "2025-present"
+companyLogo: "images/experience/worksome.png"
 ---
 ### Joined a Danish startup revolutionizing the future of work
 

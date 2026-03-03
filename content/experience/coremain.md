@@ -6,6 +6,7 @@ jobTitle: "Programmer Analyst"
 company: "Coremain"
 location: "Santiago de Compostela, Spain"
 duration: "2011"
+companyLogo: "images/experience/coremain.png"
 ---
 ### Contact with enterprise private project
 

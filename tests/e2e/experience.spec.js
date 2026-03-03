@@ -163,4 +163,18 @@ test.describe('Experience Page', () => {
     await expect(page.locator('.skip-to-content-link')).toBeVisible();
     await expect(page.locator('.skip-to-content-link')).toHaveAttribute('href', '#main-content');
   });
+
+  test('should display company logos for recent entries', async ({ page }) => {
+    await page.goto('/experience');
+
+    // Worksome logo should be visible in the sidebar (most recent entry)
+    const worksomeLogo = page.locator('.experience').nth(0).locator('img.experience__company-logo');
+    await expect(worksomeLogo).toBeVisible();
+    await expect(worksomeLogo).toHaveAttribute('alt', /Worksome/i);
+
+    // SumUp logo should be visible (second entry)
+    const sumupLogo = page.locator('.experience').nth(1).locator('img.experience__company-logo');
+    await expect(sumupLogo).toBeVisible();
+    await expect(sumupLogo).toHaveAttribute('alt', /SumUp/i);
+  });
 }); 

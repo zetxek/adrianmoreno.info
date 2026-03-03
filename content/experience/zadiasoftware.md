@@ -6,7 +6,7 @@ jobTitle: "Co-Founder & Technical Lead"
 company: "Zadia Software"
 location: "Santiago de Compostela, Spain"
 duration: "2011-2015"
-
+companyLogo: "images/experience/zadiasoftware.png"
 ---
 
 ### Co-founder and technical lead
