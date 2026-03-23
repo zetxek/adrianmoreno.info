@@ -1,10 +1,12 @@
 +++
 title = "Be a Shepherd, Not a Fence: Why We Need to Stop Gatekeeping \"Vibe Coders\""
-date = "2026-03-23T21:00:00Z"
+date = "2026-03-23T21:00:00+01:00"
 draft = false
-tags = ["article"]
+tags = ["article", "vibe coding", "AI"]
 categories = ["Engineering & Product"]
 layout = "blog"
+images = ["/images/blog/vibe_coding_shepherd.png"]
+featuredImage = "/images/blog/vibe_coding_shepherd.png"
 +++
 
 We’ve seen this movie before. 
