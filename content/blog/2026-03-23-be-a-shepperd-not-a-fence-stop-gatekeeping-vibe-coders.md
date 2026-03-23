@@ -6,8 +6,8 @@ draft = false
 tags = ["article", "vibe coding", "ai"]
 categories = ["Engineering & Product"]
 layout = "blog"
-images = ["/images/blog/vibe_coding_shepherd.png"]
-featuredImage = "/images/blog/vibe_coding_shepherd.png"
+images = ["images/blog/vibe_coding_shepherd.png"]
+featuredImage = "images/blog/vibe_coding_shepherd.png"
 +++
 
 We’ve seen this movie before.
