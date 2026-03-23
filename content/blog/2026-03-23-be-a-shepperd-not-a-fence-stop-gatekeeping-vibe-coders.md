@@ -1,5 +1,6 @@
 +++
 title = "Be a Shepherd, Not a Fence: Why We Need to Stop Gatekeeping \"Vibe Coders\""
+slug = "be-a-shepherd-not-a-fence-stop-gatekeeping-vibe-coders"
 date = "2026-03-23T21:00:00+01:00"
 draft = false
 tags = ["article", "vibe coding", "AI"]
