@@ -54,13 +54,24 @@
     {{ if .Params.images }}
     <div class="post-images mb-4">
       {{ range $index, $img := .Params.images }}
+        {{ $imgRes := resources.Get (strings.TrimPrefix "/" $img) }}
         {{ if eq $index 0 }}
           <figure class="featured-image">
-            <img src="{{ $img }}" alt="{{ $.Title }}" class="img-fluid rounded mb-3" loading="lazy">
+            {{ with $imgRes }}
+              {{ $imgConverted := .Resize "1200x webp q85 Lanczos" }}
+              <img src="{{ $imgConverted.RelPermalink }}" alt="{{ $.Title }}" class="img-fluid rounded mb-3" loading="lazy">
+            {{ else }}
+              <img src="{{ $img }}" alt="{{ $.Title }}" class="img-fluid rounded mb-3" loading="lazy">
+            {{ end }}
           </figure>
         {{ else }}
           <figure class="post-image">
-            <img src="{{ $img }}" alt="{{ $.Title }} - Image {{ add $index 1 }}" class="img-fluid rounded mb-2" loading="lazy">
+            {{ with $imgRes }}
+              {{ $imgConverted := .Resize "1200x webp q85 Lanczos" }}
+              <img src="{{ $imgConverted.RelPermalink }}" alt="{{ $.Title }} - Image {{ add $index 1 }}" class="img-fluid rounded mb-2" loading="lazy">
+            {{ else }}
+              <img src="{{ $img }}" alt="{{ $.Title }} - Image {{ add $index 1 }}" class="img-fluid rounded mb-2" loading="lazy">
+            {{ end }}
           </figure>
         {{ end }}
       {{ end }}
