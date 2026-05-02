@@ -14,20 +14,20 @@
 
 ## Homepage head title
 - id: "head_title"
-  translation: "Adrián Moreno Peña | Engineering Leader based in Copenhagen (Denmark) ⸱ mobile apps, platforms, APIs, SaaS"
+  translation: "Adrián Moreno Peña | VP of Technology @ Worksome ⸱ Product & Engineering Leader (Copenhagen)"
 
 - id: "head_description"
-  translation: "Engineering Leader with nearly two decades of experience spanning individual contributor to VP level. Currently VP of Technology at Worksome in Copenhagen. Background as computer engineer with hands-on experience in SaaS, e-commerce, and mobile — leading multi-cultural teams across Spain, the Netherlands, and Denmark."
+  translation: "VP of Technology at Worksome, leading Product, Engineering, and Design. Nearly two decades across Spain, the Netherlands, and Denmark — IC, founder, CTO, VP. I help companies align business strategy, product strategy, and engineering execution."
 
 ## Homepage showcase
 - id: "showcase_title"
   translation: "Hello, I'm Adrián."
 
 - id: "showcase_subtitle"
-  translation: "Engineering Leader"
+  translation: "Engineer, builder, leader"
 
 - id: "showcase_description"
-  translation: "Based in Copenhagen 🇩🇰, I work at <a target='_blank' rel='noopener noreferrer' href='https://www.worksome.com/'>Worksome</a>, a danish startup empowering the future of work. Our vision is to build a world where companies and freelancers connect and work together through accessible tools and technology. <br/>A specialized generalist at heart, I bring a unique blend of expertise across backend systems, mobile development, and infrastructure. Over my career, I've led teams of all sizes—from hands-on coding to scaling engineering groups—always anchored in the 3P framework: <strong>People, Product, Process</strong>.<br/>I'm driven by cultivating high-performing teams that embrace iterative improvement, psychological safety, and purpose-driven work. Whether refining agile workflows or mentoring future leaders, my goal is to build environments where both products <em>and</em> people thrive."
+  translation: "<p>I lead <strong>Product, Engineering, and Design</strong> at <a target='_blank' rel='noopener noreferrer' href='https://www.worksome.com/'>Worksome</a> — a Danish company reshaping how businesses and independent professionals work together.</p><p>My focus: aligning <strong>business strategy, product strategy, and engineering execution</strong> — so teams ship outcomes that move the business, and keep doing it as the company scales.</p><p><small>Nearly two decades across 🇪🇸 Spain · 🇳🇱 Netherlands · 🇩🇰 Denmark — IC, <a href='/experience/zadiasoftware/'>founder</a>, CTO, VP.</small></p>"
 
 - id: "showcase_button"
   translation: "Contact"
@@ -41,7 +41,7 @@
   translation: "Experience"
 
 - id: "experience_description"
-  translation: "Over 17 years of experience working in all kinds of project sizes and teams. I have architected & developed digital products to help businesses and improve people's lives, solving complex problems with simple solutions."
+  translation: "Product, Engineering, and Design leadership across SaaS, fintech, e-commerce, and mobile — scaling tech strategy, teams, and GTM execution from early-stage startups to global scale-ups."
 
 - id: "experience_button"
   translation: "LinkedIn" 

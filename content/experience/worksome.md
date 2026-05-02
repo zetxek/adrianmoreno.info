@@ -8,10 +8,19 @@ location: "Copenhagen, Denmark"
 duration: "2025-present"
 companyLogo: "images/experience/worksome.png"
 ---
-### Joined a Danish startup revolutionizing the future of work
+### Bridging GTM and engineering execution
 
-In July 2025, I joined [Worksome, a Danish startup focused on transforming how companies and freelancers connect and work together](https://www.worksome.com/). Based in Copenhagen, Worksome is building innovative solutions for the modern workforce, creating a platform that streamlines the process of finding, hiring, and managing freelance talent.
+Joined [Worksome](https://www.worksome.com/) in July 2025 — a Danish company reshaping how companies and independent professionals connect and work together.
 
-At Worksome, I'm leveraging my experience in engineering leadership to help scale the technology organization and drive product innovation. Working in a fast-paced startup environment allows me to contribute to both strategic direction and hands-on implementation of key initiatives.
+As VP of Technology reporting to the CTO, I lead a ~10-person **Product, Engineering, and Design** team — aligning business, product, and engineering so the company scales sustainably.
 
-The role combines my passion for building high-performing engineering teams with the opportunity to shape the future of work in an increasingly freelance-oriented global economy.
+We're **growing the business with a leaner team** — capacity built on talent density and AI leverage, not headcount.
+
+Focus areas:
+
+- Scaling the technology org so it grows with the business, not ahead of it
+- Closing the loop between GTM, product, and engineering — faster delivery, grounded in real customer signal
+- Profitable growth through pragmatic architecture and clear bets
+- AI as a capacity lever across how we build, ship, and operate
+
+**Recent:** Contributed to Worksome's [path toward sustainable profitability](https://www.linkedin.com/feed/update/urn:li:activity:7454138890657046528/) — aligning GTM with product and engineering execution, and using AI as a capacity lever rather than relying on headcount alone.

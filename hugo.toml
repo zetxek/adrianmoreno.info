@@ -62,8 +62,8 @@ target = "static/js/purify.min.js"
 
 [params]
 
-title = "Adrián Moreno Peña | Engineering Leader based in Copenhagen (Denmark) ⸱ mobile apps, platforms, APIs, SaaS"
-description = "Engineering Leader with nearly two decades of experience spanning individual contributor to VP level. Currently VP of Technology at Worksome in Copenhagen. Background as computer engineer with hands-on experience in SaaS, e-commerce, and mobile — leading multi-cultural teams across Spain, the Netherlands, and Denmark. Passionate about building empathy across functions, breaking silos, and aligning technology with sustainable business outcomes."
+title = "Adrián Moreno Peña | VP of Technology @ Worksome ⸱ Product & Engineering Leader (Copenhagen)"
+description = "VP of Technology at Worksome, leading Product, Engineering, and Design. Nearly two decades across Spain, the Netherlands, and Denmark — IC, founder, CTO, VP. I help companies align business strategy, product strategy, and engineering execution: scaling teams, sharpening GTM, and keeping technology sustainable as the business grows."
 images = ['/img/og-preview.png']
 
 homepageExperienceCount = 6

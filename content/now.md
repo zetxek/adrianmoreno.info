@@ -5,7 +5,15 @@ type: "blog"
 
 # What I'm up to now
 
-*Last updated: February 2026*
+*Last updated: May 2026*
+
+## Open to
+
+Not actively looking for a new role, but open to:
+
+- **Advisory** for early-stage SaaS founders working on product, engineering, or scaling tech orgs
+- **Mentorship** for engineering leaders growing into VP / CTO scope
+- **Networking** with peers in the Copenhagen tech ecosystem — coffee, walks, or [LinkedIn](https://www.linkedin.com/in/adrianmoreno/) DMs all welcome
 
 ## Work
 
@@ -22,7 +30,7 @@ Themes I keep coming back to:
 - **AI in engineering workflows** — practical adoption, not hype
 - **The business side of engineering** — P&L thinking, sustainable product strategies, balancing speed with cost-control
 
-I publish mostly on [LinkedIn](https://www.linkedin.com/in/adrianmoreno/) and archive longer pieces on my [blog](/blog).
+I publish mostly on [LinkedIn](https://www.linkedin.com/in/adrianmoreno/) and archive longer pieces on my [blog](/blog). Public speaking has been quieter the last couple of years — small kid at home — and I'm planning to ramp it back up.
 
 ## Reading
 
