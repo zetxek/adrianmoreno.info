@@ -7,7 +7,7 @@ draft = false
 
 {{< showcase-section
     title="Hello, I'm Adrián."
-    subtitle="VP of Technology @ Worksome"
+    subtitle="Engineer, builder, leader"
     button_text="Contact me"
     button_icon="icon-email"
     description="<p>I lead <strong>Product, Engineering, and Design</strong> at <a target='_blank' rel='noopener noreferrer' href='https://www.worksome.com/'>Worksome</a> — a Danish company reshaping how businesses and independent professionals work together.</p><p>My focus: aligning <strong>business strategy, product strategy, and engineering execution</strong> — so teams ship outcomes that move the business, and keep doing it as the company scales.</p><p class='text-body-secondary fs-6 mb-0'>17+ years across 🇪🇸 Spain · 🇳🇱 Netherlands · 🇩🇰 Denmark — IC, <a href='/experience/zadiasoftware/'>founder</a>, CTO, VP.</p>"
