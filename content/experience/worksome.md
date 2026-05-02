@@ -8,10 +8,15 @@ location: "Copenhagen, Denmark"
 duration: "2025-present"
 companyLogo: "images/experience/worksome.png"
 ---
-### Joined a Danish startup revolutionizing the future of work
+### Bridging GTM and engineering execution
 
-In July 2025, I joined [Worksome, a Danish startup focused on transforming how companies and freelancers connect and work together](https://www.worksome.com/). Based in Copenhagen, Worksome is building innovative solutions for the modern workforce, creating a platform that streamlines the process of finding, hiring, and managing freelance talent.
+Joined [Worksome](https://www.worksome.com/) in July 2025 — a Danish company reshaping how companies and independent professionals connect and work together.
 
-At Worksome, I'm leveraging my experience in engineering leadership to help scale the technology organization and drive product innovation. Working in a fast-paced startup environment allows me to contribute to both strategic direction and hands-on implementation of key initiatives.
+As VP of Technology, I lead **Product, Engineering, and Design**, helping align business strategy, product strategy, and engineering execution as the company scales.
 
-The role combines my passion for building high-performing engineering teams with the opportunity to shape the future of work in an increasingly freelance-oriented global economy.
+Focus areas:
+
+- Scaling the technology organization and operating model
+- Bridging GTM, product, and engineering for faster, more grounded delivery
+- Sustainable, profitable growth through clear priorities and pragmatic architecture
+- Using AI to improve how we build, ship, and operate the product

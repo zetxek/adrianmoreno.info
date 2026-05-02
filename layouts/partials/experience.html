@@ -19,13 +19,13 @@
 <section {{if $sectionId}} id="{{ $sectionId }}"{{end}} class="section-experience section section--border-bottom rad-animation-group flex-grow-1">
   <div class="row flex-column-reverse flex-md-row rad-fade-down">
     <div class="experience-list col-12 col-md-6">
-      <h2>
-        {{ if $isShortcode }}
-          {{ .Get "title" | default "" }}
-        {{ else }}
-          {{ i18n "experience_title" }}
-        {{ end }}
-      </h2>
+      {{ $listTitle := "" }}
+      {{ if $isShortcode }}
+        {{ $listTitle = .Get "title" | default "" }}
+      {{ else }}
+        {{ $listTitle = i18n "experience_title" }}
+      {{ end }}
+      {{ with $listTitle }}<h2>{{ . }}</h2>{{ end }}
 
       {{ $xp := where .Site.RegularPages.ByDate "Type" "experience" }}
       {{ if not $isShortcode }}

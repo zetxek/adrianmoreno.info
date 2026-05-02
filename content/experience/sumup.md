@@ -8,18 +8,16 @@ location: "Copenhagen, Denmark"
 duration: "2021-2025"
 companyLogo: "images/experience/sumup.png"
 ---
-### Moved to Denmark, joined an European Unicorn 🦄
+### Moved to Denmark, joined a European unicorn 🦄
 
-After relocating from Amsterdam to Copenhagen - I joined SumUp to work in the danish headquarters as an Engineering Manager for the Accounting Squad, in the Merchant Growth Tribe. The team I joined had been part of a previous acquisition of SumUp (Debitoor): merging cultures and integrating into the overall company was a big challenge.
+Joined [SumUp](https://www.sumup.com/) in 2021 after relocating from Amsterdam to Copenhagen, starting as Engineering Manager in the Accounting Squad (Merchant Growth Tribe). The team had recently joined SumUp through the Debitoor acquisition — merging cultures and integrating into the wider [tribalized organization](https://www.sumup.com/en-us/wtf-sumup-organisation/) was the first big challenge.
 
-At SumUp I got hands-on with a more complex organizational setup and map, with a tribalized setup; and highly enjoyed the reflective [spirit of the company when finding new ways of working](https://www.sumup.com/en-us/wtf-sumup-organisation/).
+Grew through three levels of scope over four years:
 
-Later, I got promoted to Director of Engineering, overseeing the engineering department of the Invoices Tribe (and its two products, [SumUp Invoices](https://www.sumup.com/en-gb/invoices/) & Accounting). As part of the Tribe leadership, I worked on aligning technology and product to ensure a solid foundation for quick iterations, and maximising merchants' value and developer experience (happy teams = happy product = happy customers!).
+- **Engineering Manager** — Accounting Squad, Merchant Growth Tribe.
+- **Director of Engineering** — Invoices Tribe, owning [SumUp Invoices](https://www.sumup.com/en-gb/invoices/) and Accounting; aligning tech and product for fast iteration and developer experience.
+- **VP of Engineering & Tribe Lead** — Invoices & Accounting tribe with **P&L responsibility**: ~30 FTE across 4 squads plus QA, delivering both mobile (inside the SumUp SuperApp) and web experiences.
 
-Afterwards, I got another job change, transitioning to be the tribe lead for the Invoices & Accounting team. This role involves P&L responsibility, as well as accountability on financial results and product evolution. 
+In parallel, drove the **global Incident Response process** — leading the rollout across Risk, Compliance, and Operations to make incident handling holistic and customer-centric.
 
-The team size is around 30 FTE - organized in 4 squads + QA, each with an Engineering Manager. We provide mobile app services (from the context of the SumUp SuperApp) as well as web experience.
-
-Additionally, I expanded my scope on Engineering, by driving the global Incident Response process. Without direct reports, the responsibility includes to lead the implementation of the processes and tools. The role involves intense collaboration with other functions (such as Risk, Compliance and Operations) to implement the process in a holistic, customer-centric manner. 
-
-After being focused on growth, aligned with the global economical context in 2023 there was a strong company-wide pivot to profitability. This resulted on achieving a [funding round of €285 million in december](https://www.cnbc.com/2023/12/11/sumup-defies-fintech-funding-slump-with-307-million-fundraise.html), fueling the growth ambition (with a economically sustainable approach).
+When the company pivoted from growth to profitability in 2023, engineering executed against tighter priorities — contributing to a [€285M funding round in December 2023](https://www.cnbc.com/2023/12/11/sumup-defies-fintech-funding-slump-with-307-million-fundraise.html) that fueled a more economically sustainable trajectory.

@@ -7,10 +7,10 @@ draft = false
 
 {{< showcase-section
     title="Hello, I'm Adrián."
-    subtitle="Engineering Leader"
+    subtitle="VP of Technology @ Worksome"
     button_text="Contact me"
     button_icon="icon-email"
-    description="Based in Copenhagen 🇩🇰, I work at <a target='_blank' rel='noopener noreferrer' href='https://www.worksome.com/'>Worksome</a>, a Danish company redefining how businesses and independent professionals collaborate — empowering companies to adapt to the future of work.<br/><br/>With <strong>nearly two decades of experience</strong> across Spain, the Netherlands, and Denmark, I've grown from individual contributor to <abbr title='Vice President'>VP</abbr> of Engineering. I thrive in diverse, multi-cultural environments and bring a unique blend of technical depth and business acumen — from architecting scalable platforms to owning <abbr title='Profit and Loss'>P&amp;L</abbr> responsibility.<br/><br/>I'm grounded in the <strong>3P framework: People, Product, Process</strong>. Whether refining delivery practices, mentoring future leaders, or driving product strategy, I focus on shaping environments where both products <em>and</em> people thrive."
+    description="<p>I lead <strong>Product, Engineering, and Design</strong> at <a target='_blank' rel='noopener noreferrer' href='https://www.worksome.com/'>Worksome</a> — a Danish company reshaping how businesses and independent professionals work together.</p><p>I help organizations <strong>align business strategy, product strategy, and engineering execution</strong>: scaling teams, sharpening GTM delivery, and keeping technology sustainable as the business grows.</p><p class='text-body-secondary fs-6 mb-0'>17+ years across 🇪🇸 Spain · 🇳🇱 Netherlands · 🇩🇰 Denmark — IC, founder, CTO, VP.</p>"
     imgSrc="images/adrian@2x.jpg"
     imgScale="0.5"
  >}}
@@ -31,7 +31,7 @@ draft = false
 
 {{< about-section
     title="Who am I?"
-    content="<p class='lead'>An engineer at heart and a leader by practice. I channel curiosity and energy into building teams that deliver technology with real business impact. You'll find me debugging code with engineers one hour and aligning product strategy with stakeholders the next.</p><p>After co-founding a startup and growing through <abbr title='Individual Contributor'>IC</abbr>, <abbr title='Chief Technology Officer'>CTO</abbr>, and <abbr title='Vice President'>VP</abbr> roles, I learned to bridge business vision and technical execution — scaling systems, mentoring teams, and advocating for user-centric design across industries like <abbr title='Software as a Service'>SaaS</abbr>, e-commerce, fintech, and mobile.</p><p>My leadership thrives on three principles:</p><ol><li><strong>Empathy as a Superpower:</strong> I believe in <em>making explicit the implicit</em> — understanding diverse perspectives fuels better decisions and stronger collaboration.</li><li><strong>Multi-disciplinary Teams &amp; Breaking Silos:</strong> <abbr title='Development and Operations'>DevOps</abbr> practices, cross-functional ownership, and the right agile <em>for the team</em> — not agile 'the right way'.</li><li><strong>Iterative Improvement:</strong> Progress is a cycle of experimentation, feedback, and refinement. Action speaks louder than words.</li></ol><p><strong>My superpower?</strong> Versatility with business sense. From architecting backend systems to owning <abbr title='Profit and Loss'>P&amp;L</abbr>, I connect dots across disciplines. But technology alone isn't the answer — I obsess over <em>how</em> teams work, fostering psychological safety and iterative learning.</p>"
+    content="<p class='lead'>An engineer at heart, a leader by practice. I help companies turn technology into business outcomes — aligning <strong>product, engineering, and the GTM teams</strong> who carry the work to customers.</p><p>I lead through the <strong>3P framework — People, Product, Process</strong>:</p><ul><li><strong>People</strong> · High-performing teams, psychological safety, and leaders who grow other leaders.</li><li><strong>Product</strong> · Clear strategy, sharp prioritization, and tight feedback loops with customers and GTM.</li><li><strong>Process</strong> · Pragmatic agile, healthy DevOps, and sustainable architecture that scales with the business.</li></ul><p><strong>Currently exploring:</strong> using AI to improve delivery, operations, and team collaboration — without losing rigor or simplicity.</p><p class='text-body-secondary'><small>Path so far: IC → co-founder → CTO → VP, across SaaS, fintech, e-commerce, and mobile.</small></p>"
     imgSrc="images/working-left@2x.webp"
     imgScale="0.5"
     btnText=""
@@ -44,7 +44,7 @@ draft = false
 {{< experience-section
     title=""
     intro_title="Experience"
-    intro_description="Nearly two decades of experience working in all kinds of project sizes and teams. I have architected & developed digital products to help businesses and improve people's lives, solving complex problems with simple solutions." 
+    intro_description="Product, Engineering, and Design leadership across SaaS, fintech, e-commerce, and mobile — scaling tech strategy, teams, and GTM execution from early-stage startups to global scale-ups."
     button1_url="https://linkedin.com/in/adrianmoreno"
     button1_text="See in LinkedIn"
     button1_icon="icon-linkedin"

@@ -134,11 +134,11 @@ test.describe('Experience Page', () => {
     await page.goto('/experience');
 
     // Verify meta description
-    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Engineering Leader/);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /VP of Technology/);
 
     // Verify Open Graph meta tags
     await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', 'Experience');
-    await expect(page.locator('meta[property="og:description"]')).toHaveAttribute('content', /experience.*engineering/i);
+    await expect(page.locator('meta[property="og:description"]')).toHaveAttribute('content', /17\+ years|software engineer|founder/i);
     await expect(page.locator('meta[property="og:type"]')).toHaveAttribute('content', 'website');
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', /.*\/experience/);
   });
