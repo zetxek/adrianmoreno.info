@@ -14,7 +14,7 @@ Joined [Worksome](https://www.worksome.com/) in July 2025 — a Danish company r
 
 As VP of Technology reporting to the CTO, I lead a ~10-person **Product, Engineering, and Design** team — aligning business, product, and engineering so the company scales sustainably.
 
-We've **expanded the business while reducing the team** — a deliberate bet on talent density and AI leverage over headcount.
+We're **growing the business with a leaner team** — capacity built on talent density and AI leverage, not headcount.
 
 Focus areas:
 
