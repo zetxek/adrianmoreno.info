@@ -20,4 +20,4 @@ Grew through three levels of scope over four years:
 
 In parallel, drove the **global Incident Response process** — leading the rollout across Risk, Compliance, and Operations to make incident handling holistic and customer-centric.
 
-When the company pivoted from growth to profitability in 2023, engineering executed against tighter priorities — contributing to a [€285M funding round in December 2023](https://www.cnbc.com/2023/12/11/sumup-defies-fintech-funding-slump-with-307-million-fundraise.html) that fueled a more economically sustainable trajectory.
+When the company pivoted from growth to profitability in 2023, engineering held the line — shipping against tighter priorities and contributing to a [€285M funding round in December 2023](https://www.cnbc.com/2023/12/11/sumup-defies-fintech-funding-slump-with-307-million-fundraise.html) that fueled a more sustainable trajectory.

@@ -12,11 +12,13 @@ companyLogo: "images/experience/worksome.png"
 
 Joined [Worksome](https://www.worksome.com/) in July 2025 — a Danish company reshaping how companies and independent professionals connect and work together.
 
-As VP of Technology, I lead **Product, Engineering, and Design**, helping align business strategy, product strategy, and engineering execution as the company scales.
+As VP of Technology, I lead **Product, Engineering, and Design** — aligning business, product, and engineering so the company scales sustainably.
 
 Focus areas:
 
-- Scaling the technology organization and operating model
-- Bridging GTM, product, and engineering for faster, more grounded delivery
-- Sustainable, profitable growth through clear priorities and pragmatic architecture
-- Using AI to improve how we build, ship, and operate the product
+- Scaling the technology org so it grows with the business, not ahead of it
+- Closing the loop between GTM, product, and engineering — faster delivery, grounded in real customer signal
+- Profitable growth through pragmatic architecture and clear bets
+- AI as a capacity lever across how we build, ship, and operate
+
+**Recent:** Contributed to Worksome's [path toward sustainable profitability](https://www.linkedin.com/feed/update/urn:li:activity:7454138890657046528/) — aligning GTM with product and engineering execution, and using AI as a capacity lever rather than relying on headcount alone.

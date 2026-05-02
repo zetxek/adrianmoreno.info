@@ -10,7 +10,7 @@ draft = false
     subtitle="VP of Technology @ Worksome"
     button_text="Contact me"
     button_icon="icon-email"
-    description="<p>I lead <strong>Product, Engineering, and Design</strong> at <a target='_blank' rel='noopener noreferrer' href='https://www.worksome.com/'>Worksome</a> — a Danish company reshaping how businesses and independent professionals work together.</p><p>I help organizations <strong>align business strategy, product strategy, and engineering execution</strong>: scaling teams, sharpening GTM delivery, and keeping technology sustainable as the business grows.</p><p class='text-body-secondary fs-6 mb-0'>17+ years across 🇪🇸 Spain · 🇳🇱 Netherlands · 🇩🇰 Denmark — IC, founder, CTO, VP.</p>"
+    description="<p>I lead <strong>Product, Engineering, and Design</strong> at <a target='_blank' rel='noopener noreferrer' href='https://www.worksome.com/'>Worksome</a> — a Danish company reshaping how businesses and independent professionals work together.</p><p>My focus: aligning <strong>business strategy, product strategy, and engineering execution</strong> — so teams ship outcomes that move the business, and keep doing it as the company scales.</p><p class='text-body-secondary fs-6 mb-0'>17+ years across 🇪🇸 Spain · 🇳🇱 Netherlands · 🇩🇰 Denmark — IC, founder, CTO, VP.</p>"
     imgSrc="images/adrian@2x.jpg"
     imgScale="0.5"
  >}}
@@ -31,7 +31,7 @@ draft = false
 
 {{< about-section
     title="Who am I?"
-    content="<p class='lead'>An engineer at heart, a leader by practice. I help companies turn technology into business outcomes — aligning <strong>product, engineering, and the GTM teams</strong> who carry the work to customers.</p><p>I lead through the <strong>3P framework — People, Product, Process</strong>:</p><ul><li><strong>People</strong> · High-performing teams, psychological safety, and leaders who grow other leaders.</li><li><strong>Product</strong> · Clear strategy, sharp prioritization, and tight feedback loops with customers and GTM.</li><li><strong>Process</strong> · Pragmatic agile, healthy DevOps, and sustainable architecture that scales with the business.</li></ul><p><strong>Currently exploring:</strong> using AI to improve delivery, operations, and team collaboration — without losing rigor or simplicity.</p><p class='text-body-secondary'><small>Path so far: IC → co-founder → CTO → VP, across SaaS, fintech, e-commerce, and mobile.</small></p>"
+    content="<p class='lead'>An engineer at heart, a leader by practice. I help companies turn technology into business outcomes — aligning <strong>product, engineering, and the GTM teams</strong> who carry the work to customers.</p><p>I lead through the <strong>3P framework — People, Product, Process</strong>:</p><ul><li><strong>People</strong> · High-performing teams, psychological safety, and leaders who grow other leaders.</li><li><strong>Product</strong> · Clear strategy, sharp prioritization, and tight feedback loops with customers and GTM.</li><li><strong>Process</strong> · Pragmatic agile, healthy DevOps, and sustainable architecture that scales with the business.</li></ul><p><strong>Currently exploring:</strong> AI as a capacity lever for delivery, operations, and team collaboration — making good engineering faster, not louder.</p><p class='text-body-secondary'><small>Across SaaS, fintech, e-commerce, and mobile — from hands-on building to executive scope.</small></p>"
     imgSrc="images/working-left@2x.webp"
     imgScale="0.5"
     btnText=""
