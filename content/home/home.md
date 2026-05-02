@@ -10,7 +10,7 @@ draft = false
     subtitle="Engineer, builder, leader"
     button_text="Contact me"
     button_icon="icon-email"
-    description="<p>I lead <strong>Product, Engineering, and Design</strong> at <a target='_blank' rel='noopener noreferrer' href='https://www.worksome.com/'>Worksome</a> — a Danish company reshaping how businesses and independent professionals work together.</p><p>My focus: aligning <strong>business strategy, product strategy, and engineering execution</strong> — so teams ship outcomes that move the business, and keep doing it as the company scales.</p><p class='text-body-secondary fs-6 mb-0'>17+ years across 🇪🇸 Spain · 🇳🇱 Netherlands · 🇩🇰 Denmark — IC, <a href='/experience/zadiasoftware/'>founder</a>, CTO, VP.</p>"
+    description="<p>I lead <strong>Product, Engineering, and Design</strong> at <a target='_blank' rel='noopener noreferrer' href='https://www.worksome.com/'>Worksome</a> — a Danish company reshaping how businesses and independent professionals work together.</p><p>My focus: aligning <strong>business strategy, product strategy, and engineering execution</strong> — so teams ship outcomes that move the business, and keep doing it as the company scales.</p><p class='text-body-secondary fs-6 mb-0'>Nearly two decades across 🇪🇸 Spain · 🇳🇱 Netherlands · 🇩🇰 Denmark — IC, <a href='/experience/zadiasoftware/'>founder</a>, CTO, VP.</p>"
     imgSrc="images/adrian@2x.jpg"
     imgScale="0.5"
  >}}
@@ -40,11 +40,11 @@ draft = false
 
 {{< text-section title="How I lead" sectionId="how-i-lead" >}}
 - **Make the implicit explicit.** Across functions, cultures, and seniority — alignment beats authority.
-- **Small reversible decisions over big committee ones.** Ship, learn, adjust.
-- **Architecture is a budget, not a religion.** Every choice should be defensible against cost, speed, and reversibility.
-- **AI is capex, not a hiring shortcut.** Use it to compound capacity — not to dilute craft.
+- **Small reversible decisions over big slow ones.** Ship, learn, adjust.
+- **Optimize for cadence, not perfection.** Velocity compounds; perfection ships late.
+- **Architecture is a budget, not a religion.** Every choice should consider cost, speed, and reversibility.
 - **DevOps is a culture, not a team.** Ownership stays with whoever ships.
-- **Healthy systems first.** Small batches, fast feedback, no heroics.
+- **Healthy systems first.** Small batches, fast feedback, quick iterations.
 {{< /text-section >}}
 
 {{< education-list

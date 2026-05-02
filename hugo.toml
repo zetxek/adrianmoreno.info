@@ -63,7 +63,7 @@ target = "static/js/purify.min.js"
 [params]
 
 title = "Adrián Moreno Peña | VP of Technology @ Worksome ⸱ Product & Engineering Leader (Copenhagen)"
-description = "VP of Technology at Worksome, leading Product, Engineering, and Design. 17+ years across Spain, the Netherlands, and Denmark — IC, founder, CTO, VP. I help companies align business strategy, product strategy, and engineering execution: scaling teams, sharpening GTM, and keeping technology sustainable as the business grows."
+description = "VP of Technology at Worksome, leading Product, Engineering, and Design. Nearly two decades across Spain, the Netherlands, and Denmark — IC, founder, CTO, VP. I help companies align business strategy, product strategy, and engineering execution: scaling teams, sharpening GTM, and keeping technology sustainable as the business grows."
 images = ['/img/og-preview.png']
 
 homepageExperienceCount = 6
