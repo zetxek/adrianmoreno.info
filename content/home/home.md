@@ -1,5 +1,5 @@
 +++
-title =  "Home"
+title = "Home"
 type = "home"
 draft = false
 +++
@@ -10,7 +10,7 @@ draft = false
     subtitle="VP of Technology @ Worksome"
     button_text="Contact me"
     button_icon="icon-email"
-    description="<p>I lead <strong>Product, Engineering, and Design</strong> at <a target='_blank' rel='noopener noreferrer' href='https://www.worksome.com/'>Worksome</a> — a Danish company reshaping how businesses and independent professionals work together.</p><p>My focus: aligning <strong>business strategy, product strategy, and engineering execution</strong> — so teams ship outcomes that move the business, and keep doing it as the company scales.</p><p class='text-body-secondary fs-6 mb-0'>17+ years across 🇪🇸 Spain · 🇳🇱 Netherlands · 🇩🇰 Denmark — IC, founder, CTO, VP.</p>"
+    description="<p>I lead <strong>Product, Engineering, and Design</strong> at <a target='_blank' rel='noopener noreferrer' href='https://www.worksome.com/'>Worksome</a> — a Danish company reshaping how businesses and independent professionals work together.</p><p>My focus: aligning <strong>business strategy, product strategy, and engineering execution</strong> — so teams ship outcomes that move the business, and keep doing it as the company scales.</p><p class='text-body-secondary fs-6 mb-0'>17+ years across 🇪🇸 Spain · 🇳🇱 Netherlands · 🇩🇰 Denmark — IC, <a href='/experience/zadiasoftware/'>founder</a>, CTO, VP.</p>"
     imgSrc="images/adrian@2x.jpg"
     imgScale="0.5"
  >}}
@@ -23,8 +23,8 @@ draft = false
         {{< link icon="square-github" url="https://github.com/zetxek" >}}
         {{< link icon="x-twitter" url="https://twitter.com/zetxek" >}}
         {{< link icon="instagram" url="https://www.instagram.com/zetxek/" >}}
-        {{< link icon="bluesky" url="https://www.bluesky.com/zetxek" >}}
-        {{< link icon="threads" url="https://www.threads.net/zetxek" >}}
+        {{< link icon="bluesky" url="https://bsky.app/profile/zetxek.bsky.social" >}}
+        {{< link icon="threads" url="https://www.threads.net/@zetxek" >}}
     {{< /platform-links >}}
 {{< /showcase-section >}}
 
@@ -37,6 +37,15 @@ draft = false
     btnText=""
 
  >}}
+
+{{< text-section title="How I lead" sectionId="how-i-lead" >}}
+- **Make the implicit explicit.** Across functions, cultures, and seniority — alignment beats authority.
+- **Small reversible decisions over big committee ones.** Ship, learn, adjust.
+- **Architecture is a budget, not a religion.** Every choice should be defensible against cost, speed, and reversibility.
+- **AI is capex, not a hiring shortcut.** Use it to compound capacity — not to dilute craft.
+- **DevOps is a culture, not a team.** Ownership stays with whoever ships.
+- **Healthy systems first.** Small batches, fast feedback, no heroics.
+{{< /text-section >}}
 
 {{< education-list
     title="Education" >}}

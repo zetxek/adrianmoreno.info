@@ -12,7 +12,9 @@ companyLogo: "images/experience/worksome.png"
 
 Joined [Worksome](https://www.worksome.com/) in July 2025 — a Danish company reshaping how companies and independent professionals connect and work together.
 
-As VP of Technology, I lead **Product, Engineering, and Design** — aligning business, product, and engineering so the company scales sustainably.
+As VP of Technology reporting to the CTO, I lead a ~10-person **Product, Engineering, and Design** team — aligning business, product, and engineering so the company scales sustainably.
+
+We've **expanded the business while reducing the team** — a deliberate bet on talent density and AI leverage over headcount.
 
 Focus areas:
 
