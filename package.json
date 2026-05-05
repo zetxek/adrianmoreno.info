@@ -21,7 +21,7 @@
   "dependencies": {
     "dompurify": "^3.4.0",
     "fuse.js": "^7.3.0",
-    "node-gyp": "^12.2.0",
+    "node-gyp": "^12.3.0",
     "playwright": "^1.58.2"
   },
   "scripts": {
