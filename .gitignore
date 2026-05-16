@@ -29,3 +29,6 @@ _vendor/*
 scripts/*zip/*/*
 scripts/*.zip/*
 .linkedin-browser-profile/
+
+# Git worktrees
+.worktrees/
