@@ -10,13 +10,128 @@
 </head>
 <body class="cv-page">
 <main class="cv">
+  {{/* HEADER */}}
   <header class="cv__header">
-    <h1 class="cv__name">{{ site.Data.cv.header.name }}</h1>
-    <p class="cv__title">{{ site.Data.cv.header.title }}</p>
+    <div class="cv__header-inner">
+      <h1 class="cv__name">{{ site.Data.cv.header.name }}</h1>
+      <p class="cv__title">{{ site.Data.cv.header.title }}</p>
+    </div>
   </header>
-  <section class="cv__body">
-    <p>CV body — to be implemented in Task 3.</p>
-  </section>
+
+  <div class="cv__columns">
+
+    {{/* LEFT COLUMN: WORK EXPERIENCE */}}
+    <section class="cv__main">
+      <h2 class="cv__section-title">Work experience</h2>
+
+      {{ $experience := where site.RegularPages "Type" "experience" }}
+      {{ $experience = sort $experience "Params.date" "desc" }}
+
+      <ol class="cv-xp">
+      {{ range $experience }}
+        {{ $duration := default .Params.duration .Params.cvDuration }}
+        {{ $jobTitle := default .Params.jobTitle .Params.cvJobTitle }}
+        {{ if .Params.cvCompact }}
+        <li class="cv-xp__item cv-xp__item--compact">
+          <span class="cv-xp__year">{{ $duration }}</span>
+          <span class="cv-xp__dot"></span>
+          <div class="cv-xp__body">
+            <p class="cv-xp__line">
+              <span class="cv-xp__job">{{ $jobTitle }}</span>
+              <span class="cv-xp__sep">·</span>
+              <span class="cv-xp__company">{{ .Params.company }}</span>
+              <span class="cv-xp__sep">·</span>
+              <span class="cv-xp__location">{{ .Params.location }}</span>
+            </p>
+          </div>
+        </li>
+        {{ else }}
+        <li class="cv-xp__item">
+          <span class="cv-xp__year">{{ $duration }}</span>
+          <span class="cv-xp__dot"></span>
+          <div class="cv-xp__body">
+            <h3 class="cv-xp__heading">
+              <span class="cv-xp__job">{{ $jobTitle }}</span>
+              <span class="cv-xp__company">{{ .Params.company }}</span>
+              <span class="cv-xp__location">{{ .Params.location }}</span>
+            </h3>
+            {{ with .Params.cvSummary }}
+            <p class="cv-xp__summary">{{ . }}</p>
+            {{ end }}
+            {{ with .Params.cvBullets }}
+            <ul class="cv-xp__bullets">
+              {{ range . }}<li>{{ . }}</li>{{ end }}
+            </ul>
+            {{ end }}
+            {{ with .Params.cvSkills }}
+            <p class="cv-xp__skills"><span class="cv-xp__skills-label">Skills:</span> {{ . }}</p>
+            {{ end }}
+          </div>
+        </li>
+        {{ end }}
+      {{ end }}
+      </ol>
+    </section>
+
+    {{/* RIGHT COLUMN: SIDEBAR */}}
+    <aside class="cv__sidebar">
+
+      {{/* INFORMATION */}}
+      <section class="cv-info">
+        <h2 class="cv__section-title">Information</h2>
+        <dl class="cv-info__list">
+          <dt>Name</dt>        <dd>{{ site.Data.cv.information.name }}</dd>
+          <dt>Birth</dt>       <dd>{{ site.Data.cv.information.birth }}</dd>
+          <dt>Nationality</dt> <dd>{{ site.Data.cv.information.nationality }}</dd>
+          <dt>Languages</dt>
+          <dd>
+            <ul class="cv-info__langs">
+              {{ range site.Data.cv.information.languages }}<li>{{ . }}</li>{{ end }}
+            </ul>
+          </dd>
+          <dt>Phone</dt> <dd><a href="tel:{{ site.Data.cv.information.phone }}">{{ site.Data.cv.information.phone }}</a></dd>
+          <dt>Email</dt> <dd><a href="mailto:{{ site.Data.cv.information.email }}">{{ site.Data.cv.information.email }}</a></dd>
+          <dt>Online</dt>
+          <dd>
+            <ul class="cv-info__links">
+              {{ range site.Data.cv.information.links }}
+              <li><a href="{{ .url }}" aria-label="{{ .label }}">{{ .label }}</a></li>
+              {{ end }}
+            </ul>
+          </dd>
+        </dl>
+      </section>
+
+      {{/* EDUCATION */}}
+      <section class="cv-edu">
+        <h2 class="cv__section-title">Education</h2>
+        {{ $edu := where site.RegularPages "Type" "education" }}
+        {{ $edu = sort $edu "Params.year" "desc" }}
+        {{ range $edu }}
+        <article class="cv-edu__item">
+          <h3 class="cv-edu__degree">{{ .Params.degree }}</h3>
+          <p class="cv-edu__school">{{ .Params.university }}</p>
+          {{ with .Params.cvSummary }}<p class="cv-edu__summary">{{ . }}</p>{{ end }}
+        </article>
+        {{ end }}
+      </section>
+
+      {{/* COURSES & OTHER */}}
+      <section class="cv-courses">
+        <h2 class="cv__section-title">Courses &amp; other</h2>
+        <ul class="cv-courses__list">
+          {{ range site.Data.cv.courses }}
+          <li>
+            <strong>{{ .title }}</strong>
+            {{ with .detail }}<span class="cv-courses__detail">{{ . }}</span>{{ end }}
+          </li>
+          {{ end }}
+        </ul>
+      </section>
+
+    </aside>
+  </div>
+
   <footer class="cv__footer">{{ site.Data.cv.footer.url }}</footer>
 </main>
 </body>
