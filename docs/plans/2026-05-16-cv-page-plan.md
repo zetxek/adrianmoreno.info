@@ -119,7 +119,8 @@ Create `layouts/cv/list.html`:
 <meta charset="utf-8">
 <title>{{ site.Data.cv.header.name }} — CV</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="{{ (resources.Get "scss/cv.scss" | resources.ToCSS | resources.Minify).RelPermalink }}">
+{{ $css := resources.Get "scss/cv.scss" | css.Sass | resources.Minify }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">
 </head>
 <body class="cv-page">
 <main class="cv">
@@ -366,7 +367,8 @@ Overwrite the file with:
 <title>{{ site.Data.cv.header.name }} — CV</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<link rel="stylesheet" href="{{ (resources.Get "scss/cv.scss" | resources.ToCSS | resources.Minify).RelPermalink }}">
+{{ $css := resources.Get "scss/cv.scss" | css.Sass | resources.Minify }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">
 </head>
 <body class="cv-page">
 <main class="cv">

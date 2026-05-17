@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>{{ site.Data.cv.header.name }} — CV</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
 {{ $css := resources.Get "scss/cv.scss" | css.Sass | resources.Minify }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 </head>
