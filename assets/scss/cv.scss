@@ -15,8 +15,8 @@ html, body { margin: 0; padding: 0; }
 body.cv-page {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   color: $text;
-  font-size: 8.6pt;
-  line-height: 1.32;
+  font-size: 7.2pt;
+  line-height: 1.2;
   background: #f3f3f3;
 }
 
@@ -37,25 +37,25 @@ a { color: inherit; text-decoration: none; }
 .cv__header {
   background: $teal;
   color: #fff;
-  padding: 14mm $pad-x 8mm;
+  padding: 8mm $pad-x 5mm;
 }
 .cv__header-inner { max-width: 100%; }
-.cv__name  { margin: 0; font-size: 26pt; font-weight: 400; letter-spacing: 0.2px; }
-.cv__title { margin: 2mm 0 0; font-size: 13pt; font-weight: 300; opacity: 0.95; }
+.cv__name  { margin: 0; font-size: 22pt; font-weight: 400; letter-spacing: 0.2px; }
+.cv__title { margin: 1.5mm 0 0; font-size: 11pt; font-weight: 300; opacity: 0.95; }
 
 /* ---------- Columns ---------- */
 .cv__columns {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 70mm;
-  gap: 6mm;
-  padding: 6mm $pad-x 6mm;
+  grid-template-columns: minmax(0, 1fr) 65mm;
+  gap: 5mm;
+  padding: 4mm $pad-x 4mm;
   flex: 1;
 }
 
 .cv__main    { min-width: 0; }
 .cv__sidebar {
   background: $sidebar-bg;
-  padding: 6mm 5mm;
+  padding: 4mm 4mm;
   border-radius: 1.5mm;
   align-self: start;
 }
@@ -63,12 +63,12 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Section titles ---------- */
 .cv__section-title {
   color: $teal;
-  font-size: 14pt;
+  font-size: 12pt;
   font-weight: 400;
-  margin: 0 0 3mm;
+  margin: 0 0 2mm;
   letter-spacing: 0.2px;
 }
-.cv__sidebar .cv__section-title:not(:first-child) { margin-top: 6mm; }
+.cv__sidebar .cv__section-title:not(:first-child) { margin-top: 4mm; }
 
 /* ---------- Experience timeline ---------- */
 .cv-xp {
@@ -80,7 +80,7 @@ a { color: inherit; text-decoration: none; }
 .cv-xp::before {
   content: "";
   position: absolute;
-  left: 18mm;
+  left: 16mm;
   top: 2mm;
   bottom: 2mm;
   width: 0.4mm;
@@ -90,9 +90,9 @@ a { color: inherit; text-decoration: none; }
 .cv-xp__item {
   position: relative;
   display: grid;
-  grid-template-columns: 16mm 4mm 1fr;
+  grid-template-columns: 14mm 4mm 1fr;
   align-items: start;
-  padding: 1.5mm 0;
+  padding: 0.4mm 0;
 }
 
 .cv-xp__year {
@@ -116,41 +116,43 @@ a { color: inherit; text-decoration: none; }
 .cv-xp__body { padding-left: 2mm; min-width: 0; }
 
 .cv-xp__heading {
-  margin: 0 0 0.8mm;
-  font-size: 9.5pt;
+  margin: 0 0 0.4mm;
+  font-size: 8.2pt;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.15;
 }
 .cv-xp__heading .cv-xp__company { color: $teal; }
 .cv-xp__heading .cv-xp__location {
   display: block;
   font-weight: 400;
   color: $muted;
-  font-size: 8pt;
+  font-size: 6.6pt;
 }
 
-.cv-xp__summary { margin: 0 0 1mm; }
+.cv-xp__summary { margin: 0 0 0.4mm; font-size: 6.8pt; line-height: 1.2; }
 
 .cv-xp__bullets {
   margin: 0;
-  padding-left: 4mm;
+  padding-left: 3mm;
   list-style: "•  ";
 }
-.cv-xp__bullets li { margin: 0.3mm 0; }
+.cv-xp__bullets li { margin: 0; font-size: 6.8pt; line-height: 1.2; }
 
 .cv-xp__skills {
-  margin: 1mm 0 0;
+  margin: 0.4mm 0 0;
   font-style: italic;
   color: $muted;
-  font-size: 8pt;
+  font-size: 6.6pt;
+  line-height: 1.2;
 }
 .cv-xp__skills-label { font-weight: 600; font-style: normal; color: $teal; }
 
 /* Compact rows */
+.cv-xp__item--compact { padding: 0.3mm 0; }
 .cv-xp__item--compact .cv-xp__line {
   margin: 0;
-  font-size: 9pt;
-  line-height: 1.3;
+  font-size: 8pt;
+  line-height: 1.25;
 }
 .cv-xp__item--compact .cv-xp__job     { font-weight: 600; }
 .cv-xp__item--compact .cv-xp__company { color: $teal; font-weight: 600; }
@@ -160,9 +162,10 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Sidebar: Information ---------- */
 .cv-info__list {
   display: grid;
-  grid-template-columns: 22mm 1fr;
-  gap: 1mm 2mm;
+  grid-template-columns: 18mm 1fr;
+  gap: 0.4mm 2mm;
   margin: 0;
+  font-size: 7.4pt;
 }
 .cv-info__list dt {
   font-weight: 600;
@@ -178,10 +181,10 @@ a { color: inherit; text-decoration: none; }
 .cv-info__links li { display: inline; margin-right: 2mm; }
 
 /* ---------- Sidebar: Education ---------- */
-.cv-edu__item + .cv-edu__item { margin-top: 3mm; }
-.cv-edu__degree { margin: 0; font-size: 9pt; font-weight: 600; }
-.cv-edu__school { margin: 0; font-size: 8pt; color: $teal; }
-.cv-edu__summary { margin: 0.8mm 0 0; font-size: 8pt; }
+.cv-edu__item + .cv-edu__item { margin-top: 2mm; }
+.cv-edu__degree { margin: 0; font-size: 8pt; font-weight: 600; }
+.cv-edu__school { margin: 0; font-size: 7.2pt; color: $teal; }
+.cv-edu__summary { margin: 0.4mm 0 0; font-size: 7.2pt; line-height: 1.25; }
 
 /* ---------- Sidebar: Courses ---------- */
 .cv-courses__list {
@@ -189,9 +192,9 @@ a { color: inherit; text-decoration: none; }
   margin: 0;
   padding: 0;
 }
-.cv-courses__list li + li { margin-top: 2mm; }
-.cv-courses__list strong { display: block; font-size: 8.5pt; }
-.cv-courses__detail { font-size: 8pt; color: $muted; }
+.cv-courses__list li + li { margin-top: 1.2mm; }
+.cv-courses__list strong { display: block; font-size: 7.6pt; }
+.cv-courses__detail { font-size: 7.2pt; color: $muted; }
 
 /* ---------- Footer ---------- */
 .cv__footer {

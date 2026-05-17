@@ -27,7 +27,9 @@
   "scripts": {
     "test": "npm run test:e2e",
     "test:e2e": "playwright test",
-    "test:e2e:install": "playwright install"
+    "test:e2e:install": "playwright install",
+    "cv:dev": "hugo serve",
+    "cv:pdf": "node scripts/generate-cv-pdf.js"
   },
   "description": "JS automations for adrianmoreno.info",
   "devDependencies": {
