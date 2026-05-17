@@ -13,10 +13,14 @@ $pad-y:       10mm;
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body.cv-page {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", "HelveticaNeue", "Inter", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  font-feature-settings: "kern", "liga", "calt", "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   color: $text;
   font-size: 7.2pt;
-  line-height: 1.2;
+  line-height: 1.25;
   background: #f3f3f3;
 }
 
@@ -40,8 +44,8 @@ a { color: inherit; text-decoration: none; }
   padding: 8mm $pad-x 5mm;
 }
 .cv__header-inner { max-width: 100%; }
-.cv__name  { margin: 0; font-size: 22pt; font-weight: 400; letter-spacing: 0.2px; }
-.cv__title { margin: 1.5mm 0 0; font-size: 11pt; font-weight: 300; opacity: 0.95; }
+.cv__name  { margin: 0; font-size: 24pt; font-weight: 200; letter-spacing: -0.2px; }
+.cv__title { margin: 1.5mm 0 0; font-size: 11pt; font-weight: 300; opacity: 0.92; letter-spacing: 0.2px; }
 
 /* ---------- Columns ---------- */
 .cv__columns {
@@ -63,10 +67,10 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Section titles ---------- */
 .cv__section-title {
   color: $teal;
-  font-size: 12pt;
-  font-weight: 400;
+  font-size: 13pt;
+  font-weight: 300;
   margin: 0 0 2mm;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.1px;
 }
 .cv__sidebar .cv__section-title:not(:first-child) { margin-top: 4mm; }
 
@@ -96,12 +100,13 @@ a { color: inherit; text-decoration: none; }
 }
 
 .cv-xp__year {
-  font-size: 8pt;
+  font-size: 7.4pt;
   font-weight: 600;
   color: $teal;
   padding-top: 0.4mm;
   text-align: right;
   padding-right: 1mm;
+  white-space: nowrap;
 }
 .cv-xp__dot {
   width: 2.4mm;
@@ -117,9 +122,9 @@ a { color: inherit; text-decoration: none; }
 
 .cv-xp__heading {
   margin: 0 0 0.4mm;
-  font-size: 8.2pt;
-  font-weight: 600;
-  line-height: 1.15;
+  font-size: 8.6pt;
+  font-weight: 500;
+  line-height: 1.2;
 }
 .cv-xp__heading .cv-xp__company { color: $teal; }
 .cv-xp__heading .cv-xp__location {
