@@ -7,6 +7,14 @@ company: "SumUp"
 location: "Copenhagen, Denmark"
 duration: "2021-2025"
 companyLogo: "images/experience/sumup.png"
+cvSummary: "Guided a cross-functional team of 30 members across 4 teams to evolve a SaaS platform by driving alignment on the technical roadmap and ensuring clear stakeholder management. Managed the P&L for the business unit, overseeing the strategy, product and technical roadmap and execution, including Go-To-Market efforts. As VP of Engineering, established the global Incident Response process, connecting with Engineering, Governance, Risk and Compliance and Operation teams (~900 FTEs). Revamped the global status page architecture and communication."
+cvBullets:
+  - "Maintained yearly recurring SaaS revenue through a brand and platform migration, and introducing a new subscription plan."
+  - "Increased >20% MAU by introducing a new product line."
+  - "Reduced time required to coordinate incidents by >60%."
+cvSkills: "team leading, coaching, agile development, product development, stack modernization, architecture, strategy"
+cvDuration: "2021-25"
+cvJobTitle: "Engineering Manager → Director of Engineering → VP of Engineering, Tribe Lead"
 ---
 ### Moved to Denmark, joined a European unicorn 🦄
 

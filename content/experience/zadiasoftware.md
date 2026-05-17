@@ -7,6 +7,9 @@ company: "Zadia Software"
 location: "Santiago de Compostela, Spain"
 duration: "2011-2015"
 companyLogo: "images/experience/zadiasoftware.png"
+cvCompact: true
+cvDuration: "2011-15"
+cvJobTitle: "Co-Founder, Technical Lead"
 ---
 
 ### Co-founder and technical lead

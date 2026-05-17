@@ -7,6 +7,13 @@ company: "Pocket Media"
 location: "Amsterdam, The Netherlands"
 duration: "2015-2017"
 companyLogo: "images/experience/pocketmedia.jpg"
+cvSummary: "Led the technology team of a mobile advertising agency (≈15 FTE). Part of the Management Team and defining company strategy and vision. Executed mobile and web (high scalability) development projects, including targeted advertising with personalized recommendations, and big data near-real time reporting. Defined the products roadmap, milestones, and plans to achieve the objectives, as long as the talent acquisition."
+cvBullets:
+  - "Development of a new SaaS platform for Native advertisement (Android, iOS, web, Unity)."
+  - "Operated in-house applications and games with thousands of DAU."
+  - "Performance improvement of +1000% (by re-platforming PHP → Golang)."
+cvSkills: "advertising, product management, roadmap, tech & business alignment, strategy, mobile, scrum master"
+cvDuration: "2015-17"
 ---
 ### First time leading a multi-cultural team
 
