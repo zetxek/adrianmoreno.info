@@ -1,0 +1,37 @@
+header:
+  name: "Adrián Moreno Peña"
+  title: "Engineering Leader"
+
+information:
+  name: "Adrián Moreno Peña"
+  birth: "June 4th, 1986"
+  nationality: "Spanish"
+  languages:
+    - "Spanish, Galician (native)"
+    - "English (full proficiency)"
+    - "Danish, Dutch, French, Portuguese (basic)"
+  phone: "+4531579827"
+  email: "info@adrianmoreno.info"
+  links:
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/zetxek/"
+      icon: "linkedin"
+    - label: "GitHub"
+      url: "https://github.com/zetxek"
+      icon: "github"
+    - label: "Website"
+      url: "https://www.adrianmoreno.info"
+      icon: "web"
+
+courses:
+  - title: "Team Leadership Program for Directors"
+    detail: "The Performance Coach, November 2016"
+  - title: "Experience in public speaking"
+    detail: "Podcast guest, Toastmasters, Meetup/conference speaker"
+  - title: "Teaching experience"
+    detail: ""
+  - title: "Management board member of sport clubs"
+    detail: "Campo da Angustia football club, Amsterdam Triathlon and Cycling Club, /tri club denmark triathlon club"
+
+footer:
+  url: "www.adrianmoreno.info"

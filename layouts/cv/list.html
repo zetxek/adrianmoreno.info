@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ site.Data.cv.header.name }} — CV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ $css := resources.Get "scss/cv.scss" | css.Sass | resources.Minify }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">
+</head>
+<body class="cv-page">
+<main class="cv">
+  <header class="cv__header">
+    <h1 class="cv__name">{{ site.Data.cv.header.name }}</h1>
+    <p class="cv__title">{{ site.Data.cv.header.title }}</p>
+  </header>
+  <section class="cv__body">
+    <p>CV body — to be implemented in Task 3.</p>
+  </section>
+  <footer class="cv__footer">{{ site.Data.cv.footer.url }}</footer>
+</main>
+</body>
+</html>
