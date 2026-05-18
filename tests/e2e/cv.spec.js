@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('/cv page', () => {
   test('renders header, all experience entries, and sidebar', async ({ page }) => {
-    await page.goto('http://localhost:1313/cv/');
+    await page.goto('/cv/');
 
     await expect(page.locator('.cv__name')).toHaveText('Adrián Moreno Peña');
     await expect(page.locator('.cv__title')).toHaveText('Engineering Leader');
