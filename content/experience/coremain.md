@@ -7,6 +7,10 @@ company: "Coremain"
 location: "Santiago de Compostela, Spain"
 duration: "2011"
 companyLogo: "images/experience/coremain.png"
+cvCompact: true
+cvDuration: "2011"
+cvJobTitle: "Analyst Programmer"
+cvSkip: true
 ---
 ### Contact with enterprise private project
 

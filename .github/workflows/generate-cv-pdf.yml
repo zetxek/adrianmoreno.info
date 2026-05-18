@@ -1,0 +1,76 @@
+name: Generate CV PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/experience/**'
+      - 'content/education/**'
+      - 'content/cv/**'
+      - 'data/cv.yaml'
+      - 'layouts/cv/**'
+      - 'assets/scss/cv.scss'
+      - 'scripts/generate-cv-pdf.js'
+      - '.github/workflows/generate-cv-pdf.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cv-pdf-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.157.0'
+          extended: true
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright OS dependencies
+        run: npx playwright install-deps chromium
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install chromium
+
+      - name: Generate CV PDF
+        run: npm run cv:pdf
+
+      - name: Commit PDFs if changed
+        run: |
+          if git diff --quiet -- static/cv/; then
+            echo "No PDF changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add static/cv/
+          git commit -m "chore(cv): regenerate PDFs [skip ci]"
+          git push

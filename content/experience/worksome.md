@@ -7,6 +7,15 @@ company: "Worksome"
 location: "Copenhagen, Denmark"
 duration: "2025-present"
 companyLogo: "images/experience/worksome.png"
+cvSummary: "VP of Technology reporting to the CTO. Lead a ~10-person Product, Engineering and Design team, aligning business, product and engineering execution so the company scales sustainably."
+cvBullets:
+  - "Led the acquisition of the 2nd-largest enterprise account by ARR."
+  - "Contributed to the company's path to profitability — leaner team with capacity built on talent density and AI leverage, not headcount."
+  - "Drove the adoption of agentic development across Product & Engineering, lifting team throughput."
+cvSkills: "engineering leadership, product strategy, GTM alignment, AI leverage, team scaling"
+cvDuration: "2025-now"
+cvContext: "Talent marketplace SaaS · Scale-up"
+companyUrl: "https://www.worksome.com/"
 ---
 ### Bridging GTM and engineering execution
 

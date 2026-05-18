@@ -1,0 +1,353 @@
+/* ---------- Variables ---------- */
+$teal:        #3a7b7c;
+$teal-light:  #d3e3e3;
+$sidebar-bg:  #ececec;
+$text:        #2b2b2b;
+$muted:       #6a6a6a;
+$page-w:      210mm;
+$page-h:      297mm;
+$pad-x:       12mm;
+$pad-y:       10mm;
+
+/* ---------- Page reset ---------- */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body.cv-page {
+  font-family: "Inter", "Helvetica Neue", "HelveticaNeue", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  font-feature-settings: "kern", "liga", "calt", "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color: $text;
+  font-size: 7.2pt;
+  line-height: 1.25;
+  background: #f3f3f3;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.cv {
+  width: $page-w;
+  min-height: $page-h;
+  margin: 0 auto;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+/* ---------- Header ---------- */
+.cv__header {
+  background: $teal;
+  color: #fff;
+  padding: 8mm $pad-x 5mm;
+  display: flex;
+  align-items: center;
+  gap: 6mm;
+}
+.cv__header-inner { flex: 1; min-width: 0; }
+.cv__name  { margin: 0; font-size: 24pt; font-weight: 200; letter-spacing: -0.2px; }
+.cv__title { margin: 1.5mm 0 0; font-size: 11pt; font-weight: 300; opacity: 0.92; letter-spacing: 0.2px; }
+
+.cv__qr {
+  display: block;
+  width: 18mm;
+  height: 18mm;
+  flex-shrink: 0;
+  line-height: 0;
+  svg { width: 100%; height: 100%; }
+}
+
+/* ---------- Intro summary ---------- */
+.cv__summary {
+  padding: 4mm $pad-x 0;
+  p {
+    margin: 0;
+    font-size: 8.2pt;
+    line-height: 1.4;
+    color: $text;
+    font-weight: 300;
+  }
+}
+
+/* ---------- Cover page ---------- */
+.cv-page--multi .cv + .cv {
+  margin-top: 8mm; /* visual gap on screen; print uses page-break */
+}
+@media print {
+  .cv-page--multi .cv + .cv { page-break-before: always; margin-top: 0; }
+}
+
+.cv-cover__columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 60mm;
+  gap: 6mm;
+  padding: 8mm $pad-x 6mm;
+  flex: 1;
+}
+
+.cv-cover__letter {
+  font-size: 9.5pt;
+  line-height: 1.45;
+  color: $text;
+  p { margin: 0 0 2.5mm; }
+  strong { font-weight: 600; color: $text; }
+  em { font-style: italic; color: $teal; }
+}
+
+.cv-cover__greeting {
+  margin: 0 0 4mm;
+  color: $teal;
+  font-size: 18pt;
+  font-weight: 300;
+  letter-spacing: 0.1px;
+}
+
+.cv-cover__signoff {
+  margin-top: 6mm;
+}
+.cv-cover__signature {
+  margin: 1mm 0 0;
+  font-weight: 600;
+}
+
+.cv-cover__sidebar {
+  background: $sidebar-bg;
+  padding: 5mm 4mm;
+  border-radius: 1.5mm;
+  align-self: start;
+
+  .cv__section-title { margin-bottom: 3mm; }
+}
+.cv-cover__highlights {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 8.4pt;
+  line-height: 1.35;
+
+  li {
+    margin: 0 0 2.5mm;
+    padding-left: 3mm;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1.8mm;
+      width: 1.4mm;
+      height: 1.4mm;
+      background: $teal;
+      border-radius: 50%;
+    }
+  }
+}
+
+/* ---------- Columns ---------- */
+.cv__columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 65mm;
+  gap: 5mm;
+  padding: 4mm $pad-x 4mm;
+  flex: 1;
+}
+
+.cv__main    { min-width: 0; }
+.cv__sidebar {
+  background: $sidebar-bg;
+  padding: 4mm 4mm;
+  border-radius: 1.5mm;
+  align-self: start;
+}
+
+/* ---------- Section titles ---------- */
+.cv__section-title {
+  color: $teal;
+  font-size: 13pt;
+  font-weight: 300;
+  margin: 0 0 2mm;
+  letter-spacing: 0.1px;
+}
+.cv__sidebar > section + section { margin-top: 7mm; }
+
+/* ---------- Experience timeline ---------- */
+.cv-xp {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+.cv-xp::before {
+  content: "";
+  position: absolute;
+  left: 16mm;
+  top: 2mm;
+  bottom: 2mm;
+  width: 0.4mm;
+  background: $teal-light;
+}
+
+.cv-xp__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 14mm 4mm 1fr;
+  align-items: start;
+  padding: 0.4mm 0;
+}
+.cv-xp__item + .cv-xp__item { margin-top: 2.5mm; }
+.cv-xp__item--compact + .cv-xp__item--compact { margin-top: 0.6mm; }
+
+.cv-xp__year {
+  font-size: 7.4pt;
+  font-weight: 600;
+  color: $teal;
+  padding-top: 0.4mm;
+  text-align: right;
+  padding-right: 1mm;
+  white-space: nowrap;
+}
+.cv-xp__dot {
+  width: 2.4mm;
+  height: 2.4mm;
+  background: $teal;
+  border-radius: 50%;
+  margin-top: 1.2mm;
+  margin-left: 0.8mm;
+  z-index: 1;
+}
+
+.cv-xp__body { padding-left: 2mm; min-width: 0; }
+
+.cv-xp__heading {
+  margin: 0 0 0.4mm;
+  font-size: 8.6pt;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.cv-xp__heading .cv-xp__company { color: $teal; }
+.cv-xp__meta {
+  margin: 0 0 0.6mm;
+  font-size: 6.8pt;
+  color: $muted;
+  line-height: 1.2;
+  font-style: italic;
+  font-weight: 400;
+}
+.cv-xp__meta-sep { margin: 0 0.6mm; opacity: 0.7; }
+.cv-xp__summary { margin: 0 0 0.4mm; font-size: 6.8pt; line-height: 1.2; }
+
+.cv-xp__bullets {
+  margin: 0;
+  padding-left: 3mm;
+  list-style: "•  ";
+}
+.cv-xp__bullets li { margin: 0; font-size: 6.8pt; line-height: 1.2; }
+
+
+/* Compact rows */
+.cv-xp__item--compact { padding: 0.3mm 0; }
+.cv-xp__item--compact .cv-xp__line {
+  margin: 0;
+  font-size: 8pt;
+  line-height: 1.25;
+}
+.cv-xp__item--compact .cv-xp__job     { font-weight: 600; }
+.cv-xp__item--compact .cv-xp__company { color: $teal; font-weight: 600; }
+.cv-xp__item--compact .cv-xp__sep     { color: $muted; margin: 0 0.6mm; }
+.cv-xp__item--compact .cv-xp__location{ color: $muted; }
+.cv-xp__item--compact .cv-xp__context-inline { color: $muted; font-style: italic; }
+
+/* ---------- Sidebar: Information ---------- */
+.cv-info__list {
+  display: grid;
+  grid-template-columns: 18mm 1fr;
+  gap: 0.4mm 2mm;
+  margin: 0;
+  font-size: 7.4pt;
+}
+.cv-info__list dt {
+  font-weight: 600;
+  color: $teal;
+}
+.cv-info__list dd { margin: 0; }
+.cv-info__langs,
+.cv-info__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cv-info__links {
+  display: flex;
+  gap: 2.5mm;
+  align-items: center;
+}
+.cv-info__links li { display: inline-flex; }
+.cv-info__links a {
+  display: inline-flex;
+  align-items: center;
+  color: $teal;
+}
+.cv-info__icon {
+  width: 3.6mm;
+  height: 3.6mm;
+  display: block;
+}
+
+/* ---------- Sidebar: Skills ---------- */
+.cv-skills__group + .cv-skills__group { margin-top: 1.8mm; }
+.cv-skills__label {
+  margin: 0 0 0.3mm;
+  font-size: 7.2pt;
+  font-weight: 600;
+  color: $teal;
+}
+.cv-skills__items {
+  margin: 0;
+  font-size: 7pt;
+  line-height: 1.3;
+}
+
+/* ---------- Sidebar: Education ---------- */
+.cv-edu__item + .cv-edu__item { margin-top: 2mm; }
+.cv-edu__degree { margin: 0; font-size: 8pt; font-weight: 600; }
+.cv-edu__school { margin: 0; font-size: 7.2pt; color: $teal; }
+.cv-edu__summary { margin: 0.4mm 0 0; font-size: 7.2pt; line-height: 1.25; }
+
+/* ---------- Sidebar: Courses ---------- */
+.cv-courses__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cv-courses__list li + li { margin-top: 1.2mm; }
+.cv-courses__list strong { display: block; font-size: 7.6pt; }
+.cv-courses__detail { font-size: 7.2pt; color: $muted; }
+
+/* ---------- Footer ---------- */
+.cv__footer {
+  background: $teal;
+  color: #fff;
+  padding: 3mm $pad-x;
+  font-size: 7.4pt;
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4mm;
+}
+.cv__updated { opacity: 0.85; font-weight: 300; }
+
+/* ---------- Print rules ---------- */
+@page {
+  size: A4;
+  margin: 0;
+}
+@media print {
+  body.cv-page { background: #fff; }
+  .cv {
+    box-shadow: none;
+    width: 100%;
+    min-height: 100vh;
+  }
+}

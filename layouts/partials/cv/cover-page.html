@@ -1,0 +1,38 @@
+{{ $cl := site.Data.cv.cover_letter }}
+<main class="cv cv--cover">
+  {{/* HEADER (same as CV page) */}}
+  <header class="cv__header">
+    <div class="cv__header-inner">
+      <h1 class="cv__name">{{ site.Data.cv.header.name }}</h1>
+      <p class="cv__title">{{ site.Data.cv.header.title }}</p>
+    </div>
+    {{ with resources.Get "cv-qr.svg" }}
+    <a class="cv__qr" href="{{ site.Data.cv.footer.qr_target }}" aria-label="Open CV online">
+      {{ .Content | safeHTML }}
+    </a>
+    {{ end }}
+  </header>
+
+  <div class="cv-cover__columns">
+    <section class="cv-cover__letter">
+      {{ with $cl.greeting }}<h2 class="cv-cover__greeting">{{ . | markdownify }}</h2>{{ end }}
+      {{ range $cl.paragraphs }}
+        <p>{{ . | markdownify }}</p>
+      {{ end }}
+      {{ with $cl.signoff }}<p class="cv-cover__signoff">{{ . }}</p>{{ end }}
+      {{ with $cl.signed_name }}<p class="cv-cover__signature">{{ . }}</p>{{ end }}
+    </section>
+
+    <aside class="cv-cover__sidebar">
+      <h2 class="cv__section-title">Key highlights</h2>
+      <ul class="cv-cover__highlights">
+        {{ range $cl.highlights }}<li>{{ . }}</li>{{ end }}
+      </ul>
+    </aside>
+  </div>
+
+  <footer class="cv__footer">
+    <span>{{ site.Data.cv.footer.url }}</span>
+    <span class="cv__updated">Last updated: {{ now.Format "2006-01-02" }}</span>
+  </footer>
+</main>
