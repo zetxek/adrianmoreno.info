@@ -2,9 +2,17 @@ header:
   name: "Adrián Moreno Peña"
   title: "Engineering Leader"
 
+summary: >
+  Engineering leader with 17+ years across SaaS in fintech, e-commerce,
+  mobile and digital-native products — operating as VP, Director, Tech Lead
+  and individual contributor in Spain, the Netherlands and Denmark. Combines
+  hands-on technical depth with strong business acumen, building
+  multi-disciplinary teams that ship sustainable outcomes. Energetic,
+  self-driven, and known for breaking silos between engineering, product and
+  go-to-market.
+
 information:
   name: "Adrián Moreno Peña"
-  birth: "June 4th, 1986"
   nationality: "Spanish"
   languages:
     - "Spanish, Galician (native)"
@@ -28,10 +36,9 @@ courses:
     detail: "The Performance Coach, November 2016"
   - title: "Experience in public speaking"
     detail: "Podcast guest, Toastmasters, Meetup/conference speaker"
-  - title: "Teaching experience"
-    detail: ""
   - title: "Management board member of sport clubs"
     detail: "Campo da Angustia football club, Amsterdam Triathlon and Cycling Club, /tri club denmark triathlon club"
 
 footer:
   url: "www.adrianmoreno.info"
+  qr_target: "https://www.adrianmoreno.info/cv/"

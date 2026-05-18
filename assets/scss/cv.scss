@@ -42,10 +42,34 @@ a { color: inherit; text-decoration: none; }
   background: $teal;
   color: #fff;
   padding: 8mm $pad-x 5mm;
+  display: flex;
+  align-items: center;
+  gap: 6mm;
 }
-.cv__header-inner { max-width: 100%; }
+.cv__header-inner { flex: 1; min-width: 0; }
 .cv__name  { margin: 0; font-size: 24pt; font-weight: 200; letter-spacing: -0.2px; }
 .cv__title { margin: 1.5mm 0 0; font-size: 11pt; font-weight: 300; opacity: 0.92; letter-spacing: 0.2px; }
+
+.cv__qr {
+  display: block;
+  width: 18mm;
+  height: 18mm;
+  flex-shrink: 0;
+  line-height: 0;
+  svg { width: 100%; height: 100%; }
+}
+
+/* ---------- Intro summary ---------- */
+.cv__summary {
+  padding: 4mm $pad-x 0;
+  p {
+    margin: 0;
+    font-size: 8.2pt;
+    line-height: 1.4;
+    color: $text;
+    font-weight: 300;
+  }
+}
 
 /* ---------- Columns ---------- */
 .cv__columns {
@@ -183,7 +207,22 @@ a { color: inherit; text-decoration: none; }
   margin: 0;
   padding: 0;
 }
-.cv-info__links li { display: inline; margin-right: 2mm; }
+.cv-info__links {
+  display: flex;
+  gap: 2.5mm;
+  align-items: center;
+}
+.cv-info__links li { display: inline-flex; }
+.cv-info__links a {
+  display: inline-flex;
+  align-items: center;
+  color: $teal;
+}
+.cv-info__icon {
+  width: 3.6mm;
+  height: 3.6mm;
+  display: block;
+}
 
 /* ---------- Sidebar: Education ---------- */
 .cv-edu__item + .cv-edu__item { margin-top: 2mm; }
@@ -206,9 +245,14 @@ a { color: inherit; text-decoration: none; }
   background: $teal;
   color: #fff;
   padding: 3mm $pad-x;
-  font-size: 8pt;
+  font-size: 7.4pt;
   margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4mm;
 }
+.cv__updated { opacity: 0.85; font-weight: 300; }
 
 /* ---------- Print rules ---------- */
 @page {

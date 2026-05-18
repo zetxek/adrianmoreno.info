@@ -11,7 +11,11 @@ test.describe('/cv page', () => {
     await expect(fullEntries).toHaveCount(5);
 
     const compactEntries = page.locator('.cv-xp__item--compact');
-    await expect(compactEntries).toHaveCount(4);
+    await expect(compactEntries).toHaveCount(3);
+
+    await expect(page.locator('.cv__summary')).toContainText('17+ years');
+    await expect(page.locator('.cv__qr')).toBeVisible();
+    await expect(page.locator('.cv__footer')).toContainText('Last updated');
 
     await expect(page.locator('.cv__sidebar')).toContainText('Information');
     await expect(page.locator('.cv__sidebar')).toContainText('Education');

@@ -7,7 +7,7 @@ company: "SumUp"
 location: "Copenhagen, Denmark"
 duration: "2021-2025"
 companyLogo: "images/experience/sumup.png"
-cvSummary: "Guided a cross-functional team of 30 members across 4 teams to evolve a SaaS platform by driving alignment on the technical roadmap and ensuring clear stakeholder management. Managed the P&L for the business unit, overseeing the strategy, product and technical roadmap and execution, including Go-To-Market efforts. As VP of Engineering, established the global Incident Response process, connecting with Engineering, Governance, Risk and Compliance and Operation teams (~900 FTEs). Revamped the global status page architecture and communication."
+cvSummary: "Grew through three levels of scope (EM → Director → VP) over four years, ending with P&L responsibility for the Invoices & Accounting tribe — ~30 FTE across 4 squads, delivering mobile and web experiences inside the SumUp SuperApp. In parallel led the global Incident Response process across Engineering, Risk, Compliance and Operations (~900 FTEs)."
 cvBullets:
   - "Maintained yearly recurring SaaS revenue through a brand and platform migration, and introducing a new subscription plan."
   - "Increased >20% MAU by introducing a new product line."

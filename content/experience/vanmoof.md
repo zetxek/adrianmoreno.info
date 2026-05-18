@@ -7,7 +7,7 @@ company: "VanMoof"
 location: "Amsterdam, The Netherlands"
 duration: "2019-2021"
 companyLogo: "images/experience/vanmoof.png"
-cvSummary: "Solidified the technology infrastructure for a Direct-To-Consumer brand by insourcing the e-commerce and subscription platform, including integration with ERP and CRM, and other customer facing and internal portals using in the vertically integrated brand experience. Leading external and internal teams, managing and coaching employees and structuring the team during hyper-growth phase."
+cvSummary: "Insourced the e-commerce and subscription platform for a Direct-to-Consumer brand, integrating ERP, CRM and customer-facing portals across the vertically-integrated experience. Led and coached internal and external teams while structuring engineering through the hyper-growth phase."
 cvBullets:
   - "Improved CI/CD times for e-commerce by >50%, reducing downtime by >70%."
   - "Led automated QA and code standardization efforts, lowering production defects by 30%."

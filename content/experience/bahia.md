@@ -10,6 +10,7 @@ companyLogo: "images/experience/bahia.png"
 cvCompact: true
 cvDuration: "2007-11"
 cvJobTitle: "Analyst Programmer"
+cvCompany: "Bahia Software, Coremain"
 ---
 ### First job as software engineer
 

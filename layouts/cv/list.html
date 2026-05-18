@@ -19,7 +19,17 @@
       <h1 class="cv__name">{{ site.Data.cv.header.name }}</h1>
       <p class="cv__title">{{ site.Data.cv.header.title }}</p>
     </div>
+    {{ with resources.Get "cv-qr.svg" }}
+    <a class="cv__qr" href="{{ site.Data.cv.footer.qr_target }}" aria-label="Open CV online">
+      {{ .Content | safeHTML }}
+    </a>
+    {{ end }}
   </header>
+
+  {{/* SUMMARY */}}
+  {{ with site.Data.cv.summary }}
+  <section class="cv__summary"><p>{{ . }}</p></section>
+  {{ end }}
 
   <div class="cv__columns">
 
@@ -28,12 +38,14 @@
       <h2 class="cv__section-title">Work experience</h2>
 
       {{ $experience := where site.RegularPages "Type" "experience" }}
+      {{ $experience = where $experience "Params.cvSkip" "ne" true }}
       {{ $experience = sort $experience "Params.date" "desc" }}
 
       <ol class="cv-xp">
       {{ range $experience }}
         {{ $duration := default .Params.duration .Params.cvDuration }}
         {{ $jobTitle := default .Params.jobTitle .Params.cvJobTitle }}
+        {{ $company  := default .Params.company  .Params.cvCompany }}
         {{ if .Params.cvCompact }}
         <li class="cv-xp__item cv-xp__item--compact">
           <span class="cv-xp__year">{{ $duration }}</span>
@@ -42,7 +54,7 @@
             <p class="cv-xp__line">
               <span class="cv-xp__job">{{ $jobTitle }}</span>
               <span class="cv-xp__sep">·</span>
-              <span class="cv-xp__company">{{ .Params.company }}</span>
+              <span class="cv-xp__company">{{ $company }}</span>
               <span class="cv-xp__sep">·</span>
               <span class="cv-xp__location">{{ .Params.location }}</span>
             </p>
@@ -55,7 +67,7 @@
           <div class="cv-xp__body">
             <h3 class="cv-xp__heading">
               <span class="cv-xp__job">{{ $jobTitle }}</span>
-              <span class="cv-xp__company">{{ .Params.company }}</span>
+              <span class="cv-xp__company">{{ $company }}</span>
               <span class="cv-xp__location">{{ .Params.location }}</span>
             </h3>
             {{ with .Params.cvSummary }}
@@ -84,7 +96,6 @@
         <h2 class="cv__section-title">Information</h2>
         <dl class="cv-info__list">
           <dt>Name</dt>        <dd>{{ site.Data.cv.information.name }}</dd>
-          <dt>Birth</dt>       <dd>{{ site.Data.cv.information.birth }}</dd>
           <dt>Nationality</dt> <dd>{{ site.Data.cv.information.nationality }}</dd>
           <dt>Languages</dt>
           <dd>
@@ -98,7 +109,17 @@
           <dd>
             <ul class="cv-info__links">
               {{ range site.Data.cv.information.links }}
-              <li><a href="{{ .url }}" aria-label="{{ .label }}">{{ .label }}</a></li>
+              <li>
+                <a href="{{ .url }}" aria-label="{{ .label }}" title="{{ .label }}">
+                  {{ if eq .icon "linkedin" }}
+                    <svg class="cv-info__icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.27 2.37 4.27 5.45zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+                  {{ else if eq .icon "github" }}
+                    <svg class="cv-info__icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.3-3.2-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.2.9 2.4v3.5c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+                  {{ else }}
+                    <svg class="cv-info__icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.93 6h-2.95a15.7 15.7 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14a7.96 7.96 0 0 1 0-4h3.38a16.6 16.6 0 0 0 0 4H4.26zm.81 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.99 7.99 0 0 1 5.07 16zm2.95-8H5.07a8 8 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.02 8zM12 19.96a13.65 13.65 0 0 1-1.91-3.96h3.82A13.65 13.65 0 0 1 12 19.96zM14.34 14H9.66a14.78 14.78 0 0 1 0-4h4.68a14.78 14.78 0 0 1 0 4zm.26 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8 8 0 0 1-4.33 3.56zM16.36 14a16.6 16.6 0 0 0 0-4h3.38a7.96 7.96 0 0 1 0 4h-3.38z"/></svg>
+                  {{ end }}
+                </a>
+              </li>
               {{ end }}
             </ul>
           </dd>
@@ -135,7 +156,10 @@
     </aside>
   </div>
 
-  <footer class="cv__footer">{{ site.Data.cv.footer.url }}</footer>
+  <footer class="cv__footer">
+    <span>{{ site.Data.cv.footer.url }}</span>
+    <span class="cv__updated">Last updated: {{ now.Format "2006-01-02" }}</span>
+  </footer>
 </main>
 </body>
 </html>

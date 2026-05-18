@@ -7,7 +7,7 @@ company: "Pocket Media"
 location: "Amsterdam, The Netherlands"
 duration: "2015-2017"
 companyLogo: "images/experience/pocketmedia.jpg"
-cvSummary: "Led the technology team of a mobile advertising agency (≈15 FTE). Part of the Management Team and defining company strategy and vision. Executed mobile and web (high scalability) development projects, including targeted advertising with personalized recommendations, and big data near-real time reporting. Defined the products roadmap, milestones, and plans to achieve the objectives, as long as the talent acquisition."
+cvSummary: "Led the technology org (~15 FTE) of a mobile advertising agency as part of the Management Team — defining strategy, product roadmap, hiring and execution. Delivered high-scale mobile and web platforms for targeted advertising and near-real-time big data reporting."
 cvBullets:
   - "Development of a new SaaS platform for Native advertisement (Android, iOS, web, Unity)."
   - "Operated in-house applications and games with thousands of DAU."

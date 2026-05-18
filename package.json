@@ -29,7 +29,8 @@
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install",
     "cv:dev": "hugo serve",
-    "cv:pdf": "node scripts/generate-cv-pdf.js"
+    "cv:qr": "node scripts/generate-cv-qr.js",
+    "cv:pdf": "npm run cv:qr && node scripts/generate-cv-pdf.js"
   },
   "description": "JS automations for adrianmoreno.info",
   "devDependencies": {
@@ -44,7 +45,8 @@
     "del": "^8.0.1",
     "postcss": "^8.5.12",
     "postcss-cli": "^11.0.1",
-    "postcss-flexbugs-fixes": "^5.0.2"
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "qrcode": "^1.5.4"
   },
   "engines": {
     "node": ">=22",
