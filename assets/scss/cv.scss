@@ -122,6 +122,8 @@ a { color: inherit; text-decoration: none; }
   align-items: start;
   padding: 0.4mm 0;
 }
+.cv-xp__item + .cv-xp__item { margin-top: 2.5mm; }
+.cv-xp__item--compact + .cv-xp__item--compact { margin-top: 0.6mm; }
 
 .cv-xp__year {
   font-size: 7.4pt;
