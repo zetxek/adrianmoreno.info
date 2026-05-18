@@ -61,6 +61,10 @@
               {{ end }}
               <span class="cv-xp__sep">·</span>
               <span class="cv-xp__location">{{ .Params.location }}</span>
+              {{ with .Params.cvContext }}
+              <span class="cv-xp__sep">·</span>
+              <span class="cv-xp__context-inline">{{ . }}</span>
+              {{ end }}
             </p>
           </div>
         </li>

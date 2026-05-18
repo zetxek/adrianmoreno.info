@@ -10,6 +10,7 @@ companyLogo: "images/experience/themobilecompany.jpg"
 cvCompact: true
 cvDuration: "2015"
 cvJobTitle: "Senior Mobile Applications Developer"
+cvContext: "Mobile development agency for top tier Dutch apps"
 companyUrl: "https://www.themobilecompany.com/"
 ---
 

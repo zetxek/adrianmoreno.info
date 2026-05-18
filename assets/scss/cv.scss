@@ -183,6 +183,7 @@ a { color: inherit; text-decoration: none; }
 .cv-xp__item--compact .cv-xp__company { color: $teal; font-weight: 600; }
 .cv-xp__item--compact .cv-xp__sep     { color: $muted; margin: 0 0.6mm; }
 .cv-xp__item--compact .cv-xp__location{ color: $muted; }
+.cv-xp__item--compact .cv-xp__context-inline { color: $muted; font-style: italic; }
 
 /* ---------- Sidebar: Information ---------- */
 .cv-info__list {
