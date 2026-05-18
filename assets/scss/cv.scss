@@ -71,6 +71,79 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
+/* ---------- Cover page ---------- */
+.cv-page--multi .cv + .cv {
+  margin-top: 8mm; /* visual gap on screen; print uses page-break */
+}
+@media print {
+  .cv-page--multi .cv + .cv { page-break-before: always; margin-top: 0; }
+}
+
+.cv-cover__columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 60mm;
+  gap: 6mm;
+  padding: 8mm $pad-x 6mm;
+  flex: 1;
+}
+
+.cv-cover__letter {
+  font-size: 9.5pt;
+  line-height: 1.45;
+  color: $text;
+  p { margin: 0 0 2.5mm; }
+  strong { font-weight: 600; color: $text; }
+  em { font-style: italic; color: $teal; }
+}
+
+.cv-cover__greeting {
+  margin: 0 0 4mm;
+  color: $teal;
+  font-size: 18pt;
+  font-weight: 300;
+  letter-spacing: 0.1px;
+}
+
+.cv-cover__signoff {
+  margin-top: 6mm;
+}
+.cv-cover__signature {
+  margin: 1mm 0 0;
+  font-weight: 600;
+}
+
+.cv-cover__sidebar {
+  background: $sidebar-bg;
+  padding: 5mm 4mm;
+  border-radius: 1.5mm;
+  align-self: start;
+
+  .cv__section-title { margin-bottom: 3mm; }
+}
+.cv-cover__highlights {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 8.4pt;
+  line-height: 1.35;
+
+  li {
+    margin: 0 0 2.5mm;
+    padding-left: 3mm;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1.8mm;
+      width: 1.4mm;
+      height: 1.4mm;
+      background: $teal;
+      border-radius: 50%;
+    }
+  }
+}
+
 /* ---------- Columns ---------- */
 .cv__columns {
   display: grid;

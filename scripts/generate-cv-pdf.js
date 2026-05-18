@@ -5,7 +5,11 @@ const http = require('http');
 const net = require('net');
 const path = require('path');
 
-const OUT_PATH = path.resolve(__dirname, '..', 'static', 'cv', 'cv-adrian-moreno.pdf');
+const OUT_DIR = path.resolve(__dirname, '..', 'static', 'cv');
+const TARGETS = [
+  { route: '/cv/',       file: 'cv-adrian-moreno.pdf' },
+  { route: '/cv/cover/', file: 'cv-adrian-moreno-cover.pdf' },
+];
 
 function getFreePort() {
   return new Promise((resolve, reject) => {
@@ -68,20 +72,22 @@ function waitForUrl(url, timeoutMs = 30000) {
 
     const browser = await chromium.launch();
     const page = await browser.newPage();
-    await page.goto(`${baseUrl}/cv/`, { waitUntil: 'networkidle' });
 
-    await page.emulateMedia({ media: 'print' });
-
-    await page.pdf({
-      path: OUT_PATH,
-      format: 'A4',
-      printBackground: true,
-      margin: { top: 0, bottom: 0, left: 0, right: 0 },
-      preferCSSPageSize: true,
-    });
+    for (const { route, file } of TARGETS) {
+      const outPath = path.join(OUT_DIR, file);
+      await page.goto(`${baseUrl}${route}`, { waitUntil: 'networkidle' });
+      await page.emulateMedia({ media: 'print' });
+      await page.pdf({
+        path: outPath,
+        format: 'A4',
+        printBackground: true,
+        margin: { top: 0, bottom: 0, left: 0, right: 0 },
+        preferCSSPageSize: true,
+      });
+      console.log(`[cv] wrote ${outPath}`);
+    }
 
     await browser.close();
-    console.log(`[cv] wrote ${OUT_PATH}`);
   } finally {
     if (!exited) hugo.kill('SIGTERM');
   }

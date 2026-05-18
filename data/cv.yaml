@@ -71,3 +71,26 @@ courses:
 footer:
   url: "www.adrianmoreno.info"
   qr_target: "https://www.adrianmoreno.info/cv/"
+
+cover_letter:
+  greeting: "Hello, nice to meet *you*!"
+  paragraphs:
+    - "I am **Adrián**. I am Spanish, have lived for 5 years in Copenhagen with my wife and son, and have a **broad experience working across different cultures** — 6 years in Amsterdam before that, and the start of my career in Spain. I thrive in diverse, multi-cultural environments and navigate cultural differences with positivity."
+    - "By formation I am a **computer engineer with a Master's Degree in Project Management**. But what defines my professional career more than the credentials is my passion for making teams understand each other, building empathy across functions, and aligning incentives and objectives in the organizations I've been part of."
+    - "**My career spans 19 years**, including over a decade of hands-on software development on high-scalability, high-availability systems for web and mobile applications."
+    - "Technical systems are nothing without a **sustainable business model** behind them, and I have hands-on experience across multiple industries: SaaS in fintech, direct-to-consumer e-commerce, cross-country omnichannel e-commerce, mobile advertising, and talent marketplaces."
+    - "On the way of working, I am a firm believer in **multi-disciplinary teams and breaking silos**. I have implemented DevOps practices (monitoring, alerting and observability, incident response, everything-as-code, …) in teams I have been part of, and applied agile concepts pragmatically — favouring *the right agile for the team* over dogma."
+    - "To me, **leading is doing what has to be done** — acting in a way that creates trust, empowers people to *dare to try*, and fosters healthy curiosity to always aim to improve."
+    - "Having co-founded my own company and been part of scale-ups and start-ups, I am in my comfort zone **balancing speed with cost-control**, paying down technical debt while continuing to innovate on customer-facing value."
+    - "If you ask my peers, they'll highlight my **high energy with a can-do mindset, self-driven nature while keeping strong team spirit**, and a genuine interest in making others better. Compared with engineering peers, I get called out for my **strong business sense** — developing sustainable product strategies across the economic, architectural and organizational dimensions."
+  signoff: "Hoping to talk to you soon,"
+  signed_name: "Adrián Moreno Peña"
+  highlights:
+    - "Energetic, with high drive and a strong team-player mindset."
+    - "Software engineer with strong business acumen."
+    - "Adaptable leader focused on evolutionary change and culture shift."
+    - "Comfortable as individual contributor, team manager, or manager-of-managers."
+    - "Multi-sector: SaaS (fintech), direct-to-consumer e-commerce, omnichannel, mobile advertising, talent marketplaces."
+    - "General manager and board-member experience."
+    - "Worked across cultures in international environments, based in 3 countries."
+    - "Multi-disciplinary technologist: mobile, web, system integrations, platform & API."
