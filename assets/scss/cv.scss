@@ -96,7 +96,7 @@ a { color: inherit; text-decoration: none; }
   margin: 0 0 2mm;
   letter-spacing: 0.1px;
 }
-.cv__sidebar .cv__section-title:not(:first-child) { margin-top: 4mm; }
+.cv__sidebar .cv__section-title:not(:first-child) { margin-top: 6mm; }
 
 /* ---------- Experience timeline ---------- */
 .cv-xp {
@@ -158,6 +158,13 @@ a { color: inherit; text-decoration: none; }
   font-size: 6.6pt;
 }
 
+.cv-xp__context {
+  margin: 0 0 0.6mm;
+  font-size: 6.8pt;
+  font-style: italic;
+  color: $muted;
+  line-height: 1.2;
+}
 .cv-xp__summary { margin: 0 0 0.4mm; font-size: 6.8pt; line-height: 1.2; }
 
 .cv-xp__bullets {
@@ -167,14 +174,6 @@ a { color: inherit; text-decoration: none; }
 }
 .cv-xp__bullets li { margin: 0; font-size: 6.8pt; line-height: 1.2; }
 
-.cv-xp__skills {
-  margin: 0.4mm 0 0;
-  font-style: italic;
-  color: $muted;
-  font-size: 6.6pt;
-  line-height: 1.2;
-}
-.cv-xp__skills-label { font-weight: 600; font-style: normal; color: $teal; }
 
 /* Compact rows */
 .cv-xp__item--compact { padding: 0.3mm 0; }

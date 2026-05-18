@@ -10,6 +10,7 @@ companyLogo: "images/experience/zadiasoftware.png"
 cvCompact: true
 cvDuration: "2011-15"
 cvJobTitle: "Co-Founder, Technical Lead"
+companyUrl: "https://www.zadiasoftware.com/"
 ---
 
 ### Co-founder and technical lead

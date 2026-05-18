@@ -15,6 +15,8 @@ cvBullets:
 cvSkills: "team leading, coaching, agile development, product development, stack modernization, architecture, strategy"
 cvDuration: "2021-25"
 cvJobTitle: "Engineering Manager → Director of Engineering → VP of Engineering, Tribe Lead"
+cvContext: "Fintech SaaS · Unicorn, ~3,000 FTE"
+companyUrl: "https://www.sumup.com/"
 ---
 ### Moved to Denmark, joined a European unicorn 🦄
 

@@ -10,6 +10,7 @@ companyLogo: "images/experience/themobilecompany.jpg"
 cvCompact: true
 cvDuration: "2015"
 cvJobTitle: "Senior Mobile Applications Developer"
+companyUrl: "https://www.themobilecompany.com/"
 ---
 
 ### First job abroad

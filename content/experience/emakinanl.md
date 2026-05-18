@@ -13,6 +13,8 @@ cvBullets:
   - "Integrated with PIM and DAM systems, lowering time to market new campaigns."
 cvSkills: "team leading, coaching, agile development, scrum, e-commerce, design sprints, high scalability, Salesforce (Commerce Cloud, Service Cloud)"
 cvDuration: "2017-19"
+cvContext: "Digital agency · Salesforce ecosystem, ~250 FTE"
+companyUrl: "https://www.emakina.com/"
 ---
 ### Agency-life
 

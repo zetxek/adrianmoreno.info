@@ -14,6 +14,8 @@ cvBullets:
   - "Bridging GTM and engineering execution to keep the business and platform scaling sustainably."
 cvSkills: "engineering leadership, product strategy, GTM alignment, AI leverage, team scaling"
 cvDuration: "2025-now"
+cvContext: "Talent marketplace SaaS · Scale-up"
+companyUrl: "https://www.worksome.com/"
 ---
 ### Bridging GTM and engineering execution
 

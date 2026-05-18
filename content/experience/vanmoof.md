@@ -13,6 +13,8 @@ cvBullets:
   - "Led automated QA and code standardization efforts, lowering production defects by 30%."
 cvSkills: "team leading, coaching, agile development, scrum, e-commerce, roadmap, high scalability, cloud computing, AWS, serverless, devops, magento, drupal"
 cvDuration: "2019-21"
+cvContext: "Direct-to-Consumer e-bikes · Series-A/B scale-up"
+companyUrl: "https://www.vanmoof.com/"
 ---
 ## Startup-life
 
