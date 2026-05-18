@@ -3,25 +3,25 @@ header:
   title: "Engineering Leader"
 
 summary: >
-  Engineering leader with close to 2 decades of experience across SaaS in fintech, e-commerce,
-  mobile and digital-native products — operating as VP, Director, Tech Lead
-  and individual contributor in Spain, the Netherlands and Denmark. Combines
-  hands-on technical depth with strong business acumen, building
-  multi-disciplinary teams that ship sustainable outcomes. Energetic,
-  self-driven, and known for breaking silos between engineering, product and
-  go-to-market.
+  VP-level engineering leader with 19 years scaling SaaS, fintech, e-commerce
+  and mobile — most recently as VP of Technology at Worksome and VP of
+  Engineering at SumUp (unicorn, ~3,000 FTE). Built and led multi-cultural
+  distributed teams across Spain, the Netherlands and Denmark. Hands-on at
+  exec level — 300+ incident responses across roles, agentic-development
+  practice driven at Worksome — combined with strong business acumen and a
+  record of breaking silos between engineering, product and go-to-market.
 
 skills:
   - group: "Leadership"
     items:
-      - "Team & manager-of-managers leading"
-      - "Hiring & talent density"
       - "P&L ownership"
       - "Engineering strategy & roadmap"
-      - "Stakeholder management"
-      - "Coaching & performance"
-      - "Incident response"
       - "Org design"
+      - "Stakeholder management"
+      - "Hiring & talent density"
+      - "Manager-of-managers leading"
+      - "Incident response"
+      - "Coaching & performance"
   - group: "Tech & methods"
     items:
       - "Agile / Scrum"
