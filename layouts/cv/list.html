@@ -76,11 +76,11 @@
               {{ else }}
               <span class="cv-xp__company">{{ $company }}</span>
               {{ end }}
-              <span class="cv-xp__location">{{ .Params.location }}</span>
             </h3>
-            {{ with .Params.cvContext }}
-            <p class="cv-xp__context">{{ . }}</p>
-            {{ end }}
+            <p class="cv-xp__meta">
+              <span>{{ .Params.location }}</span>
+              {{ with .Params.cvContext }}<span class="cv-xp__meta-sep">·</span><span>{{ . }}</span>{{ end }}
+            </p>
             {{ with .Params.cvSummary }}
             <p class="cv-xp__summary">{{ . }}</p>
             {{ end }}
