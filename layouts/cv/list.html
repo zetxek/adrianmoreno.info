@@ -91,6 +91,19 @@
     {{/* RIGHT COLUMN: SIDEBAR */}}
     <aside class="cv__sidebar">
 
+      {{/* SKILLS */}}
+      {{ with site.Data.cv.skills }}
+      <section class="cv-skills">
+        <h2 class="cv__section-title">Skills</h2>
+        {{ range . }}
+        <div class="cv-skills__group">
+          <h3 class="cv-skills__label">{{ .group }}</h3>
+          <p class="cv-skills__items">{{ delimit .items ", " }}</p>
+        </div>
+        {{ end }}
+      </section>
+      {{ end }}
+
       {{/* INFORMATION */}}
       <section class="cv-info">
         <h2 class="cv__section-title">Information</h2>

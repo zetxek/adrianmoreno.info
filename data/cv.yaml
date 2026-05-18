@@ -11,6 +11,35 @@ summary: >
   self-driven, and known for breaking silos between engineering, product and
   go-to-market.
 
+skills:
+  - group: "Leadership"
+    items:
+      - "Team & manager-of-managers leading"
+      - "Hiring & talent density"
+      - "P&L ownership"
+      - "Engineering strategy & roadmap"
+      - "Stakeholder management"
+      - "Coaching & performance"
+      - "Incident response"
+      - "Org design"
+  - group: "Tech & methods"
+    items:
+      - "Agile / Scrum"
+      - "DevOps, CI/CD, observability"
+      - "AWS, serverless, cloud architecture"
+      - "High-scalability web & API"
+      - "Mobile (iOS, Android, BLE)"
+      - "Salesforce SFCC, Magento, Drupal"
+      - "AI tooling & leverage"
+  - group: "Domains"
+    items:
+      - "SaaS"
+      - "Fintech"
+      - "E-commerce (D2C, omnichannel)"
+      - "Mobile advertising"
+      - "Subscription products"
+      - "Agency & consulting"
+
 information:
   name: "Adrián Moreno Peña"
   nationality: "Spanish"

@@ -224,6 +224,20 @@ a { color: inherit; text-decoration: none; }
   display: block;
 }
 
+/* ---------- Sidebar: Skills ---------- */
+.cv-skills__group + .cv-skills__group { margin-top: 1.8mm; }
+.cv-skills__label {
+  margin: 0 0 0.3mm;
+  font-size: 7.2pt;
+  font-weight: 600;
+  color: $teal;
+}
+.cv-skills__items {
+  margin: 0;
+  font-size: 7pt;
+  line-height: 1.3;
+}
+
 /* ---------- Sidebar: Education ---------- */
 .cv-edu__item + .cv-edu__item { margin-top: 2mm; }
 .cv-edu__degree { margin: 0; font-size: 8pt; font-weight: 600; }
