@@ -22,7 +22,7 @@
     "dompurify": "^3.4.2",
     "fuse.js": "^7.3.0",
     "node-gyp": "^12.3.0",
-    "playwright": "^1.58.2"
+    "playwright": "^1.60.0"
   },
   "scripts": {
     "test": "npm run test:e2e",
