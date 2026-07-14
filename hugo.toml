@@ -1,6 +1,7 @@
 baseURL = "https://www.adrianmoreno.info/"
 languageCode = "en"
 DefaultContentLanguage = "en"
+title = "Adrián Moreno Peña | VP of Technology @ Worksome ⸱ Product & Engineering Leader (Copenhagen)"
 
 _merge = "deep"
 
@@ -65,6 +66,11 @@ target = "static/js/purify.min.js"
 title = "Adrián Moreno Peña | VP of Technology @ Worksome ⸱ Product & Engineering Leader (Copenhagen)"
 description = "VP of Technology at Worksome, leading Product, Engineering, and Design. Nearly two decades across Spain, the Netherlands, and Denmark — IC, founder, CTO, VP. I help companies align business strategy, product strategy, and engineering execution: scaling teams, sharpening GTM, and keeping technology sustainable as the business grows."
 images = ['/img/og-preview.png']
+
+# Header logo text - kept short/distinct from the long SEO `title` above.
+# See https://github.com/zetxek/adritian-free-hugo-theme/pull/561
+logo_text1 = "Adrián"
+logo_text2 = "Moreno"
 
 homepageExperienceCount = 6
 
