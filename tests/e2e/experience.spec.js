@@ -90,15 +90,17 @@ test.describe('Experience Page', () => {
     await expect(page.locator('header nav a[href*="#contact"]')).toBeVisible();
 
     // Test navigation to About section
-    await page.click('header a[href*="#about"]');
+    // force:true bypasses actionability checks (visible/stable) that fail in Chrome headless
+    // when the smooth-scroll library animates the header between clicks
+    await page.click('header a[href*="#about"]', { force: true });
     await expect(page).toHaveURL(/.*#about/);
 
     // Test navigation to Experience section
-    await page.click('header a[href*="#experience-single"]');
+    await page.click('header a[href*="#experience-single"]', { force: true });
     await expect(page).toHaveURL(/.*#experience-single/);
 
     // Test navigation to Contact section
-    await page.click('header a[href*="#contact"]');
+    await page.click('header a[href*="#contact"]', { force: true });
     await expect(page).toHaveURL(/.*#contact/);
   });
 
