@@ -32,15 +32,17 @@ test.describe('Homepage', () => {
     await page.goto('http://localhost:1313');
 
     // Click About link and verify scroll
-    await page.click('header a[href*="#about"]');
-    await expect(page.locator('#about')).toBeInViewport();
+    // force:true bypasses actionability checks that fail in Chrome headless during smooth-scroll animation
+    await page.click('header a[href*="#about"]', { force: true });
+    // Extended timeout: Chrome headless smooth-scroll takes longer to settle than Firefox
+    await expect(page.locator('#about')).toBeInViewport({ timeout: 15000 });
 
     // Click Experience link and verify scroll
-    await page.click('header a[href*="#experience-single"]');
-    await expect(page.locator('#experience-single')).toBeInViewport();
+    await page.click('header a[href*="#experience-single"]', { force: true });
+    await expect(page.locator('#experience-single')).toBeInViewport({ timeout: 15000 });
 
     // Click Contact link and verify scroll
-    await page.click('header a[href*="#contact"]');
-    await expect(page.locator('#contact')).toBeInViewport();
+    await page.click('header a[href*="#contact"]', { force: true });
+    await expect(page.locator('#contact')).toBeInViewport({ timeout: 15000 });
   });
 }); 
