@@ -7,6 +7,14 @@ company: "Emakina.NL"
 location: "Amsterdam, The Netherlands"
 duration: "2017-2019"
 companyLogo: "images/experience/emakinanl.jpg"
+cvSummary: "Technical Lead on the agency's largest contract — an international e-commerce, CRM and service platform in the Salesforce ecosystem (SFCC, Service Cloud, Mulesoft). Oversaw enterprise architecture, accessibility, technical scoping and team coaching; partnered with Marketing on e-commerce KPIs and ad spend."
+cvBullets:
+  - "Championed accessibility improvements, achieving WCAG 2.1 level AA compliance."
+  - "Integrated with PIM and DAM systems, lowering time to market new campaigns."
+cvSkills: "team leading, coaching, agile development, scrum, e-commerce, design sprints, high scalability, Salesforce (Commerce Cloud, Service Cloud)"
+cvDuration: "2017-19"
+cvContext: "Digital agency · Salesforce ecosystem, ~250 FTE"
+companyUrl: "https://www.emakina.com/"
 ---
 ### Agency-life
 

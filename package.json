@@ -19,30 +19,34 @@
     }
   },
   "dependencies": {
-    "dompurify": "^3.4.0",
-    "fuse.js": "^7.3.0",
-    "node-gyp": "^12.2.0",
-    "playwright": "^1.58.2"
+    "dompurify": "^3.4.12",
+    "fuse.js": "^7.4.2",
+    "node-gyp": "^12.3.0",
+    "playwright": "^1.60.0"
   },
   "scripts": {
     "test": "npm run test:e2e",
     "test:e2e": "playwright test",
-    "test:e2e:install": "playwright install"
+    "test:e2e:install": "playwright install",
+    "cv:dev": "hugo serve",
+    "cv:qr": "node scripts/generate-cv-qr.js",
+    "cv:pdf": "npm run cv:qr && node scripts/generate-cv-pdf.js"
   },
   "description": "JS automations for adrianmoreno.info",
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^8.0.0",
-    "@playwright/test": "^1.59.1",
+    "@playwright/test": "^1.61.1",
     "@zetxek/adritian-theme-helper": "^1.0.5",
-    "autoprefixer": "^10.4.27",
+    "autoprefixer": "^10.5.0",
     "bootstrap": "^5.3.8",
     "bootstrap-print-css": "^1.0.0",
     "browser-sync": "^3.0.4",
-    "critical": "^7.2.1",
+    "critical": "^8.0.0",
     "del": "^8.0.1",
-    "postcss": "^8.5.12",
+    "postcss": "^8.5.14",
     "postcss-cli": "^11.0.1",
-    "postcss-flexbugs-fixes": "^5.0.2"
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "qrcode": "^1.5.4"
   },
   "engines": {
     "node": ">=22",

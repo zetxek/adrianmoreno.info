@@ -7,6 +7,16 @@ company: "SumUp"
 location: "Copenhagen, Denmark"
 duration: "2021-2025"
 companyLogo: "images/experience/sumup.png"
+cvSummary: "Grew through three levels of scope (EM → Director → VP) over four years, ending with P&L responsibility for the Invoices & Accounting tribe — ~30 FTE across 4 squads, delivering mobile and web experiences inside the SumUp SuperApp. In parallel led the global Incident Response process across Engineering, Risk, Compliance and Operations (~900 FTEs)."
+cvBullets:
+  - "Maintained yearly recurring SaaS revenue through a brand and platform migration, and introducing a new subscription plan."
+  - "Increased >20% MAU by introducing a new product line."
+  - "Reduced time required to coordinate incidents by >60%."
+cvSkills: "team leading, coaching, agile development, product development, stack modernization, architecture, strategy"
+cvDuration: "2021-25"
+cvJobTitle: "Engineering Manager → Director of Engineering → VP of Engineering, Tribe Lead"
+cvContext: "Fintech SaaS · Unicorn, ~3,000 FTE"
+companyUrl: "https://www.sumup.com/"
 ---
 ### Moved to Denmark, joined a European unicorn 🦄
 

@@ -7,6 +7,11 @@ company: "The Mobile Company"
 location: "Amsterdam, The Netherlands"
 duration: "2015"
 companyLogo: "images/experience/themobilecompany.jpg"
+cvCompact: true
+cvDuration: "2015"
+cvJobTitle: "Senior Mobile Applications Developer"
+cvContext: "Mobile development agency for top tier Dutch apps"
+companyUrl: "https://www.themobilecompany.com/"
 ---
 
 ### First job abroad

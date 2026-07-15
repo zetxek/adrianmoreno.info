@@ -7,6 +7,14 @@ company: "VanMoof"
 location: "Amsterdam, The Netherlands"
 duration: "2019-2021"
 companyLogo: "images/experience/vanmoof.png"
+cvSummary: "Insourced the e-commerce and subscription platform for a Direct-to-Consumer brand, integrating ERP, CRM and customer-facing portals across the vertically-integrated experience. Led and coached internal and external teams while structuring engineering through the hyper-growth phase."
+cvBullets:
+  - "Improved CI/CD times for e-commerce by >50%, reducing downtime by >70%."
+  - "Led automated QA and code standardization efforts, lowering production defects by 30%."
+cvSkills: "team leading, coaching, agile development, scrum, e-commerce, roadmap, high scalability, cloud computing, AWS, serverless, devops, magento, drupal"
+cvDuration: "2019-21"
+cvContext: "Direct-to-Consumer e-bikes · Series-A/B scale-up"
+companyUrl: "https://www.vanmoof.com/"
 ---
 ## Startup-life
 

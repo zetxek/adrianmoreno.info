@@ -7,7 +7,14 @@ company: "Bahia Software"
 location: "Santiago de Compostela, Spain"
 duration: "2007-2011"
 companyLogo: "images/experience/bahia.png"
+cvCompact: true
+cvDuration: "2007-11"
+cvJobTitle: "Analyst Programmer"
+cvCompany: "Bahia Software, Coremain"
+cvContext: "Regulated environment software development and consulting (public, banking, healthcare)"
+companyUrl: "https://bahiasoftware.es/"
 ---
+
 ### First job as software engineer
 
 My career started in a local software consultancy company, based in Santiago de Compostela. With the main customers being large public entities and some Galician large companies, the experience was very useful to know the best practices of working in regulated environments, with strict contractual agreements.
