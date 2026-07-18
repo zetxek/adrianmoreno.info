@@ -10,21 +10,21 @@ images = ["/images/blog/stop-architecting-start-gardening.jpg"]
 featuredImage = "/images/blog/stop-architecting-start-gardening.jpg"
 +++
 
-A garden doesn't ship.
+🪏 A garden doesn't ship.
 
 You don't plant the tomatoes, the lavender, and the hedgerow all at once because the dependency graph says they're connected. You put a few things in the ground. Some thrive. Some get eaten by slugs. A wet July rots the roots of what you were sure would make it. You adjust. Next season you plant differently — not because the plan was bad, but because **the weather didn't read your plan, and the bugs didn't care.**
 
-We're trained to treat software like architecture. Blueprints, foundations, load-bearing walls. But a ten-year-old codebase isn't a cathedral waiting to be built — it's an overgrown garden. The bugs don't care about your elegant blueprint. The legacy database certainly didn't read your plan. And the team that's been maintaining it for five years? They've been gardening this whole time. You just showed up with a drafting table.
+We're trained to treat software like architecture. Blueprints, foundations, load-bearing walls.  "Proper engineering": theoretical knowledge applied to real-world problems. But a ten-year-old codebase isn't a bridge waiting to be built. It's an overgrown garden. The bugs don't care about your elegant blueprint. Your customers don't care about your clean architecture. And the team that's been maintaining it for five years? They've been gardening this whole time. You just showed up with a brand new diagram.
 
 ---
 
 ### We're Trained to Draw Cathedrals
 
-Part of the problem starts early. Engineering education rewards complexity. The assignments that get the top marks are the ones with elegant architectures, clean abstractions, designs that would make sense if you were starting from a blank slate. We're trained to optimize for *technical correctness in a vacuum* — as if the system you're building is the only one that will ever exist.
+Part of the problem starts early. Engineering education rewards complexity. You learn design patterns and _need to use them_, doesn't matter if they're _needed_. The assignments that get the top marks are the ones with elegant architectures, clean abstractions, designs that would make sense... if you were starting from a blank slate. We're trained to optimize for *technical correctness in a vacuum* — as if the system you're building is the only one that will ever exist.
 
-Then you get a job, and the blank slate is a ten-year-old codebase with three generations of architectural decisions, a database that predates your career, and five teams whose workflows depend on things working exactly the way they currently do.
+Then you get a job, and the blank slate is a ten-year-old codebase with three generations of architectural decisions, a database that predates your career, and five teams whose workflows depend on things working exactly the way they currently do. Knowledge is scattered, time is scarce and you need to get things done quickly before moving to the next project - because the budget requires so.
 
-**And here's where it goes wrong.** The instinct — especially from strong engineers — is to treat the existing system as a mistake to be corrected. Pave the garden and build a parking lot. Tear it down. Rebuild it properly. From scratch. The way it *should* have been built.
+**And here's where it goes wrong.** The instinct — especially from strong engineers — is to treat the existing system as a _mistake_ to be corrected. Pave the garden and build a parking lot. Tear it down. Rebuild it properly. From scratch. The way it *should* have been built.
 
 *(I've pitched this. You've probably pitched this. It feels responsible. It feels like engineering.)*
 
@@ -40,9 +40,9 @@ Big bang rewrites fail because every assumption has to be right simultaneously. 
 
 Small steps invert this. Pull one weed. Improve one bed. See what happens. If it turns out to be the wrong move, you've only invested an afternoon, not a season. You can pivot without a postmortem — or at least, without the kind that needs a steering committee.
 
-Here's a real example. A few years ago I inherited a payments module that processed thousands of transactions a day — and was held together by a single monolithic service nobody fully understood. The architectural instinct was obvious: microservices. Event sourcing. A clean domain model. The blueprint would have taken six months and risked every transaction in production while we rebuilt.
+Here's a real example. A few years ago I inherited a reporting module that processed thousands of transactions a day — and was held together by a single monolithic service nobody fully understood and errored often. The architectural instinct was obvious: microservices. Event sourcing. A clean domain model. The blueprint would have taken one year and risked the daily reports in production while we rebuilt.
 
-Instead, we extracted *one* calculation — tax logic — into its own module. It took two weeks. It worked. More importantly, it revealed that the tax calculation wasn't the bottleneck we thought it was. The real problem was a database query three layers deeper, which we only found because we could now see what the tax module *wasn't* doing. **The system told us what it needed next.** Six months later we had a cleanly separated service. Not because we planned it — because we followed the garden where it led.
+Instead, we extracted *one* calculation — daily aggregation — into its own module. It took one month. It worked, it stabilized the service enough. More importantly, it revealed that the logic wasn't the bottleneck we thought it was. The real problem was the database behind, and the way it had been designed - not allowing enough concurrency. **The system told us what it needed next.** Not saying that the solution was perfect - but was good enough to buy time, and decide what to do next.
 
 This applies to organizations just as directly. You can't reorganize a fifty-person engineering team in one quarter and expect it to work. You can change how one squad runs standups. See what happens. Adjust. Then change the next thing. Claire Hughes Johnson calls this "tending the garden" in [*Scaling People*]({{< ref "/book/scaling-people.md" >}}) — and she's right. The most effective leaders create the conditions for growth and let the organization find its shape. Clear principles, loose frameworks, constant tending.
 
@@ -54,13 +54,13 @@ Software and orgs aren't different in this respect. Both are systems with feedba
 
 Let me be clear: this isn't an excuse for cowardice. Some systems are beyond saving. The garden is toxic — the foundation is cracked, the technical debt is strangling every new feature, and the team that built it left three years ago. Sometimes the right call *is* a ground-zero leveling exercise.
 
-But you have to earn that conclusion. The price of being wrong is catastrophic: you spend a year rebuilding, ship nothing new, and discover at the end that you've rebuilt the same system with different bugs and a prettier interface. Before you reach for the bulldozer, garden for at least one season. If nothing grows, you'll know. And you'll know *why* — which is far more valuable than an architectural diagram.
+But you have to _earn_ that conclusion. The price of being wrong is catastrophic: you spend a year rebuilding, ship nothing new, and discover at the end that you've rebuilt the same system with different bugs and a prettier interface. Before you reach for the bulldozer, garden for at least one season. If nothing grows, you'll know. And you'll know *why* — which is far more valuable than an architectural diagram.
 
 ---
 
 ### How to Sell Gardening
 
-The single biggest obstacle isn't technical. It's organizational. Your manager, your VP, your stakeholders — they want the blueprint. They want the Gantt chart. They want a date. "We're going to tend the garden and see what grows" doesn't sound like a plan. It sounds like you don't have one.
+The single biggest obstacle isn't technical. It's organizational. Your manager, his manager, your clients, your stakeholders — they want the blueprint. They want the Gantt chart. They want a date. "We're going to tend the garden and see what grows" doesn't sound like a plan. It sounds like you don't have one.
 
 Here's what actually works:
 
