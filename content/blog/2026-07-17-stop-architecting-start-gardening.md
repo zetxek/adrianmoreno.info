@@ -10,19 +10,19 @@ images = ["/images/blog/stop-architecting-start-gardening.jpg"]
 featuredImage = "/images/blog/stop-architecting-start-gardening.jpg"
 +++
 
-🪏 A garden doesn't ship.
+🪏 A garden doesn't launch — it produces continuously.
 
 You don't plant the tomatoes, the lavender, and the hedgerow all at once because the dependency graph says they're connected. You put a few things in the ground. Some thrive. Some get eaten by slugs. A wet July rots the roots of what you were sure would make it. You adjust. Next season you plant differently — not because the plan was bad, but because **the weather didn't read your plan, and the bugs didn't care.**
 
-We're trained to treat software like architecture. Blueprints, foundations, load-bearing walls.  "Proper engineering": theoretical knowledge applied to real-world problems. But a ten-year-old codebase isn't a bridge waiting to be built. It's an overgrown garden. The bugs don't care about your elegant blueprint. Your customers don't care about your clean architecture. And the team that's been maintaining it for five years? They've been gardening this whole time. You just showed up with a brand new diagram.
+We're trained to treat software like architecture. Blueprints, foundations, load-bearing walls. "Proper engineering": theoretical knowledge applied to real-world problems. But a ten-year-old codebase isn't a bridge waiting to be built. It's an overgrown garden. The bugs don't care about your elegant blueprint. Your customers don't care about your clean architecture. And the team that's been maintaining it for five years? They've been gardening this whole time. You just showed up with a brand new diagram.
 
 ---
 
 ### We're Trained to Draw Cathedrals
 
-Part of the problem starts early. Engineering education rewards complexity. You learn design patterns and _need to use them_, doesn't matter if they're _needed_. The assignments that get the top marks are the ones with elegant architectures, clean abstractions, designs that would make sense... if you were starting from a blank slate. We're trained to optimize for *technical correctness in a vacuum* — as if the system you're building is the only one that will ever exist.
+Part of the problem starts early. Engineering education rewards complexity. You learn design patterns and feel obligated to use them, whether or not the problem calls for one. The assignments that get the top marks are the ones with elegant architectures, clean abstractions, designs that would make sense... if you were starting from a blank slate. We're trained to optimize for *technical correctness in a vacuum* — as if the system you're building is the only one that will ever exist.
 
-Then you get a job, and the blank slate is a ten-year-old codebase with three generations of architectural decisions, a database that predates your career, and five teams whose workflows depend on things working exactly the way they currently do. Knowledge is scattered, time is scarce and you need to get things done quickly before moving to the next project - because the budget requires so.
+Then you get a job, and the blank slate is a ten-year-old codebase with three generations of architectural decisions, a database that predates your career, and five teams whose workflows depend on it. Knowledge is scattered, time is scarce and you need to get things done quickly before moving to the next project — because the budget demands it.
 
 **And here's where it goes wrong.** The instinct — especially from strong engineers — is to treat the existing system as a _mistake_ to be corrected. Pave the garden and build a parking lot. Tear it down. Rebuild it properly. From scratch. The way it *should* have been built.
 
@@ -40,11 +40,11 @@ Big bang rewrites fail because every assumption has to be right simultaneously. 
 
 Small steps invert this. Pull one weed. Improve one bed. See what happens. If it turns out to be the wrong move, you've only invested an afternoon, not a season. You can pivot without a postmortem — or at least, without the kind that needs a steering committee.
 
-Here's a real example. A few years ago I inherited a reporting module that processed thousands of transactions a day — and was held together by a single monolithic service nobody fully understood and errored often. The architectural instinct was obvious: microservices. Event sourcing. A clean domain model. The blueprint would have taken one year and risked the daily reports in production while we rebuilt.
+Here's a real example. A few years ago I inherited a reporting module that processed thousands of transactions a day — held together by a single monolithic service that nobody fully understood and that errored often. The architectural instinct was obvious: microservices. Event sourcing. A clean domain model. The blueprint would have taken one year and risked the daily reports in production while we rebuilt.
 
-Instead, we extracted *one* calculation — daily aggregation — into its own module. It took one month. It worked, it stabilized the service enough. More importantly, it revealed that the logic wasn't the bottleneck we thought it was. The real problem was the database behind, and the way it had been designed - not allowing enough concurrency. **The system told us what it needed next.** It wasn't a perfect solution, but it was a sufficient one. It bought us time.
+Instead, we extracted *one* calculation — daily aggregation — into its own module. It took one month. It worked — it stabilized the service enough. More importantly, it revealed that the logic wasn't the bottleneck we thought it was. The real problem was the database underneath, designed in a way that throttled concurrency. **The system told us what it needed next.** It wasn't a perfect solution, but it was a sufficient one. It bought us time.
 
-This applies to organizations just as directly. You can't reorganize a fifty-person engineering team in one quarter and expect it to work. You can change how one squad runs standups. See what happens. Adjust. Then change the next thing. Claire Hughes Johnson calls this "tending the garden" in [*Scaling People*]({{< ref "/book/scaling-people.md" >}}) — and she's right. The most effective leaders create the conditions for growth and let the organization find its shape. Clear principles, loose frameworks, constant tending.
+This applies to organizations just as directly. You can't reorganize a fifty-person engineering team in one quarter and expect it to work. You can change how one squad runs standups. See what happens. Adjust. Then change the next thing. Claire Hughes Johnson makes a similar case in [*Scaling People*]({{< ref "/book/scaling-people.md" >}}): the most effective leaders don't impose rigid structures from above — they create the conditions for growth and let the organization find its shape. Clear principles, loose frameworks, constant tending.
 
 Software and orgs aren't different in this respect. Both are systems with feedback loops, delays, and interdependencies. Donella Meadows captured this in [*Thinking in Systems*]({{< ref "/book/thinking-in-systems-a-primer.md" >}}): systems don't behave the way you intend them to — they behave the way they're structured to. **The system is the authority, not the blueprint.** Whether you're extracting a service or reshaping a team, the principle is the same: plan, act, observe, adjust.
 
@@ -64,7 +64,7 @@ The price of getting this wrong is catastrophic: a year rebuilding, nothing ship
 
 ### How to Sell Gardening
 
-The single biggest obstacle isn't technical. It's organizational. Your manager, his manager, your clients, your stakeholders — they want the blueprint. They want the Gantt chart. They want a date. "We're going to tend the garden and see what grows" doesn't sound like a plan. It sounds like you don't have one.
+The single biggest obstacle isn't technical. It's organizational. Your manager, their manager, your clients, your stakeholders — they want the blueprint. They want the Gantt chart. They want a date. "We're going to tend the garden and see what grows" doesn't sound like a plan. It sounds like you don't have one.
 
 Here's what actually works:
 
