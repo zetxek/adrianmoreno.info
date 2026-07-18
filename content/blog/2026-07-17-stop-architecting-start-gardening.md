@@ -24,7 +24,7 @@ Part of the problem starts early. Engineering education rewards complexity. The 
 
 Then you get a job, and the blank slate is a ten-year-old codebase with three generations of architectural decisions, a database that predates your career, and five teams whose workflows depend on things working exactly the way they currently do.
 
-**And here's where it goes wrong.** The instinct — especially from strong engineers — is to treat the existing system as a mistake to be corrected. A "zero ground levelling exercise." Tear it down. Rebuild it properly. From scratch. The way it *should* have been built.
+**And here's where it goes wrong.** The instinct — especially from strong engineers — is to treat the existing system as a mistake to be corrected. A "ground-zero leveling exercise." Tear it down. Rebuild it properly. From scratch. The way it *should* have been built.
 
 *(I've pitched this. You've probably pitched this. It feels responsible. It feels like engineering.)*
 
