@@ -14,62 +14,68 @@ A garden doesn't ship.
 
 You don't plant the tomatoes, the lavender, and the hedgerow all at once because the dependency graph says they're connected. You put a few things in the ground. Some thrive. Some get eaten by slugs. A wet July rots the roots of what you were sure would make it. You adjust. Next season you plant differently — not because the plan was bad, but because **the weather didn't read your plan, and the bugs didn't care.**
 
-I owe this metaphor to Claire Hughes Johnson's [*Scaling People*]({{< ref "/book/scaling-people.md" >}}) — though she uses it to talk about organizational growth, and I've found it applies just as well to technical systems. Gardens and organizations both resist the instinct to architect everything upfront.
-
-Software systems — and the organizations that build them — work the same way. They just don't feel like it when you're staring at a Gantt chart.
+We're trained to treat software like architecture. Blueprints, foundations, load-bearing walls. But a ten-year-old codebase isn't a cathedral waiting to be built — it's an overgrown garden. The bugs don't care about your elegant blueprint. The legacy database certainly didn't read your plan. And the team that's been maintaining it for five years? They've been gardening this whole time. You just showed up with a drafting table.
 
 ---
 
-### We're Trained to Build Cathedrals on Empty Lots
+### We're Trained to Draw Cathedrals
 
-Part of the problem starts early. Engineering education rewards complexity. The assignments that get the top marks are the ones with elegant architectures, clean abstractions, designs that would make sense if you were starting from a blank slate. We're trained to optimize for *technical correctness in a vacuum* — as if the system you're building is the only one that will ever exist, and nobody will ever have to touch it after you.
+Part of the problem starts early. Engineering education rewards complexity. The assignments that get the top marks are the ones with elegant architectures, clean abstractions, designs that would make sense if you were starting from a blank slate. We're trained to optimize for *technical correctness in a vacuum* — as if the system you're building is the only one that will ever exist.
 
 Then you get a job, and the blank slate is a ten-year-old codebase with three generations of architectural decisions, a database that predates your career, and five teams whose workflows depend on things working exactly the way they currently do.
 
-**And here's where it goes wrong.** The instinct — especially from strong engineers — is to treat the existing system as a mistake to be corrected. A "ground-zero leveling exercise." Tear it down. Rebuild it properly. From scratch. The way it *should* have been built.
+**And here's where it goes wrong.** The instinct — especially from strong engineers — is to treat the existing system as a mistake to be corrected. Pave the garden and build a parking lot. Tear it down. Rebuild it properly. From scratch. The way it *should* have been built.
 
 *(I've pitched this. You've probably pitched this. It feels responsible. It feels like engineering.)*
 
 It's not.
 
-Pretending you're starting from zero ignores the single most important constraint in any business system: **it already exists, and it's already working well enough to pay your salary.** The cost of a rewrite isn't just the engineering time. It's the bugs you'll reintroduce that the current system already solved. It's the migrations. It's the retraining. It's the months where you're building nothing new because you're busy rebuilding the old.
+Pretending you're starting from zero ignores the single most important constraint in any business system: **the garden is already growing, and it's producing enough to pay your salary.** The cost of paving it isn't just the engineering time. It's the bugs you'll reintroduce that the current system already solved. It's the migrations. It's the retraining. It's the months where you're building nothing new because you're busy rebuilding the old.
 
 ---
 
-### Small Steps Compound. Big Bets Don't.
+### Tend, Don't Raze
 
-Big bang projects fail because the risk is concentrated in a single event. Every assumption has to be right, simultaneously. If one is wrong — and one is always wrong — you don't find out until the end, when the cost of changing course is highest. *(You've been in that retro. I've been in that retro.)*
+Big bang rewrites fail because every assumption has to be right simultaneously. Every weed you pull reveals a root system you didn't know existed. Every flower you replant dies while you're busy on the other side of the yard. If one thing is wrong — and one thing is always wrong — you don't find out until the end, when the cost of replanting is highest. *(You've been in that retro. I've been in that retro.)*
 
-Small steps invert this. Each change is survivable. If step three is wrong, you've only invested in steps one and two, and you learned something from both. You can pivot without a postmortem — or at least, without the kind that needs a steering committee.
+Small steps invert this. Pull one weed. Improve one bed. See what happens. If it turns out to be the wrong move, you've only invested an afternoon, not a season. You can pivot without a postmortem — or at least, without the kind that needs a steering committee.
 
-There's a compounding effect here that doesn't get enough attention. Each small change reveals something about the system that the previous change couldn't have predicted. **The system tells you what it needs next.** You're not executing a plan. You're in a conversation with reality.
+Here's a real example. A few years ago I inherited a payments module that processed thousands of transactions a day — and was held together by a single monolithic service nobody fully understood. The architectural instinct was obvious: microservices. Event sourcing. A clean domain model. The blueprint would have taken six months and risked every transaction in production while we rebuilt.
 
-Donella Meadows captured this perfectly in [*Thinking in Systems*]({{< ref "/book/thinking-in-systems-a-primer.md" >}}): systems don't behave the way you intend them to — they behave the way they're structured to. Feedback loops, delays, and interdependencies mean that the system's response to your intervention is rarely linear. The only way to understand a system is to interact with it. Plan, act, observe, adjust. **The system is the authority, not the blueprint.**
+Instead, we extracted *one* calculation — tax logic — into its own module. It took two weeks. It worked. More importantly, it revealed that the tax calculation wasn't the bottleneck we thought it was. The real problem was a database query three layers deeper, which we only found because we could now see what the tax module *wasn't* doing. **The system told us what it needed next.** Six months later we had a cleanly separated service. Not because we planned it — because we followed the garden where it led.
 
----
+This applies to organizations just as directly. You can't reorganize a fifty-person engineering team in one quarter and expect it to work. You can change how one squad runs standups. See what happens. Adjust. Then change the next thing. Claire Hughes Johnson calls this "tending the garden" in [*Scaling People*]({{< ref "/book/scaling-people.md" >}}) — and she's right. The most effective leaders create the conditions for growth and let the organization find its shape. Clear principles, loose frameworks, constant tending.
 
-### Organizations Are Systems Too
-
-I said "systems" deliberately, not "software."
-
-Organizations are systems with different moving parts — people, processes, incentives, egos — but they follow the same rules. You can't reorganize a fifty-person engineering team in one quarter and expect it to work. You can change how one squad runs standups. See what happens. Adjust. Then change the next thing.
-
-This is exactly the territory Claire Hughes Johnson maps in *Scaling People*. She argues that the most effective leaders don't impose rigid structures from above — they create the conditions for growth and let the organization find its shape. Clear principles, loose frameworks, constant tending. Gardening, not architecture.
-
-The temptation is always the same: design the perfect org chart, roll it out Monday, wonder why everyone's confused by Wednesday. *(Spoiler: your beautiful RACI matrix isn't going to fix the trust issue between product and engineering.)*
-
-The alternative is less satisfying on a slide deck but actually works: **make the smallest change that improves things, watch the ripples, repeat.**
+Software and orgs aren't different in this respect. Both are systems with feedback loops, delays, and interdependencies. Donella Meadows captured this in [*Thinking in Systems*]({{< ref "/book/thinking-in-systems-a-primer.md" >}}): systems don't behave the way you intend them to — they behave the way they're structured to. **The system is the authority, not the blueprint.** Whether you're extracting a service or reshaping a team, the principle is the same: plan, act, observe, adjust.
 
 ---
 
-### Direction Over Destination
+### When the Soil Is Poisoned
 
-If I had to reduce this to one idea: **spend less energy on the end state and more on the direction and speed of change.**
+Let me be clear: this isn't an excuse for cowardice. Some systems are beyond saving. The garden is toxic — the foundation is cracked, the technical debt is strangling every new feature, and the team that built it left three years ago. Sometimes the right call *is* a ground-zero leveling exercise.
 
-"Where are we trying to go?" is a better question than "what does the final system look like?" The first lets you course-correct. The second locks you into guesses you made before you had real information.
+But you have to earn that conclusion. The price of being wrong is catastrophic: you spend a year rebuilding, ship nothing new, and discover at the end that you've rebuilt the same system with different bugs and a prettier interface. Before you reach for the bulldozer, garden for at least one season. If nothing grows, you'll know. And you'll know *why* — which is far more valuable than an architectural diagram.
 
-I'm not saying don't think about architecture. I'm saying don't confuse the map with the territory — something Meadows and Johnson would agree on, even though they wrote about different kinds of systems.
+---
 
-Know the direction. Take the smallest step that moves you there. Look around. Repeat.
+### How to Sell Gardening
 
-**Buildings need blueprints. Systems need gardening.**
+The single biggest obstacle isn't technical. It's organizational. Your manager, your VP, your stakeholders — they want the blueprint. They want the Gantt chart. They want a date. "We're going to tend the garden and see what grows" doesn't sound like a plan. It sounds like you don't have one.
+
+Here's what actually works:
+
+**Frame it as de-risking.** "Instead of betting six months on a full rewrite, let's spend two weeks extracting one module. If it works, we continue. If it doesn't, we lose two weeks, not six." That's not a lack of conviction — it's a bet with a capped downside. Architects gamble. Gardeners hedge.
+
+**Show, don't tell.** Don't try to convince anyone in a meeting. Ship one small, visible improvement. When the tax module extraction took two weeks instead of six months, nobody needed a slide deck explaining the gardening philosophy. The result spoke for itself.
+
+**Timebox everything.** "We'll try this for two sprints. If we're not seeing results, we'll revisit." This is the opposite of the big bang. It gives stakeholders a real off-ramp, which paradoxically makes them *more* willing to say yes, because they know it's not a one-way door.
+
+---
+
+Gardening is slower on day one. Architecture is slower on day 365.
+
+The architect draws the tree before a seed hits the soil, convinced they know exactly how it will grow. The gardener knows the tree will find its own shape — and that the best thing they can do is improve the soil, water consistently, and get out of the way.
+
+Stop trying to draw the perfect tree. Plant a seed. Give it water. See if it grows.
+
+**The plan is not the point. The garden is.**
