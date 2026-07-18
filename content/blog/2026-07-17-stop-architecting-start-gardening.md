@@ -6,8 +6,8 @@ draft = false
 tags = ["article", "systems thinking", "engineering leadership"]
 categories = ["Engineering & Product"]
 layout = "blog"
-images = ["images/blog/stop-architecting-start-gardening.jpg"]
-featuredImage = "images/blog/stop-architecting-start-gardening.jpg"
+images = ["/images/blog/stop-architecting-start-gardening.jpg"]
+featuredImage = "/images/blog/stop-architecting-start-gardening.jpg"
 +++
 
 A garden doesn't ship.
