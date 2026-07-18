@@ -2,7 +2,7 @@
 title = "Stop Architecting, Start Gardening"
 slug = "stop-architecting-start-gardening"
 date = "2026-07-17T12:00:00+02:00"
-draft = true
+draft = false
 tags = ["article", "systems thinking", "engineering leadership"]
 categories = ["Engineering & Product"]
 layout = "blog"
