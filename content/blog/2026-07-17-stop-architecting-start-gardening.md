@@ -42,7 +42,7 @@ Small steps invert this. Each change is survivable. If step three is wrong, you'
 
 There's a compounding effect here that doesn't get enough attention. Each small change reveals something about the system that the previous change couldn't have predicted. **The system tells you what it needs next.** You're not executing a plan. You're in a conversation with reality.
 
-Donella Meadows captured this perfectly in *Thinking in Systems*: systems don't behave the way you intend them to — they behave the way they're structured to. Feedback loops, delays, and interdependencies mean that the system's response to your intervention is rarely linear. The only way to understand a system is to interact with it. Plan, act, observe, adjust. **The system is the authority, not the blueprint.**
+Donella Meadows captured this perfectly in [*Thinking in Systems*]({{< ref "/book/thinking-in-systems-a-primer.md" >}}): systems don't behave the way you intend them to — they behave the way they're structured to. Feedback loops, delays, and interdependencies mean that the system's response to your intervention is rarely linear. The only way to understand a system is to interact with it. Plan, act, observe, adjust. **The system is the authority, not the blueprint.**
 
 ---
 
