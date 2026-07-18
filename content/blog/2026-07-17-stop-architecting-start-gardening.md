@@ -12,7 +12,7 @@ A garden doesn't ship.
 
 You don't plant the tomatoes, the lavender, and the hedgerow all at once because the dependency graph says they're connected. You put a few things in the ground. Some thrive. Some get eaten by slugs. A wet July rots the roots of what you were sure would make it. You adjust. Next season you plant differently — not because the plan was bad, but because **the weather didn't read your plan, and the bugs didn't care.**
 
-I owe this metaphor to Claire Hughes Johnson's *Scaling People* — though she uses it to talk about organizational growth, and I've found it applies just as well to technical systems. Gardens and organizations both resist the instinct to architect everything upfront.
+I owe this metaphor to Claire Hughes Johnson's [*Scaling People*]({{< ref "/book/scaling-people.md" >}}) — though she uses it to talk about organizational growth, and I've found it applies just as well to technical systems. Gardens and organizations both resist the instinct to architect everything upfront.
 
 Software systems — and the organizations that build them — work the same way. They just don't feel like it when you're staring at a Gantt chart.
 
