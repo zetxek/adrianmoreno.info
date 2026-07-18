@@ -36,7 +36,7 @@ Pretending you're starting from zero ignores the single most important constrain
 
 ### Tend, Don't Raze
 
-Big bang rewrites fail because every assumption has to be right simultaneously. Every weed you pull reveals a root system you didn't know existed. Every flower you replant dies while you're busy on the other side of the yard. If one thing is wrong — and one thing is always wrong — you don't find out until the end, when the cost of replanting is highest. *(You've been in that retro. I've been in that retro.)*
+Big bang rewrites fail because every assumption has to be right simultaneously. Every weed you pull reveals a root system you didn't know existed. Every flower you replant dies while you're busy on the other side of the yard. If one thing is wrong — and one thing is always wrong — you don't find out until the end, when the cost of replanting is highest.
 
 Small steps invert this. Pull one weed. Improve one bed. See what happens. If it turns out to be the wrong move, you've only invested an afternoon, not a season. You can pivot without a postmortem — or at least, without the kind that needs a steering committee.
 
@@ -52,9 +52,13 @@ Software and orgs aren't different in this respect. Both are systems with feedba
 
 ### When the Soil Is Poisoned
 
-Let me be clear: this isn't an excuse for cowardice. Some systems are beyond saving. The garden is toxic — the foundation is cracked, the technical debt is strangling every new feature, and the team that built it left three years ago. Sometimes the right call *is* a ground-zero leveling exercise.
+Let me be clear: this isn't an excuse for cowardice. Some systems are beyond saving — and gardening will tell you which ones.
 
-But you have to _earn_ that conclusion. The price of being wrong is catastrophic: you spend a year rebuilding, ship nothing new, and discover at the end that you've rebuilt the same system with different bugs and a prettier interface. Before you reach for the bulldozer, garden for at least one season. If nothing grows, you'll know. And you'll know *why* — which is far more valuable than an architectural diagram.
+That reporting engine? The daily aggregation extraction bought us six months of stability. But it also made something undeniable: the database underneath wasn't fixable. The concurrency ceiling was structural. No amount of pruning was going to change that. **Gardening didn't save the system — it proved the system needed replacing, and told us exactly what to replace.** We switched databases. It took months. But by then, nobody was guessing — we'd earned the rewrite.
+
+That's the real test. When gardening reveals that the soil is poisoned, you reach for the bulldozer with evidence, not ego. You know *what* to rebuild and *why* — which means you rebuild the right thing, not everything.
+
+The price of getting this wrong is catastrophic: a year rebuilding, nothing shipped, and at the end you've rebuilt the same system with different bugs and a prettier interface. Before you reach for the bulldozer, garden for at least one season. If nothing grows, you'll know.
 
 ---
 
@@ -64,9 +68,9 @@ The single biggest obstacle isn't technical. It's organizational. Your manager, 
 
 Here's what actually works:
 
-**Frame it as de-risking.** "Instead of betting six months on a full rewrite, let's spend two weeks extracting one module. If it works, we continue. If it doesn't, we lose two weeks, not six." That's not a lack of conviction — it's a bet with a capped downside. Architects gamble. Gardeners hedge.
+**Frame it as de-risking.** "Instead of betting a year on a full rewrite, let's spend one month extracting one piece. If it works, we continue. If it doesn't, we lose a month, not a year." That's not a lack of conviction — it's a bet with a capped downside.
 
-**Show, don't tell.** Don't try to convince anyone in a meeting. Ship one small, visible improvement. When the tax module extraction took two weeks instead of six months, nobody needed a slide deck explaining the gardening philosophy. The result spoke for itself.
+**Show, don't tell.** Don't try to convince anyone in a meeting. Ship one small, visible improvement. When the daily aggregation extraction stabilized the service in a month instead of a year, nobody needed a slide deck explaining the gardening philosophy. The result spoke for itself.
 
 **Timebox everything.** "We'll try this for two sprints. If we're not seeing results, we'll revisit." This is the opposite of the big bang. It gives stakeholders a real off-ramp, which paradoxically makes them *more* willing to say yes, because they know it's not a one-way door.
 
