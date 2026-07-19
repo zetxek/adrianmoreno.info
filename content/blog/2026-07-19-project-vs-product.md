@@ -50,6 +50,8 @@ But what I'm looking for is **the reflex to zoom out and ask why**.
 
 The candidates who stand out don't just deliver. They **question what they're delivering.** The ones who don't? They hand me a tidy list of deliverables and can't tell me why any of them mattered. They talk about "closing tickets" like tickets are the point of the exercise.
 
+A great developer looks for the highest return on their effort. They understand that the hardest problem is rarely a technical one — it's a communication problem, an understanding problem, a "do we even know what we're building and for whom" problem. Wasted effort, even when technically neat, is still wasted. The best engineers I've worked with don't resist the ambiguity. They lean into it, because they know that's where the leverage is.
+
 **Delivery without impact is motion, not progress.**
 
 That realisation doesn't come from a course. It comes from the things that sting: shipping something you were proud of... that nobody used. Presenting a roadmap and not being able to answer "why this one first?"
