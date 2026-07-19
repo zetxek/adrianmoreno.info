@@ -9,19 +9,19 @@ images = ["/images/blog/2026-07-19-project-vs-product.jpg"]
 featuredImage = "/images/blog/2026-07-19-project-vs-product.jpg"
 +++
 
-There's a gap between finishing a task and owning an outcome. One is project thinking. The other is product thinking. As a hiring manager, it's the only thing I really filter for.
+There's a gap between finishing a task and owning an outcome. One is project thinking. The other is product thinking. As a hiring manager representing in-house teams (like I do at Worksome or did at SumUp), it's one of the main things I strongly filter for.
 
-Project thinking is the tip of the iceberg: scope, budget, timeline. Clean. Measurable. Manageable.
+Project thinking is the tip of the iceberg: scope, budget, timeline. Clean. Measurable. Manageable. You get told what to do, you do it, you succeeded.
 
-Product thinking is everything under the waterline. Messy. Ambiguous. Never finished.
+Product thinking is everything under the waterline. Messy. Ambiguous. Never finished. You're never sure about what's the best next thing you can do, you need to always second guess yourself.
 
-Most candidates are great at polishing the tip. I'm looking for people brave enough to dive into the cold, dark water underneath.
+Most candidates are great at polishing the tip. I look for people brave enough to dive into the cold, dark water underneath - that dare to accept that what they do might be futile. Even if it's greatly done. 
 
 ---
 
-A project has a start date, an end date, and a specification. Success means shipping on time, on budget, to spec. Clean handoff. Move on.
+A project has a start date, an end date, and a specification. Success means shipping on time, on budget, to spec. Clean handoff. Move on to the next project. Typical way of working consulting or in agencies. Or in an environment of _low agency_.
 
-Product work has no finish line. The spec is a hypothesis. Success means the thing actually works in the hands of real users — and you keep iterating until it does.
+Product work has no finish line. The spec is a hypothesis always subject to change, based on the newest data. Success means the thing actually works in the hands of _real users_ — and you keep iterating until it does.
 
 Here's what this looks like in practice:
 
@@ -29,37 +29,42 @@ Here's what this looks like in practice:
 - "The feature shipped on Tuesday like we planned."
 - "We delivered 100% of the sprint commitment."
 - "No scope creep — we held the line."
+- "My biggest failure was not delivering the project on time."
 
 **Product thinking:**
 - "Feature shipped Tuesday, but adoption is at 12% and retention drops at day 3. Something's off."
 - "We shipped 60% of what we planned, but the 40% we cut was the wrong choice — users are confused without it."
 - "We held scope, but we shipped something nobody uses."
+- "My biggest success was to prevent development on an a dubious initiative."
 
-Both perspectives sound reasonable. One of them is dangerous alone.
+Both perspectives are reasonable, depending on the context and the degree in which the team and the team members are engaged. One of them is dangerous alone for the kind of teams I want to lead: with high agency, high ownership and autonomy. 
 
 ---
 
-I learned the difference the hard way. Early in my career, I led a team that shipped a beautiful, complex feature exactly on schedule. We celebrated the launch. Two weeks later, we checked the data. Three people had used it. One of them was my mum. That failure was more valuable than any successful project on my resume. It taught me that "done" is a dangerous word.
+I learned the difference the hard way. Early in my career, I worked for clients that had a very clear idea of what they wanted. We delivered, got paid on time. A success on the book. 
+Weeks after, we checked the data. Less than hundrer people had used it. Half of the users were from us, and the client. And this would happen time after time. It taught me that "done" is a dangerous word, when building a digital product.
 
-When I'm hiring now, I'm not looking for people who've never written a project plan. Project management is a real skill and a hard one. What I'm looking for is **the reflex to zoom out.**
+When I'm hiring now, it's not that I am looking for people who've never written a project plan. Project management is a real skill (and a hard one). Delivering things on time, prioritizing and managing stakeholders is complicated. 
 
-A PM candidate once spent half an interview talking about what she *hadn't* shipped — features she'd deprioritised because the data didn't support them, a pricing module she killed after user research showed nobody would pay for it. She wasn't attached to the output. She was attached to the outcome. That stayed with me because it's rare.
+But what I'm looking for is **the reflex to zoom out.** and ask **why**.
+
+A PM candidate once spent half an interview talking about what she *hadn't* shipped — features she'd deprioritised because the data didn't support them, even if the pressure from internal stakeholders was high to "just get it done". She wasn't attached to the output. She was attached to _the outcome_. That resonated with me because it's rare.
 
 The candidates who don't stand out are the ones who hand me a tidy list of deliverables and can't tell me why any of them mattered. The ones who talk about "closing tickets" like tickets are the point of the exercise.
 
 **Delivery without impact is motion, not progress.**
 
-That realisation doesn't come from a course. It comes from the things that sting: shipping something you were proud of that nobody used. Presenting a roadmap and not being able to answer "why this one first?"
+That realisation doesn't come from a course. It comes from the things that sting: shipping something you were proud of... that nobody used. Presenting a roadmap and not being able to answer "why this one first?"
 
-I've seen junior engineers become product-minded within two years because they wanted to. They started reading usage data. They asked to sit in on user interviews. They pushed back on tickets that didn't connect to a real problem. Nobody assigned them that growth — they pursued it.
+I've seen junior engineers become product-minded within two years because they wanted to. They followed their curiosity, they started reading usage data. They asked to sit in on user interviews. They started to ask "why do we do this _now_?". They pushed back on tickets that didn't connect to a real problem. Nobody drove them to that growth — they pursued it.
 
-I've also seen senior people with fifteen years of experience who still think "done" means "deployed." Their tickets are tidy. Their deadlines are met. Their impact is invisible.
+I've also seen senior people with fifteen years of experience who still think "done" means "deployed." Their tickets are tidy. Their deadlines are met. Their impact is _invisible_.
 
 ---
 
-There's a limit to how much this matters as an individual trait. Product thinking can't survive in a hostile environment — and I've watched great product thinkers burn out in organisations that measure output and nothing else. If you're a manager reading this, that's on you. Build the culture. Protect the people who ask "why" before "how."
+There's a limit to how much this matters as an individual trait. Product thinking can't survive in a hostile environment — and I've watched great product thinkers burn out in organisations that measure output and nothing else. If you're a manager reading this, that's on you. Build the culture. **Protect the people who ask "why" before "how."**
 
-But the opposite trap is far more common. I've watched teams burn six months on beautiful, project-managed features for problems nobody had, because nobody paused to ask whether the output matched the outcome. The skill isn't about never writing a project plan. It's about knowing which mode you're in, and being able to switch.
+But the opposite trap is far more common. I've watched teams burn six months on beautiful, project-managed features for problems nobody had, because **nobody paused to ask whether the output matched the outcome**. The skill isn't about never writing a project plan. It's about knowing which mode you're in, and being able to switch.
 
 ---
 
@@ -75,7 +80,7 @@ Good answers show prioritisation with a thesis. Bad answers include "we ran out 
 
 **"How do you know if your work matters?"**
 
-This is the one. If the answer is "my manager said so" or "we hit the deadline," we're in project territory. If it includes a metric, a user behaviour, or a business outcome — even imperfectly — we're getting somewhere.
+This is the one. If the answer is "the client wanted it" or "we hit the deadline," we're in project territory. If it includes a metric, a user behaviour, or a business outcome — even imperfectly — we're getting somewhere.
 
 ---
 
