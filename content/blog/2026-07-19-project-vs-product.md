@@ -42,15 +42,13 @@ Both perspectives are reasonable, depending on the context. One of them is dange
 ---
 
 I learned the difference the hard way. Early in my career, I worked for clients that had a very clear idea of what they wanted. We delivered, got paid on time. A success on the books. 
-Weeks after, we checked the data. Less than a hundred people had used it. Half of the users were from us, and the client. One of them was my mum — she tested it as a favour. That failure taught me that "done" is a dangerous word, when building a digital product.
+Weeks after, we checked the data. Less than a hundred people had used it. Half of the users were from us, and the client. That failure taught me that "done" is a dangerous word, when building a digital product.
 
 When I'm hiring now, it's not that I am looking for people who've never written a project plan. Project management is a real skill (and a hard one). Delivering things on time, prioritizing and managing stakeholders is complicated. 
 
 But what I'm looking for is **the reflex to zoom out and ask why**.
 
-I remember a PM candidate who spent half an interview talking about what she *hadn't* shipped — a pricing module she killed after user research showed nobody would pay for it, even though the pressure from stakeholders was high to "just get it done". She wasn't attached to the output. She was attached to _the outcome_. That resonated with me because it's rare.
-
-The candidates who don't stand out are the ones who hand me a tidy list of deliverables and can't tell me why any of them mattered. The ones who talk about "closing tickets" like tickets are the point of the exercise.
+The candidates who stand out don't just deliver. They **question what they're delivering.** The ones who don't? They hand me a tidy list of deliverables and can't tell me why any of them mattered. They talk about "closing tickets" like tickets are the point of the exercise.
 
 **Delivery without impact is motion, not progress.**
 
