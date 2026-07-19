@@ -36,7 +36,7 @@ Silencing that observation doesn't help them. It helps *you* — by letting you 
 
 ### The Framework That Makes It Click
 
-Kim Scott's [Radical Candor](https://www.radicalcandor.com) framework is the best tool I've found for this. It's not complicated: **care personally, challenge directly.**
+Kim Scott's [Radical Candor]({{< ref "/book/radical-candor.md" >}}) framework (and her [website](https://www.radicalcandor.com)) is the best tool I've found for this. It's not complicated: **care personally, challenge directly.**
 
 The mistake people make is assuming these two things are in tension. They're not. The most caring thing you can do for someone is tell them the truth. And the most effective way to challenge someone is to do it from a place of genuine care.
 
