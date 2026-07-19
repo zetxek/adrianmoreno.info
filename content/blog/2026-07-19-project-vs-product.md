@@ -1,7 +1,7 @@
 +++
 title = "Project vs Product Work: The Skill I Filter On When Hiring"
 date = 2026-07-19T08:00:00+01:00
-draft = true
+draft = false
 tags = ["engineering", "product", "hiring", "leadership", "project-management", "product-management"]
 categories = ["product", "leadership"]
 layout = "blog"
