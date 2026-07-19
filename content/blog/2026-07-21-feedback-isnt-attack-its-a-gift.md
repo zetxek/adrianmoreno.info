@@ -44,7 +44,7 @@ Scott maps out four quadrants:
 
 - **Obnoxious Aggression**: challenge directly, don't care personally. This is what people are afraid of being. It *is* attacking. Don't be this.
 - **Ruinous Empathy**: care personally, don't challenge directly. This is what most people default to. You care so much about not hurting their feelings that you let them walk off a cliff. This is the real trap.
-- **Manipulative Insincerity**: neither care nor challenge. Office politics. Talking behind backs. The worst of all worlds.
+- **Manipulative Insincerity**: neither care nor challenge. Office politics. Talking behind people's backs. The worst of all worlds.
 - **Radical Candor**: both. The goal.
 
 Most first-time managers I've coached live in Ruinous Empathy. They're kind people. They don't want to hurt anyone. So they say nothing — and the person they're protecting keeps making the same mistake, month after month, while their reputation quietly erodes.
