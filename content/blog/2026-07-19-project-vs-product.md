@@ -52,6 +52,8 @@ The candidates who stand out don't just deliver. They **question what they're de
 
 A great developer looks for the highest return on their effort. They understand that the hardest problem is rarely a technical one — it's a communication problem, an understanding problem, a "do we even know what we're building and for whom" problem. Wasted effort, even when technically neat, is still wasted. The best engineers I've worked with don't resist the ambiguity. They lean into it, because they know that's where the leverage is.
 
+One of my red flags in interviews: when a developer uses "PM" to mean only "project manager" — and has treated that role as their primary interface to *what* and *why* they're building. If someone has spent years receiving tickets from a PM without questioning the premise, without understanding the user or the business context, that tells me they're operating in project mode. They're executing, not owning.
+
 **Delivery without impact is motion, not progress.**
 
 That realisation doesn't come from a course. It comes from the things that sting: shipping something you were proud of... that nobody used. Presenting a roadmap and not being able to answer "why this one first?"
