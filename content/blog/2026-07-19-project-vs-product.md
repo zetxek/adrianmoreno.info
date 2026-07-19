@@ -15,11 +15,11 @@ Project thinking is the tip of the iceberg: scope, budget, timeline. Clean. Meas
 
 Product thinking is everything under the waterline. Messy. Ambiguous. Never finished. You're never sure about what's the best next thing you can do, you need to always second guess yourself.
 
-Most candidates are great at polishing the tip. I look for people brave enough to dive into the cold, dark water underneath - that dare to accept that what they do might be futile. Even if it's greatly done. 
+Most candidates are great at polishing the tip. I look for people brave enough to dive into the cold, dark water underneath - who dare to accept that what they do might be futile. Even if it's done well. 
 
 ---
 
-A project has a start date, an end date, and a specification. Success means shipping on time, on budget, to spec. Clean handoff. Move on to the next project. Typical way of working consulting or in agencies. Or in an environment of _low agency_.
+A project has a start date, an end date, and a specification. Success means shipping on time, on budget, to spec. Clean handoff. Move on to the next project. Typical way of working in consulting or in agencies. Or in an environment of _low agency_.
 
 Product work has no finish line. The spec is a hypothesis always subject to change, based on the newest data. Success means the thing actually works in the hands of _real users_ — and you keep iterating until it does.
 
@@ -35,20 +35,20 @@ Here's what this looks like in practice:
 - "Feature shipped Tuesday, but adoption is at 12% and retention drops at day 3. Something's off."
 - "We shipped 60% of what we planned, but the 40% we cut was the wrong choice — users are confused without it."
 - "We held scope, but we shipped something nobody uses."
-- "My biggest success was to prevent development on an a dubious initiative."
+- "My biggest success was preventing development on a dubious initiative."
 
-Both perspectives are reasonable, depending on the context and the degree in which the team and the team members are engaged. One of them is dangerous alone for the kind of teams I want to lead: with high agency, high ownership and autonomy. 
+Both perspectives are reasonable, depending on the context. One of them is dangerous alone for the kind of teams I want to lead: high agency, high ownership, high autonomy. 
 
 ---
 
-I learned the difference the hard way. Early in my career, I worked for clients that had a very clear idea of what they wanted. We delivered, got paid on time. A success on the book. 
-Weeks after, we checked the data. Less than hundrer people had used it. Half of the users were from us, and the client. And this would happen time after time. It taught me that "done" is a dangerous word, when building a digital product.
+I learned the difference the hard way. Early in my career, I worked for clients that had a very clear idea of what they wanted. We delivered, got paid on time. A success on the books. 
+Weeks after, we checked the data. Less than a hundred people had used it. Half of the users were from us, and the client. One of them was my mum — she tested it as a favour. That failure taught me that "done" is a dangerous word, when building a digital product.
 
 When I'm hiring now, it's not that I am looking for people who've never written a project plan. Project management is a real skill (and a hard one). Delivering things on time, prioritizing and managing stakeholders is complicated. 
 
-But what I'm looking for is **the reflex to zoom out.** and ask **why**.
+But what I'm looking for is **the reflex to zoom out and ask why**.
 
-A PM candidate once spent half an interview talking about what she *hadn't* shipped — features she'd deprioritised because the data didn't support them, even if the pressure from internal stakeholders was high to "just get it done". She wasn't attached to the output. She was attached to _the outcome_. That resonated with me because it's rare.
+I remember a PM candidate who spent half an interview talking about what she *hadn't* shipped — a pricing module she killed after user research showed nobody would pay for it, even though the pressure from stakeholders was high to "just get it done". She wasn't attached to the output. She was attached to _the outcome_. That resonated with me because it's rare.
 
 The candidates who don't stand out are the ones who hand me a tidy list of deliverables and can't tell me why any of them mattered. The ones who talk about "closing tickets" like tickets are the point of the exercise.
 
@@ -84,7 +84,7 @@ This is the one. If the answer is "the client wanted it" or "we hit the deadline
 
 ---
 
-I don't expect everyone to have perfect answers. I'm not looking for people who've never missed a deadline or shipped a dud. I'm looking for people who've noticed the difference.
+I don't expect everyone to have perfect answers. I'm not looking for people who've never missed a deadline or shipped a dud. I'm looking for people who've noticed the difference — who understand that anyone can point to the tip of the iceberg.
 
 Stop polishing your list of deliverables. Start measuring your impact.
 
