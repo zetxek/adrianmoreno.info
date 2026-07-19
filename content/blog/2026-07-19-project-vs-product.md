@@ -9,7 +9,7 @@ images = ["/images/blog/2026-07-19-project-vs-product.jpg"]
 featuredImage = "/images/blog/2026-07-19-project-vs-product.jpg"
 +++
 
-There's a gap between finishing a task and owning an outcome. One is project thinking. The other is product thinking. As a hiring manager representing in-house teams (like I do at Worksome or did at SumUp), it's one of the main things I strongly filter for.
+There's a gap between finishing a task and owning an outcome. One is project thinking. The other is product thinking. As a hiring manager representing in-house teams (like I do at Worksome or did at SumUp), it's one of the things I filter for.
 
 Project thinking is the tip of the iceberg: scope, budget, timeline. Clean. Measurable. Manageable. You get told what to do, you do it, you succeeded.
 
@@ -37,7 +37,7 @@ Here's what this looks like in practice:
 - "We held scope, but we shipped something nobody uses."
 - "My biggest success was preventing development on a dubious initiative."
 
-Both perspectives are reasonable, depending on the context. One of them is dangerous alone for the kind of teams I want to lead: high agency, high ownership, high autonomy. 
+Both perspectives are reasonable. One of them is dangerous alone for the kind of teams I want to lead: high agency, high ownership, high autonomy. 
 
 ---
 
@@ -50,9 +50,9 @@ But what I'm looking for is **the reflex to zoom out and ask why**.
 
 The candidates who stand out don't just deliver. They **question what they're delivering.** The ones who don't? They hand me a tidy list of deliverables and can't tell me why any of them mattered. They talk about "closing tickets" like tickets are the point of the exercise.
 
-A great developer looks for the highest return on their effort. They understand that the hardest problem is rarely a technical one — it's a communication problem, an understanding problem, a "do we even know what we're building and for whom" problem. Wasted effort, even when technically neat, is still wasted. The best engineers I've worked with don't resist the ambiguity. They lean into it, because they know that's where the leverage is.
+A great developer looks for the highest return on their effort. They understand the hardest problem is rarely technical. It's the "do we even know what we're building and for whom" problem. Wasted effort, even when technically neat, is still wasted. The best engineers I've worked with don't resist that ambiguity — they go looking for it, because that's where the real problems hide.
 
-One of my red flags in interviews: when a developer uses "PM" to mean only "project manager" — and has treated that role as their primary interface to *what* and *why* they're building. If someone has spent years receiving tickets from a PM without questioning the premise, without understanding the user or the business context, that tells me they're operating in project mode. They're executing, not owning.
+One of my red flags in interviews: when a developer uses "PM" to mean only "project manager" — and has treated that role as their primary interface to *what* and *why* they're building. Someone who has spent years taking tickets from a PM without questioning the user or business context is operating in project mode. They're executing, not owning.
 
 **Delivery without impact is motion, not progress.**
 
