@@ -1,9 +1,9 @@
 +++
 title = "Project vs Product Work: when is your work _done_"
-date = 2026-07-19T08:00:00+01:00
+date = "2026-07-19T08:00:00+01:00"
 draft = false
 tags = ["engineering", "product", "hiring", "leadership", "project-management", "product-management"]
-categories = ["product", "leadership"]
+categories = ["Product", "Leadership"]
 layout = "blog"
 images = ["/images/blog/2026-07-19-project-vs-product.jpg"]
 featuredImage = "/images/blog/2026-07-19-project-vs-product.jpg"
@@ -15,11 +15,11 @@ Project thinking is the tip of the iceberg: scope, budget, timeline. Clean. Meas
 
 Product thinking is everything under the waterline. Messy. Ambiguous. Never finished. You're never sure about what's the best next thing you can do, you need to always second guess yourself.
 
-Most candidates with certain experience are great at polishing the tip and delivery. But when working on something where the solution is _unknown_ (such as trying a new business model - as startups do), I look for people brave enough to dive into the cold, dark water underneath - who dare to accept that what they do might be futile. Even if it's done _well_. 
+Most candidates with certain experience are great at polishing the tip and delivery. But when working on something where the solution is _unknown_ (such as trying a new business model - as startups do), I look for people brave enough to dive into the cold, dark water underneath - who dare to accept that what they do might be futile. Even if it's done _well_.
 
 ---
 
-A project has a start date, an end date, and a specification. You manage its risk successfully - you "win". Success means shipping on time, on budget, to spec. Clean handoff. Move on to the next project. Typical way of working in consulting or in agencies. Or in an environment of _low agency_.
+A project has a start date, an end date, and a specification. You manage its risk successfully - you "win". Success means shipping on time, on budget, to spec. Clean handoff. Move on to the next project. A typical way of working in consulting or in agencies. Or in an environment of _low agency_.
 
 Product work has no finish line. The spec is a hypothesis always subject to change, based on the newest data. Success means the thing actually works in the hands of _real users_ — and you keep iterating until it does.
 
@@ -47,7 +47,7 @@ The issue I had, and couldn't put into words? Nobody checked the _data_. Was wha
 
 I wanted more, I wanted to do something actually useful - beyond "getting paid".
 
-When I'm hiring now, it's not that I am looking for people who've never written a project plan. Project management is a real skill (and a hard one). Delivering things on time, prioritizing and managing stakeholders is complicated. 
+When I'm hiring now, it's not that I am looking for people who've never written a project plan. Project management is a real skill (and a hard one). Delivering things on time, prioritizing and managing stakeholders is complicated.
 
 But what I'm looking for is **the reflex to zoom out and ask why**.
 
@@ -87,10 +87,10 @@ Mastery will show prioritisation with a thesis. Red flags will include "we ran o
 
 This is the one you should really reflect on. If the answer is "the client wanted it" or "we hit the deadline," you're bound to project territory. If you're able to include a metric, a user behaviour, or a business outcome — even imperfectly — we're getting somewhere.
 
-And the thing is that this is difficult to fake - because with a couple of follow up questions you will be exposed. 
+And the thing is that this is difficult to fake - because with a couple of follow-up questions you will be exposed.
 
 ---
 
-I don't expect everyone to have perfect answers. I'm not looking for people who've never missed a deadline or shipped a dud. I'm looking for people who've noticed the difference — who understand that anyone can point to the tip of the iceberg, that showed curiosity over what they were doing (and why).
+I don't expect everyone to have perfect answers. I'm not looking for people who've never missed a deadline or shipped a dud. I'm looking for people who've noticed the difference — who understand that anyone can point to the tip of the iceberg and who have shown curiosity about what they were doing (and why).
 
 Stop polishing your list of deliverables. Start measuring your impact.
