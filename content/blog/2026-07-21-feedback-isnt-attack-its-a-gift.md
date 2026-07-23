@@ -8,13 +8,13 @@ categories = ["Leadership & Culture"]
 layout = "blog"
 +++
 
-"It's probably just my opinion."
+"It's probably just my opinion, what do I know."
 
 "I don't want to sound like I'm attacking them."
 
 "They probably already know."
 
-I've heard every variation of this. Mostly from first-time managers. Sometimes from experienced ones. The words change but the feeling underneath is the same: **I have something to say, and I'm afraid saying it will make things worse.**
+I've heard every variation of this -  mostly from first-time managers. Sometimes from experienced ones. The words change, but the feeling underneath is the same: **I have observed something, I have something to say about it, and I'm afraid saying it will make things worse.**
 
 If you've felt this, you're not broken. You're human. And getting past it is one of the most important things you'll ever do as a leader.
 
