@@ -9,7 +9,9 @@ images = ["/images/blog/2026-07-19-project-vs-product.jpg"]
 featuredImage = "/images/blog/2026-07-19-project-vs-product.jpg"
 +++
 
-There's a gap between finishing a _task_ and owning an _outcome_. One is **project** thinking, the other is **product** thinking. As a hiring manager representing in-house teams (like I do at Worksome or did at SumUp before), this is one of the main things I look for.
+This is one of the pet peeves that some people working with me might have noticed: when engineers can only think of "PM" meaning "Project Manager". There's a role called "Product Manager" for a reason - you're building a _digital product_ that involves _endless projects_. 
+
+The reason why it triggers me is because there's a fundamental gap between finishing a _task_ and owning an _outcome_. One is **project** thinking, the other is **product** thinking. As a hiring manager representing in-house teams (like I do at Worksome or did at SumUp before), this is one of the main things I look for.
 
 Project thinking is the tip of the iceberg: scope, budget, timeline. Clean. Measurable. Manageable. You get told what to do, you do it, you succeeded.
 
@@ -55,7 +57,9 @@ The candidates who stand out for a product team don't just _deliver_. They **que
 
 A great developer looks for the highest return on their effort. They understand the hardest problem is rarely technical. It's the "do we even know what we're building and for whom" problem. Wasted effort, even when technically neat, is still wasted. The best engineers I've worked with don't resist that ambiguity. They go looking for it, because that's where the real problems hide.
 
-One of my red flags in interviews: when a developer uses "PM" to mean only "project manager" and has treated that role as their primary interface to *what* and *why* they're building. Someone who has spent years taking tickets from a PM without questioning the user or business context is operating in project mode. They're executing, not owning.
+As I was opening with, one of my red flags in interviews is when a developer uses "PM" to mean only "project manager" and has treated that role as their primary interface to *what* and *why* they're building. Someone who has spent years taking tickets from a PM without questioning the user or business context is operating in project mode. They're executing, not owning.
+
+And they might have been conditioned to that: don't think, don't question, don't delay execution. Just finish your code.
 
 **Delivery without impact is motion, not progress.**
 
