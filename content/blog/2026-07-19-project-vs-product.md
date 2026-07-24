@@ -1,5 +1,5 @@
 +++
-title = "Project vs Product Work: when is your work _done_"
+title = "Project vs Product Work: when is your work done"
 date = "2026-07-24T08:00:00+01:00"
 draft = false
 tags = ["engineering", "product", "hiring", "leadership", "project-management", "product-management"]
