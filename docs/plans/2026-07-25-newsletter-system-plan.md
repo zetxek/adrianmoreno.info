@@ -541,7 +541,7 @@ Pure logic, no filesystem. This is what stops 221 LinkedIn imports being emailed
 - Create: `scripts/newsletter/posts.mjs`
 - Test: `tests/unit/posts.test.mjs`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Create `tests/unit/posts.test.mjs`:
 
@@ -637,7 +637,7 @@ test('selectPosts returns only qualifying posts, each with its slug', () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 ```bash
 npm run test:unit
@@ -645,7 +645,7 @@ npm run test:unit
 
 Expected: FAIL — cannot find module `posts.mjs`.
 
-- [ ] **Step 3: Write the implementation**
+- [x] **Step 3: Write the implementation**
 
 Create `scripts/newsletter/posts.mjs`:
 
@@ -698,7 +698,7 @@ export function selectPosts(posts, now, sentSlugs) {
 }
 ```
 
-- [ ] **Step 4: Run to verify pass**
+- [x] **Step 4: Run to verify pass**
 
 ```bash
 npm run test:unit
@@ -706,7 +706,7 @@ npm run test:unit
 
 Expected: PASS, 32 tests total.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add scripts/newsletter/posts.mjs tests/unit/posts.test.mjs
