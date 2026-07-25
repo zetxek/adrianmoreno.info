@@ -1030,7 +1030,7 @@ git commit -m "feat: newsletter confirmation email content"
 **Files:**
 - Create: `api/subscribe.mjs`
 
-- [ ] **Step 1: Write the implementation**
+- [x] **Step 1: Write the implementation**
 
 Create `api/subscribe.mjs`:
 
@@ -1107,7 +1107,7 @@ export default async function handler(req, res) {
 }
 ```
 
-- [ ] **Step 2: Verify it parses**
+- [x] **Step 2: Verify it parses**
 
 ```bash
 node --check api/subscribe.mjs
@@ -1115,7 +1115,7 @@ node --check api/subscribe.mjs
 
 Expected: no output, exit 0.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add api/subscribe.mjs
