@@ -81,6 +81,27 @@ Two secondary choices, made as defaults in the absence of a stated preference:
   `/newsletter/` page. Easy to scope down later by moving the shortcode out of
   `content/footer/footer.md`.
 
+## Vendor choice
+
+Resend was compared against Kit, beehiiv, Buttondown, Loops and self-hosted Listmonk
+on 2026-07-25, and assessed for SOC 2 and GDPR posture. Full record, including the
+data-residency limitation and the migration path if it ever bites:
+[`docs/legal/resend.md`](../legal/resend.md).
+
+Three findings from that assessment constrain this design:
+
+- Resend is the only candidate serving **both** transactional email (the double
+  opt-in confirmation) and broadcasts (the newsletter) from one API. That is why the
+  architecture below is possible at all; the marketing-first platforms would have
+  forced the signup flow onto their infrastructure.
+- Resend stores data **in the United States**; there is no EU region on any plan.
+  Accepted, on the basis of SCCs plus EU-U.S. Data Privacy Framework adherence and
+  the minimal data involved. It is also why every Resend call is confined to two
+  files — swapping providers must stay a two-file change.
+- Consent handling is **ours**, not the vendor's. Double opt-in and the
+  `confirmed_at` timestamp exist to satisfy GDPR Art. 7(1), and a privacy notice is
+  a hard prerequisite rather than a nice-to-have.
+
 ## Architecture
 
 Three independent subsystems. Each can be built and tested without the others
@@ -257,6 +278,13 @@ The script writes each created broadcast's dashboard URL to
 - `content/newsletter/_index.md` — what it is, cadence, privacy, subscribe form
 - `content/newsletter/confirmed.md`
 - `content/newsletter/link-expired.md`
+- `content/privacy.md` — **blocking prerequisite, not optional.** The site currently
+  has no privacy notice at all. Collecting email addresses from EU visitors without
+  one is a live compliance gap, and a larger one than where the data is stored. Must
+  cover: what is collected (email address, consent timestamp), the legal basis
+  (consent, GDPR Art. 6(1)(a)), that Resend processes it in the US under SCCs and the
+  EU-U.S. DPF, retention, and how to unsubscribe or request deletion. Must exist and
+  be linked before the form goes live.
 
 **Modified**
 
@@ -266,7 +294,9 @@ The script writes each created broadcast's dashboard URL to
 - `i18n/en.yaml` — `newsletter_success_message` currently reads "Thank you for
   subscribing to my newsletter!", which is wrong under double opt-in: at that point
   the person has not subscribed yet. Change to ask them to check their inbox and
-  confirm. Also add a `newsletter_note` mention of the confirmation step.
+  confirm. `newsletter_note` currently reads "We'll never share your email with
+  anyone else." — extend it to mention the confirmation step and **link to
+  `/privacy/`**, which is where the consent disclosure has to be reachable from.
 - `i18n/es.yaml` — mirror the newsletter keys already present in `en.yaml`
 - `package.json` — add `juice`; add `newsletter:dry-run` and `test:unit` scripts
 
@@ -322,13 +352,24 @@ created successfully.** State is never optimistic.
 
 ## Rollout
 
-1. Verify DNS for `news.adrianmoreno.info` in Resend.
-2. Merge with `newsletter = true` set on **no** posts. Nothing can send.
-3. Subscribe yourself; confirm the double opt-in round trip works end to end.
-4. Set `newsletter = true` on one existing post, run the workflow manually with
+Steps 1–3 are compliance gates. The form must not accept a single real address until
+all three are done, because from that moment personal data is being processed.
+
+1. Create the Resend account and verify DNS for `news.adrianmoreno.info`.
+2. **Download the executed DPA** from the Resend dashboard and commit it to
+   `docs/legal/resend-dpa-2025-12-31.pdf`. Requires an account login, so it cannot be
+   automated — see the controller obligations checklist in
+   [`docs/legal/resend.md`](../legal/resend.md).
+3. **Publish `/privacy/`** and link it from the subscribe form.
+4. Create the segment; note its ID. Set all five environment variables in both GitHub
+   Actions secrets and Vercel.
+5. Merge with `newsletter = true` set on **no** posts. Nothing can send.
+6. Subscribe yourself; confirm the double opt-in round trip works end to end,
+   including that the unsubscribe link in a test email actually works.
+7. Set `newsletter = true` on one existing post, run the workflow manually with
    `dry_run: true`, inspect the output.
-5. Run for real; review the draft in Resend; send to yourself only.
-6. Announce the newsletter; open it to the public segment.
+8. Run for real; review the draft in Resend; send to yourself only.
+9. Announce the newsletter; open it to the public segment.
 
 ## Open questions
 
