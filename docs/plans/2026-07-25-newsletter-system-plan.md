@@ -721,7 +721,7 @@ git commit -m "feat: newsletter post selection rules"
 - Create: `scripts/newsletter/state.mjs`
 - Test: `tests/unit/state.test.mjs`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Create `tests/unit/state.test.mjs`:
 
@@ -776,7 +776,7 @@ test('recordSent creates the file when it does not exist', () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 ```bash
 npm run test:unit
@@ -784,7 +784,7 @@ npm run test:unit
 
 Expected: FAIL — cannot find module `state.mjs`.
 
-- [ ] **Step 3: Write the implementation**
+- [x] **Step 3: Write the implementation**
 
 Create `scripts/newsletter/state.mjs`:
 
@@ -819,7 +819,7 @@ export function recordSent(file, slug) {
 }
 ```
 
-- [ ] **Step 4: Run to verify pass**
+- [x] **Step 4: Run to verify pass**
 
 ```bash
 npm run test:unit
@@ -827,7 +827,7 @@ npm run test:unit
 
 Expected: PASS, 39 tests total.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add scripts/newsletter/state.mjs tests/unit/state.test.mjs
