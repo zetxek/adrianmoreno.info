@@ -11,7 +11,7 @@ function requireEnv(name) {
 export default async function handler(req, res) {
   // Redirect back into this same deployment, so a preview's confirmation round
   // trip can be tested without bouncing the user to production.
-  const siteUrl = siteOrigin();
+  const siteUrl = siteOrigin(req);
   const expired = () => res.redirect(302, `${siteUrl}/newsletter/link-expired/`);
 
   if (req.method !== 'GET') {

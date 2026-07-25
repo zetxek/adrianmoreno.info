@@ -23,10 +23,10 @@ export default async function handler(req, res) {
 
   // On a preview deployment this is the preview's own hostname, so the
   // confirmation link stays inside the deployment being tested.
-  const siteUrl = siteOrigin();
+  const siteUrl = siteOrigin(req);
 
   // Only accept submissions originating from our own pages.
-  if (!isAllowedOrigin(req.headers.origin, siteUrl)) {
+  if (!isAllowedOrigin(req.headers.origin, req)) {
     return res.status(403).json({ error: 'forbidden_origin' });
   }
 

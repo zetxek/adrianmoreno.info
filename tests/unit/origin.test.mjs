@@ -1,73 +1,104 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { siteOrigin, isAllowedOrigin } from '../../api/_lib/origin.mjs';
+import { siteOrigin, isAllowedOrigin, requestOrigin } from '../../api/_lib/origin.mjs';
 
 const PROD = 'https://www.adrianmoreno.info';
-const PREVIEW = 'https://adrianmoreno-info-git-branch-adrianmoreno.vercel.app';
 
-test('production uses the canonical URL, never VERCEL_URL', () => {
-  const env = {
-    VERCEL_ENV: 'production',
-    VERCEL_URL: 'adrianmoreno-info-abc123.vercel.app',
-    SITE_BASE_URL: PROD,
-  };
-  assert.equal(siteOrigin(env), PROD);
+// Vercel answers one preview on several hostnames. These are the two that
+// matter: the immutable deployment URL and the branch alias a human visits.
+const DEPLOY_HOST = 'adrianmoreno-info-hx3o2ckvr-adrianmoreno.vercel.app';
+const BRANCH_HOST = 'adrianmoreno-info-git-claude-blog-newslette-42127d-adrianmoreno.vercel.app';
+
+const req = (host, proto = 'https') => ({
+  headers: { host, 'x-forwarded-proto': proto },
 });
 
-test('a preview deployment uses its own hostname', () => {
-  const env = {
-    VERCEL_ENV: 'preview',
-    VERCEL_URL: 'adrianmoreno-info-git-branch-adrianmoreno.vercel.app',
-    SITE_BASE_URL: PROD,
-  };
-  assert.equal(siteOrigin(env), PREVIEW);
+test('requestOrigin builds the origin from Host and forwarded proto', () => {
+  assert.equal(requestOrigin(req(BRANCH_HOST)), `https://${BRANCH_HOST}`);
 });
 
-test('outside Vercel it falls back to SITE_BASE_URL', () => {
-  assert.equal(siteOrigin({ SITE_BASE_URL: 'https://example.test' }), 'https://example.test');
+test('requestOrigin returns null without a Host header', () => {
+  assert.equal(requestOrigin({ headers: {} }), null);
+});
+
+test('production ignores the request host and uses the canonical URL', () => {
+  const env = { VERCEL_ENV: 'production', SITE_BASE_URL: PROD };
+  assert.equal(siteOrigin(req(DEPLOY_HOST), env), PROD);
+});
+
+test('a preview uses the host the browser actually reached', () => {
+  const env = { VERCEL_ENV: 'preview', SITE_BASE_URL: PROD };
+  assert.equal(siteOrigin(req(BRANCH_HOST), env), `https://${BRANCH_HOST}`);
+});
+
+test('a preview with no Host header falls back to the canonical URL', () => {
+  const env = { VERCEL_ENV: 'preview', SITE_BASE_URL: PROD };
+  assert.equal(siteOrigin({ headers: {} }, env), PROD);
+});
+
+test('outside Vercel it uses SITE_BASE_URL', () => {
+  assert.equal(siteOrigin(req('whatever'), { SITE_BASE_URL: 'https://example.test' }), 'https://example.test');
 });
 
 test('with nothing configured it falls back to the canonical URL', () => {
-  assert.equal(siteOrigin({}), PROD);
-});
-
-test('a preview without VERCEL_URL falls back rather than producing a broken origin', () => {
-  assert.equal(siteOrigin({ VERCEL_ENV: 'preview', SITE_BASE_URL: PROD }), PROD);
+  assert.equal(siteOrigin({ headers: {} }, {}), PROD);
 });
 
 test('a request with no Origin header is allowed', () => {
-  assert.equal(isAllowedOrigin(undefined, PROD, {}), true);
+  assert.equal(isAllowedOrigin(undefined, req(PROD), {}), true);
 });
 
-test('the deployment own origin is allowed', () => {
-  assert.equal(isAllowedOrigin(PREVIEW, PREVIEW, { SITE_BASE_URL: PROD }), true);
+test('the branch alias may post to itself — the case that was returning 403', () => {
+  assert.equal(
+    isAllowedOrigin(`https://${BRANCH_HOST}`, req(BRANCH_HOST), { SITE_BASE_URL: PROD }),
+    true,
+  );
 });
 
-test('the canonical production origin is allowed even from a preview deployment', () => {
-  assert.equal(isAllowedOrigin(PROD, PREVIEW, { SITE_BASE_URL: PROD }), true);
+test('the deployment URL may post to itself', () => {
+  assert.equal(
+    isAllowedOrigin(`https://${DEPLOY_HOST}`, req(DEPLOY_HOST), { SITE_BASE_URL: PROD }),
+    true,
+  );
+});
+
+test('production may post to itself', () => {
+  assert.equal(
+    isAllowedOrigin(PROD, req('www.adrianmoreno.info'), { SITE_BASE_URL: PROD }),
+    true,
+  );
 });
 
 test('localhost is allowed for development', () => {
-  assert.equal(isAllowedOrigin('http://localhost:1313', PROD, {}), true);
-  assert.equal(isAllowedOrigin('http://127.0.0.1:1313', PROD, {}), true);
+  assert.equal(isAllowedOrigin('http://localhost:1313', req('localhost:1313', 'http'), {}), true);
+  assert.equal(isAllowedOrigin('http://127.0.0.1:1313', req('127.0.0.1:1313', 'http'), {}), true);
 });
 
 test('an unrelated origin is rejected', () => {
-  assert.equal(isAllowedOrigin('https://evil.example', PROD, { SITE_BASE_URL: PROD }), false);
+  assert.equal(
+    isAllowedOrigin('https://evil.example', req(BRANCH_HOST), { SITE_BASE_URL: PROD }),
+    false,
+  );
 });
 
 test('an origin merely prefixed by the site URL is rejected', () => {
-  // Guards against the substring check this replaced, where
+  // Guards against the substring check this replaced, under which
   // "https://www.adrianmoreno.info.evil.test" passed startsWith().
   assert.equal(
-    isAllowedOrigin('https://www.adrianmoreno.info.evil.test', PROD, { SITE_BASE_URL: PROD }),
+    isAllowedOrigin('https://www.adrianmoreno.info.evil.test', req('www.adrianmoreno.info'), {
+      SITE_BASE_URL: PROD,
+    }),
     false,
   );
 });
 
-test('a different vercel.app deployment is rejected', () => {
+test('one preview may not post to another', () => {
   assert.equal(
-    isAllowedOrigin('https://someone-elses-app.vercel.app', PREVIEW, { SITE_BASE_URL: PROD }),
+    isAllowedOrigin(`https://${DEPLOY_HOST}`, req(BRANCH_HOST), { SITE_BASE_URL: PROD }),
     false,
   );
+});
+
+test('a bare localhost origin with no port is rejected', () => {
+  assert.equal(isAllowedOrigin('http://localhost', req(BRANCH_HOST), { SITE_BASE_URL: PROD }), false);
 });
