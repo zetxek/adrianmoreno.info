@@ -1,6 +1,7 @@
 import { signToken, normalizeEmail } from './_lib/token.mjs';
 import { createPendingContact, sendEmail } from './_lib/resend.mjs';
 import { confirmationEmail } from './_lib/emails.mjs';
+import { siteOrigin, isAllowedOrigin } from './_lib/origin.mjs';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -20,11 +21,12 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'method_not_allowed' });
   }
 
-  const siteUrl = process.env.SITE_BASE_URL ?? 'https://www.adrianmoreno.info';
+  // On a preview deployment this is the preview's own hostname, so the
+  // confirmation link stays inside the deployment being tested.
+  const siteUrl = siteOrigin();
 
   // Only accept submissions originating from our own pages.
-  const origin = req.headers.origin;
-  if (origin && !origin.startsWith(siteUrl) && !origin.startsWith('http://localhost')) {
+  if (!isAllowedOrigin(req.headers.origin, siteUrl)) {
     return res.status(403).json({ error: 'forbidden_origin' });
   }
 

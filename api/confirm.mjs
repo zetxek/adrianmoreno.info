@@ -1,5 +1,6 @@
 import { verifyToken, normalizeEmail } from './_lib/token.mjs';
 import { confirmContact } from './_lib/resend.mjs';
+import { siteOrigin } from './_lib/origin.mjs';
 
 function requireEnv(name) {
   const value = process.env[name];
@@ -8,7 +9,9 @@ function requireEnv(name) {
 }
 
 export default async function handler(req, res) {
-  const siteUrl = process.env.SITE_BASE_URL ?? 'https://www.adrianmoreno.info';
+  // Redirect back into this same deployment, so a preview's confirmation round
+  // trip can be tested without bouncing the user to production.
+  const siteUrl = siteOrigin();
   const expired = () => res.redirect(302, `${siteUrl}/newsletter/link-expired/`);
 
   if (req.method !== 'GET') {
