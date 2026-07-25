@@ -1,6 +1,6 @@
 # Newsletter System Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Let readers subscribe to a newsletter via double opt-in, and create a reviewable draft broadcast in Resend whenever a blog post marked `newsletter = true` goes live.
 
@@ -1623,7 +1623,7 @@ git commit -m "feat: newsletter send script creating draft broadcasts"
 **Files:**
 - Create: `.github/workflows/newsletter.yml`
 
-- [ ] **Step 1: Write the workflow**
+- [x] **Step 1: Write the workflow**
 
 Create `.github/workflows/newsletter.yml`:
 
@@ -1705,7 +1705,7 @@ jobs:
           git push
 ```
 
-- [ ] **Step 2: Validate the YAML**
+- [x] **Step 2: Validate the YAML**
 
 ```bash
 python3 -c "import yaml; yaml.safe_load(open('.github/workflows/newsletter.yml')); print('valid')"
@@ -1713,7 +1713,7 @@ python3 -c "import yaml; yaml.safe_load(open('.github/workflows/newsletter.yml')
 
 Expected: `valid`
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add .github/workflows/newsletter.yml
@@ -1733,7 +1733,7 @@ path overrides it.
 - Modify: `content/footer/footer.md`
 - Modify: `i18n/en.yaml`, `i18n/es.yaml`
 
-- [ ] **Step 1: Write the replacement script**
+- [x] **Step 1: Write the replacement script**
 
 Create `static/js/subscription.js`:
 
@@ -1822,7 +1822,7 @@ Create `static/js/subscription.js`:
 })();
 ```
 
-- [ ] **Step 2: Add the form to the footer**
+- [x] **Step 2: Add the form to the footer**
 
 Modify `content/footer/footer.md`. Keep the existing `contact-section` shortcode
 exactly as it is, and add this **above** it, directly after the frontmatter:
@@ -1839,7 +1839,7 @@ exactly as it is, and add this **above** it, directly after the frontmatter:
     form_method="POST" >}}
 ```
 
-- [ ] **Step 3: Fix the i18n strings**
+- [x] **Step 3: Fix the i18n strings**
 
 In `i18n/en.yaml`, `newsletter_success_message` currently claims the person has
 subscribed, which is untrue before confirmation. Replace these three entries:
@@ -1878,7 +1878,7 @@ replace rather than duplicate. Add:
   translation: "Como mucho un email por artículo. Puedes darte de baja cuando quieras. Consulta el <a href=\"/privacy/\">aviso de privacidad</a>."
 ```
 
-- [ ] **Step 4: Verify the form renders with the right action**
+- [x] **Step 4: Verify the form renders with the right action**
 
 ```bash
 hugo --quiet && grep -o 'action="[^"]*"' public/index.html | head
@@ -1893,7 +1893,7 @@ grep -c 'subscription.js' public/index.html
 
 Expected: at least `1`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add static/js/subscription.js content/footer/footer.md i18n/en.yaml i18n/es.yaml
@@ -1909,7 +1909,7 @@ git commit -m "feat: newsletter signup form with honeypot and double opt-in copy
 - Create: `content/privacy.md`
 - Modify: `archetypes/blog.md`
 
-- [ ] **Step 1: Create the newsletter landing page**
+- [x] **Step 1: Create the newsletter landing page**
 
 Create `content/newsletter/_index.md`:
 
@@ -1943,7 +1943,7 @@ upsells. Unsubscribe from any email in one click.
 Prefer a feed reader? There is an [RSS feed](/blog/index.xml).
 ```
 
-- [ ] **Step 2: Create the confirmation landing page**
+- [x] **Step 2: Create the confirmation landing page**
 
 Create `content/newsletter/confirmed.md`:
 
@@ -1964,7 +1964,7 @@ unsubscribe link at the bottom, and it works immediately.
 In the meantime, the [blog archive](/blog/) has everything published so far.
 ```
 
-- [ ] **Step 3: Create the expired-link page**
+- [x] **Step 3: Create the expired-link page**
 
 Create `content/newsletter/link-expired.md`:
 
@@ -1993,7 +1993,7 @@ Enter your email again and I'll send a fresh one.
     form_method="POST" >}}
 ```
 
-- [ ] **Step 4: Write the privacy notice**
+- [x] **Step 4: Write the privacy notice**
 
 A compliance prerequisite, not a nicety. The site currently has no privacy page.
 
@@ -2051,7 +2051,7 @@ authority — in Denmark, [Datatilsynet](https://www.datatilsynet.dk/).
 If this notice changes materially, subscribers will be told by email.
 ```
 
-- [ ] **Step 5: Update the blog archetype**
+- [x] **Step 5: Update the blog archetype**
 
 Modify `archetypes/blog.md`:
 
@@ -2071,7 +2071,7 @@ newsletter = false
 Write your article content here.
 ```
 
-- [ ] **Step 6: Verify the pages build**
+- [x] **Step 6: Verify the pages build**
 
 ```bash
 hugo --quiet && ls public/newsletter/index.html public/newsletter/confirmed/index.html public/newsletter/link-expired/index.html public/privacy/index.html
@@ -2079,7 +2079,7 @@ hugo --quiet && ls public/newsletter/index.html public/newsletter/confirmed/inde
 
 Expected: all four paths listed, no "No such file" errors.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add content/newsletter content/privacy.md archetypes/blog.md
@@ -2096,7 +2096,7 @@ git commit -m "feat: newsletter landing pages and privacy notice"
 Read `tests/e2e/` and `playwright.config.js` first, and follow whatever base URL and
 helper patterns already exist rather than inventing new ones.
 
-- [ ] **Step 1: Write the tests**
+- [x] **Step 1: Write the tests**
 
 Create `tests/e2e/newsletter.spec.js`:
 
@@ -2178,7 +2178,7 @@ test.describe('newsletter signup', () => {
 });
 ```
 
-- [ ] **Step 2: Run the tests**
+- [x] **Step 2: Run the tests**
 
 ```bash
 npx playwright test tests/e2e/newsletter.spec.js
@@ -2187,7 +2187,7 @@ npx playwright test tests/e2e/newsletter.spec.js
 Expected: 6 passed. If the runner cannot reach the site, start `hugo serve` in
 another terminal first, or check whether `playwright.config.js` defines a `webServer`.
 
-- [ ] **Step 3: Run the whole suite to check nothing regressed**
+- [x] **Step 3: Run the whole suite to check nothing regressed**
 
 ```bash
 npm run test:unit && npx playwright test
@@ -2197,7 +2197,7 @@ Expected: all pass. The newsletter block now appears in the footer of every page
 an existing test that counts links or sections may legitimately need updating —
 update the assertion, do not delete the test.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add tests/e2e/newsletter.spec.js
@@ -2212,7 +2212,7 @@ git commit -m "test: e2e coverage for newsletter signup flow"
 - Modify: `AGENTS.md`
 - Modify: `README.md`
 
-- [ ] **Step 1: Document the system in AGENTS.md**
+- [x] **Step 1: Document the system in AGENTS.md**
 
 Add to `AGENTS.md`, under "External Integrations":
 
@@ -2235,7 +2235,7 @@ Add to `AGENTS.md`, under "External Integrations":
 - Processor record and GDPR position: `docs/legal/resend.md`.
 ```
 
-- [ ] **Step 2: Add a section to README.md**
+- [x] **Step 2: Add a section to README.md**
 
 Add under the existing documentation:
 
@@ -2249,7 +2249,7 @@ Preview locally with `npm run newsletter:dry-run`.
 See `docs/plans/2026-07-25-newsletter-system-design.md`.
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add AGENTS.md README.md
@@ -2260,7 +2260,7 @@ git commit -m "docs: document the newsletter system"
 
 ## Task 18: Final verification
 
-- [ ] **Step 1: Full test suite**
+- [x] **Step 1: Full test suite**
 
 ```bash
 npm run test:unit && npx playwright test
@@ -2268,7 +2268,7 @@ npm run test:unit && npx playwright test
 
 Expected: all green.
 
-- [ ] **Step 2: Clean build**
+- [x] **Step 2: Clean build**
 
 ```bash
 rm -rf public && hugo --minify --baseURL https://www.adrianmoreno.info/
@@ -2276,7 +2276,7 @@ rm -rf public && hugo --minify --baseURL https://www.adrianmoreno.info/
 
 Expected: no errors, no warnings about the email output format.
 
-- [ ] **Step 3: Confirm no post is opted in**
+- [x] **Step 3: Confirm no post is opted in**
 
 ```bash
 grep -rl "newsletter = true" content/blog/ | wc -l
@@ -2284,7 +2284,7 @@ grep -rl "newsletter = true" content/blog/ | wc -l
 
 Expected: `0`. Nothing can send on merge.
 
-- [ ] **Step 4: Confirm email output is confined to blog posts**
+- [x] **Step 4: Confirm email output is confined to blog posts**
 
 ```bash
 find public -name 'index.email.html' -not -path 'public/blog/*' | wc -l
@@ -2294,7 +2294,7 @@ Expected: `0`. The count *inside* `public/blog/` will equal the number of blog p
 which is correct — the format renders for every post, and `newsletter = true` gates
 *sending*, not *rendering*.
 
-- [ ] **Step 5: Confirm no secrets were committed**
+- [x] **Step 5: Confirm no secrets were committed**
 
 ```bash
 git log -p origin/main..HEAD | grep -nE "re_[A-Za-z0-9]{16,}|[a-f0-9]{64}" || echo "clean"
@@ -2302,7 +2302,7 @@ git log -p origin/main..HEAD | grep -nE "re_[A-Za-z0-9]{16,}|[a-f0-9]{64}" || ec
 
 Expected: `clean`.
 
-- [ ] **Step 6: Push**
+- [x] **Step 6: Push**
 
 ```bash
 git push -u origin claude/blog-newsletter-system-e8a355
