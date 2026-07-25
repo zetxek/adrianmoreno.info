@@ -1,0 +1,75 @@
+name: Newsletter
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/blog/**'
+  # Posts are often future-dated, so a push alone is not enough — the post may
+  # not be published yet at push time, and nothing would re-trigger later.
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Render the email without contacting Resend'
+        type: boolean
+        default: true
+
+concurrency:
+  # Never let two runs create broadcasts for the same post concurrently.
+  group: newsletter
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  newsletter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.157.0'
+          extended: true
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm run test:unit
+
+      - name: Build site
+        run: hugo --minify --baseURL "${{ secrets.SITE_BASE_URL }}"
+
+      - name: Create draft broadcasts
+        run: node scripts/newsletter/send.mjs ${{ (github.event_name == 'workflow_dispatch' && inputs.dry_run) && '--dry-run' || '' }}
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_SEGMENT_ID: ${{ secrets.RESEND_SEGMENT_ID }}
+          NEWSLETTER_FROM: ${{ secrets.NEWSLETTER_FROM }}
+          SITE_BASE_URL: ${{ secrets.SITE_BASE_URL }}
+
+      - name: Commit state
+        if: success() && !(github.event_name == 'workflow_dispatch' && inputs.dry_run)
+        run: |
+          if git diff --quiet .newsletter-state.json; then
+            echo "State unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .newsletter-state.json
+          git commit -m "chore: record newsletter sends [skip ci]"
+          git push
