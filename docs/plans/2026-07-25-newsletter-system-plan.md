@@ -192,7 +192,7 @@ by us and mailed to that address.
 - Create: `api/_lib/token.mjs`
 - Test: `tests/unit/token.test.mjs`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Create `tests/unit/token.test.mjs`:
 
@@ -260,7 +260,7 @@ test('default expiry is about 48 hours out', () => {
 });
 ```
 
-- [ ] **Step 2: Run the tests to verify they fail**
+- [x] **Step 2: Run the tests to verify they fail**
 
 ```bash
 npm run test:unit
@@ -268,7 +268,7 @@ npm run test:unit
 
 Expected: FAIL — cannot find module `../../api/_lib/token.mjs`.
 
-- [ ] **Step 3: Write the implementation**
+- [x] **Step 3: Write the implementation**
 
 Create `api/_lib/token.mjs`:
 
@@ -325,7 +325,7 @@ export function verifyToken(email, expires, token, secret) {
 }
 ```
 
-- [ ] **Step 4: Run the tests to verify they pass**
+- [x] **Step 4: Run the tests to verify they pass**
 
 ```bash
 npm run test:unit
@@ -333,7 +333,7 @@ npm run test:unit
 
 Expected: PASS, 10 tests.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add api/_lib/token.mjs tests/unit/token.test.mjs
