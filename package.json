@@ -28,7 +28,7 @@
     "test": "npm run test:e2e",
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install",
-    "test:unit": "node --test tests/unit/",
+    "test:unit": "node --test tests/unit/**/*.test.mjs",
     "newsletter:send": "node scripts/newsletter/send.mjs",
     "newsletter:dry-run": "node scripts/newsletter/send.mjs --dry-run",
     "cv:dev": "hugo serve",
