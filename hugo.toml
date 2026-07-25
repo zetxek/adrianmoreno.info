@@ -117,6 +117,15 @@ enable = true
 [outputs]
 home = ["HTML", "RSS", "JSON"]
 
+# Standalone HTML for newsletter emails. `baseName` produces
+# public/blog/<slug>/index.email.html, which scripts/newsletter/send.mjs reads.
+# notAlternative keeps it out of <link rel="alternate"> on the web pages.
+[outputFormats.email]
+mediaType = "text/html"
+baseName = "index.email"
+isHTML = true
+notAlternative = true
+
 # Languages
 #   en
 #     weight: 1
