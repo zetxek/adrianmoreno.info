@@ -66,6 +66,29 @@ npm run test:e2e:install   # Install Playwright browsers
 - **Book data**: Google Books API integration for cover image fetching
 - **Theme updates**: Dependabot configured for Hugo modules and npm dependencies
 
+### Newsletter (Resend)
+- Subscribers sign up via `/api/subscribe` (Vercel function) and confirm through an
+  HMAC-signed link handled by `/api/confirm`. Double opt-in — the contact is created
+  with `unsubscribed: true` and only flipped on confirmation. Segment membership is
+  set at creation, because `PATCH /contacts` does not accept `segments`.
+- A post is emailed only if its frontmatter sets `newsletter = true`. Without it,
+  nothing sends. This matters because most of `content/blog/` is LinkedIn imports.
+- `.github/workflows/newsletter.yml` builds the site, reads the Hugo-rendered
+  `index.email.html` for each qualifying post, and creates a **draft** broadcast in
+  Resend. A human presses Send.
+- `.newsletter-state.json` is append-only and prevents duplicate sends. Never edit it
+  by hand to "resend" something.
+- Emails are rendered by the `email` Hugo output format
+  (`layouts/blog/single.email.html`). The Resend unsubscribe merge tag must be written
+  `{{ "{{{RESEND_UNSUBSCRIBE_URL}}}" | safeHTML }}` — Hugo also parses `{{{ }}}`.
+- Preview without sending: `npm run newsletter:dry-run`.
+- Processor record and GDPR position: `docs/legal/resend.md`.
+
+### Standalone content pages
+`layouts/_default/single.html` is an intentionally empty stub that suppresses a Hugo
+warning. A page outside a section with its own layout therefore renders **blank**
+unless its frontmatter sets `type: "blog"`. See `content/now.md`, `content/privacy.md`.
+
 ## Key Files to Reference
 - `hugo.toml`: Module imports and asset mounting configuration
 - `postcss.config.js`: PurgeCSS configuration with Hugo stats integration
