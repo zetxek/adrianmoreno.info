@@ -844,7 +844,7 @@ git commit -m "feat: append-only newsletter send state"
 No unit test: this file is HTTP plumbing, and a test would only assert that `fetch`
 was called with the arguments just written. It is exercised for real in Task 18.
 
-- [ ] **Step 1: Write the implementation**
+- [x] **Step 1: Write the implementation**
 
 Create `api/_lib/resend.mjs`:
 
@@ -925,7 +925,7 @@ export function sendEmail({ from, to, subject, html, text, apiKey }) {
 export { ResendError };
 ```
 
-- [ ] **Step 2: Verify it parses and exports**
+- [x] **Step 2: Verify it parses and exports**
 
 ```bash
 node --check api/_lib/resend.mjs && node --input-type=module -e "import('./api/_lib/resend.mjs').then(m => console.log(Object.keys(m).sort()))"
@@ -933,7 +933,7 @@ node --check api/_lib/resend.mjs && node --input-type=module -e "import('./api/_
 
 Expected: `[ 'ResendError', 'confirmContact', 'createPendingContact', 'sendEmail' ]`
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add api/_lib/resend.mjs
