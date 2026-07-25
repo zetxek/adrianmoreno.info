@@ -120,7 +120,7 @@ bundled as dependencies.
 - Create: `.newsletter-state.json`
 - Verify: `.gitignore`
 
-- [ ] **Step 1: Add the dependency and scripts**
+- [x] **Step 1: Add the dependency and scripts**
 
 Add `juice` to `devDependencies` (it runs in CI and locally, never in the browser),
 and three scripts. Edit `package.json`.
@@ -139,7 +139,7 @@ In `"scripts"`, add:
     "newsletter:dry-run": "node scripts/newsletter/send.mjs --dry-run",
 ```
 
-- [ ] **Step 2: Install and verify**
+- [x] **Step 2: Install and verify**
 
 ```bash
 npm install
@@ -147,7 +147,7 @@ npm install
 
 Expected: `juice` appears in `node_modules`, `package-lock.json` updated.
 
-- [ ] **Step 3: Seed the state file**
+- [x] **Step 3: Seed the state file**
 
 Create `.newsletter-state.json`:
 
@@ -160,7 +160,7 @@ Create `.newsletter-state.json`:
 This file is committed to git deliberately. It is the only guard against duplicate
 sends.
 
-- [ ] **Step 4: Verify env files are ignored**
+- [x] **Step 4: Verify env files are ignored**
 
 ```bash
 grep -n "env" .gitignore
@@ -168,13 +168,13 @@ grep -n "env" .gitignore
 
 If `.env.local` is not covered, append `.env.local` to `.gitignore`.
 
-- [ ] **Step 5: Create the test directory**
+- [x] **Step 5: Create the test directory**
 
 ```bash
 mkdir -p tests/unit
 ```
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add package.json package-lock.json .newsletter-state.json .gitignore
