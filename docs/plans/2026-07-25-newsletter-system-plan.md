@@ -947,7 +947,7 @@ git commit -m "feat: Resend API client for subscribe and confirm"
 **Files:**
 - Create: `api/_lib/emails.mjs`
 
-- [ ] **Step 1: Write the implementation**
+- [x] **Step 1: Write the implementation**
 
 Create `api/_lib/emails.mjs`:
 
@@ -1008,7 +1008,7 @@ no one is added to the list without clicking the link above.
 }
 ```
 
-- [ ] **Step 2: Verify it renders**
+- [x] **Step 2: Verify it renders**
 
 ```bash
 node --input-type=module -e "import {confirmationEmail} from './api/_lib/emails.mjs'; const r = confirmationEmail({confirmUrl:'https://x.test/api/confirm?e=a%40b.com&x=1&t=abc', siteUrl:'https://www.adrianmoreno.info'}); console.log(r.text); console.log('html length:', r.html.length);"
@@ -1016,7 +1016,7 @@ node --input-type=module -e "import {confirmationEmail} from './api/_lib/emails.
 
 Expected: the plain text body prints, and a non-zero HTML length.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add api/_lib/emails.mjs
