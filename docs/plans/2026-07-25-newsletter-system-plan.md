@@ -1371,7 +1371,7 @@ git commit -m "feat: Hugo email output format for newsletter rendering"
 **Files:**
 - Create: `scripts/newsletter/broadcast.mjs`
 
-- [ ] **Step 1: Write the implementation**
+- [x] **Step 1: Write the implementation**
 
 Create `scripts/newsletter/broadcast.mjs`:
 
@@ -1407,7 +1407,7 @@ export async function createDraftBroadcast({ apiKey, segmentId, from, subject, h
 }
 ```
 
-- [ ] **Step 2: Verify it parses**
+- [x] **Step 2: Verify it parses**
 
 ```bash
 node --check scripts/newsletter/broadcast.mjs
@@ -1415,7 +1415,7 @@ node --check scripts/newsletter/broadcast.mjs
 
 Expected: no output, exit 0.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add scripts/newsletter/broadcast.mjs
