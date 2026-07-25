@@ -32,3 +32,6 @@ scripts/*.zip/*
 
 # Git worktrees
 .worktrees/
+
+# Local environment secrets
+.env.local
