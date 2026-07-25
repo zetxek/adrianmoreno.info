@@ -174,8 +174,8 @@ with `expiry` a Unix timestamp 48 hours out, passed alongside as `x`.
 1. Reject if `website` is non-empty (silent 200, so bots learn nothing).
 2. Reject if `Origin` is not the site's own origin.
 3. Validate email syntax; normalise to lowercase and trim.
-4. `POST /contacts` with `unsubscribed: true` and no segment. Creating an existing
-   contact is idempotent, so repeat signups are harmless.
+4. `POST /contacts` with `unsubscribed: true` and `segments: [RESEND_SEGMENT_ID]`.
+   Creating an existing contact is idempotent, so repeat signups are harmless.
 5. Send the confirmation email via Resend's transactional endpoint.
 6. Return `{ ok: true }`. The form is submitted by `fetch`, so the response is JSON
    and `subscription.js` reveals the theme's existing success block inline. There is
@@ -185,8 +185,17 @@ with `expiry` a Unix timestamp 48 hours out, passed alongside as `x`.
 
 1. Reject if `x` is in the past.
 2. Recompute the HMAC and compare in constant time; reject on mismatch.
-3. Update the contact: `unsubscribed: false`, add to `RESEND_SEGMENT_ID`, and set a
-   `confirmed_at` property as the consent audit trail.
+3. Update the contact: `unsubscribed: false` and set a `confirmed_at` property as the
+   consent audit trail.
+
+> **API correction (verified 2026-07-25).** `PATCH /contacts/{email}` accepts only
+> `first_name`, `last_name`, `unsubscribed` and `properties` — **not** `segments`.
+> Segment membership therefore cannot be granted at confirmation time. It is set at
+> creation instead: `/api/subscribe` creates the contact already in the segment but
+> with `unsubscribed: true`, and `/api/confirm` merely flips that flag. Since
+> `unsubscribed: true` means "unsubscribed from all broadcasts" globally, an
+> unconfirmed contact sitting in the segment can never receive a broadcast. The
+> consent guarantee is preserved.
 4. `302` to `/newsletter/confirmed/`.
 
 Failures redirect to `/newsletter/link-expired/` rather than rendering an error, so
@@ -223,11 +232,22 @@ CSS lives in a `<style>` block in the layout's head; the send script then runs t
 output through `juice` to inline it, since Gmail and Outlook strip or ignore head
 styles inconsistently.
 
+Scoping: the output format is enabled for blog posts only, via a `cascade` with
+`_target: {kind: page}` in `content/blog/_index.md`. Without the `_target` the section
+list page also emits a useless `blog/index.email.html`; with it, only regular pages
+do. Books, experience and CV pages are untouched.
+
+All four of these behaviours — the `index.email.html` filename, absolute
+`.Permalink`, the merge-tag escape, and the cascade scoping — were verified against a
+throwaway Hugo 0.164 build on 2026-07-25 before this design was finalised.
+
 **Files**
 
-- `hugo.toml` — `[outputFormats.email]` and blog `[outputs]` entry
-- `layouts/blog/single.email.html`
-- `layouts/partials/email/head.html`, `header.html`, `footer.html`
+- `hugo.toml` — `[outputFormats.email]`
+- `content/blog/_index.md` — `cascade` enabling the format for posts
+- `layouts/blog/single.email.html` — the whole email document, kept as one file.
+  Email HTML is short and read top to bottom; splitting it into head/header/footer
+  partials would spread ~60 lines across four files for no benefit.
 
 ### Subsystem C: Send workflow
 
@@ -268,7 +288,7 @@ The script writes each created broadcast's dashboard URL to
 - `scripts/newsletter/send.mjs` — entry point, orchestration, `--dry-run`
 - `scripts/newsletter/posts.mjs` — frontmatter parsing and selection rules
 - `scripts/newsletter/state.mjs` — read/write `.newsletter-state.json`
-- `scripts/newsletter/resend.mjs` — broadcast creation
+- `scripts/newsletter/broadcast.mjs` — broadcast creation
 - `.newsletter-state.json` — seeded as `{ "sent": [] }`
 
 ### Content and configuration

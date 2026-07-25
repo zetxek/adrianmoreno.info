@@ -70,7 +70,7 @@ This was assessed and accepted. Reasoning:
 If EU residency later becomes a hard requirement, the migration path is
 **Listmonk self-hosted on an EU VPS**, which was the only evaluated alternative
 offering genuine EU-resident subscriber storage. The newsletter implementation
-isolates all Resend calls in `api/_lib/resend.js` and `scripts/newsletter/resend.mjs`
+isolates all Resend calls in `api/_lib/resend.mjs` and `scripts/newsletter/broadcast.mjs`
 specifically so that this remains a two-file change.
 
 ## Alternatives considered
