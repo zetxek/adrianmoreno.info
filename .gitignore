@@ -35,3 +35,6 @@ scripts/*.zip/*
 
 # Local environment secrets
 .env.local
+
+# Newsletter dry-run preview output
+tmp/
