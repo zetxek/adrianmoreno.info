@@ -1430,7 +1430,7 @@ git commit -m "feat: Resend draft broadcast creation"
 - Create: `scripts/newsletter/send.mjs`
 - Modify: `.gitignore`
 
-- [ ] **Step 1: Write the implementation**
+- [x] **Step 1: Write the implementation**
 
 Create `scripts/newsletter/send.mjs`:
 
@@ -1549,7 +1549,7 @@ main().catch((err) => {
 });
 ```
 
-- [ ] **Step 2: Verify it parses**
+- [x] **Step 2: Verify it parses**
 
 ```bash
 node --check scripts/newsletter/send.mjs
@@ -1557,7 +1557,7 @@ node --check scripts/newsletter/send.mjs
 
 Expected: no output, exit 0.
 
-- [ ] **Step 3: Verify the no-op path**
+- [x] **Step 3: Verify the no-op path**
 
 With no post opted in, the script must do nothing and exit cleanly:
 
@@ -1567,7 +1567,7 @@ npm run newsletter:dry-run
 
 Expected: `No posts qualify for the newsletter. Nothing to do.` and exit 0.
 
-- [ ] **Step 4: Verify the dry-run path end to end**
+- [x] **Step 4: Verify the dry-run path end to end**
 
 ```bash
 sed -i '' 's/^draft = false$/draft = false\nnewsletter = true/' content/blog/2026-07-17-stop-architecting-start-gardening.md
@@ -1599,17 +1599,17 @@ cat .newsletter-state.json
 
 Expected: `{"sent": []}` — unchanged. A dry run must never mutate state.
 
-- [ ] **Step 5: Clean up**
+- [x] **Step 5: Clean up**
 
 ```bash
 git checkout content/blog/2026-07-17-stop-architecting-start-gardening.md && rm -rf tmp/newsletter-preview
 ```
 
-- [ ] **Step 6: Ignore the preview directory**
+- [x] **Step 6: Ignore the preview directory**
 
 Append `tmp/` to `.gitignore`.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add scripts/newsletter/send.mjs .gitignore
