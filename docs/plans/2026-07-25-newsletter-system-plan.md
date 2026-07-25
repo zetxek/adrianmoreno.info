@@ -352,7 +352,7 @@ a dependency is not justified.
 - Create: `scripts/newsletter/frontmatter.mjs`
 - Test: `tests/unit/frontmatter.test.mjs`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Create `tests/unit/frontmatter.test.mjs`:
 
@@ -452,7 +452,7 @@ title = "x"
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 ```bash
 npm run test:unit
@@ -460,7 +460,7 @@ npm run test:unit
 
 Expected: FAIL — cannot find module `frontmatter.mjs`.
 
-- [ ] **Step 3: Write the implementation**
+- [x] **Step 3: Write the implementation**
 
 Create `scripts/newsletter/frontmatter.mjs`:
 
@@ -507,7 +507,7 @@ export function parseFrontmatter(raw) {
 }
 ```
 
-- [ ] **Step 4: Run to verify pass**
+- [x] **Step 4: Run to verify pass**
 
 ```bash
 npm run test:unit
@@ -515,7 +515,7 @@ npm run test:unit
 
 Expected: PASS, 18 tests total.
 
-- [ ] **Step 5: Sanity-check against real content**
+- [x] **Step 5: Sanity-check against real content**
 
 ```bash
 node --input-type=module -e "import {parseFrontmatter} from './scripts/newsletter/frontmatter.mjs'; import {readFileSync} from 'node:fs'; console.log(parseFrontmatter(readFileSync('content/blog/2026-07-17-stop-architecting-start-gardening.md','utf8')));"
@@ -524,7 +524,7 @@ node --input-type=module -e "import {parseFrontmatter} from './scripts/newslette
 Expected: an object containing `title`, `slug`, `date`, `draft: false`. There is no
 `newsletter` key yet — correct, since no post has opted in.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add scripts/newsletter/frontmatter.mjs tests/unit/frontmatter.test.mjs
