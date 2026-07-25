@@ -1192,7 +1192,7 @@ git commit -m "feat: /api/confirm endpoint completing double opt-in"
 - Modify: `content/blog/_index.md`
 - Create: `layouts/blog/single.email.html`
 
-- [ ] **Step 1: Define the output format**
+- [x] **Step 1: Define the output format**
 
 In `hugo.toml`, immediately after the existing `[outputs]` block
 (`home = ["HTML", "RSS", "JSON"]`), add:
@@ -1208,7 +1208,7 @@ isHTML = true
 notAlternative = true
 ```
 
-- [ ] **Step 2: Enable it for blog posts only**
+- [x] **Step 2: Enable it for blog posts only**
 
 Modify `content/blog/_index.md`. It currently begins:
 
@@ -1237,7 +1237,7 @@ cascade:
 The `_target: kind: page` matters. Without it the section list page also emits a
 `blog/index.email.html`, which nothing reads and no layout serves.
 
-- [ ] **Step 3: Write the email layout**
+- [x] **Step 3: Write the email layout**
 
 Create `layouts/blog/single.email.html`:
 
@@ -1315,7 +1315,7 @@ Create `layouts/blog/single.email.html`:
 </html>
 ```
 
-- [ ] **Step 4: Verify the format builds and the merge tag survives**
+- [x] **Step 4: Verify the format builds and the merge tag survives**
 
 Temporarily opt one post in so there is something to inspect:
 
@@ -1348,7 +1348,7 @@ find public -name 'index.email.html' -not -path 'public/blog/*' | wc -l
 
 Expected: `0`. If books or experience pages appear, the cascade `_target` is wrong.
 
-- [ ] **Step 5: Revert the temporary opt-in**
+- [x] **Step 5: Revert the temporary opt-in**
 
 ```bash
 git checkout content/blog/2026-07-17-stop-architecting-start-gardening.md
@@ -1357,7 +1357,7 @@ git checkout content/blog/2026-07-17-stop-architecting-start-gardening.md
 No post ships with `newsletter = true`. Opting in is a deliberate act taken after the
 system is verified end to end.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add hugo.toml content/blog/_index.md layouts/blog/single.email.html
