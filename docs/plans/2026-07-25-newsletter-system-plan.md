@@ -1129,7 +1129,7 @@ git commit -m "feat: /api/subscribe endpoint with honeypot and double opt-in"
 **Files:**
 - Create: `api/confirm.mjs`
 
-- [ ] **Step 1: Write the implementation**
+- [x] **Step 1: Write the implementation**
 
 Create `api/confirm.mjs`:
 
@@ -1168,7 +1168,7 @@ export default async function handler(req, res) {
 }
 ```
 
-- [ ] **Step 2: Verify it parses**
+- [x] **Step 2: Verify it parses**
 
 ```bash
 node --check api/confirm.mjs
@@ -1176,7 +1176,7 @@ node --check api/confirm.mjs
 
 Expected: no output, exit 0.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add api/confirm.mjs
