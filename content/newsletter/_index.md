@@ -1,6 +1,7 @@
 ---
 title: "Newsletter"
 url: newsletter
+type: "blog"
 description: "New posts on engineering leadership, product, and how teams actually work — delivered when I publish, and not otherwise."
 ---
 
