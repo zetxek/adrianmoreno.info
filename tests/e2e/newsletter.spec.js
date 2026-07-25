@@ -1,0 +1,91 @@
+const { test, expect } = require('@playwright/test');
+
+test.describe('newsletter signup', () => {
+  test('the form renders on the newsletter page', async ({ page }) => {
+    await page.goto('/newsletter/');
+    const form = page.locator('#rad-subscription').first();
+    await expect(form).toBeVisible();
+    await expect(form).toHaveAttribute('action', '/api/subscribe');
+  });
+
+  test('the honeypot exists and is not perceivable by a user', async ({ page }) => {
+    await page.goto('/newsletter/');
+    const honeypot = page.locator('#rad-subscription-website').first();
+    await expect(honeypot).toHaveCount(1);
+
+    // Deliberately NOT toBeHidden(). The honeypot is positioned off-screen at
+    // 1x1 with opacity 0 rather than display:none, because many bots skip
+    // display:none fields — and Playwright counts an off-screen 1x1 element as
+    // "visible". Assert the properties that actually keep it away from humans
+    // and assistive technology.
+    await expect(honeypot).toHaveAttribute('aria-hidden', 'true');
+    await expect(honeypot).toHaveAttribute('tabindex', '-1');
+
+    const box = await honeypot.boundingBox();
+    expect(box.x).toBeLessThan(0);
+  });
+
+  test('an invalid email is rejected before any request is made', async ({ page }) => {
+    await page.goto('/newsletter/');
+
+    let requested = false;
+    await page.route('**/api/subscribe', (route) => {
+      requested = true;
+      route.fulfill({ status: 200, body: '{"ok":true}' });
+    });
+
+    await page.locator('#rad-subscription-email').first().fill('not-an-email');
+    await page.locator('#rad-subscription-submit').first().click();
+
+    await page.waitForTimeout(300);
+    expect(requested).toBe(false);
+  });
+
+  test('a successful signup reveals the confirmation message', async ({ page }) => {
+    await page.goto('/newsletter/');
+
+    await page.route('**/api/subscribe', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: '{"ok":true}',
+      }),
+    );
+
+    await page.locator('#rad-subscription-email').first().fill('reader@example.com');
+    await page.locator('#rad-subscription-submit').first().click();
+
+    await expect(page.locator('#rad-subscription-success').first()).toBeVisible();
+    await expect(page.locator('#rad-subscription').first()).toBeHidden();
+  });
+
+  test('a server error reveals the error message', async ({ page }) => {
+    await page.goto('/newsletter/');
+
+    await page.route('**/api/subscribe', (route) =>
+      route.fulfill({ status: 503, body: '{"error":"temporarily_unavailable"}' }),
+    );
+
+    await page.locator('#rad-subscription-email').first().fill('reader@example.com');
+    await page.locator('#rad-subscription-submit').first().click();
+
+    await expect(page.locator('#rad-subscription-fail').first()).toBeVisible();
+  });
+
+  test('the landing pages render their content', async ({ page }) => {
+    // These pages need `type: "blog"` in their frontmatter. The site's
+    // layouts/_default/single.html is an intentionally empty stub that exists
+    // only to suppress a Hugo warning, so an untyped page renders blank.
+    await page.goto('/newsletter/confirmed/');
+    await expect(page.locator('h1').first()).toContainText(/subscribed/i);
+    await expect(page.locator('body')).toContainText(/on the list/i);
+
+    await page.goto('/newsletter/link-expired/');
+    await expect(page.locator('h1').first()).toContainText(/didn/i);
+    await expect(page.locator('body')).toContainText(/expire after 48 hours/i);
+
+    await page.goto('/privacy/');
+    await expect(page.locator('h1').first()).toContainText(/privacy/i);
+    await expect(page.locator('body')).toContainText(/GDPR/);
+  });
+});
