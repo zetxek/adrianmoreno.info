@@ -70,9 +70,21 @@ test.describe('fuse.js module (installed package)', () => {
     // Guard the require so a missing/uninstalled node_modules tree does not
     // crash test collection for this whole file; individual tests below
     // skip themselves when the module could not be loaded.
+    //
+    // Only a genuinely absent fuse.js is tolerated. Any other failure - a
+    // corrupt or incompatible install, or a missing transitive dependency of
+    // fuse.js itself - must surface rather than be downgraded to a silent
+    // skip. The message check keeps a MODULE_NOT_FOUND raised from *inside*
+    // fuse.js (which names the inner specifier) from being mistaken for
+    // fuse.js not being installed at all.
     try {
       Fuse = require('fuse.js');
     } catch (err) {
+      const fuseItselfIsMissing =
+        err.code === 'MODULE_NOT_FOUND' && /Cannot find module 'fuse\.js'/.test(err.message);
+      if (!fuseItselfIsMissing) {
+        throw err;
+      }
       Fuse = null;
     }
   });
