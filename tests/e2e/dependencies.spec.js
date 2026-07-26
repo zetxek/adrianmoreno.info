@@ -16,7 +16,9 @@ test.describe('fuse.js dependency manifest (package.json / package-lock.json)', 
   });
 
   test('package.json declares fuse.js with the expected semver range', () => {
-    expect(packageJson.dependencies).toHaveProperty('fuse.js', '^7.5.0');
+    // Array form: a plain 'fuse.js' string would be parsed as the nested
+    // path dependencies.fuse.js instead of the literal key "fuse.js".
+    expect(packageJson.dependencies).toHaveProperty(['fuse.js'], '^7.5.0');
   });
 
   test('package-lock.json root entry mirrors the range declared in package.json', () => {
