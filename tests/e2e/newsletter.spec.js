@@ -8,9 +8,35 @@ test.describe('newsletter signup', () => {
     await expect(form).toHaveAttribute('action', '/api/subscribe');
   });
 
+  test('every form on the page is wired up, not just the first', async ({ page }) => {
+    // /newsletter/ renders the block twice: its own, plus the footer. Only the
+    // first was initialised before, leaving the footer form silently dead.
+    await page.goto('/newsletter/');
+    const forms = page.locator('[id="rad-subscription"]');
+    const count = await forms.count();
+    expect(count).toBeGreaterThan(1);
+
+    for (let i = 0; i < count; i++) {
+      await expect(forms.nth(i).locator('.rad-subscription-website')).toHaveCount(1);
+    }
+  });
+
+  test('the last form on the page can submit successfully', async ({ page }) => {
+    await page.goto('/newsletter/');
+    await page.route('**/api/subscribe', (route) =>
+      route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' }),
+    );
+
+    const form = page.locator('[id="rad-subscription"]').last();
+    await form.locator('[id="rad-subscription-email"]').fill('reader@example.com');
+    await form.locator('[id="rad-subscription-submit"]').click();
+
+    await expect(form).toBeHidden();
+  });
+
   test('the honeypot exists and is not perceivable by a user', async ({ page }) => {
     await page.goto('/newsletter/');
-    const honeypot = page.locator('#rad-subscription-website').first();
+    const honeypot = page.locator('.rad-subscription-website').first();
     await expect(honeypot).toHaveCount(1);
 
     // Deliberately NOT toBeHidden(). The honeypot is positioned off-screen at

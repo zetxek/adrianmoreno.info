@@ -32,6 +32,11 @@ jobs:
         with:
           submodules: true
           fetch-depth: 0
+          # `contents: write` credentials would otherwise sit in .git/config
+          # through `npm ci` and the Hugo build. A malicious install script in
+          # that window could read the token and push to main. The push step
+          # supplies the credential itself, at the moment it is needed.
+          persist-credentials: false
 
       - uses: actions/setup-node@v4
         with:
@@ -61,8 +66,15 @@ jobs:
           NEWSLETTER_FROM: ${{ secrets.NEWSLETTER_FROM }}
           SITE_BASE_URL: ${{ secrets.SITE_BASE_URL }}
 
+      # Deliberately NOT `if: success()`. send.mjs exits non-zero when any post
+      # fails, but posts that already succeeded have been written to the state
+      # file. Skipping the commit on failure would discard those records, and
+      # the next run would re-select those posts and create duplicate
+      # broadcasts — the exact failure this system exists to prevent.
       - name: Commit state
-        if: success() && !(github.event_name == 'workflow_dispatch' && inputs.dry_run)
+        if: ${{ !cancelled() && !(github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if git diff --quiet .newsletter-state.json; then
             echo "State unchanged."
@@ -70,6 +82,11 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git add .newsletter-state.json
           git commit -m "chore: record newsletter sends [skip ci]"
-          git push
+          # main may have advanced while the site was building; without this the
+          # push is rejected and the record of what was already sent is lost.
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

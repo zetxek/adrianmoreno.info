@@ -204,6 +204,26 @@ the user always lands on a styled page.
 **Unsubscribing** is handled entirely by Resend via the `{{{RESEND_UNSUBSCRIBE_URL}}}`
 merge tag and `List-Unsubscribe` headers. We write no unsubscribe code.
 
+### Known limitation: no durable rate limiting
+
+`/api/subscribe` has a honeypot and an origin check, but no per-IP or per-address
+throttle. Both existing defences stop naive bots; neither stops a determined
+attacker scripting the endpoint directly.
+
+The concrete abuse this leaves open is **using the endpoint to send confirmation
+emails to third parties** — submit someone else's address repeatedly and they get
+mail they did not ask for, from a domain with our reputation attached.
+
+It is not fixed here because a durable counter needs shared storage (Redis, Vercel
+KV, a database), and adding a stateful dependency to a static site for a newsletter
+with no subscribers yet is the wrong trade. The mitigations that do apply: the
+confirmation email is plain and single-purpose, so its nuisance value is low; no one
+joins the list without clicking; and Resend's own sending limits cap the blast
+radius.
+
+Revisit if abuse actually appears. The cheapest fix at that point is Vercel BotID or
+a firewall rule on the route, neither of which requires application changes.
+
 **Files**
 
 - `api/subscribe.js`

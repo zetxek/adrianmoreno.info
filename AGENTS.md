@@ -70,7 +70,8 @@ npm run test:e2e:install   # Install Playwright browsers
 - Subscribers sign up via `/api/subscribe` (Vercel function) and confirm through an
   HMAC-signed link handled by `/api/confirm`. Double opt-in — the contact is created
   with `unsubscribed: true` and only flipped on confirmation. Segment membership is
-  set at creation, because `PATCH /contacts` does not accept `segments`.
+  set at creation, because `PATCH /contacts` does not accept `segments`. The
+  payload is `segments: [{ id }]` — an array of objects, not bare IDs.
 - A post is emailed only if its frontmatter sets `newsletter = true`. Without it,
   nothing sends. This matters because most of `content/blog/` is LinkedIn imports.
 - `.github/workflows/newsletter.yml` builds the site, reads the Hugo-rendered

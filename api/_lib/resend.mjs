@@ -1,5 +1,10 @@
 const API = 'https://api.resend.com';
 
+// A stalled upstream call would otherwise hold the serverless function open
+// until the platform's own timeout, burning execution time and leaving the
+// subscriber staring at a spinner. Fail fast instead.
+const TIMEOUT_MS = 10_000;
+
 class ResendError extends Error {
   constructor(message, status, body) {
     super(message);
@@ -12,14 +17,23 @@ class ResendError extends Error {
 async function request(path, { method = 'POST', body, apiKey }) {
   if (!apiKey) throw new Error('RESEND_API_KEY is not set');
 
-  const res = await fetch(`${API}${path}`, {
-    method,
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: body === undefined ? undefined : JSON.stringify(body),
-  });
+  let res;
+  try {
+    res = await fetch(`${API}${path}`, {
+      method,
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: body === undefined ? undefined : JSON.stringify(body),
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+  } catch (err) {
+    if (err.name === 'TimeoutError' || err.name === 'AbortError') {
+      throw new ResendError(`Resend ${method} ${path} timed out after ${TIMEOUT_MS}ms`, 504, {});
+    }
+    throw err;
+  }
 
   const text = await res.text();
   let parsed;
@@ -49,7 +63,8 @@ export function createPendingContact({ email, segmentId, apiKey }) {
     body: {
       email,
       unsubscribed: true,
-      segments: [segmentId],
+      // Array of objects, not bare IDs. `segments: [id]` is silently wrong.
+      segments: [{ id: segmentId }],
       properties: { source: 'website', requested_at: new Date().toISOString() },
     },
   });

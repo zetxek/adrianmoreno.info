@@ -21,7 +21,8 @@ otherwise assume:
 
 1. **Resend has no `audience_id` any more.** Subscribers are *contacts* in *segments*.
    Broadcasts take `segment_id`. Any tutorial using `audience_id` is stale.
-2. **`PATCH /contacts/{email}` does not accept `segments`.** Segment membership is set
+2. **`PATCH /contacts/{email}` does not accept `segments`,** and the create payload
+   takes `segments: [{ id }]` — objects, not bare IDs. Segment membership is set
    at creation only. Subscribe creates the contact *in* the segment with
    `unsubscribed: true`; confirm flips that flag. Do not try to add a segment on PATCH.
 3. **`{{{RESEND_UNSUBSCRIBE_URL}}}` collides with Hugo's delimiters.** In any Hugo
@@ -900,7 +901,7 @@ export function createPendingContact({ email, segmentId, apiKey }) {
     body: {
       email,
       unsubscribed: true,
-      segments: [segmentId],
+      segments: [{ id: segmentId }],
       properties: { source: 'website', requested_at: new Date().toISOString() },
     },
   });

@@ -99,6 +99,27 @@ test('one preview may not post to another', () => {
   );
 });
 
+test('a SITE_BASE_URL with a trailing slash still matches an Origin header', () => {
+  // An Origin header never carries a trailing slash, so the raw config value
+  // cannot be compared byte-for-byte.
+  assert.equal(
+    isAllowedOrigin(PROD, req('somewhere-else'), { SITE_BASE_URL: `${PROD}/` }),
+    true,
+  );
+});
+
+test('a SITE_BASE_URL with a trailing slash produces a clean origin for links', () => {
+  assert.equal(siteOrigin({ headers: {} }, { SITE_BASE_URL: `${PROD}/` }), PROD);
+});
+
+test('a SITE_BASE_URL with a path is reduced to its origin', () => {
+  assert.equal(siteOrigin({ headers: {} }, { SITE_BASE_URL: `${PROD}/some/path` }), PROD);
+});
+
+test('an unparseable SITE_BASE_URL falls back rather than throwing', () => {
+  assert.equal(siteOrigin({ headers: {} }, { SITE_BASE_URL: 'not a url' }), PROD);
+});
+
 test('a bare localhost origin with no port is rejected', () => {
   assert.equal(isAllowedOrigin('http://localhost', req(BRANCH_HOST), { SITE_BASE_URL: PROD }), false);
 });

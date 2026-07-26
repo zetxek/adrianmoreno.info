@@ -9,8 +9,16 @@ I run this site personally. It collects as little as it can get away with.
 
 ## Newsletter
 
-If you subscribe, I store your **email address** and the **date you confirmed**.
-Nothing else — no name, no location, no profile.
+If you subscribe, the following is stored:
+
+- your **email address**
+- the **date you asked to subscribe** and the **date you confirmed**, which is how
+  I can show your consent was given
+- a note that the signup came from **this website** rather than being imported
+
+No name, no location, no IP address, no profile built from your behaviour
+elsewhere. Resend additionally records whether you opened an email and whether you
+clicked a link in it.
 
 **Legal basis:** your consent (GDPR Art. 6(1)(a)), given by clicking the confirmation
 link in the email sent to you. You are not added to the list until you do.
@@ -21,10 +29,13 @@ the transfer relies on Standard Contractual Clauses and the EU-U.S. Data Privacy
 Framework. Resend records whether an email was opened and whether links in it were
 clicked. I use that only to judge whether the newsletter is worth continuing.
 
-**Retention:** until you unsubscribe, after which the record is deleted.
+**Retention:** while you are subscribed. Unsubscribing marks your address as
+unsubscribed rather than erasing it — that record is what stops you being re-added
+if your address ever appears in an import. If you would rather be erased entirely,
+ask me and I will delete the contact outright.
 
-**Withdrawing consent:** every email has a one-click unsubscribe link. You can also
-email me and I will remove you.
+**Withdrawing consent:** every email has a one-click unsubscribe link, and it takes
+effect immediately. You can also email me.
 
 ## Contact form
 

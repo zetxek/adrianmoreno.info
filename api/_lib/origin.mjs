@@ -11,6 +11,26 @@
 
 const FALLBACK = 'https://www.adrianmoreno.info';
 
+/**
+ * An Origin header is scheme + host + port, never a path or trailing slash.
+ * SITE_BASE_URL is a human-entered config value that may well carry one, so
+ * normalise before any byte-for-byte comparison — otherwise a trailing slash
+ * silently rejects every browser submission and yields `//newsletter/...`
+ * redirects.
+ */
+function toOrigin(value) {
+  if (!value) return null;
+  try {
+    return new URL(value).origin;
+  } catch {
+    return null;
+  }
+}
+
+function canonicalOrigin(env) {
+  return toOrigin(env.SITE_BASE_URL) ?? FALLBACK;
+}
+
 /** The origin the browser is talking to, from the request itself. */
 export function requestOrigin(req) {
   const host = req?.headers?.host;
@@ -35,7 +55,7 @@ export function siteOrigin(req, env = process.env) {
     const origin = requestOrigin(req);
     if (origin) return origin;
   }
-  return env.SITE_BASE_URL ?? FALLBACK;
+  return canonicalOrigin(env);
 }
 
 /**
@@ -53,7 +73,7 @@ export function isAllowedOrigin(origin, req, env = process.env) {
   if (origin === requestOrigin(req)) return true;
 
   // The canonical site, so a production page can post to a preview if ever needed.
-  if (origin === (env.SITE_BASE_URL ?? FALLBACK)) return true;
+  if (origin === canonicalOrigin(env)) return true;
 
   if (/^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin)) return true;
 
