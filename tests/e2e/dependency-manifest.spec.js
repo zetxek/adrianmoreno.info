@@ -48,7 +48,9 @@ function satisfiesCaretRange(version, range) {
 
 test.describe('package.json - fuse.js dependency', () => {
   test('declares fuse.js with the expected caret range', () => {
-    expect(packageJson.dependencies).toHaveProperty('fuse.js');
+    // Array form: a plain 'fuse.js' string would be parsed as the nested
+    // path dependencies.fuse.js instead of the literal key "fuse.js".
+    expect(packageJson.dependencies).toHaveProperty(['fuse.js']);
     expect(packageJson.dependencies['fuse.js']).toBe('^7.5.0');
   });
 
