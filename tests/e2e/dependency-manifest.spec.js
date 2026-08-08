@@ -62,7 +62,7 @@ test.describe('package.json - fuse.js dependency', () => {
     expect(packageJson.dependencies).toMatchObject({
       dompurify: '^3.4.12',
       'node-gyp': '^13.0.1',
-      playwright: '^1.60.0',
+      playwright: '^1.62.0',
     });
   });
 });
