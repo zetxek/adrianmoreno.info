@@ -45,3 +45,11 @@ I switched from AWS Cloudfront to Vercel because Cloudfront [doesn't support a r
 ### More? ###
 
 Do you want some more info about how or why I did something on the site? Drop me a line! (the form is connected to [formspree.io](https://formspree.io/) by the way, another great piece of software).
+
+## Newsletter
+
+Posts with `newsletter = true` in their frontmatter are emailed to subscribers. The
+workflow creates a **draft** in Resend for review — nothing sends automatically.
+Preview locally with `npm run newsletter:dry-run`.
+
+See `docs/plans/2026-07-25-newsletter-system-design.md`.

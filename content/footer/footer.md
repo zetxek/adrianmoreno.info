@@ -4,6 +4,16 @@ type = "footer"
 draft = false
 +++
 
+{{< newsletter-section
+    newsletter_title="Get new posts by email"
+    newsletter_button="Subscribe"
+    newsletter_placeholder="your@email.com"
+    newsletter_success_message="Almost there — check your inbox and click the confirmation link."
+    newsletter_error_message="Something went wrong. Please try again in a moment."
+    newsletter_note="No more than one email per post. Unsubscribe any time. See the <a href='/privacy/'>privacy notice</a>."
+    form_action="/api/subscribe"
+    form_method="POST" >}}
+
 {{< contact-section
     title="Reach out" 
     contact_form_name="Your name"

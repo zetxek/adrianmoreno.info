@@ -32,3 +32,9 @@ scripts/*.zip/*
 
 # Git worktrees
 .worktrees/
+
+# Local environment secrets
+.env.local
+
+# Newsletter dry-run preview output
+tmp/

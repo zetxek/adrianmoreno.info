@@ -105,3 +105,21 @@
 
 - id: copyright
   translation: "Por cierto, el <a target='_blank' href='https://github.com/zetxek/adrianmoreno.info/'>código está disponible online</a>"
+## Newsletter
+- id: "newsletter_title"
+  translation: "Recibe los nuevos artículos por email"
+
+- id: "newsletter_button"
+  translation: "Suscribirme"
+
+- id: "newsletter_placeholder"
+  translation: "tu@email.com"
+
+- id: "newsletter_success_message"
+  translation: "Casi listo — revisa tu correo y haz clic en el enlace de confirmación."
+
+- id: "newsletter_error_message"
+  translation: "Algo ha fallado. Inténtalo de nuevo en un momento."
+
+- id: "newsletter_note"
+  translation: "Como mucho un email por artículo. Puedes darte de baja cuando quieras. Consulta el <a href=\"/privacy/\">aviso de privacidad</a>."

@@ -76,13 +76,13 @@
   translation: "Your email"
 
 - id: "newsletter_success_message"
-  translation: "Thank you for subscribing to my newsletter!"
+  translation: "Almost there — check your inbox and click the confirmation link."
 
 - id: "newsletter_error_message"
-  translation: "An error occurred. Please try again."
+  translation: "Something went wrong. Please try again in a moment."
 
 - id: "newsletter_note"
-  translation: "We'll never share your email with anyone else."
+  translation: "No more than one email per post. Unsubscribe any time. See the <a href=\"/privacy/\">privacy notice</a>."
 
 ## Homepage testimonials
 - id: "testimonials_title"
