@@ -83,6 +83,11 @@ npm run test:e2e:install   # Install Playwright browsers
   (`layouts/blog/single.email.html`). The Resend unsubscribe merge tag must be written
   `{{ "{{{RESEND_UNSUBSCRIBE_URL}}}" | safeHTML }}` — Hugo also parses `{{{ }}}`.
 - Preview without sending: `npm run newsletter:dry-run`.
+- `layouts/partials/newsletter.html` **overrides the theme's copy** (verbatim from
+  v1.10.1) purely to pipe `newsletter_note` through `safeHTML`, so the note can link
+  to the privacy notice — the theme escapes it and renders the markup as literal
+  text. Re-sync by hand if the theme's partial changes, and delete the override once
+  the fix is upstream.
 - Processor record and GDPR position: `docs/legal/resend.md`.
 
 ### Standalone content pages

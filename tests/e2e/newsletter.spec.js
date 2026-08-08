@@ -34,6 +34,27 @@ test.describe('newsletter signup', () => {
     await expect(form).toBeHidden();
   });
 
+  test('the note renders a real privacy link, not escaped markup', async ({ page }) => {
+    // The theme escapes newsletter_note, so the markup showed up as literal
+    // "<a href='/privacy/'>privacy notice</a>" text on the page. Guards the
+    // layouts/partials/newsletter.html override that fixes it.
+    await page.goto('/');
+    const note = page.locator('[id="emailHelp"]').first();
+    await expect(note).toBeVisible();
+    await expect(note).not.toContainText('<a href');
+
+    const link = note.locator('a[href="/privacy/"]');
+    await expect(link).toHaveCount(1);
+    await expect(link).toHaveText(/privacy notice/i);
+  });
+
+  test('the privacy link in the note actually resolves', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('[id="emailHelp"]').first().locator('a[href="/privacy/"]').click();
+    await expect(page).toHaveURL(/\/privacy\/$/);
+    await expect(page.locator('h1').first()).toContainText(/privacy/i);
+  });
+
   test('the honeypot exists and is not perceivable by a user', async ({ page }) => {
     await page.goto('/newsletter/');
     const honeypot = page.locator('.rad-subscription-website').first();

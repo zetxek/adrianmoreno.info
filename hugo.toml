@@ -221,6 +221,11 @@ name = "📌 Now"
 url = "/now"
 weight = 6
 
+[[menu.footer]]
+name = "🔒 Privacy"
+url = "/privacy"
+weight = 7
+
 
 [taxonomies]
 tag = "tags"
