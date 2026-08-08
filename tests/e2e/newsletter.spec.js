@@ -55,6 +55,22 @@ test.describe('newsletter signup', () => {
     await expect(page.locator('h1').first()).toContainText(/privacy/i);
   });
 
+  test('outcome panels are live regions so results are announced', async ({ page }) => {
+    // Comes from the theme (v1.10.2+). Asserted here because this site's
+    // subscribe flow depends on it: the panels are only revealed after a
+    // fetch, so without live-region semantics a screen reader user gets no
+    // feedback at all.
+    await page.goto('/newsletter/');
+
+    const success = page.locator('[id="rad-subscription-success"]').first();
+    await expect(success).toHaveAttribute('role', 'status');
+    await expect(success).toHaveAttribute('aria-live', 'polite');
+
+    const fail = page.locator('[id="rad-subscription-fail"]').first();
+    await expect(fail).toHaveAttribute('role', 'alert');
+    await expect(fail).toHaveAttribute('aria-live', 'assertive');
+  });
+
   test('the honeypot exists and is not perceivable by a user', async ({ page }) => {
     await page.goto('/newsletter/');
     const honeypot = page.locator('.rad-subscription-website').first();
