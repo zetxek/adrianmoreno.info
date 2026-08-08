@@ -75,6 +75,7 @@
 
     var honeypot = addHoneypot(form);
     var busy = false;
+    var submitLabel = submit.textContent;
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
@@ -91,6 +92,8 @@
 
       busy = true;
       submit.classList.add('is-loading');
+      submit.textContent = 'Sending…';
+      submit.setAttribute('aria-busy', 'true');
       submit.disabled = true;
 
       fetch(form.getAttribute('action') || '/api/subscribe', {
@@ -112,6 +115,8 @@
         .finally(function () {
           busy = false;
           submit.classList.remove('is-loading');
+          submit.textContent = submitLabel;
+          submit.removeAttribute('aria-busy');
           submit.disabled = false;
         });
     });

@@ -104,6 +104,37 @@ test.describe('newsletter signup', () => {
     expect(requested).toBe(false);
   });
 
+  test('a pending signup uses a neutral Sending label', async ({ page }) => {
+    await page.goto('/newsletter/');
+
+    let releaseResponse;
+    let markRequestStarted;
+    const requestStarted = new Promise((resolve) => {
+      markRequestStarted = resolve;
+    });
+    await page.route('**/api/subscribe', (route) => {
+      markRequestStarted();
+      return new Promise((release) => {
+        releaseResponse = () => {
+          route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' });
+          release();
+        };
+      });
+    });
+
+    const submit = page.locator('#rad-subscription-submit').first();
+    await page.locator('#rad-subscription-email').first().fill('reader@example.com');
+    await submit.click();
+    await requestStarted;
+
+    await expect(submit).toHaveText('Sending…');
+    await expect(submit).toBeDisabled();
+    await expect(submit).not.toHaveCSS('color', 'rgba(0, 74, 255, 0.5)');
+
+    releaseResponse();
+    await expect(page.locator('#rad-subscription-success').first()).toBeVisible();
+  });
+
   test('a successful signup reveals the confirmation message', async ({ page }) => {
     await page.goto('/newsletter/');
 

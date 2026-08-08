@@ -110,3 +110,41 @@ abbr[title] {
     margin-bottom: 0;
     color: #fff;
 }
+
+/*
+ * Newsletter loading state.
+ *
+ * The theme's generic loading button turns disabled text blue and animates a
+ * glowing bar. Here the button is light against a black newsletter section,
+ * so use a compact black spinner and a clear label instead.
+ */
+.rad-subscription-group #rad-subscription-submit.is-loading:disabled {
+    color: #000;
+    cursor: progress;
+}
+
+.rad-subscription-group #rad-subscription-submit.is-loading::after {
+    right: 12px;
+    bottom: auto;
+    width: 12px;
+    height: 12px;
+    margin-right: 0;
+    border: 2px solid rgba(0, 0, 0, 0.22);
+    border-right-color: #000;
+    border-radius: 50%;
+    box-shadow: none;
+    background: none;
+    animation: newsletter-button-spin 0.7s linear infinite;
+}
+
+@keyframes newsletter-button-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rad-subscription-group #rad-subscription-submit.is-loading::after {
+        animation: none;
+    }
+}
