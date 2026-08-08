@@ -1,7 +1,6 @@
 ---
 title: "You're subscribed"
 url: newsletter/confirmed
-type: "blog"
 description: "Your newsletter subscription is confirmed."
 sitemap:
   disable: true

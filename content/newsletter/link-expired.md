@@ -1,7 +1,6 @@
 ---
 title: "That link didn't work"
 url: newsletter/link-expired
-type: "blog"
 description: "The confirmation link has expired or is invalid."
 sitemap:
   disable: true

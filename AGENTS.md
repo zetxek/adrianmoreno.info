@@ -91,9 +91,17 @@ npm run test:e2e:install   # Install Playwright browsers
 - Processor record and GDPR position: `docs/legal/resend.md`.
 
 ### Standalone content pages
-`layouts/_default/single.html` is an intentionally empty stub that suppresses a Hugo
-warning. A page outside a section with its own layout therefore renders **blank**
-unless its frontmatter sets `type: "blog"`. See `content/now.md`, `content/privacy.md`.
+Plain pages (`content/privacy.md`, `content/newsletter/*`) need no `type` — the
+theme's `_default/single.html` renders title and content with no post metadata.
+
+This repo used to override that with an empty stub, which made every such page
+render blank; the workaround was `type: "blog"`, which then displayed "Published on
+Jan 1, 0001 - 372 Words - 1 min read" on a privacy policy. The stub existed to stop
+`content/footer/footer.md` emitting a standalone page, which the theme now handles
+itself via `layouts/footer/single.html`, so it was removed.
+
+`content/now.md` still carries `type: "blog"` and so still shows post metadata. Left
+alone deliberately, since a "what I'm up to now" page arguably wants a date.
 
 ## Key Files to Reference
 - `hugo.toml`: Module imports and asset mounting configuration

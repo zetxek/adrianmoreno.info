@@ -1,7 +1,6 @@
 ---
 title: "Privacy"
 url: privacy
-type: "blog"
 description: "What data this site collects, why, and how to have it removed."
 ---
 
