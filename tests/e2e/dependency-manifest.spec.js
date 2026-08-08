@@ -60,7 +60,11 @@ function satisfiesRange(version, range) {
 
   if (vMajor !== major) return false;
   if (vMajor === 0) {
-    // For 0.x, caret ranges only allow patch bumps within the same minor.
+    // For 0.0.x, caret ranges pin the exact version (semver: ^0.0.5 := =0.0.5).
+    if (minor === 0) {
+      return vMinor === 0 && vPatch === patch;
+    }
+    // For 0.x.y (x > 0), caret ranges only allow patch bumps within the same minor.
     if (vMinor !== minor) return false;
     return vPatch >= patch;
   }
@@ -171,6 +175,18 @@ test.describe('satisfiesRange helper', () => {
 
   test('caret: for 0.x, accepts a higher patch in same minor', () => {
     expect(satisfiesRange('0.1.9', '^0.1.5')).toBe(true);
+  });
+
+  test('caret: for 0.0.x, accepts only the exact version', () => {
+    expect(satisfiesRange('0.0.5', '^0.0.5')).toBe(true);
+  });
+
+  test('caret: for 0.0.x, rejects a higher patch', () => {
+    expect(satisfiesRange('0.0.6', '^0.0.5')).toBe(false);
+  });
+
+  test('caret: for 0.0.x, rejects a higher minor', () => {
+    expect(satisfiesRange('0.1.0', '^0.0.5')).toBe(false);
   });
 
   test('exact pin: accepts a matching version', () => {
