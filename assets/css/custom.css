@@ -118,8 +118,23 @@ abbr[title] {
  * glowing bar. Here the button is light against a black newsletter section,
  * so use a compact black spinner and a clear label instead.
  */
+.rad-subscription-group #rad-subscription-submit {
+    color: #000;
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.rad-subscription-group #rad-subscription-submit:hover:not(:disabled),
+.rad-subscription-group #rad-subscription-submit:focus-visible {
+    color: #000;
+    background-color: #e8e8e8;
+    border-color: #e8e8e8;
+}
+
 .rad-subscription-group #rad-subscription-submit.is-loading:disabled {
     color: #000;
+    background-color: #fff;
+    border-color: #fff;
     cursor: progress;
 }
 
