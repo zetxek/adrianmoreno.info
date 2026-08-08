@@ -1,12 +1,9 @@
 import { verifyToken, normalizeEmail } from './_lib/token.mjs';
 import { confirmContact } from './_lib/resend.mjs';
 import { siteOrigin } from './_lib/origin.mjs';
+import { requireEnv, missingEnv } from './_lib/env.mjs';
 
-function requireEnv(name) {
-  const value = process.env[name];
-  if (!value) throw new Error(`${name} is not set`);
-  return value;
-}
+const REQUIRED_ENV = ['RESEND_API_KEY', 'NEWSLETTER_SECRET'];
 
 export default async function handler(req, res) {
   // Redirect back into this same deployment, so a preview's confirmation round
@@ -19,6 +16,15 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'method_not_allowed' });
   }
 
+  // Checked before the token comparison. Without NEWSLETTER_SECRET, verifyToken
+  // simply returns false and the visitor lands on "link expired" with nothing
+  // logged — a misconfiguration that looks exactly like an expired link.
+  const missing = missingEnv(REQUIRED_ENV);
+  if (missing.length > 0) {
+    console.error('confirm misconfigured', { missing });
+    return expired();
+  }
+
   const { e, x, t } = req.query ?? {};
   const email = normalizeEmail(e);
 
@@ -26,7 +32,8 @@ export default async function handler(req, res) {
   if (!verifyToken(email, x, t, process.env.NEWSLETTER_SECRET)) return expired();
 
   try {
-    await confirmContact({ email, apiKey: requireEnv('RESEND_API_KEY') });
+    const env = requireEnv(REQUIRED_ENV);
+    await confirmContact({ email, apiKey: env.RESEND_API_KEY });
     return res.redirect(302, `${siteUrl}/newsletter/confirmed/`);
   } catch (err) {
     console.error('confirm failed', { message: err.message, status: err.status });

@@ -2,14 +2,16 @@ import { signToken, normalizeEmail } from './_lib/token.mjs';
 import { createPendingContact, sendEmail } from './_lib/resend.mjs';
 import { confirmationEmail } from './_lib/emails.mjs';
 import { siteOrigin, isAllowedOrigin } from './_lib/origin.mjs';
+import { requireEnv } from './_lib/env.mjs';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-function requireEnv(name) {
-  const value = process.env[name];
-  if (!value) throw new Error(`${name} is not set`);
-  return value;
-}
+const REQUIRED_ENV = [
+  'RESEND_API_KEY',
+  'RESEND_SEGMENT_ID',
+  'NEWSLETTER_FROM',
+  'NEWSLETTER_SECRET',
+];
 
 function safeParse(s) {
   try { return JSON.parse(s); } catch { return {}; }
@@ -42,25 +44,30 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Validated up front and all at once, so a half-configured deployment
+    // reports every missing variable in one log line instead of revealing
+    // them one redeploy at a time.
+    const env = requireEnv(REQUIRED_ENV);
+
     await createPendingContact({
       email,
-      segmentId: requireEnv('RESEND_SEGMENT_ID'),
-      apiKey: requireEnv('RESEND_API_KEY'),
+      segmentId: env.RESEND_SEGMENT_ID,
+      apiKey: env.RESEND_API_KEY,
     });
 
-    const { token, expires } = signToken(email, requireEnv('NEWSLETTER_SECRET'));
+    const { token, expires } = signToken(email, env.NEWSLETTER_SECRET);
     const confirmUrl =
       `${siteUrl}/api/confirm?e=${encodeURIComponent(email)}&x=${expires}&t=${token}`;
 
     const { html, text } = confirmationEmail({ confirmUrl, siteUrl });
 
     await sendEmail({
-      from: requireEnv('NEWSLETTER_FROM'),
+      from: env.NEWSLETTER_FROM,
       to: email,
       subject: 'Confirm your subscription',
       html,
       text,
-      apiKey: requireEnv('RESEND_API_KEY'),
+      apiKey: env.RESEND_API_KEY,
     });
 
     return res.status(200).json({ ok: true });
