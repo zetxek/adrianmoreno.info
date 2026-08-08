@@ -28,6 +28,9 @@
     "test": "npm run test:e2e",
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install",
+    "test:unit": "node --test tests/unit/",
+    "newsletter:send": "node scripts/newsletter/send.mjs",
+    "newsletter:dry-run": "node scripts/newsletter/send.mjs --dry-run",
     "cv:dev": "hugo serve",
     "cv:qr": "node scripts/generate-cv-qr.js",
     "cv:pdf": "npm run cv:qr && node scripts/generate-cv-pdf.js"
@@ -43,6 +46,7 @@
     "browser-sync": "^3.0.4",
     "critical": "^8.0.0",
     "del": "^8.0.1",
+    "juice": "^11.0.1",
     "postcss": "^8.5.23",
     "postcss-cli": "^11.0.1",
     "postcss-flexbugs-fixes": "^5.0.2",

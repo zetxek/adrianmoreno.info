@@ -1,0 +1,71 @@
+{{- /*
+  Standalone email document. Three rules differ from the web layout:
+    1. Every URL absolute (.Permalink, never .RelPermalink) — an email has no origin.
+    2. No nav, no scripts, no theme switcher.
+    3. The Resend unsubscribe merge tag must be escaped, because {{{ }}} is also
+       Hugo syntax. Written literally, the build fails.
+*/ -}}
+<!doctype html>
+<html lang="{{ .Site.Language.Lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ .Title }}</title>
+<style>
+  body { margin:0; padding:24px 16px; background:#ffffff; color:#1a1a1a;
+         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+         font-size:17px; line-height:1.65; }
+  .wrap { max-width:600px; margin:0 auto; }
+  h1 { font-size:28px; line-height:1.25; margin:0 0 8px; }
+  h2 { font-size:22px; line-height:1.3; margin:32px 0 12px; }
+  h3 { font-size:19px; margin:24px 0 8px; }
+  p { margin:0 0 18px; }
+  a { color:#0066cc; }
+  img { max-width:100%; height:auto; border-radius:6px; }
+  blockquote { margin:0 0 18px; padding:4px 0 4px 16px; border-left:3px solid #ddd; color:#555; }
+  pre { background:#f6f6f6; padding:12px; border-radius:6px; overflow-x:auto; font-size:14px; }
+  code { background:#f6f6f6; padding:2px 4px; border-radius:3px; font-size:14px; }
+  pre code { background:none; padding:0; }
+  hr { border:0; border-top:1px solid #e5e5e5; margin:28px 0; }
+  .meta { color:#666; font-size:14px; margin:0 0 24px; }
+  .footer { margin-top:40px; padding-top:20px; border-top:1px solid #e5e5e5;
+            color:#666; font-size:14px; }
+  .footer a { color:#666; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>{{ .Title }}</h1>
+  <p class="meta">{{ .Date.Format "2 January 2006" }}</p>
+
+  {{ with .Params.featuredImage }}
+    {{ $img := resources.Get (strings.TrimPrefix "/" .) }}
+    {{ with $img }}
+      <p><img src="{{ (.Resize "1200x webp q85 Lanczos").Permalink }}" alt="{{ $.Title }}"></p>
+    {{ else }}
+      <p><img src="{{ . | absURL }}" alt="{{ $.Title }}"></p>
+    {{ end }}
+  {{ end }}
+
+  {{ .Content }}
+
+  <hr>
+
+  <p><a href="{{ .Permalink }}">Read this post on the site</a></p>
+
+  <div class="footer">
+    <p>
+      You are receiving this because you confirmed a subscription at
+      <a href="{{ .Site.BaseURL }}">adrianmoreno.info</a>.
+    </p>
+    <p>
+      <a href="{{ "{{{RESEND_UNSUBSCRIBE_URL}}}" | safeHTML }}">Unsubscribe</a>
+      &middot;
+      <a href="{{ "privacy/" | absURL }}">Privacy</a>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>

@@ -66,6 +66,38 @@ npm run test:e2e:install   # Install Playwright browsers
 - **Book data**: Google Books API integration for cover image fetching
 - **Theme updates**: Dependabot configured for Hugo modules and npm dependencies
 
+### Newsletter (Resend)
+- Subscribers sign up via `/api/subscribe` (Vercel function) and confirm through an
+  HMAC-signed link handled by `/api/confirm`. Double opt-in — the contact is created
+  with `unsubscribed: true` and only flipped on confirmation. Segment membership is
+  set at creation, because `PATCH /contacts` does not accept `segments`. The
+  payload is `segments: [{ id }]` — an array of objects, not bare IDs.
+- A post is emailed only if its frontmatter sets `newsletter = true`. Without it,
+  nothing sends. This matters because most of `content/blog/` is LinkedIn imports.
+- `.github/workflows/newsletter.yml` builds the site, reads the Hugo-rendered
+  `index.email.html` for each qualifying post, and creates a **draft** broadcast in
+  Resend. A human presses Send.
+- `.newsletter-state.json` is append-only and prevents duplicate sends. Never edit it
+  by hand to "resend" something.
+- Emails are rendered by the `email` Hugo output format
+  (`layouts/blog/single.email.html`). The Resend unsubscribe merge tag must be written
+  `{{ "{{{RESEND_UNSUBSCRIBE_URL}}}" | safeHTML }}` — Hugo also parses `{{{ }}}`.
+- Preview without sending: `npm run newsletter:dry-run`.
+- Processor record and GDPR position: `docs/legal/resend.md`.
+
+### Standalone content pages
+Plain pages (`content/privacy.md`, `content/newsletter/*`) need no `type` — the
+theme's `_default/single.html` renders title and content with no post metadata.
+
+This repo used to override that with an empty stub, which made every such page
+render blank; the workaround was `type: "blog"`, which then displayed "Published on
+Jan 1, 0001 - 372 Words - 1 min read" on a privacy policy. The stub existed to stop
+`content/footer/footer.md` emitting a standalone page, which the theme now handles
+itself via `layouts/footer/single.html`, so it was removed.
+
+`content/now.md` still carries `type: "blog"` and so still shows post metadata. Left
+alone deliberately, since a "what I'm up to now" page arguably wants a date.
+
 ## Key Files to Reference
 - `hugo.toml`: Module imports and asset mounting configuration
 - `postcss.config.js`: PurgeCSS configuration with Hugo stats integration
