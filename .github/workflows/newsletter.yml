@@ -55,16 +55,45 @@ jobs:
       - name: Run unit tests
         run: npm run test:unit
 
+      # NEWSLETTER_FROM and SITE_BASE_URL are not secrets — a sender address and
+      # a public URL — so a repository *variable* is their natural home. They are
+      # read from `vars` with a `secrets` fallback, so either placement works and
+      # neither silently yields an empty string.
+      - name: Check configuration
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_SEGMENT_ID: ${{ secrets.RESEND_SEGMENT_ID }}
+          NEWSLETTER_FROM: ${{ vars.NEWSLETTER_FROM || secrets.NEWSLETTER_FROM }}
+          SITE_BASE_URL: ${{ vars.SITE_BASE_URL || secrets.SITE_BASE_URL }}
+        run: |
+          missing=()
+          for name in RESEND_API_KEY RESEND_SEGMENT_ID NEWSLETTER_FROM SITE_BASE_URL; do
+            # An `[ ... ] && arr+=(...)` one-liner would return non-zero on the
+            # last iteration when the test is false, which `set -e` treats as a
+            # step failure. Use a plain if.
+            if [ -z "${!name}" ]; then
+              missing+=("$name")
+            fi
+          done
+          if [ ${#missing[@]} -gt 0 ]; then
+            echo "::error::Missing configuration: ${missing[*]}"
+            echo "Set them as repository secrets, or as variables for the two that are not secret." >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          echo "All required configuration is present."
+
       - name: Build site
-        run: hugo --minify --baseURL "${{ secrets.SITE_BASE_URL }}"
+        env:
+          SITE_BASE_URL: ${{ vars.SITE_BASE_URL || secrets.SITE_BASE_URL }}
+        run: hugo --minify --baseURL "$SITE_BASE_URL"
 
       - name: Create draft broadcasts
         run: node scripts/newsletter/send.mjs ${{ (github.event_name == 'workflow_dispatch' && inputs.dry_run) && '--dry-run' || '' }}
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           RESEND_SEGMENT_ID: ${{ secrets.RESEND_SEGMENT_ID }}
-          NEWSLETTER_FROM: ${{ secrets.NEWSLETTER_FROM }}
-          SITE_BASE_URL: ${{ secrets.SITE_BASE_URL }}
+          NEWSLETTER_FROM: ${{ vars.NEWSLETTER_FROM || secrets.NEWSLETTER_FROM }}
+          SITE_BASE_URL: ${{ vars.SITE_BASE_URL || secrets.SITE_BASE_URL }}
 
       # Deliberately NOT `if: success()`. send.mjs exits non-zero when any post
       # fails, but posts that already succeeded have been written to the state
