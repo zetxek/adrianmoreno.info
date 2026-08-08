@@ -92,7 +92,11 @@
 
       busy = true;
       submit.classList.add('is-loading');
-      submit.textContent = 'Sending…';
+      submit.textContent = '';
+      var loadingLabel = document.createElement('span');
+      loadingLabel.className = 'rad-subscription-submit-label';
+      loadingLabel.textContent = 'Sending…';
+      submit.appendChild(loadingLabel);
       submit.setAttribute('aria-busy', 'true');
       submit.disabled = true;
 

@@ -123,6 +123,11 @@ abbr[title] {
     cursor: progress;
 }
 
+.rad-subscription-group #rad-subscription-submit.is-loading .rad-subscription-submit-label {
+    color: #000;
+    opacity: 1;
+}
+
 .rad-subscription-group #rad-subscription-submit.is-loading::after {
     right: 12px;
     bottom: auto;

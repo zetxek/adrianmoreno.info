@@ -127,7 +127,8 @@ test.describe('newsletter signup', () => {
     await submit.click();
     await requestStarted;
 
-    await expect(submit).toHaveText('Sending…');
+    const loadingLabel = submit.locator('.rad-subscription-submit-label');
+    await expect(loadingLabel).toHaveText('Sending…');
     await expect(submit).toBeDisabled();
     await expect(submit).not.toHaveCSS('color', 'rgba(0, 74, 255, 0.5)');
 
