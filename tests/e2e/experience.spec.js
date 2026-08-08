@@ -94,6 +94,21 @@ test.describe('Experience Page', () => {
     // when the smooth-scroll library animates the header between clicks
     await page.click('header a[href*="#about"]', { force: true });
     await expect(page).toHaveURL(/.*#about/);
+    // The About link lives on the homepage, so this click triggers a full page
+    // navigation, after which the browser performs its own smooth anchor scroll
+    // (CSS `scroll-behavior: smooth`). Clicks dispatched while that scroll is
+    // still running are silently dropped by Chromium — wait until scrollY stops
+    // changing before clicking the next link.
+    await page.waitForLoadState('load');
+    await page.waitForFunction(
+      () => new Promise((resolve) => {
+        let prev = -1;
+        const id = setInterval(() => {
+          if (window.scrollY === prev) { clearInterval(id); resolve(true); }
+          prev = window.scrollY;
+        }, 100);
+      })
+    );
 
     // Test navigation to Experience section
     await page.click('header a[href*="#experience-single"]', { force: true });

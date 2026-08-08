@@ -160,12 +160,12 @@ URL = "scss/books.scss"
 
 [[menu.header]]
 name = "About"
-url = "index.html#about"
+url = "/#about"
 weight = 2
 
 [[menu.header]]
 name = "Experience"
-url = "index.html#experience-single"
+url = "/#experience-single"
 weight = 3
 
 [[menu.header]]
@@ -185,7 +185,7 @@ weight = 5
 
 [[menu.header]]
 name = "Contact"
-url = "#contact"
+url = "/#contact"
 weight = 7
 
 [[menu.header]]
@@ -197,7 +197,7 @@ weight = 8
 
 [[menu.footer]]
 name = "💁‍♂️ About"
-url = "index.html#about"
+url = "/#about"
 weight = 2
 
 

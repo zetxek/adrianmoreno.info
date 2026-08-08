@@ -38,7 +38,7 @@
   "description": "JS automations for adrianmoreno.info",
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^8.0.0",
-    "@playwright/test": "^1.61.1",
+    "@playwright/test": "^1.62.1",
     "@zetxek/adritian-theme-helper": "^1.0.5",
     "autoprefixer": "^10.5.4",
     "bootstrap": "^5.3.8",
