@@ -91,3 +91,22 @@ abbr[title] {
     min-width: 2.5rem;
     text-align: center;
 }
+
+/*
+ * Newsletter error message.
+ *
+ * subscription.js moves #rad-subscription-fail out of .rad-subscription-group
+ * so the form stays usable for a retry. Outside the pill it loses the theme's
+ * `.rad-subscription-group #rad-subscription-fail p { color: #fff }` rule, and
+ * the CTA section has a dark background, so restore the colour here.
+ */
+.rad-subscription-fail--below {
+    max-width: 462px;
+    margin: 12px auto 0;
+    text-align: center;
+}
+
+.rad-subscription-fail--below p {
+    margin-bottom: 0;
+    color: #fff;
+}

@@ -122,17 +122,55 @@ test.describe('newsletter signup', () => {
     await expect(page.locator('#rad-subscription').first()).toBeHidden();
   });
 
-  test('a server error reveals the error message', async ({ page }) => {
+  test('a server error reveals the error message and leaves the form usable', async ({ page }) => {
     await page.goto('/newsletter/');
 
     await page.route('**/api/subscribe', (route) =>
       route.fulfill({ status: 503, body: '{"error":"temporarily_unavailable"}' }),
     );
 
-    await page.locator('#rad-subscription-email').first().fill('reader@example.com');
-    await page.locator('#rad-subscription-submit').first().click();
+    const form = page.locator('[id="rad-subscription"]').first();
+    await form.locator('[id="rad-subscription-email"]').fill('reader@example.com');
+    await form.locator('[id="rad-subscription-submit"]').click();
 
-    await expect(page.locator('#rad-subscription-fail').first()).toBeVisible();
+    const fail = page.locator('[id="rad-subscription-fail"]').first();
+    await expect(fail).toBeVisible();
+
+    // The form must survive a failure — the visitor needs it to retry. The
+    // theme hides it on both outcomes, which would strand them here.
+    await expect(form).toBeVisible();
+    await expect(form.locator('[id="rad-subscription-submit"]')).toBeEnabled();
+
+    // And the message must sit outside the pill, or it is squeezed in beside
+    // the input inside a fixed 56px-tall rounded container.
+    await expect(fail).not.toHaveClass(/d-none/);
+    const insidePill = await fail.evaluate(
+      (el) => el.closest('.rad-subscription-group') !== null,
+    );
+    expect(insidePill).toBe(false);
+  });
+
+  test('a retry after an error clears the previous message', async ({ page }) => {
+    await page.goto('/newsletter/');
+
+    let attempt = 0;
+    await page.route('**/api/subscribe', (route) => {
+      attempt += 1;
+      route.fulfill(
+        attempt === 1
+          ? { status: 503, body: '{"error":"temporarily_unavailable"}' }
+          : { status: 200, contentType: 'application/json', body: '{"ok":true}' },
+      );
+    });
+
+    const form = page.locator('[id="rad-subscription"]').first();
+    await form.locator('[id="rad-subscription-email"]').fill('reader@example.com');
+    await form.locator('[id="rad-subscription-submit"]').click();
+    await expect(page.locator('[id="rad-subscription-fail"]').first()).toBeVisible();
+
+    await form.locator('[id="rad-subscription-submit"]').click();
+    await expect(page.locator('[id="rad-subscription-success"]').first()).toBeVisible();
+    await expect(page.locator('[id="rad-subscription-fail"]').first()).toBeHidden();
   });
 
   test('the landing pages render their content', async ({ page }) => {

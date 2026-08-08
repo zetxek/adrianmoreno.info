@@ -18,10 +18,24 @@
     // Scope to the enclosing section so each form talks to its own
     // success/error panels rather than the first pair in the document.
     var scope = form.closest('.section') || document;
-    return {
-      success: scope.querySelector('[id="rad-subscription-success"]'),
-      fail: scope.querySelector('[id="rad-subscription-fail"]')
-    };
+    var success = scope.querySelector('[id="rad-subscription-success"]');
+    var fail = scope.querySelector('[id="rad-subscription-fail"]');
+
+    // .rad-subscription-group is the rounded pill: a 56px-tall flex row whose
+    // children are the form and these two panels. The theme expects a panel to
+    // replace the form, so it hides the form on both outcomes.
+    //
+    // On success that is right — the form has done its job. On failure it is
+    // not: the visitor needs the form to try again. Keeping both visible inside
+    // the pill squeezes the message in beside the input, so move the error out
+    // of the pill and let it sit underneath.
+    var group = fail && fail.closest('.rad-subscription-group');
+    if (group && group.parentNode) {
+      group.parentNode.insertBefore(fail, group.nextSibling);
+      fail.classList.add('rad-subscription-fail--below');
+    }
+
+    return { success: success, fail: fail };
   }
 
   function addHoneypot(form) {
