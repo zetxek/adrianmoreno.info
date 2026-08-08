@@ -4,6 +4,8 @@ url: newsletter/confirmed
 description: "Your newsletter subscription is confirmed."
 sitemap:
   disable: true
+build:
+  list: never
 ---
 
 That's it — you're on the list.

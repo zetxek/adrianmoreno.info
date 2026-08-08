@@ -4,6 +4,8 @@ url: newsletter/link-expired
 description: "The confirmation link has expired or is invalid."
 sitemap:
   disable: true
+build:
+  list: never
 ---
 
 Confirmation links expire after 48 hours, and each one only works for the address it
