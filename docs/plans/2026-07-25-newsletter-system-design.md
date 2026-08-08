@@ -403,6 +403,16 @@ all three are done, because from that moment personal data is being processed.
 3. **Publish `/privacy/`** and link it from the subscribe form.
 4. Create the segment; note its ID. Set all five environment variables in both GitHub
    Actions secrets and Vercel.
+4a. **Register the custom contact properties**, or every signup fails with a 422 the
+    UI reports only as "Something went wrong" — discovered the hard way on the first
+    real test. Resend validates custom properties against a predefined schema; unlike
+    `unsubscribed` or `segments`, a key that was never registered rejects the whole
+    call. One-time per Resend account:
+    ```
+    resend contact-properties create --key source --type string
+    resend contact-properties create --key requested_at --type string
+    resend contact-properties create --key confirmed_at --type string
+    ```
 5. Merge with `newsletter = true` set on **no** posts. Nothing can send.
 6. Subscribe yourself; confirm the double opt-in round trip works end to end,
    including that the unsubscribe link in a test email actually works.

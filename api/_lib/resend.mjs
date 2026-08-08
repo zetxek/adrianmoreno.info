@@ -56,6 +56,15 @@ async function request(path, { method = 'POST', body, apiKey }) {
  * accept `segments`. Because `unsubscribed: true` means "unsubscribed from all
  * broadcasts", an unconfirmed contact sitting in the segment can never receive
  * one. Confirmation flips the flag; it does not change membership.
+ *
+ * `properties` here (`source`, `requested_at`, `confirmed_at`) are custom
+ * contact properties, which Resend validates against a predefined schema —
+ * unlike `unsubscribed` or `segments`, sending a key that was never registered
+ * on the account fails the whole call with 422 "One or more properties do not
+ * exist". They must be created once per Resend account before this code will
+ * work: `resend contact-properties create --key <name> --type string` for each
+ * of the three keys used below. This is account setup, not something the
+ * application can or should do at request time.
  */
 export function createPendingContact({ email, segmentId, apiKey }) {
   return request('/contacts', {
