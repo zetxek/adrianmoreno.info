@@ -104,6 +104,27 @@ test.describe('newsletter signup', () => {
     expect(requested).toBe(false);
   });
 
+  test('an address the server rejects gets a specific message, not the generic one', async ({ page }) => {
+    // "user@ss" clears the browser's native type="email" check (which does
+    // not require a dot in the domain) but fails the server's stricter
+    // regex, so it reaches the API and comes back 400 invalid_email. That
+    // case must not read like a server outage the visitor should retry.
+    await page.goto('/newsletter/');
+
+    await page.route('**/api/subscribe', (route) =>
+      route.fulfill({ status: 400, contentType: 'application/json', body: '{"error":"invalid_email"}' }),
+    );
+
+    const form = page.locator('[id="rad-subscription"]').first();
+    await form.locator('[id="rad-subscription-email"]').fill('user@ss');
+    await form.locator('[id="rad-subscription-submit"]').click();
+
+    const fail = page.locator('[id="rad-subscription-fail"]').first();
+    await expect(fail).toBeVisible();
+    await expect(fail).toContainText(/valid email address/i);
+    await expect(fail).not.toContainText(/something went wrong/i);
+  });
+
   test('a pending signup uses a neutral Sending label', async ({ page }) => {
     await page.goto('/newsletter/');
 
@@ -204,6 +225,42 @@ test.describe('newsletter signup', () => {
     await form.locator('[id="rad-subscription-submit"]').click();
     await expect(page.locator('[id="rad-subscription-success"]').first()).toBeVisible();
     await expect(page.locator('[id="rad-subscription-fail"]').first()).toBeHidden();
+  });
+
+  test('clicking submit again while an error is showing does not blank it first', async ({ page }) => {
+    // The handler used to hide the error panel unconditionally at the start
+    // of every submit, before the request even went out. Against a fast
+    // response that hide-then-show collapsed into a single-frame blink —
+    // visible as "flashing" on repeated clicks. It must never disappear
+    // between an already-visible error and its (possibly identical) replacement.
+    await page.goto('/newsletter/');
+    await page.route('**/api/subscribe', (route) =>
+      route.fulfill({ status: 503, contentType: 'application/json', body: '{"error":"temporarily_unavailable"}' }),
+    );
+
+    const form = page.locator('[id="rad-subscription"]').first();
+    await form.locator('[id="rad-subscription-email"]').fill('reader@example.com');
+    const submit = form.locator('[id="rad-subscription-submit"]');
+    await submit.click();
+    await expect(page.locator('[id="rad-subscription-fail"]').first()).toBeVisible();
+
+    const wentHidden = await page.evaluate(() => {
+      return new Promise((resolve) => {
+        const fail = document.querySelectorAll('[id="rad-subscription-fail"]')[0];
+        let hidden = false;
+        const observer = new MutationObserver(() => {
+          if (fail.classList.contains('d-none')) hidden = true;
+        });
+        observer.observe(fail, { attributes: true, attributeFilter: ['class'] });
+        document.querySelectorAll('[id="rad-subscription-submit"]')[0].click();
+        setTimeout(() => {
+          observer.disconnect();
+          resolve(hidden);
+        }, 400);
+      });
+    });
+
+    expect(wentHidden).toBe(false);
   });
 
   test('the landing pages render their content', async ({ page }) => {

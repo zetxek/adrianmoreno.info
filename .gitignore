@@ -32,6 +32,10 @@ scripts/*.zip/*
 
 # Git worktrees
 .worktrees/
+.claude/worktrees/
+
+# Per-machine Claude Code settings (permission grants, local paths)
+.claude/settings.local.json
 
 # Local environment secrets
 .env.local

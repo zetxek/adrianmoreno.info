@@ -73,6 +73,16 @@
     var emailInput = form.querySelector('[id="rad-subscription-email"]');
     if (!submit || !emailInput) return;
 
+    // The server's email regex is stricter than the browser's native
+    // type="email" check (which accepts a dotless domain like "user@ss").
+    // Addresses that clear the browser but fail the server land here with a
+    // 400 invalid_email — swap in a message that says so, instead of the
+    // generic failure text, since retrying won't help until the address
+    // itself is fixed.
+    var failMessageEl = panels.fail && panels.fail.querySelector('p');
+    var defaultFailMessage = failMessageEl ? failMessageEl.textContent : '';
+    var invalidEmailMessage = "That doesn't look like a valid email address. Double-check it and try again.";
+
     var honeypot = addHoneypot(form);
     var busy = false;
     var submitLabel = submit.textContent;
@@ -85,10 +95,6 @@
         emailInput.reportValidity();
         return;
       }
-
-      // Clear any error from a previous attempt, so a retry that succeeds does
-      // not leave a stale failure message on screen next to the success one.
-      hide(panels.fail);
 
       busy = true;
       submit.classList.add('is-loading');
@@ -109,11 +115,31 @@
         })
       })
         .then(function (response) {
-          if (!response.ok) throw new Error('request failed');
-          form.classList.add('d-none');
-          show(panels.success);
+          if (response.ok) {
+            // Clear any error from a previous attempt only now that we have
+            // an outcome to replace it with — hiding it up front (before the
+            // request even starts) blanked an already-visible message for a
+            // beat, which read as a flash on every retry.
+            hide(panels.fail);
+            form.classList.add('d-none');
+            show(panels.success);
+            return;
+          }
+          return response
+            .json()
+            .catch(function () { return {}; })
+            .then(function (body) {
+              if (failMessageEl) {
+                failMessageEl.textContent =
+                  body && body.error === 'invalid_email'
+                    ? invalidEmailMessage
+                    : defaultFailMessage;
+              }
+              show(panels.fail);
+            });
         })
         .catch(function () {
+          if (failMessageEl) failMessageEl.textContent = defaultFailMessage;
           show(panels.fail);
         })
         .finally(function () {
