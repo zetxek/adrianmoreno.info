@@ -9,6 +9,7 @@ on:
       # package.json test script must trigger a run too.
       - 'tests/unit/**'
       - 'package.json'
+      - '.github/workflows/newsletter.yml'
   # Posts are often future-dated, so a push alone is not enough — the post may
   # not be published yet at push time, and nothing would re-trigger later.
   schedule:
