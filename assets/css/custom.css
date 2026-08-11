@@ -168,3 +168,30 @@ abbr[title] {
         animation: none;
     }
 }
+
+/*
+ * Newsletter input focus state.
+ *
+ * The theme fires two focus indicators on #rad-subscription-email: Bootstrap's
+ * own primary-colour glow on the input, plus the pill's alarm-red border via
+ * `.rad-subscription-group:has(input:focus)`. The theme suppresses the
+ * Bootstrap glow in dark mode ([data-bs-theme="dark"] rules) but not in the
+ * default/light theme, so both rings stack while typing — and red reads as a
+ * validation error even though nothing has been submitted. Drop the duplicate
+ * glow and swap the pill border for the site's own teal so focus reads as
+ * "typing", not "invalid".
+ *
+ * The `#newsletter` prefix isn't just scoping — it's needed to out-specificity
+ * the theme's own `.rad-subscription-group:has(...)` rule, which this
+ * stylesheet loads before but has identical specificity otherwise.
+ */
+.rad-subscription-group input[type="email"]:focus,
+.rad-subscription-group input[type="email"]:active {
+    outline: none;
+    box-shadow: none;
+}
+
+#newsletter .rad-subscription-group:has(input[type="email"]:focus),
+#newsletter .rad-subscription-group:has(input[type="email"]:active) {
+    border-color: rgba(var(--bs-primary-rgb), 0.6);
+}
