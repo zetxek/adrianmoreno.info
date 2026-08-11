@@ -1,3 +1,5 @@
+
+
 # adrianmoreno.info #
 
 This repository holds the information, structure and design in [www.adrianmoreno.info](http://www.adrianmoreno.info). This is a playground where I experiment with some technologies, try to optimize the website with Google Page Speed Insights, or test some gulp scripts. 
@@ -8,7 +10,7 @@ It's a good excuse to overengineer a CV-website, isn't it? ;-)
 
 <img width="1340" alt="website-screenshot" src="https://user-images.githubusercontent.com/240085/211220892-f1ebeb35-224e-4e2e-925d-c7116527208f.png">
 
-The page theme is open sourced independently from this site, as a hugo theme [Adritian]([url](https://github.com/zetxek/adritian-free-hugo-theme)) in [its own repo](https://github.com/zetxek/adritian-free-hugo-theme).
+The page theme is open sourced independently from this site, as a hugo theme [Adritian](https://github.com/zetxek/adritian-free-hugo-theme) in [its own repo](https://github.com/zetxek/adritian-free-hugo-theme).
 
 ### Generation ###
 
