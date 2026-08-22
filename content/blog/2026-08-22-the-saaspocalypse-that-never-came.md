@@ -75,11 +75,12 @@ I'd be doing the same thing I criticize if I stopped here and declared "buy ever
 
 The apocalypse didn't come for Salesforce. It came for the €20-per-seat single-feature tool.
 
-If your entire product was a form builder, a CSV transformer, a thin wrapper around a model, or a dashboard that someone can now describe in a paragraph and get working before lunch — you *were* in trouble, and you found out. That's real. What died wasn't SaaS. It was the assumption that "we solved a small annoyance, therefore we deserve a subscription in perpetuity."
+If your entire product was a form builder, a CSV transformer, a thin wrapper around a model, or a dashboard that someone can now describe in a paragraph and get working before lunch — you *were* in trouble, and you found out. That's real, and the result is that the market corrected itself. These tools were not adding that much value. 
+But what died wasn't SaaS. It was the assumption that "we solved a small annoyance, therefore we deserve a subscription in perpetuity."
 
-The floor for what justifies a recurring bill went up. That's healthy. It's also not an apocalypse — it's a market doing what markets do.
+The floor for what justifies a recurring bill went up. That's healthy, and increases competition. It's also not an apocalypse — it's a market doing what markets do.
 
-And the reverse case deserves airtime too. Buying isn't automatically right:
+And the reverse case deserves to be told too. Buying isn't automatically right:
 
 - **Per-seat pricing that punishes you for growing** turns a utility into a tax on success.
 - **A tool that reshapes your process instead of serving it** is not a utility, it's a landlord.
@@ -96,7 +97,7 @@ Here's what I think the real killer app is, and it isn't replacing your vendors.
 
 Buy the best off-the-rack SaaS — the S/M/L of software — and then use AI to **tailor it** to how your organization actually works. The integrations. The glue. The reports nobody else needs. The workflow that's weird because your business is genuinely weird there.
 
-It's the difference between a bespoke suit and a good suit that's been properly altered. Bespoke costs a fortune and takes months. Off-the-rack fits nobody. **Tailored** is cheap, fast, and fits your shoulders.
+It's the difference between a bespoke suit and a good suit that's been properly altered. Bespoke costs a fortune and takes months. Off-the-rack fits some, but it's perfect for almost no one. **Tailored** is cheap, fast, and fits your shoulders.
 
 This is the same shift I described when I argued we should [be a shepherd, not a fence]({{< ref "/blog/2026-03-23-be-a-shepperd-not-a-fence-stop-gatekeeping-vibe-coders.md" >}}). The valuable work moves up: not building the 500th CRUD app, but building and guarding the connective tissue that lets everyone else move fast without setting the house on fire.
 
@@ -110,9 +111,9 @@ When someone in your organization proposes building instead of buying, three que
 2. **Who owns this in eighteen months?** Not "which team" — which *person*, with what time budget, and what happens when they leave. If the room goes quiet, you have your answer.
 3. **What's the total cost, not the build cost?** Hosting, on-call, security review, compliance, migration, the eventual rewrite. Compare *that* to the licence fee. Sometimes building still wins. Now you'll know why.
 
-None of this requires saying no to the enthusiastic COO. It requires giving them the same framework we've been using in engineering for decades — the one they were never invited into.
+None of this requires saying no to the enthusiastic new lead vibe coders. It requires giving them the same framework we've been using in engineering for decades, and help them take the decisions in the same as we've been doing for years for engineering tools, frameworks and the like.
 
-That invitation is the actual story here. Not the apocalypse.
+That realization is the evolution and change here.
 
 ---
 
