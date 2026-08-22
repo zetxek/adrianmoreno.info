@@ -2,8 +2,8 @@
 title = "The SaaSpocalypse That Never Came: A Build vs Buy Test in Disguise"
 slug = "the-saaspocalypse-that-never-came"
 date = "2026-08-22T10:00:00+02:00"
-draft = true
-tags = ["article", "ai", "vibe coding", "engineering leadership"]
+draft = false
+tags = ["article", "ai", "vibe coding", "engineering leadership", "product strategy"]
 categories = ["Engineering & Product"]
 layout = "blog"
 images = ["/images/blog/the-saaspocalypse-that-never-came.jpg"]
