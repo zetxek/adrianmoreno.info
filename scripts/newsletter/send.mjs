@@ -33,7 +33,14 @@ function emailHtmlFor(slug) {
     );
   }
   // Inline the <style> block: Gmail and Outlook treat head styles inconsistently.
-  return juice(readFileSync(file, 'utf8'));
+  const inlined = juice(readFileSync(file, 'utf8'));
+  // Belt and braces: if any build step percent-encodes the Resend merge tag
+  // (Hugo's html/template does this in href attributes), restore the literal
+  // tag so Resend detects and substitutes it.
+  return inlined.replaceAll(
+    /%7b%7b%7bRESEND_UNSUBSCRIBE_URL%7d%7d%7d/gi,
+    '{{{RESEND_UNSUBSCRIBE_URL}}}',
+  );
 }
 
 function summary(line) {
