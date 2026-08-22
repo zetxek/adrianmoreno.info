@@ -6,6 +6,8 @@ draft = true
 tags = ["article", "ai", "vibe coding", "engineering leadership"]
 categories = ["Engineering & Product"]
 layout = "blog"
+images = ["/images/blog/the-saaspocalypse-that-never-came.jpg"]
+featuredImage = "/images/blog/the-saaspocalypse-that-never-came.jpg"
 # Set to true to email this post to newsletter subscribers when it goes live.
 newsletter = false
 +++
@@ -30,7 +32,7 @@ But a hammer doesn't tell you _which nails are worth hitting_.
 
 The line comes from [a talk Jeff Bezos gave at Y Combinator's Startup School in 2008](https://www.youtube.com/watch?v=6nKfFHuouzA)[^acquired], when AWS was barely two years old: he'd visited an old brewery that, in the early 1900s, generated its own electricity — not out of ambition, but because there was no grid to buy it from. Somebody there effectively had a full-time job running a power plant. Then the grid arrived, and the breweries plugged in.
 
-None of that self-generated electricity ever made the beer taste better. Hence the line: **focus on what makes your beer taste better.**
+None of that self-generated electricity ever made the beer taste better. Hence the line: **focus on what makes your beer taste better.**[^illustration]
 
 Generating your own power never improved _the recipe_. It was just a tax you paid to be in business, the entry ticket. The moment someone else could do it more reliably and more cheaply, keeping it in-house stopped being a requirement and started being a distraction.
 
@@ -119,3 +121,7 @@ That invitation is the actual story here. Not the apocalypse.
 Mistaking one for the other has always been expensive. AI just made it much easier to do at speed.
 
 [^acquired]: I know this one because [Acquired](https://www.acquired.fm/episodes/amazon-web-services) keeps coming back to it — episode after episode, across completely different industries. Ben Gilbert and David Rosenthal are spot on to keep doing it: it's one of the most portable framings in business, and it survives being pointed at almost anything.
+
+[^illustration]: The illustration at the top of this post was generated with Google Gemini, from this prompt:
+
+    > A wide 16:9 editorial illustration in a detailed retro-vintage comic style, split down the middle. Left panel, sepia-toned early 1900s: a small brewery with a hulking brass-and-copper steam generator crammed into the corner, gears and pressure gauges everywhere, a soot-streaked engineer in overalls tending it anxiously while barrels of beer sit ignored in the background — the machine dominates the room. Right panel, warm golden light, same brewery decades later: the generator is gone, replaced by a single simple wire running to a wall socket labeled "GRID," and the same role — now a brewmaster — leans over an open barrel actually tasting and refining the beer, sunlight streaming in, content. A thin brass power line crosses the seam between panels, connecting the old generator's leftover housing (now dusty, unused, in the corner of the right panel) to the wall plug. No text overlay.
