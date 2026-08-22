@@ -75,11 +75,11 @@ The forecast wasn't stupid. It rested on two assumptions that nobody looked at c
 
 **The first: that writing the software is the hard part.**
 
-The software development lifecycle doesn't end when the code is written. That's roughly where it *starts*. You still have to ship it, keep it up, patch it, monitor it, and answer for it when it leaks. You have to **operate** it — for years, quietly, while everyone's attention is somewhere else. It's far from "fire and forget", especially when building things that other people will depend on, and that has transitive dependencies you can't fully control, but affect your service. 
+The software development lifecycle doesn't end when the code is written. That's roughly where it *starts*. You still have to ship it, keep it up, patch it, monitor it, and answer for it when it leaks. You have to **operate** it — for years, quietly, while everyone's attention is somewhere else. It's far from "fire and forget", especially when building things that other people will depend on, and that have transitive dependencies you can't fully control but that still affect your service. 
 
 If you price only the writing, and the writing suddenly gets ten times cheaper, then of course you conclude the industry is about to collapse. You've just mispriced the overwhelming majority of the work.
 
-I'm not saying that operations won't get easier also through AI. It will. But the cost of operations is not zero, and it is not going away. The SaaS apocalypse was a misreading of the economics of software.
+I'm not saying that operations won't get easier through AI too. They will. But the cost of operations is not zero, and it is not going away. The SaaS apocalypse was a misreading of the economics of software.
 
 **The second, and the one I think matters more: nobody was ever paying the subscription for the code.**
 
@@ -119,7 +119,7 @@ That last one is the expensive mistake, and it's the one nobody notices for two 
 
 ### Where AI actually earns its keep
 
-Here's what I think the real killer app is, and it isn't replacing your vendors. It's at blending them together, with a layer that is unique to your organization. The glue. The workflow. The reports nobody else needs but help your team deliver a great service. The integrations that make the whole thing work together, in that exact combination of providers that works great for you.
+Here's what I think the real killer app is, and it isn't replacing your vendors. It's about blending them together, with a layer that is unique to your organization. The glue. The workflow. The reports nobody else needs but help your team deliver a great service. The integrations that make the whole thing work together, in that exact combination of providers that works great for you.
 
 Buy the best off-the-rack SaaS — the S/M/L of software — and then use AI to **tailor it** to how your organization actually works. The integrations. The glue. The reports nobody else needs. The workflow that's weird because your business is genuinely weird there.
 
@@ -137,7 +137,7 @@ When someone in your organization proposes building instead of buying, three que
 2. **Who owns this in eighteen months?** Not "which team" — which *person*, with what time budget, and what happens when they leave. If the room goes quiet, you have your answer.
 3. **What's the total cost, not the build cost?** Hosting, on-call, security review, compliance, migration, the eventual rewrite. Compare *that* to the licence fee. Sometimes building still wins. Now you'll know why.
 
-None of this requires saying no to the enthusiastic new lead vibe coders. It requires giving them the same framework we've been using in engineering for decades, and help them take the decisions in the same as we've been doing for years for engineering tools, frameworks and the like.
+None of this requires saying no to the enthusiastic new lead vibe coders. It requires giving them the same framework we've been using in engineering for decades, and helping them take those decisions the same way we have for years with engineering tools, frameworks and the like.
 
 That realization is the evolution and change here.
 
