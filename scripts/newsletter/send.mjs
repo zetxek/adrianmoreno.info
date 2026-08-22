@@ -79,7 +79,10 @@ async function main() {
         segmentId: requireEnv('RESEND_SEGMENT_ID'),
         from: requireEnv('NEWSLETTER_FROM'),
         subject: post.title,
-        name: `${post.date?.slice(0, 10) ?? ''} ${post.title}`.trim(),
+        // Resend caps `name` at 70 characters (422 otherwise). It is only an
+        // internal dashboard label — recipients see `subject` — so truncating
+        // is safe.
+        name: `${post.date?.slice(0, 10) ?? ''} ${post.title}`.trim().slice(0, 70),
         html,
       });
 
