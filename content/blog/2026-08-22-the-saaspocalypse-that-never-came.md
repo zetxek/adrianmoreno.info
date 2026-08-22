@@ -14,7 +14,7 @@ newsletter = false
 
 Remember the SaaSpocalypse?
 
-The one where AI was going to obliterate Salesforce, kill every subscription, and turn the software industry into a ghost town. We were promised the software equivalent of Y2K. Planes falling out of the sky. Banks imploding. Vendors disappearing.
+The one where AI was going to make Salesforce irrelevant, kill every subscription, and turn the software industry into a ghost town because every company would be running custom software alone. We were promised the software equivalent of Y2K. Planes falling out of the sky. Banks imploding. Vendors disappearing.
 
 Yet, the lights stayed on.
 
