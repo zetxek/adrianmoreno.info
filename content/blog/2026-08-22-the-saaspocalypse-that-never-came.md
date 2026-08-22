@@ -69,7 +69,7 @@ None of those line items appear in the sprint where the thing gets built. All of
 
 ---
 
-### Now, the nuance — because the doomers weren't *entirely* wrong
+### Now, the nuance: the change that actually happened
 
 I'd be doing the same thing I criticize if I stopped here and declared "buy everything, nothing changed." Something did change.
 
