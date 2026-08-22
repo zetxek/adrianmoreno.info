@@ -9,7 +9,7 @@ layout = "blog"
 images = ["/images/blog/the-saaspocalypse-that-never-came.jpg"]
 featuredImage = "/images/blog/the-saaspocalypse-that-never-came.jpg"
 # Set to true to email this post to newsletter subscribers when it goes live.
-newsletter = false
+newsletter = true
 +++
 
 Remember the SaaSpocalypse?
