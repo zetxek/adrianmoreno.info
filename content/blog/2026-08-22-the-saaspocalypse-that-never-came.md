@@ -69,6 +69,32 @@ None of those line items appear in the sprint where the thing gets built. All of
 
 ---
 
+### So why did everyone get this so wrong?
+
+The forecast wasn't stupid. It rested on two assumptions that nobody looked at closely enough.
+
+**The first: that writing the software is the hard part.**
+
+The software development lifecycle doesn't end when the code is written. That's roughly where it *starts*. You still have to ship it, keep it up, patch it, monitor it, and answer for it when it leaks. You have to **operate** it — for years, quietly, while everyone's attention is somewhere else. It's far from "fire and forget", especially when building things that other people will depend on, and that has transitive dependencies you can't fully control, but affect your service. 
+
+If you price only the writing, and the writing suddenly gets ten times cheaper, then of course you conclude the industry is about to collapse. You've just mispriced the overwhelming majority of the work.
+
+I'm not saying that operations won't get easier also through AI. It will. But the cost of operations is not zero, and it is not going away. The SaaS apocalypse was a misreading of the economics of software.
+
+**The second, and the one I think matters more: nobody was ever paying the subscription for the code.**
+
+SaaS means Software as a Service. Two decades of usage have flattened that into "software you rent." Read it the other way around and it describes today far better: **a service, delivered through software.**
+
+The term was coined when buying software at all was still novel. Back then the software genuinely *was* the product, and "as a service" described the unusual part — that it arrived over the wire instead of on a disc, and you could pay for it monthly instead of upfront. That was the innovation, and it was worth a premium - freeing capital. 
+
+Now look around. Everything is *something*-tech. HR-tech. Legal-tech. Fintech. Insurtech. In none of those is the software the point. It's the distribution method of the algorithms that describe the expert's knowledge in the field. What you buy from a payroll provider isn't a payroll interface — it's the guarantee that payroll is correct and compliant in fourteen countries next Thursday. The screens are just where that promise shows up - because it's more convenient than paper forms.
+
+So when you generate your own version of the interface, you've replicated the distribution. Not the service. You built the screens, not the thing the screens are attached to.
+
+Which is the miscalibration in one sentence: **the market priced SaaS as software, at exactly the moment software became the cheapest part of it.**
+
+---
+
 ### Now, the nuance: the change that actually happened
 
 I'd be doing the same thing I criticize if I stopped here and declared "buy everything, nothing changed." Something did change.
@@ -93,7 +119,7 @@ That last one is the expensive mistake, and it's the one nobody notices for two 
 
 ### Where AI actually earns its keep
 
-Here's what I think the real killer app is, and it isn't replacing your vendors.
+Here's what I think the real killer app is, and it isn't replacing your vendors. It's at blending them together, with a layer that is unique to your organization. The glue. The workflow. The reports nobody else needs but help your team deliver a great service. The integrations that make the whole thing work together, in that exact combination of providers that works great for you.
 
 Buy the best off-the-rack SaaS — the S/M/L of software — and then use AI to **tailor it** to how your organization actually works. The integrations. The glue. The reports nobody else needs. The workflow that's weird because your business is genuinely weird there.
 
