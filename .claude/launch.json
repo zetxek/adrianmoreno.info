@@ -4,22 +4,8 @@
     {
       "name": "hugo-dev",
       "runtimeExecutable": "hugo",
-      "runtimeArgs": [
-        "server",
-        "-D"
-      ],
+      "runtimeArgs": ["server", "-D"],
       "port": 1313
-    },
-    {
-      "name": "hugo-dev-drafts",
-      "runtimeExecutable": "hugo",
-      "runtimeArgs": [
-        "server",
-        "-D",
-        "--port",
-        "1314"
-      ],
-      "port": 1314
     }
   ]
 }
