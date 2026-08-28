@@ -34,7 +34,10 @@ jobs:
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ hashFiles('package-lock.json') }}
+          # Include the Playwright version so a version bump (e.g. a new
+          # browser project added to playwright.config) invalidates a cache
+          # keyed only on the lockfile hash.
+          key: playwright-${{ steps.playwright-version.outputs.version }}-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
         run: npm ci
@@ -42,6 +45,14 @@ jobs:
       - name: Install Playwright browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
+
+      - name: Install Playwright browsers (cache hit)
+        # Even on a cache hit, run a plain install without --with-deps. This
+        # is a fast no-op when all browsers are already present, but fills in
+        # any browser missing from a stale cache (e.g. one created before a
+        # new browser project was added to playwright.config).
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install
 
       - name: Build site
         run: hugo --minify --buildDrafts=true
