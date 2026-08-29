@@ -749,11 +749,26 @@ $book-accent: #478079;
   box-shadow: none;
   opacity: 1;
   margin-bottom: 1.5rem;
+}
 
+// The circular-badge rule `.goodreads-link:hover { background: #fff }` has the
+// same specificity and fights these pill buttons — beat it with the element
+// selector and give a proper darker-accent hover instead of white-on-white.
+a.book-single-goodreads {
   &:hover,
   &:focus-visible {
+    background: darken($book-accent, 8%);
     color: #fff;
-    opacity: 0.85;
+    opacity: 1;
+  }
+}
+
+a.book-detail-goodreads {
+  &:hover,
+  &:focus-visible {
+    background: $book-accent;
+    color: #fff;
+    opacity: 1;
   }
 }
 
