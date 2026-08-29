@@ -80,6 +80,15 @@ $book-accent: #478079;
   }
 }
 
+.book-nav-list .book-nav-item {
+  // The theme paints a 6px dot on every `.section li::before` (specificity
+  // 0,1,2) — suppress it inside the pill nav with a stronger selector.
+  &::before {
+    content: none;
+    display: none;
+  }
+}
+
 .book-nav-item {
   flex: 0 0 auto;
 }
