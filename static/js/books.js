@@ -180,6 +180,9 @@
       trigger.addEventListener('click', function (event) {
         // Let modified/middle clicks behave like a normal link (open in new tab, etc.)
         if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        // Keyboard-activated clicks (Enter on a focused link) report detail === 0;
+        // let those navigate natively to the book page instead of opening the modal.
+        if (event.detail === 0) return;
         event.preventDefault();
         openDetail(trigger);
       });

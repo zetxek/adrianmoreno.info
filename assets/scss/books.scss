@@ -9,21 +9,53 @@ $book-accent: #478079;
 // resolves to the non-scrolling body). The nav is pinned via JS instead
 // (see static/js/books.js), toggling `.is-pinned` to switch to `fixed`.
 .book-nav {
+  --book-nav-bg: rgba(250, 250, 249, 0.72);
+  --book-nav-fade: rgba(250, 250, 249, 0.9);
   position: relative;
   z-index: 10;
-  background: rgba(248, 249, 250, 0.92);
-  backdrop-filter: blur(6px);
-  border-radius: 8px;
-  padding: 0.5rem;
+  background: var(--book-nav-bg);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 999px;
+  padding: 0.4rem;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.18), 0 1px 2px rgba(0, 0, 0, 0.04);
 
   &.is-pinned {
     position: fixed;
     top: var(--book-header-offset, 90px);
     border-radius: 0;
+    border-width: 0 0 1px;
     margin-bottom: 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  // Mobile: the pill strip scrolls horizontally, so fade the bar's own
+  // background over its edges to hint there's more to scroll to. Desktop
+  // wraps and centers instead (see .book-nav-list), so there's nothing to
+  // hide there.
+  @media (max-width: 991.98px) {
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 1px;
+      bottom: 1px;
+      width: 2rem;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    &::before {
+      left: 1px;
+      background: linear-gradient(to right, var(--book-nav-fade), transparent);
+    }
+
+    &::after {
+      right: 1px;
+      background: linear-gradient(to left, var(--book-nav-fade), transparent);
+    }
   }
 }
 
@@ -39,7 +71,7 @@ $book-accent: #478079;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  gap: 0.4rem;
+  gap: 0.35rem;
   list-style: none;
   margin: 0;
   padding: 0 0.25rem;
@@ -60,23 +92,29 @@ $book-accent: #478079;
 .book-nav-link {
   display: inline-block;
   white-space: nowrap;
-  color: #495057;
+  color: #5b6169;
   text-decoration: none;
   font-size: 0.85rem;
-  padding: 0.4rem 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 1.1rem;
   border-radius: 999px;
   border: 1px solid transparent;
-  transition: all 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 
   &:hover {
-    background: #fff;
-    color: #000;
-    border-color: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.05);
+    color: #212529;
   }
 
   &.active {
     background: $book-accent;
     color: #fff;
+    box-shadow: 0 4px 10px -3px rgba(71, 128, 121, 0.55);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $book-accent;
+    outline-offset: 2px;
   }
 }
 
@@ -114,7 +152,14 @@ $book-accent: #478079;
 // ---------------------------------------------------------------------------
 
 .book-item {
+  // Lets the active book's scale-up lift paint over neighboring grid cells
+  // instead of being clipped at the column/row boundary.
   display: flex;
+  overflow: visible;
+}
+
+.book-grid {
+  overflow: visible;
 }
 
 .book-card {
@@ -122,10 +167,25 @@ $book-accent: #478079;
   display: flex;
   flex-direction: column;
   width: 100%;
+  // Raised only while "active" (see below) so the lifted book paints over
+  // its neighbors instead of being overpainted by later siblings in DOM
+  // order. The delay on the way back down is a discrete-property transition
+  // trick: it keeps the card elevated for as long as its shrink-back
+  // transform/box-shadow transition takes, then drops in one step, so it
+  // never dips behind a neighbor mid-settle.
+  transition: z-index 0s 0.2s;
 
   &--featured .book-cover-frame {
     box-shadow: 0 0 0 3px $book-accent, 0 6px 16px rgba(0, 0, 0, 0.18);
   }
+}
+
+// "Active" = hovered, or the in-card link is keyboard-focused (`:has()` is
+// needed here because the focus lands on a descendant, not the card itself).
+.book-card:hover,
+.book-card:has(.book-card-link:focus-visible) {
+  z-index: 20;
+  transition: z-index 0s;
 }
 
 .book-badge {
@@ -174,14 +234,23 @@ $book-accent: #478079;
   border-radius: 6px;
   overflow: visible;
   box-shadow: 0 10px 16px -8px rgba(0, 0, 0, 0.35);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease-in-out;
   perspective: 1200px;
+  // Left-anchored so the scale-up grows the frame toward the right, in the
+  // same direction the cover swings open — the growth reaches into the
+  // grid gutter and over the next card instead of being absorbed evenly
+  // and invisibly on both sides.
+  transform-origin: left center;
 }
 
+// The lift: scale + rise + a stronger shadow, so the book feels picked up
+// off the shelf. This is the frame's own transform, entirely separate from
+// the cover's flip transform (`.book-3d` / `.book-3d-cover` below), so the
+// two compose naturally instead of fighting over one `transform` property.
 .book-card:hover .book-cover-frame,
 .book-card-link:focus-visible .book-cover-frame {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 24px -10px rgba(0, 0, 0, 0.4);
+  transform: translateY(-8px) scale(1.2);
+  box-shadow: 0 28px 44px -14px rgba(0, 0, 0, 0.48);
 }
 
 .book-cover {
@@ -691,22 +760,28 @@ $book-accent: #478079;
 
 [data-bs-theme="dark"] {
   .book-nav {
-    background: rgba(36, 36, 36, 0.92);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --book-nav-bg: rgba(30, 30, 30, 0.65);
+    --book-nav-fade: rgba(30, 30, 30, 0.88);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.2);
+
+    &.is-pinned {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+    }
   }
 
   .book-nav-link {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.75);
 
     &:hover {
-      background: #333;
+      background: rgba(255, 255, 255, 0.1);
       color: #fff;
-      border-color: rgba(255, 255, 255, 0.15);
     }
 
     &.active {
       background: $book-accent;
       color: #fff;
+      box-shadow: 0 4px 10px -3px rgba(0, 0, 0, 0.5);
     }
   }
 
@@ -726,7 +801,7 @@ $book-accent: #478079;
 
   .book-card:hover .book-cover-frame,
   .book-card-link:focus-visible .book-cover-frame {
-    box-shadow: 0 16px 30px -10px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 32px 50px -14px rgba(0, 0, 0, 0.75);
   }
 
   .book-3d-cover-face {
