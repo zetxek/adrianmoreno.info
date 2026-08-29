@@ -1,5 +1,5 @@
 ---
-title: "Incorruptible"
+title: "Incorruptible: Why Good Companies Go Bad... and How Great Companies Stay Great"
 book_authors: ["Eric Ries"]
 book_categories: ["Product, strategy and business"]
 link: "https://www.goodreads.com/search?q=Incorruptible+Eric+Ries"
