@@ -23,7 +23,7 @@
           <div class="book-toc mb-5">
             <h2>Categories</h2>
             <ul class="list-unstyled row row-cols-1 row-cols-md-3 g-4">
-              {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, phylosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
+              {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, philosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
               {{ range $book_categories }}
               <li class="col">
                 <a href="#{{ anchorize . }}" class="book-toc-link">
@@ -36,7 +36,7 @@
         </div>
 
         <div class="container mb-5">
-          {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, phylosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
+          {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, philosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
           {{ range $book_categories }}
           <div class="book-section mb-5">
             <h2 id="{{ anchorize . }}" class="book-category">
