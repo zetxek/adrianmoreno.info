@@ -199,6 +199,13 @@ $book-accent: #478079;
   transition: z-index 0s;
 }
 
+// The theme ships `.goodreads-search { margin-left: 64px }` (meant for its
+// own book-list rows) — it shoves the "g" out of our circular badge and pill
+// buttons. Zero it inside every goodreads-link context.
+.goodreads-link .goodreads-search {
+  margin-left: 0;
+}
+
 .book-badge {
   position: absolute;
   top: 0.4rem;
