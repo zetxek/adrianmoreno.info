@@ -8,36 +8,87 @@
   <body>
     {{ partial "header.html" . }}
 
+    {{ $authors := "" }}
+    {{ if isset .Params "book_authors" }}{{ $authors = delimit .Params.book_authors ", " }}{{ end }}
+
     <section
       id="book"
-      class="section section--border-bottom rad-animation-group">
+      class="section section--border-bottom rad-animation-group book-single">
       <div class="container">
+        <p class="book-single-back">
+          <a href="{{ "books" | relURL }}">&larr; Back to all books</a>
+        </p>
 
-          <div class="row">
-            <div class="col-12 col-md-7 mt-7 mt-sm-0">
-              <h2>{{ .Title }}</h2> {{ if isset .Params "book_authors" }} by {{ range .Params.book_authors }} {{ . }} {{ end }} {{ end}}
-              <br/>
-              {{ .Content | safeHTML }}
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-md-7 mt-7 mt-sm-0">
-              {{ range .Params.book_categories }}
-              <h3 class="book-related-heading">Other books on {{ . }}</h3>
-                 {{ $pages := where site.Pages "Params.book_categories" "in" . }}
-                 <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-3 g-md-4 book-grid">
-                  {{ range $pages }}
-                    {{ .Render "summary"}}
-                  {{ end }}
-                 </div>
+        <div class="row book-single-header gy-4">
+          <div class="col-12 col-lg-4">
+            <div class="book-single-cover-frame">
+              {{ if .Params.cover }}
+              <img
+                src="{{ .Params.cover }}"
+                class="book-single-cover"
+                alt="Cover of {{ .Title }}{{ if $authors }} by {{ $authors }}{{ end }}"
+              />
               {{ end }}
             </div>
-          : 
           </div>
+          <div class="col-12 col-lg-8">
+            <h1 class="book-single-title">{{ .Title }}</h1>
+            {{ if $authors }}
+            <p class="book-single-authors">by {{ $authors }}</p>
+            {{ end }}
+            {{ if .Params.book_categories }}
+            <p class="book-single-categories">
+              {{ range .Params.book_categories }}
+              <a class="book-single-category" href="{{ "books" | relURL }}#{{ anchorize . }}">{{ . }}</a>
+              {{ end }}
+            </p>
+            {{ end }}
+            {{ if .Params.link }}
+            <a
+              class="goodreads-link book-single-goodreads"
+              href="{{ .Params.link }}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                class="goodreads-search"
+                src="/img/goodreads.svg"
+                alt=""
+                width="20"
+                height="20"
+              />
+              Find on Goodreads
+            </a>
+            {{ end }}
+            <div class="book-single-content">
+              {{ .Content }}
+            </div>
+          </div>
+        </div>
+
+        {{ $related := slice }}
+        {{ range .Params.book_categories }}
+          {{ $related = $related | append (where site.RegularPages "Params.book_categories" "intersect" (slice .)) }}
+        {{ end }}
+        {{ $related = $related | uniq }}
+        {{ $related = where $related "RelPermalink" "!=" .RelPermalink }}
+        {{ if gt (len $related) 0 }}
+        <div class="row">
+          <div class="col-12">
+            <h2 class="book-related-heading">Related books</h2>
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-3 g-md-4 book-grid">
+              {{ range first 8 $related }}
+                {{ .Render "summary" }}
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
       </div>
     </section>
 
     {{ partial "footer.html" . }} {{ partial "base-foot.html" . }}
+    <script src="{{ "js/books.js" | relURL }}" defer></script>
   </body>
 </html>
 <!-- endinject -->

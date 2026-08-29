@@ -1,14 +1,20 @@
 {{ $slug := .File.ContentBaseName }}
 {{ $hasSummary := gt (len .Summary) 0 }}
+{{ $authors := "" }}
+{{ if isset .Params "book_authors" }}{{ $authors = delimit .Params.book_authors ", " }}{{ end }}
 <div class="col book-item">
   <article class="book-card{{ if .Params.featured }} book-card--featured{{ end }}">
     {{ if .Params.featured }}
     <span class="book-badge">★ Featured</span>
     {{ end }}
-    <button
-      type="button"
-      class="book-cover-btn"
-      {{ if $hasSummary }}aria-expanded="false" aria-controls="book-overlay-{{ $slug }}"{{ else }}aria-hidden="true" tabindex="-1"{{ end }}
+    <a
+      href="{{ .RelPermalink }}"
+      class="book-card-link"
+      data-book-trigger
+      data-title="{{ .Title }}"
+      data-authors="{{ $authors }}"
+      data-cover="{{ .Params.cover }}"
+      data-goodreads="{{ .Params.link }}"
     >
       <span class="book-cover-frame">
         {{ if .Params.cover }}
@@ -16,38 +22,37 @@
           src="{{ .Params.cover }}"
           class="book-cover"
           loading="lazy"
-          alt="Cover of {{ .Title }}{{ if isset .Params "book_authors" }} by {{ range .Params.book_authors }}{{ . }}{{ end }}{{ end }}"
+          alt="Cover of {{ .Title }}{{ if $authors }} by {{ $authors }}{{ end }}"
         />
         {{ end }}
+        {{ if $hasSummary }}
+        <span class="book-overlay" aria-hidden="true">
+          <span class="book-overlay-text">{{ .Summary }}</span>
+        </span>
+        {{ end }}
       </span>
-      {{ if $hasSummary }}
-      <span class="book-overlay" id="book-overlay-{{ $slug }}">
-        <span class="book-overlay-text">{{ .Summary }}</span>
-      </span>
-      {{ end }}
-    </button>
-    <div class="book-meta">
-      <div class="book-meta-text">
+      <span class="book-meta-text">
         <h3 class="book-title">{{ .Title }}</h3>
-        {{- if isset .Params "book_authors" }}
-        <p class="book-author">{{ range .Params.book_authors }}{{ . }}{{ end }}</p>
+        {{- if $authors }}
+        <p class="book-author">{{ $authors }}</p>
         {{- end }}
-      </div>
-      <a
-        class="goodreads-link"
-        href="{{ .Params.link }}"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Search {{ .Title }} on Goodreads"
-      >
-        <img
-          class="goodreads-search"
-          src="/img/goodreads.svg"
-          alt=""
-          width="20"
-          height="20"
-        />
-      </a>
-    </div>
+      </span>
+    </a>
+    <a
+      class="goodreads-link"
+      href="{{ .Params.link }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Search {{ .Title }} on Goodreads"
+    >
+      <img
+        class="goodreads-search"
+        src="/img/goodreads.svg"
+        alt=""
+        width="20"
+        height="20"
+      />
+    </a>
+    <template class="book-detail-content-source">{{ .Content }}</template>
   </article>
 </div>
