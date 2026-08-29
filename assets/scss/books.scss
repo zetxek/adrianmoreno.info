@@ -446,16 +446,11 @@ $book-accent: #478079;
   );
 }
 
-// Touch/coarse-pointer devices: no pointer to track for the sheen, and the
-// tight mobile grid gutters leave little room for a protruding spine, so
-// books render flat rather than tilted.
+// Touch/coarse-pointer devices: no pointer to track, so the hover/sheen
+// interaction is disabled. The resting tilt is kept so the 3D effect is
+// still visible on touch screens.
 @media (hover: none), (pointer: coarse) {
-  .book-3d {
-    transform: rotateY(0deg);
-  }
-
-  .book-3d-spine,
-  .book-3d-pages {
+  .book-3d-cover::after {
     display: none;
   }
 }
