@@ -1,7 +1,7 @@
 ---
 title: "Why Buddhism Is True: The Science and Philosophy of Meditation and Enlightenment"
 book_authors: ["Robert Wright"]
-book_categories: ["Psychology (cognitive, evolutionary, phylosophy...)"]
+book_categories: ["Psychology (cognitive, evolutionary, philosophy...)"]
 year: 2017
 link: "https://www.goodreads.com/search?q=Why+Buddhism+Is+True:+The+Science+and+Philosophy+of+Meditation+and+Enlightenment+Robert+Wright"
 cover: "/images/books/why-buddhism-is-true-the-science-and-philosophy-of-meditation-and-enlightenment.jpg"
