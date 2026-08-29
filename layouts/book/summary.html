@@ -18,12 +18,18 @@
     >
       <span class="book-cover-frame">
         {{ if .Params.cover }}
-        <img
-          src="{{ .Params.cover }}"
-          class="book-cover"
-          loading="lazy"
-          alt="Cover of {{ .Title }}{{ if $authors }} by {{ $authors }}{{ end }}"
-        />
+        <span class="book-3d" data-book-3d>
+          <span class="book-3d-pages" aria-hidden="true"></span>
+          <span class="book-3d-spine" aria-hidden="true"></span>
+          <span class="book-3d-cover">
+            <img
+              src="{{ .Params.cover }}"
+              class="book-cover"
+              loading="lazy"
+              alt="Cover of {{ .Title }}{{ if $authors }} by {{ $authors }}{{ end }}"
+            />
+          </span>
+        </span>
         {{ end }}
         {{ if $hasSummary }}
         <span class="book-overlay" aria-hidden="true">

@@ -189,4 +189,94 @@
       if (lastTrigger) lastTrigger.focus();
     });
   }
+
+  // 3D book covers (Stripe Press inspired): each `[data-book-3d]` scene gets
+  // a spine color sampled from its own cover image, plus a pointer-tracked
+  // sheen on hover. Skipped for reduced motion / touch, where CSS renders
+  // the books flat and the sheen never becomes visible anyway.
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var coarsePointer = window.matchMedia && window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  var books3d = document.querySelectorAll('[data-book-3d]');
+
+  books3d.forEach(function (book) {
+    sampleSpineColor(book);
+    if (!reduceMotion && !coarsePointer) attachSheen(book);
+  });
+
+  function attachSheen(book) {
+    var ticking = false;
+    var lastEvent = null;
+
+    function update() {
+      ticking = false;
+      if (!lastEvent) return;
+      var rect = book.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      var x = Math.min(100, Math.max(0, ((lastEvent.clientX - rect.left) / rect.width) * 100));
+      var y = Math.min(100, Math.max(0, ((lastEvent.clientY - rect.top) / rect.height) * 100));
+      book.style.setProperty('--sheen-x', x.toFixed(1) + '%');
+      book.style.setProperty('--sheen-y', y.toFixed(1) + '%');
+    }
+
+    book.addEventListener('pointermove', function (event) {
+      if (event.pointerType === 'touch') return;
+      lastEvent = event;
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    });
+
+    book.addEventListener('pointerleave', function (event) {
+      if (event.pointerType === 'touch') return;
+      book.style.removeProperty('--sheen-x');
+      book.style.removeProperty('--sheen-y');
+    });
+  }
+
+  // Derives a spine shade from the average color of the cover's left edge,
+  // falling back to the neutral CSS gradient (see books.scss) if the image
+  // hasn't decoded yet or a canvas read fails for any reason.
+  function sampleSpineColor(book) {
+    var img = book.querySelector('.book-cover, .book-single-cover');
+    if (!img) return;
+
+    function apply() {
+      try {
+        var canvas = document.createElement('canvas');
+        canvas.width = 8;
+        canvas.height = 12;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        var data = ctx.getImageData(0, 0, 2, canvas.height).data;
+        var r = 0, g = 0, b = 0, count = 0;
+        for (var i = 0; i < data.length; i += 4) {
+          r += data[i];
+          g += data[i + 1];
+          b += data[i + 2];
+          count++;
+        }
+        r = r / count;
+        g = g / count;
+        b = b / count;
+
+        function shade(v, f) {
+          return Math.max(0, Math.min(255, Math.round(v * f)));
+        }
+
+        var c1 = 'rgb(' + shade(r, 0.62) + ', ' + shade(g, 0.62) + ', ' + shade(b, 0.62) + ')';
+        var c2 = 'rgb(' + shade(r, 0.32) + ', ' + shade(g, 0.32) + ', ' + shade(b, 0.32) + ')';
+        book.style.setProperty('--spine-c1', c1);
+        book.style.setProperty('--spine-c2', c2);
+      } catch (e) {
+        // Cross-origin or decode failure: the neutral CSS gradient fallback applies.
+      }
+    }
+
+    if (img.complete && img.naturalWidth) {
+      apply();
+    } else {
+      img.addEventListener('load', apply, { once: true });
+    }
+  }
 })();

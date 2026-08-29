@@ -23,11 +23,17 @@
           <div class="col-12 col-lg-4">
             <div class="book-single-cover-frame">
               {{ if .Params.cover }}
-              <img
-                src="{{ .Params.cover }}"
-                class="book-single-cover"
-                alt="Cover of {{ .Title }}{{ if $authors }} by {{ $authors }}{{ end }}"
-              />
+              <span class="book-3d" data-book-3d>
+                <span class="book-3d-pages" aria-hidden="true"></span>
+                <span class="book-3d-spine" aria-hidden="true"></span>
+                <span class="book-3d-cover">
+                  <img
+                    src="{{ .Params.cover }}"
+                    class="book-single-cover"
+                    alt="Cover of {{ .Title }}{{ if $authors }} by {{ $authors }}{{ end }}"
+                  />
+                </span>
+              </span>
               {{ end }}
             </div>
           </div>
