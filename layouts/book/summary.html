@@ -1,45 +1,46 @@
-<div class="col-12 mb-3">
-  <div class="card h-100 book-content {{ if .Params.featured }}featured{{ end }}">
-    {{- $year := .Params.year -}}
-    <div class="row g-0">
-      <div class="col-md-2 col-sm-3">
-        {{ if .Params.cover }}
-        <img
-          src="{{ .Params.cover }}"
-          class="img-fluid rounded-start book-cover"
-          alt="Cover of {{ .Title }} by {{ .Params.book_authors }}"
-        />
-        {{ end }}
-      </div>
-      <div class="col-md-10 col-sm-9">
-        <div class="card-body py-2">
-          <div class="d-flex justify-content-between align-items-start">
-            <div>
-              <h5 class="card-title book-title mb-1">{{ .Title }}</h5>
-              {{- if isset .Params "book_authors" }}
-              <p class="book-author text-body-secondary mb-2">by {{ range .Params.book_authors }} {{ . }} {{ end}}{{ if $year }} · {{ $year }}{{ end }}</p>
-              {{- end }}
-            </div>
-            <a
-              class="goodreads-link ms-2"
-              href="{{ .Params.link }}"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                class="goodreads-search"
-                src="/img/goodreads.svg"
-                alt="Search in goodreads"
-                width="24"
-                height="24"
-              />
-            </a>
-          </div>
-          {{ if gt (len .Summary) 0 }}
-          <p class="card-text small">{{ .Summary }}</p>
-          {{ end }}
-        </div>
-      </div>
-    </div>
-  </div>
+{{ $slug := .File.ContentBaseName }}
+{{ $authors := "" }}
+{{ if isset .Params "book_authors" }}{{ $authors = delimit .Params.book_authors ", " }}{{ end }}
+<div class="col book-item">
+  <article class="book-card{{ if .Params.featured }} book-card--featured{{ end }}">
+    {{ if .Params.featured }}
+    <span class="book-badge">★ Featured</span>
+    {{ end }}
+    <a
+      href="{{ .RelPermalink }}"
+      class="book-card-link"
+      data-book-trigger
+      data-title="{{ .Title }}"
+      data-authors="{{ $authors }}"
+      data-cover="{{ .Params.cover }}"
+      data-goodreads="{{ .Params.link }}"
+    >
+      <span class="book-cover-frame">
+        {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-cover" "loading" "lazy" "showCta" true) }}
+      </span>
+      <span class="book-meta-text">
+        <h3 class="book-title">{{ .Title }}</h3>
+        {{- if $authors }}
+        <p class="book-author">{{ $authors }}</p>
+        {{- end }}
+      </span>
+    </a>
+    <a
+      class="goodreads-link"
+      href="{{ .Params.link }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Search {{ .Title }} on Goodreads"
+      tabindex="-1"
+    >
+      <img
+        class="goodreads-search"
+        src="/img/goodreads.svg"
+        alt=""
+        width="20"
+        height="20"
+      />
+    </a>
+    <template class="book-detail-content-source">{{ .Content }}</template>
+  </article>
 </div>
