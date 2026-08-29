@@ -100,6 +100,14 @@
     });
   });
 
+  // Keep the active pill scrolled into view within the horizontally
+  // scrolling strip as Bootstrap's scrollspy activates each category.
+  document.body.addEventListener('activate.bs.scrollspy', function (event) {
+    var link = event.relatedTarget;
+    if (!link || !nav.contains(link)) return;
+    link.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  });
+
   // Book detail dialog: progressive enhancement over the plain <a href="/books/<slug>/">
   // links rendered by layouts/book/summary.html. Without JS (or without Bootstrap's
   // Modal available) the links just navigate to the book's own page, which is fully

@@ -31,31 +31,28 @@ $book-accent: #478079;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   }
 
-  // Mobile: the pill strip scrolls horizontally, so fade the bar's own
-  // background over its edges to hint there's more to scroll to. Desktop
-  // wraps and centers instead (see .book-nav-list), so there's nothing to
-  // hide there.
-  @media (max-width: 991.98px) {
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      top: 1px;
-      bottom: 1px;
-      width: 2rem;
-      z-index: 1;
-      pointer-events: none;
-    }
+  // The pill strip scrolls horizontally on every breakpoint (it never
+  // wraps, see .book-nav-list), so fade the bar's own background over its
+  // edges to hint there's more to scroll to.
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    width: 2rem;
+    z-index: 1;
+    pointer-events: none;
+  }
 
-    &::before {
-      left: 1px;
-      background: linear-gradient(to right, var(--book-nav-fade), transparent);
-    }
+  &::before {
+    left: 1px;
+    background: linear-gradient(to right, var(--book-nav-fade), transparent);
+  }
 
-    &::after {
-      right: 1px;
-      background: linear-gradient(to left, var(--book-nav-fade), transparent);
-    }
+  &::after {
+    right: 1px;
+    background: linear-gradient(to left, var(--book-nav-fade), transparent);
   }
 }
 
@@ -71,17 +68,15 @@ $book-accent: #478079;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  gap: 0.35rem;
+  gap: 0.5rem;
   list-style: none;
   margin: 0;
   padding: 0 0.25rem;
   -ms-overflow-style: none;
-  scrollbar-width: thin;
+  scrollbar-width: none;
 
-  @media (min-width: 992px) {
-    flex-wrap: wrap;
-    overflow-x: visible;
-    justify-content: center;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -90,25 +85,32 @@ $book-accent: #478079;
 }
 
 .book-nav-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   white-space: nowrap;
   color: #5b6169;
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 500;
-  padding: 0.5rem 1.1rem;
+  padding: 0.45rem 1rem;
   border-radius: 999px;
-  border: 1px solid transparent;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  background: transparent;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  @media (max-width: 991.98px) {
+    min-height: 40px;
+  }
 
   &:hover {
-    background: rgba(0, 0, 0, 0.05);
-    color: #212529;
+    border-color: $book-accent;
+    color: $book-accent;
   }
 
   &.active {
     background: $book-accent;
     color: #fff;
+    border-color: $book-accent;
     box-shadow: 0 4px 10px -3px rgba(71, 128, 121, 0.55);
   }
 
@@ -772,15 +774,18 @@ $book-accent: #478079;
 
   .book-nav-link {
     color: rgba(255, 255, 255, 0.75);
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
 
     &:hover {
-      background: rgba(255, 255, 255, 0.1);
+      border-color: $book-accent;
       color: #fff;
     }
 
     &.active {
       background: $book-accent;
       color: #fff;
+      border-color: $book-accent;
       box-shadow: 0 4px 10px -3px rgba(0, 0, 0, 0.5);
     }
   }
