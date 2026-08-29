@@ -346,9 +346,19 @@
     }
 
     if (img.complete && img.naturalWidth) {
-      apply();
+      if (img.decode) {
+        img.decode().then(apply).catch(apply);
+      } else {
+        apply();
+      }
     } else {
-      img.addEventListener('load', apply, { once: true });
+      img.addEventListener('load', function () {
+        if (img.decode) {
+          img.decode().then(apply).catch(apply);
+        } else {
+          apply();
+        }
+      }, { once: true });
     }
   }
 
