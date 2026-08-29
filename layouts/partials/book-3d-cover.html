@@ -1,0 +1,47 @@
+{{- /*
+  Renders the `.book-3d` scene shared by the grid summary card and the single
+  book page: a CSS box with a front cover (hinges open on hover to reveal an
+  inner page carrying the book's Summary), a spine and a pages edge. The
+  host element must set `position: relative` (or absolute-fill this) and
+  `perspective` (see `.book-cover-frame` / `.book-single-cover-frame` in
+  books.scss).
+
+  Params (passed as a dict):
+    page     - the book Page to render (required)
+    imgClass - class applied to the cover <img> (required)
+    showCta  - whether to show the "click to read more" affordance on the
+               inner page (grid cards only; the single page already shows
+               the full text alongside the cover)
+    loading  - optional `loading` attribute value for the <img>
+*/ -}}
+{{- $page := .page -}}
+{{- $authors := "" -}}
+{{- if isset $page.Params "book_authors" }}{{ $authors = delimit $page.Params.book_authors ", " }}{{ end -}}
+{{- $summary := $page.Summary | plainify -}}
+{{- if $page.Params.cover }}
+<span class="book-3d" data-book-3d>
+  <span class="book-3d-pages" aria-hidden="true"></span>
+  <span class="book-3d-spine" aria-hidden="true"></span>
+  {{- if $summary }}
+  <span class="book-3d-page" aria-hidden="true">
+    <span class="book-3d-page-text">{{ $summary }}</span>
+    {{- if .showCta }}
+    <span class="book-3d-page-cta">Click to read more &rarr;</span>
+    {{- end }}
+  </span>
+  {{- end }}
+  <span class="book-3d-cover">
+    <span class="book-3d-cover-face">
+      <img
+        src="{{ $page.Params.cover }}"
+        class="{{ .imgClass }}"
+        {{- with .loading }}
+        loading="{{ . }}"
+        {{- end }}
+        alt="Cover of {{ $page.Title }}{{ if $authors }} by {{ $authors }}{{ end }}"
+      />
+    </span>
+    <span class="book-3d-cover-back" aria-hidden="true"></span>
+  </span>
+</span>
+{{- end -}}

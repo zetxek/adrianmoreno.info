@@ -206,22 +206,33 @@ $book-accent: #478079;
   z-index: 1;
   transform-style: preserve-3d;
   transform: rotateY(25deg);
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
 
-.book-card:hover .book-3d,
-.book-card-link:focus-visible .book-3d {
-  transform: rotateY(4deg);
+// The front cover is a hinge: `.book-3d-cover` rotates open around its left
+// edge (the spine) to reveal `.book-3d-page` behind it. `-face` (the cover
+// artwork) and `-back` (the inside of the cover) are opposite sides of the
+// same hinged panel, each hidden via `backface-visibility` once they rotate
+// past 90deg — that's what keeps the cover art from appearing mirrored.
+.book-3d-cover {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transform: rotateY(0deg);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
-.book-3d-cover {
+.book-3d-cover-face {
   position: absolute;
   inset: 0;
   overflow: hidden;
   border-radius: 3px;
   background: #e9ecef;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  backface-visibility: hidden;
 
   &::after {
     content: "";
@@ -239,9 +250,86 @@ $book-accent: #478079;
   }
 }
 
-.book-card:hover .book-3d-cover::after,
-.book-card-link:focus-visible .book-3d-cover::after {
-  opacity: 1;
+.book-3d-cover-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  background: linear-gradient(135deg, #f2ecdc 0%, #e6ddc4 100%);
+  box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.18), inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+// The inner page sits directly behind the cover (a hair back on the z-axis
+// so it never z-fights with the cover face) and only fades in once the
+// cover has swung far enough open to be believable.
+.book-3d-page {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(-1px);
+  border-radius: 3px;
+  background: #f8f5ec;
+  box-shadow: inset 6px 0 10px -6px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0.7rem 0.65rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease-in-out 0.15s;
+}
+
+.book-3d-page-text {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: #33302a;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 11;
+  -webkit-box-orient: vertical;
+}
+
+.book-3d-page-cta {
+  margin-top: auto;
+  padding-top: 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: $book-accent;
+}
+
+// Flip is desktop-only: a real hover that can linger, on a pointer precise
+// enough that the "click to read more" affordance means something. Touch
+// devices never match `(hover: hover)`, so tapping just opens the dialog as
+// before, with no flip in the way.
+@media (hover: hover) and (pointer: fine) {
+  .book-card:hover .book-3d,
+  .book-card-link:focus-visible .book-3d,
+  .book-single-cover-frame:hover .book-3d,
+  .book-single-cover-frame:focus-within .book-3d {
+    transform: rotateY(6deg);
+  }
+
+  .book-card:hover .book-3d-cover,
+  .book-card-link:focus-visible .book-3d-cover,
+  .book-single-cover-frame:hover .book-3d-cover,
+  .book-single-cover-frame:focus-within .book-3d-cover {
+    transform: rotateY(-150deg);
+  }
+
+  .book-card:hover .book-3d-cover-face::after,
+  .book-card-link:focus-visible .book-3d-cover-face::after,
+  .book-single-cover-frame:hover .book-3d-cover-face::after,
+  .book-single-cover-frame:focus-within .book-3d-cover-face::after {
+    opacity: 1;
+  }
+
+  .book-card:hover .book-3d-page,
+  .book-card-link:focus-visible .book-3d-page,
+  .book-single-cover-frame:hover .book-3d-page,
+  .book-single-cover-frame:focus-within .book-3d-page {
+    opacity: 1;
+  }
 }
 
 .book-3d-spine,
@@ -293,7 +381,8 @@ $book-accent: #478079;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .book-3d {
+  .book-3d,
+  .book-3d-cover {
     transform: rotateY(0deg) !important;
     transition: none !important;
   }
@@ -303,54 +392,19 @@ $book-accent: #478079;
     display: none;
   }
 
-  .book-3d-cover::after {
+  .book-3d-cover-face::after {
     display: none;
+  }
+
+  .book-3d-page {
+    opacity: 0 !important;
+    transition: none !important;
   }
 
   .book-cover-frame,
   .book-single-cover-frame {
     transition: none !important;
   }
-}
-
-// Note: `.book-overlay` lives inside `.book-cover-frame` (which is
-// `position: relative`), so it only ever covers the cover image, not the
-// title/author text below it.
-.book-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  display: flex;
-  align-items: flex-end;
-  background: linear-gradient(180deg, rgba(20, 20, 20, 0.55) 0%, rgba(20, 20, 20, 0.96) 60%);
-  opacity: 0;
-  transform: translateY(4px);
-  pointer-events: none;
-  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
-  border-radius: 6px;
-
-  // The overlay is a decorative preview (the full text is available in the
-  // detail dialog / book page), so it's hidden on touch devices that have no
-  // hover concept rather than requiring a tap-to-reveal step.
-  @media (hover: none) {
-    display: none;
-  }
-}
-
-.book-overlay-text {
-  color: #fff;
-  font-size: 0.78rem;
-  line-height: 1.35;
-  padding: 0.75rem;
-  max-height: 100%;
-  overflow-y: auto;
-}
-
-.book-card:hover .book-overlay,
-.book-card-link:focus-visible .book-overlay {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
 }
 
 .book-meta-text {
@@ -505,10 +559,6 @@ $book-accent: #478079;
     background: $book-accent;
     color: #fff;
     opacity: 1;
-
-    .goodreads-search {
-      filter: brightness(0) invert(1);
-    }
   }
 }
 
@@ -543,7 +593,9 @@ $book-accent: #478079;
     --book-thickness: 30px;
   }
 
-  .book-3d-cover {
+  .book-3d-cover-face,
+  .book-3d-cover-back,
+  .book-3d-page {
     border-radius: 6px;
   }
 
@@ -555,14 +607,9 @@ $book-accent: #478079;
     border-radius: 0 6px 6px 0;
   }
 
-  &:hover .book-3d,
-  &:focus-within .book-3d {
-    transform: rotateY(4deg);
-  }
-
-  &:hover .book-3d-cover::after,
-  &:focus-within .book-3d-cover::after {
-    opacity: 1;
+  .book-3d-page-text {
+    font-size: 0.85rem;
+    -webkit-line-clamp: 13;
   }
 }
 
@@ -623,10 +670,6 @@ $book-accent: #478079;
   opacity: 1;
   margin-bottom: 1.5rem;
 
-  .goodreads-search {
-    filter: brightness(0) invert(1);
-  }
-
   &:hover,
   &:focus-visible {
     color: #fff;
@@ -686,7 +729,7 @@ $book-accent: #478079;
     box-shadow: 0 16px 30px -10px rgba(0, 0, 0, 0.7);
   }
 
-  .book-3d-cover {
+  .book-3d-cover-face {
     background: #2c2c2c;
 
     &::after {
@@ -696,6 +739,20 @@ $book-accent: #478079;
         rgba(255, 255, 255, 0) 45%
       );
     }
+  }
+
+  .book-3d-cover-back {
+    background: linear-gradient(135deg, #3a362c 0%, #26231c 100%);
+    box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+
+  .book-3d-page {
+    background: #23211b;
+    box-shadow: inset 6px 0 10px -6px rgba(0, 0, 0, 0.6);
+  }
+
+  .book-3d-page-text {
+    color: rgba(255, 255, 255, 0.82);
   }
 
   .book-3d-pages {
@@ -714,10 +771,6 @@ $book-accent: #478079;
 
   .book-author {
     color: rgba(255, 255, 255, 0.7);
-  }
-
-  .goodreads-link img {
-    filter: invert(1);
   }
 
   .goodreads-link {
@@ -752,12 +805,4 @@ $book-accent: #478079;
     }
   }
 
-  .book-detail-goodreads .goodreads-search {
-    filter: invert(1);
-
-    &:hover,
-    &:focus-visible {
-      filter: brightness(0) invert(1);
-    }
-  }
 }

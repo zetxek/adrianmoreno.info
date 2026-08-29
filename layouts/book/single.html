@@ -22,19 +22,7 @@
         <div class="row book-single-header gy-4">
           <div class="col-12 col-lg-4">
             <div class="book-single-cover-frame">
-              {{ if .Params.cover }}
-              <span class="book-3d" data-book-3d>
-                <span class="book-3d-pages" aria-hidden="true"></span>
-                <span class="book-3d-spine" aria-hidden="true"></span>
-                <span class="book-3d-cover">
-                  <img
-                    src="{{ .Params.cover }}"
-                    class="book-single-cover"
-                    alt="Cover of {{ .Title }}{{ if $authors }} by {{ $authors }}{{ end }}"
-                  />
-                </span>
-              </span>
-              {{ end }}
+              {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-single-cover" "showCta" false) }}
             </div>
           </div>
           <div class="col-12 col-lg-8">

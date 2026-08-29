@@ -1,5 +1,4 @@
 {{ $slug := .File.ContentBaseName }}
-{{ $hasSummary := gt (len .Summary) 0 }}
 {{ $authors := "" }}
 {{ if isset .Params "book_authors" }}{{ $authors = delimit .Params.book_authors ", " }}{{ end }}
 <div class="col book-item">
@@ -17,25 +16,7 @@
       data-goodreads="{{ .Params.link }}"
     >
       <span class="book-cover-frame">
-        {{ if .Params.cover }}
-        <span class="book-3d" data-book-3d>
-          <span class="book-3d-pages" aria-hidden="true"></span>
-          <span class="book-3d-spine" aria-hidden="true"></span>
-          <span class="book-3d-cover">
-            <img
-              src="{{ .Params.cover }}"
-              class="book-cover"
-              loading="lazy"
-              alt="Cover of {{ .Title }}{{ if $authors }} by {{ $authors }}{{ end }}"
-            />
-          </span>
-        </span>
-        {{ end }}
-        {{ if $hasSummary }}
-        <span class="book-overlay" aria-hidden="true">
-          <span class="book-overlay-text">{{ .Summary }}</span>
-        </span>
-        {{ end }}
+        {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-cover" "loading" "lazy" "showCta" true) }}
       </span>
       <span class="book-meta-text">
         <h3 class="book-title">{{ .Title }}</h3>
