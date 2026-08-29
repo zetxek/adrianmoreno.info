@@ -359,6 +359,27 @@ $book-accent: #478079;
   transition: opacity 0.35s ease-in-out 0.15s;
 }
 
+// Featured books: the inner page itself carries the "featured" signal via a
+// warm gilt-paper tint, so the badge does not need to fight the text.
+.book-card--featured .book-3d-page {
+  background: #f6ecd2;
+}
+
+// When the cover opens (hover / keyboard focus), the floating affordances
+// pinned to the cover (goodreads badge, featured badge) would float oddly
+// over the revealed inner page — fade them out.
+.goodreads-link,
+.book-badge {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.book-card:hover .goodreads-link,
+.book-card:has(.book-card-link:focus-visible) .goodreads-link,
+.book-card:hover .book-badge,
+.book-card:has(.book-card-link:focus-visible) .book-badge {
+  opacity: 0;
+}
+
 .book-3d-page-text {
   font-family: Georgia, "Times New Roman", serif;
   font-size: 0.72rem;
@@ -1011,6 +1032,11 @@ a.book-detail-goodreads {
   .book-3d-page {
     background: #23211b;
     box-shadow: inset 6px 0 10px -6px rgba(0, 0, 0, 0.6);
+  }
+
+  // Featured gilt tint, dark-mode variant
+  .book-card--featured .book-3d-page {
+    background: #2e2a1c;
   }
 
   .book-3d-page-text {
