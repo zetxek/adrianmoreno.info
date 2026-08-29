@@ -1,0 +1,40 @@
+{{- /*
+  Renders one prev/next card for the book pager (layouts/book/single.html):
+  a plain, crawlable <a> with a cover thumbnail, direction label, title and
+  author. static/js/books.js clones this markup into a fixed overlay to
+  drive the seamless scroll-navigation transition, so the class names below
+  (`book-pager-card`, `book-pager-card--{prev,next}`) are relied on by both.
+
+  Params (passed as a dict):
+    book      - the book Page to link to (required)
+    direction - "prev" or "next" (required)
+    label     - direction label text, e.g. "Previous book" / "Next in X"
+*/ -}}
+{{- $book := .book -}}
+{{- $authors := "" -}}
+{{- if isset $book.Params "book_authors" }}{{ $authors = delimit $book.Params.book_authors ", " }}{{ end -}}
+<a
+  href="{{ $book.RelPermalink }}"
+  class="book-pager-card book-pager-card--{{ .direction }}"
+  data-book-pager="{{ .direction }}"
+>
+  <span class="book-pager-cover">
+    {{- if $book.Params.cover }}
+    <img
+      src="{{ $book.Params.cover }}"
+      alt=""
+      loading="lazy"
+      width="80"
+      height="120"
+    />
+    {{- end }}
+  </span>
+  <span class="book-pager-text">
+    <span class="book-pager-label">{{ .label }}</span>
+    <span class="book-pager-title">{{ $book.Title }}</span>
+    {{- if $authors }}
+    <span class="book-pager-author">{{ $authors }}</span>
+    {{- end }}
+  </span>
+  <span class="book-pager-arrow" aria-hidden="true">{{ if eq .direction "prev" }}&larr;{{ else }}&rarr;{{ end }}</span>
+</a>

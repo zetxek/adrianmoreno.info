@@ -5,8 +5,10 @@
     {{ partial "head.html" . }} {{ partial "head_custom.html" . }}
   </head>
 
-  <body>
+  <body tabindex="0">
     {{ partial "header.html" . }}
+
+    {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, phylosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
 
     <section
       id="books"
@@ -14,29 +16,23 @@
     >
 
       <div class="container-fluid px-4">
-        <div class="container mb-5">
+        <div class="container mb-4">
           <p class="lead">📚 This is a <strong>list of the books that have made a dent on me</strong>, especially focused on non fiction. It represents the areas where I have an interest or a passion, either professionally, as a hobby, or intellectually. I have always wanted to have a "Recommendation list", and it's one of the common questions when discussing a topic that I found myself attracted to - as I will name drop or quote the book.
           <br/>I have included only books that I have read - so I can have a chat about them, and the "whistlist" at the bottom.
           <br/>If you see any book that could fit in the list and is missing - let me know! I'm very open to suggestions 👂</p>
-          
-          <!-- Add Table of Contents -->
-          <div class="book-toc mb-5">
-            <h2>Categories</h2>
-            <ul class="list-unstyled row row-cols-1 row-cols-md-3 g-4">
-              {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, phylosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
-              {{ range $book_categories }}
-              <li class="col">
-                <a href="#{{ anchorize . }}" class="book-toc-link">
-                  {{ . }}
-                </a>
-              </li>
-              {{ end }}
-            </ul>
-          </div>
         </div>
 
-        <div class="container mb-5">
-          {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, phylosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
+        <nav class="book-nav" id="book-nav" aria-label="Book categories">
+          <ul class="book-nav-list">
+            {{ range $book_categories }}
+            <li class="book-nav-item">
+              <a class="book-nav-link" href="#{{ anchorize . }}">{{ . }}</a>
+            </li>
+            {{ end }}
+          </ul>
+        </nav>
+
+        <div class="container book-categories">
           {{ range $book_categories }}
           <div class="book-section mb-5">
             <h2 id="{{ anchorize . }}" class="book-category">
@@ -44,9 +40,9 @@
                 <span class="icon">🔗</span> {{ . }}
               </a>
             </h2>
-            <div class="row">
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-3 g-md-4 book-grid">
               {{ range where (where site.RegularPages "Draft" false) "Params.book_categories" "intersect" (slice . ) }}
-                {{ .Render "summary"}} 
+                {{ .Render "summary"}}
               {{ end }}
             </div>
           </div>
@@ -56,6 +52,7 @@
     </section>
 
     {{ partial "footer.html" . }} {{ partial "base-foot.html" . }}
+    <script src="{{ "js/books.js" | relURL }}" defer></script>
   </body>
 </html>
 <!-- endinject -->

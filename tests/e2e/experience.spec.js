@@ -22,11 +22,13 @@ test.describe('Experience Page', () => {
     await expect(page.locator('.breadcrumb-bar')).toBeVisible();
     await expect(page.locator('.breadcrumbs')).toBeVisible();
     
-    // Check breadcrumb links
+    // Check breadcrumb links (theme v1.10.4+: current page is a non-linked
+    // span with aria-current, so only Home is a link)
     const breadcrumbLinks = page.locator('.breadcrumbs a');
-    await expect(breadcrumbLinks).toHaveCount(2);
+    await expect(breadcrumbLinks).toHaveCount(1);
     await expect(breadcrumbLinks.nth(0)).toHaveText(/🏠\s*Home/);
-    await expect(breadcrumbLinks.nth(1)).toHaveText('Experience');
+    const currentCrumb = page.locator('.breadcrumbs [aria-current="page"]');
+    await expect(currentCrumb).toHaveText('Experience');
 
     // Verify main content section
     await expect(page.locator('#experience-single')).toBeVisible();
