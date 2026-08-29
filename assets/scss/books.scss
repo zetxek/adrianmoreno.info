@@ -9,21 +9,50 @@ $book-accent: #478079;
 // resolves to the non-scrolling body). The nav is pinned via JS instead
 // (see static/js/books.js), toggling `.is-pinned` to switch to `fixed`.
 .book-nav {
+  --book-nav-bg: rgba(250, 250, 249, 0.72);
+  --book-nav-fade: rgba(250, 250, 249, 0.9);
   position: relative;
   z-index: 10;
-  background: rgba(248, 249, 250, 0.92);
-  backdrop-filter: blur(6px);
-  border-radius: 8px;
-  padding: 0.5rem;
+  background: var(--book-nav-bg);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 999px;
+  padding: 0.4rem;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.18), 0 1px 2px rgba(0, 0, 0, 0.04);
 
   &.is-pinned {
     position: fixed;
     top: var(--book-header-offset, 90px);
     border-radius: 0;
+    border-width: 0 0 1px;
     margin-bottom: 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  // The pill strip scrolls horizontally on every breakpoint (it never
+  // wraps, see .book-nav-list), so fade the bar's own background over its
+  // edges to hint there's more to scroll to.
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    width: 2rem;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 1px;
+    background: linear-gradient(to right, var(--book-nav-fade), transparent);
+  }
+
+  &::after {
+    right: 1px;
+    background: linear-gradient(to left, var(--book-nav-fade), transparent);
   }
 }
 
@@ -39,17 +68,24 @@ $book-accent: #478079;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  gap: 0.4rem;
+  gap: 0.5rem;
   list-style: none;
   margin: 0;
   padding: 0 0.25rem;
   -ms-overflow-style: none;
-  scrollbar-width: thin;
+  scrollbar-width: none;
 
-  @media (min-width: 992px) {
-    flex-wrap: wrap;
-    overflow-x: visible;
-    justify-content: center;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.book-nav-list .book-nav-item {
+  // The theme paints a 6px dot on every `.section li::before` (specificity
+  // 0,1,2) — suppress it inside the pill nav with a stronger selector.
+  &::before {
+    content: none;
+    display: none;
   }
 }
 
@@ -58,25 +94,38 @@ $book-accent: #478079;
 }
 
 .book-nav-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   white-space: nowrap;
-  color: #495057;
+  color: #5b6169;
   text-decoration: none;
   font-size: 0.85rem;
-  padding: 0.4rem 0.9rem;
+  font-weight: 500;
+  padding: 0.45rem 1rem;
   border-radius: 999px;
-  border: 1px solid transparent;
-  transition: all 0.2s ease-in-out;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  background: transparent;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  @media (max-width: 991.98px) {
+    min-height: 40px;
+  }
 
   &:hover {
-    background: #fff;
-    color: #000;
-    border-color: rgba(0, 0, 0, 0.1);
+    border-color: $book-accent;
+    color: $book-accent;
   }
 
   &.active {
     background: $book-accent;
     color: #fff;
+    border-color: $book-accent;
+    box-shadow: 0 4px 10px -3px rgba(71, 128, 121, 0.55);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $book-accent;
+    outline-offset: 2px;
   }
 }
 
@@ -114,7 +163,14 @@ $book-accent: #478079;
 // ---------------------------------------------------------------------------
 
 .book-item {
+  // Lets the active book's scale-up lift paint over neighboring grid cells
+  // instead of being clipped at the column/row boundary.
   display: flex;
+  overflow: visible;
+}
+
+.book-grid {
+  overflow: visible;
 }
 
 .book-card {
@@ -122,10 +178,25 @@ $book-accent: #478079;
   display: flex;
   flex-direction: column;
   width: 100%;
+  // Raised only while "active" (see below) so the lifted book paints over
+  // its neighbors instead of being overpainted by later siblings in DOM
+  // order. The delay on the way back down is a discrete-property transition
+  // trick: it keeps the card elevated for as long as its shrink-back
+  // transform/box-shadow transition takes, then drops in one step, so it
+  // never dips behind a neighbor mid-settle.
+  transition: z-index 0s 0.2s;
 
   &--featured .book-cover-frame {
     box-shadow: 0 0 0 3px $book-accent, 0 6px 16px rgba(0, 0, 0, 0.18);
   }
+}
+
+// "Active" = hovered, or the in-card link is keyboard-focused (`:has()` is
+// needed here because the focus lands on a descendant, not the card itself).
+.book-card:hover,
+.book-card:has(.book-card-link:focus-visible) {
+  z-index: 20;
+  transition: z-index 0s;
 }
 
 .book-badge {
@@ -172,15 +243,25 @@ $book-accent: #478079;
   aspect-ratio: 2 / 3;
   background: #e9ecef;
   border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  overflow: visible;
+  box-shadow: 0 10px 16px -8px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease-in-out;
+  perspective: 1200px;
+  // Left-anchored so the scale-up grows the frame toward the right, in the
+  // same direction the cover swings open — the growth reaches into the
+  // grid gutter and over the next card instead of being absorbed evenly
+  // and invisibly on both sides.
+  transform-origin: left center;
 }
 
+// The lift: scale + rise + a stronger shadow, so the book feels picked up
+// off the shelf. This is the frame's own transform, entirely separate from
+// the cover's flip transform (`.book-3d` / `.book-3d-cover` below), so the
+// two compose naturally instead of fighting over one `transform` property.
 .book-card:hover .book-cover-frame,
 .book-card-link:focus-visible .book-cover-frame {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+  transform: translateY(-8px) scale(1.2);
+  box-shadow: 0 28px 44px -14px rgba(0, 0, 0, 0.48);
 }
 
 .book-cover {
@@ -190,43 +271,215 @@ $book-accent: #478079;
   display: block;
 }
 
-// Note: `.book-overlay` lives inside `.book-cover-frame` (which is
-// `position: relative`), so it only ever covers the cover image, not the
-// title/author text below it.
-.book-overlay {
+// ---------------------------------------------------------------------------
+// 3D book object (Stripe Press inspired): a CSS box with a front cover face,
+// a spine (left edge) and a pages edge (right edge). Shared by the grid
+// summary card (`.book-cover-frame`) and the single book page
+// (`.book-single-cover-frame`), both of which set `perspective` and host a
+// `.book-3d` scene sized to fill them.
+// ---------------------------------------------------------------------------
+
+.book-3d {
+  --book-thickness: 22px;
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: flex-end;
-  background: linear-gradient(180deg, rgba(20, 20, 20, 0.55) 0%, rgba(20, 20, 20, 0.96) 60%);
-  opacity: 0;
-  transform: translateY(4px);
-  pointer-events: none;
-  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
-  border-radius: 6px;
+  z-index: 1;
+  transform-style: preserve-3d;
+  transform: rotateY(25deg);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
 
-  // The overlay is a decorative preview (the full text is available in the
-  // detail dialog / book page), so it's hidden on touch devices that have no
-  // hover concept rather than requiring a tap-to-reveal step.
-  @media (hover: none) {
+// The front cover is a hinge: `.book-3d-cover` rotates open around its left
+// edge (the spine) to reveal `.book-3d-page` behind it. `-face` (the cover
+// artwork) and `-back` (the inside of the cover) are opposite sides of the
+// same hinged panel, each hidden via `backface-visibility` once they rotate
+// past 90deg — that's what keeps the cover art from appearing mirrored.
+.book-3d-cover {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transform: rotateY(0deg);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.book-3d-cover-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #e9ecef;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  backface-visibility: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at var(--sheen-x, 50%) var(--sheen-y, 15%),
+      rgba(255, 255, 255, 0.55),
+      rgba(255, 255, 255, 0) 45%
+    );
+    opacity: 0;
+    mix-blend-mode: overlay;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+  }
+}
+
+.book-3d-cover-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  background: linear-gradient(135deg, #f2ecdc 0%, #e6ddc4 100%);
+  box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.18), inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+// The inner page sits directly behind the cover (a hair back on the z-axis
+// so it never z-fights with the cover face) and only fades in once the
+// cover has swung far enough open to be believable.
+.book-3d-page {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(-1px);
+  border-radius: 3px;
+  background: #f8f5ec;
+  box-shadow: inset 6px 0 10px -6px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0.7rem 0.65rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease-in-out 0.15s;
+}
+
+.book-3d-page-text {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: #33302a;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 11;
+  -webkit-box-orient: vertical;
+}
+
+.book-3d-page-cta {
+  margin-top: auto;
+  padding-top: 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: $book-accent;
+}
+
+// Flip is desktop-only: a real hover that can linger, on a pointer precise
+// enough that the "click to read more" affordance means something. Touch
+// devices never match `(hover: hover)`, so tapping just opens the dialog as
+// before, with no flip in the way.
+@media (hover: hover) and (pointer: fine) {
+  .book-card:hover .book-3d,
+  .book-card-link:focus-visible .book-3d,
+  .book-single-cover-frame:hover .book-3d,
+  .book-single-cover-frame:focus-within .book-3d {
+    transform: rotateY(6deg);
+  }
+
+  .book-card:hover .book-3d-cover,
+  .book-card-link:focus-visible .book-3d-cover,
+  .book-single-cover-frame:hover .book-3d-cover,
+  .book-single-cover-frame:focus-within .book-3d-cover {
+    transform: rotateY(-150deg);
+  }
+
+  .book-card:hover .book-3d-cover-face::after,
+  .book-card-link:focus-visible .book-3d-cover-face::after,
+  .book-single-cover-frame:hover .book-3d-cover-face::after,
+  .book-single-cover-frame:focus-within .book-3d-cover-face::after {
+    opacity: 1;
+  }
+
+  .book-card:hover .book-3d-page,
+  .book-card-link:focus-visible .book-3d-page,
+  .book-single-cover-frame:hover .book-3d-page,
+  .book-single-cover-frame:focus-within .book-3d-page {
+    opacity: 1;
+  }
+}
+
+.book-3d-spine,
+.book-3d-pages {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--book-thickness);
+}
+
+.book-3d-spine {
+  left: 0;
+  transform-origin: left center;
+  transform: rotateY(-90deg);
+  border-radius: 3px 0 0 3px;
+  background: linear-gradient(
+    100deg,
+    var(--spine-c1, #3d3d3d) 0%,
+    var(--spine-c2, #1c1c1c) 100%
+  );
+}
+
+.book-3d-pages {
+  right: 0;
+  transform-origin: right center;
+  transform: rotateY(90deg);
+  border-radius: 0 3px 3px 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    #f6f2e9,
+    #f6f2e9 2px,
+    #e4dfd0 2px,
+    #e4dfd0 3px
+  );
+}
+
+// Touch/coarse-pointer devices: no pointer to track, so the hover/sheen
+// interaction is disabled. The resting tilt is kept so the 3D effect is
+// still visible on touch screens.
+@media (hover: none), (pointer: coarse) {
+  .book-3d-cover::after {
     display: none;
   }
 }
 
-.book-overlay-text {
-  color: #fff;
-  font-size: 0.78rem;
-  line-height: 1.35;
-  padding: 0.75rem;
-  max-height: 100%;
-  overflow-y: auto;
-}
+@media (prefers-reduced-motion: reduce) {
+  .book-3d,
+  .book-3d-cover {
+    transform: rotateY(0deg) !important;
+    transition: none !important;
+  }
 
-.book-card:hover .book-overlay,
-.book-card-link:focus-visible .book-overlay {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+  .book-3d-spine,
+  .book-3d-pages {
+    display: none;
+  }
+
+  .book-3d-cover-face::after {
+    display: none;
+  }
+
+  .book-3d-page {
+    opacity: 0 !important;
+    transition: none !important;
+  }
+
+  .book-cover-frame,
+  .book-single-cover-frame {
+    transition: none !important;
+  }
 }
 
 .book-meta-text {
@@ -381,10 +634,6 @@ $book-accent: #478079;
     background: $book-accent;
     color: #fff;
     opacity: 1;
-
-    .goodreads-search {
-      filter: brightness(0) invert(1);
-    }
   }
 }
 
@@ -407,16 +656,43 @@ $book-accent: #478079;
 }
 
 .book-single-cover-frame {
+  position: relative;
   max-width: 280px;
   margin: 0 auto;
+  aspect-ratio: 2 / 3;
+  perspective: 1600px;
+  box-shadow: 0 16px 28px -10px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+
+  .book-3d {
+    --book-thickness: 30px;
+  }
+
+  .book-3d-cover-face,
+  .book-3d-cover-back,
+  .book-3d-page {
+    border-radius: 6px;
+  }
+
+  .book-3d-spine {
+    border-radius: 6px 0 0 6px;
+  }
+
+  .book-3d-pages {
+    border-radius: 0 6px 6px 0;
+  }
+
+  .book-3d-page-text {
+    font-size: 0.85rem;
+    -webkit-line-clamp: 13;
+  }
 }
 
 .book-single-cover {
   width: 100%;
-  aspect-ratio: 2 / 3;
+  height: 100%;
   object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  display: block;
 }
 
 .book-single-title {
@@ -468,15 +744,26 @@ $book-accent: #478079;
   box-shadow: none;
   opacity: 1;
   margin-bottom: 1.5rem;
+}
 
-  .goodreads-search {
-    filter: brightness(0) invert(1);
-  }
-
+// The circular-badge rule `.goodreads-link:hover { background: #fff }` has the
+// same specificity and fights these pill buttons — beat it with the element
+// selector and give a proper darker-accent hover instead of white-on-white.
+a.book-single-goodreads {
   &:hover,
   &:focus-visible {
+    background: darken($book-accent, 8%);
     color: #fff;
-    opacity: 0.85;
+    opacity: 1;
+  }
+}
+
+a.book-detail-goodreads {
+  &:hover,
+  &:focus-visible {
+    background: $book-accent;
+    color: #fff;
+    opacity: 1;
   }
 }
 
@@ -489,27 +776,199 @@ $book-accent: #478079;
 }
 
 // ---------------------------------------------------------------------------
+// Prev/next pager (SEO base + seamless scroll-nav overlay)
+// ---------------------------------------------------------------------------
+
+.book-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+
+  @media (max-width: 767.98px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.book-pager-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    border-color: $book-accent;
+    box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.3);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $book-accent;
+    outline-offset: 2px;
+  }
+}
+
+.book-pager-card--next {
+  grid-column: 2;
+  flex-direction: row-reverse;
+  text-align: right;
+
+  @media (max-width: 767.98px) {
+    grid-column: 1;
+  }
+}
+
+.book-pager-card--prev {
+  grid-column: 1;
+}
+
+.book-pager-cover {
+  flex: 0 0 auto;
+  display: block;
+  width: 56px;
+  aspect-ratio: 2 / 3;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #e9ecef;
+  box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.3);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.book-pager-text {
+  min-width: 0;
+}
+
+.book-pager-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: $book-accent;
+  margin-bottom: 0.15rem;
+}
+
+.book-pager-title {
+  display: -webkit-box;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.book-pager-author {
+  display: block;
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 0.1rem;
+}
+
+.book-pager-arrow {
+  flex: 0 0 auto;
+  font-size: 1.2rem;
+  color: $book-accent;
+  opacity: 0.6;
+}
+
+// The overscroll-driven transition layer: a JS-cloned copy of the base
+// `.book-pager-card` above, fixed to the viewport edge and translated fully
+// off-screen. static/js/books.js drives `transform: translateY()` 1:1 with
+// the overscroll gesture (via `.is-tracking`, which disables the eased
+// transition so the card tracks the gesture exactly), then either lets the
+// eased transition snap it back or completes the page swap once it fully
+// covers the edge.
+.book-scrollnav-overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  pointer-events: none;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &.is-tracking {
+    transition: none;
+  }
+
+  .book-pager-card {
+    border: none;
+    box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.22);
+  }
+}
+
+.book-scrollnav-overlay--next {
+  bottom: 0;
+  transform: translateY(100%);
+
+  .book-pager-card {
+    border-radius: 12px 12px 0 0;
+  }
+}
+
+.book-scrollnav-overlay--prev {
+  top: 0;
+  transform: translateY(-100%);
+
+  .book-pager-card {
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book-scrollnav-overlay {
+    display: none;
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Dark mode
 // ---------------------------------------------------------------------------
 
 [data-bs-theme="dark"] {
   .book-nav {
-    background: rgba(36, 36, 36, 0.92);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --book-nav-bg: rgba(30, 30, 30, 0.65);
+    --book-nav-fade: rgba(30, 30, 30, 0.88);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.2);
+
+    &.is-pinned {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+    }
   }
 
   .book-nav-link {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.75);
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
 
     &:hover {
-      background: #333;
+      border-color: $book-accent;
       color: #fff;
-      border-color: rgba(255, 255, 255, 0.15);
     }
 
     &.active {
       background: $book-accent;
       color: #fff;
+      border-color: $book-accent;
+      box-shadow: 0 4px 10px -3px rgba(0, 0, 0, 0.5);
     }
   }
 
@@ -521,8 +980,51 @@ $book-accent: #478079;
     }
   }
 
-  .book-cover-frame {
+  .book-cover-frame,
+  .book-single-cover-frame {
     background: #2c2c2c;
+    box-shadow: 0 12px 22px -8px rgba(0, 0, 0, 0.6);
+  }
+
+  .book-card:hover .book-cover-frame,
+  .book-card-link:focus-visible .book-cover-frame {
+    box-shadow: 0 32px 50px -14px rgba(0, 0, 0, 0.75);
+  }
+
+  .book-3d-cover-face {
+    background: #2c2c2c;
+
+    &::after {
+      background: radial-gradient(
+        circle at var(--sheen-x, 50%) var(--sheen-y, 15%),
+        rgba(255, 255, 255, 0.32),
+        rgba(255, 255, 255, 0) 45%
+      );
+    }
+  }
+
+  .book-3d-cover-back {
+    background: linear-gradient(135deg, #3a362c 0%, #26231c 100%);
+    box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+
+  .book-3d-page {
+    background: #23211b;
+    box-shadow: inset 6px 0 10px -6px rgba(0, 0, 0, 0.6);
+  }
+
+  .book-3d-page-text {
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .book-3d-pages {
+    background: repeating-linear-gradient(
+      to bottom,
+      #3c392f,
+      #3c392f 2px,
+      #2b2920 2px,
+      #2b2920 3px
+    );
   }
 
   .book-title {
@@ -531,10 +1033,6 @@ $book-accent: #478079;
 
   .book-author {
     color: rgba(255, 255, 255, 0.7);
-  }
-
-  .goodreads-link img {
-    filter: invert(1);
   }
 
   .goodreads-link {
@@ -569,12 +1067,17 @@ $book-accent: #478079;
     }
   }
 
-  .book-detail-goodreads .goodreads-search {
-    filter: invert(1);
-
-    &:hover,
-    &:focus-visible {
-      filter: brightness(0) invert(1);
-    }
+  .book-pager {
+    border-top-color: rgba(255, 255, 255, 0.1);
   }
+
+  .book-pager-card {
+    background: #1e1e1e;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .book-pager-author {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
 }

@@ -11,10 +11,47 @@
     {{ $authors := "" }}
     {{ if isset .Params "book_authors" }}{{ $authors = delimit .Params.book_authors ", " }}{{ end }}
 
+    {{/* Deterministic reading order: same 12 categories, same order, as
+      layouts/book/list.html, with books within each category in list order.
+      A book listed under more than one category is keyed to the first of
+      those categories (in this canonical order), matching where it first
+      appears when reading the list page top to bottom. */}}
+    {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, phylosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
+
+    {{ $orderedEntries := slice }}
+    {{ range $book_categories }}
+      {{ $cat := . }}
+      {{ range where (where site.RegularPages "Draft" false) "Params.book_categories" "intersect" (slice $cat) }}
+        {{ $orderedEntries = $orderedEntries | append (dict "page" . "category" $cat) }}
+      {{ end }}
+    {{ end }}
+
+    {{ $currentIndex := -1 }}
+    {{ range $i, $entry := $orderedEntries }}
+      {{ if and (eq $currentIndex -1) (eq $entry.page.RelPermalink $.RelPermalink) }}
+        {{ $currentIndex = $i }}
+      {{ end }}
+    {{ end }}
+
+    {{ $prevEntry := "" }}
+    {{ $nextEntry := "" }}
+    {{ $nextLabel := "Next book" }}
+    {{ if ge $currentIndex 0 }}
+      {{ if gt $currentIndex 0 }}
+        {{ $prevEntry = index $orderedEntries (sub $currentIndex 1) }}
+      {{ end }}
+      {{ if lt (add $currentIndex 1) (len $orderedEntries) }}
+        {{ $nextEntry = index $orderedEntries (add $currentIndex 1) }}
+        {{ if ne $nextEntry.category (index $orderedEntries $currentIndex).category }}
+          {{ $nextLabel = printf "Next in %s" $nextEntry.category }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+
     <section
       id="book"
       class="section section--border-bottom rad-animation-group book-single">
-      <div class="container">
+      <div class="container" id="book-viewport">
         <p class="book-single-back">
           <a href="{{ "books" | relURL }}">&larr; Back to all books</a>
         </p>
@@ -22,13 +59,7 @@
         <div class="row book-single-header gy-4">
           <div class="col-12 col-lg-4">
             <div class="book-single-cover-frame">
-              {{ if .Params.cover }}
-              <img
-                src="{{ .Params.cover }}"
-                class="book-single-cover"
-                alt="Cover of {{ .Title }}{{ if $authors }} by {{ $authors }}{{ end }}"
-              />
-              {{ end }}
+              {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-single-cover" "showCta" false) }}
             </div>
           </div>
           <div class="col-12 col-lg-8">
@@ -83,6 +114,17 @@
             </div>
           </div>
         </div>
+        {{ end }}
+
+        {{ if or $prevEntry $nextEntry }}
+        <nav class="book-pager" aria-label="Book navigation">
+          {{ if $prevEntry }}
+            {{ partial "book-pager-card.html" (dict "book" $prevEntry.page "direction" "prev" "label" "Previous book") }}
+          {{ end }}
+          {{ if $nextEntry }}
+            {{ partial "book-pager-card.html" (dict "book" $nextEntry.page "direction" "next" "label" $nextLabel) }}
+          {{ end }}
+        </nav>
         {{ end }}
       </div>
     </section>
