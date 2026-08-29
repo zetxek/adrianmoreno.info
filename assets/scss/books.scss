@@ -1,93 +1,106 @@
+$book-accent: #478079;
 
-.book-content {
-  transition: transform 0.2s ease-in-out;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: #f8f9fa;
+// ---------------------------------------------------------------------------
+// Sticky category navigation
+// ---------------------------------------------------------------------------
 
-  &.featured {
-    border-color: #478079;
-    box-shadow: 0 0 10px rgba(71, 128, 121, 0.2);
+// Note: the theme sets `body { overflow: hidden }` and scrolls via `html`
+// instead, which breaks native `position: sticky` (its containing block
+// resolves to the non-scrolling body). The nav is pinned via JS instead
+// (see static/js/books.js), toggling `.is-pinned` to switch to `fixed`.
+.book-nav {
+  position: relative;
+  z-index: 10;
+  background: rgba(248, 249, 250, 0.92);
+  backdrop-filter: blur(6px);
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  &.is-pinned {
+    position: fixed;
+    top: var(--book-header-offset, 90px);
+    border-radius: 0;
+    margin-bottom: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
   }
+}
+
+.book-nav-spacer {
+  display: none;
+
+  &.is-active {
+    display: block;
+  }
+}
+
+.book-nav-list {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0 0.25rem;
+  -ms-overflow-style: none;
+  scrollbar-width: thin;
+
+  @media (min-width: 992px) {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    justify-content: center;
+  }
+}
+
+.book-nav-item {
+  flex: 0 0 auto;
+}
+
+.book-nav-link {
+  display: inline-block;
+  white-space: nowrap;
+  color: #495057;
+  text-decoration: none;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
 
   &:hover {
-    transform: translateY(-2px);
+    background: #fff;
+    color: #000;
+    border-color: rgba(0, 0, 0, 0.1);
   }
 
-  .book-cover {
-    height: 100%;
-    object-fit: cover;
-    max-height: 280px;
-    width: 100%;
-  }
-
-  .book-title {
-    font-size: 1.1rem;
-    line-height: 1.3;
-  }
-
-  .book-author {
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .goodreads-link {
-    opacity: 0.7;
-    transition: opacity 0.2s ease-in-out;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  .card-text {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: #666;
+  &.active {
+    background: $book-accent;
+    color: #fff;
   }
 }
 
-.book-toc {
-  background: #f8f9fa;
-  padding: 2rem;
-  border-radius: 8px;
-
-  h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  &-link {
-    display: block;
-    color: #495057;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: all 0.2s ease-in-out;
-
-    &:hover {
-      background: #fff;
-      color: #000;
-      transform: translateX(5px);
-    }
-  }
-}
+// ---------------------------------------------------------------------------
+// Category sections
+// ---------------------------------------------------------------------------
 
 .book-category {
-  margin-top: 2rem;
+  margin-top: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid #eee;
-  
+  scroll-margin-top: calc(var(--book-header-offset, 90px) + 4.5rem);
+
   &-anchor {
     color: inherit;
     text-decoration: none;
-    
+
     &:hover {
       text-decoration: none;
       .icon {
         opacity: 1;
       }
     }
-    
+
     .icon {
       opacity: 0.3;
       font-size: 0.8em;
@@ -96,56 +109,210 @@
   }
 }
 
+// ---------------------------------------------------------------------------
+// Bookshelf grid + cards
+// ---------------------------------------------------------------------------
 
-[data-bs-theme="dark"] {
-  .book-content {
-    border-color: rgba(255, 255, 255, 0.1);
-    background-color: #242424;
+.book-item {
+  display: flex;
+}
 
-    &.featured {
-      border-color: #478079;
-      box-shadow: 0 0 10px rgba(71, 128, 121, 0.3);
-    }
+.book-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
-    .book-title {
-      color: #fff;
-    }
+  &--featured .book-cover-frame {
+    box-shadow: 0 0 0 3px $book-accent, 0 6px 16px rgba(0, 0, 0, 0.18);
+  }
+}
 
-    .book-author {
-      color: rgba(255, 255, 255, 0.7) !important;
-    }
+.book-badge {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.4rem;
+  z-index: 2;
+  background: $book-accent;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.3rem 0.5rem;
+  border-radius: 999px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
 
-    .card-text {
-      color: rgba(255, 255, 255, 0.8);
-    }
+.book-cover-btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 6px;
+  overflow: hidden;
 
-    .goodreads-link img {
-      filter: invert(1);
-    }
+  &:focus-visible {
+    outline: 2px solid $book-accent;
+    outline-offset: 2px;
   }
 
-  .book-toc {
-    background: #242424;
+  &[aria-hidden="true"] {
+    cursor: default;
+  }
+}
 
-    h2 {
+.book-cover-frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background: #e9ecef;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.book-card:hover .book-cover-frame,
+.book-cover-btn:focus-visible .book-cover-frame {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+.book-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.book-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  background: linear-gradient(180deg, rgba(20, 20, 20, 0.55) 0%, rgba(20, 20, 20, 0.96) 60%);
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  border-radius: 6px;
+}
+
+.book-overlay-text {
+  color: #fff;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  padding: 0.75rem;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.book-card:hover .book-overlay,
+.book-card:focus-within .book-overlay,
+.book-card.is-active .book-overlay {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.book-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.book-meta-text {
+  min-width: 0;
+}
+
+.book-title {
+  font-size: 0.9rem;
+  line-height: 1.3;
+  margin-bottom: 0.15rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.book-author {
+  font-size: 0.78rem;
+  color: #6c757d;
+  margin-bottom: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.goodreads-link {
+  flex: 0 0 auto;
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out;
+  margin-top: 0.15rem;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.book-related-heading {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+// ---------------------------------------------------------------------------
+// Dark mode
+// ---------------------------------------------------------------------------
+
+[data-bs-theme="dark"] {
+  .book-nav {
+    background: rgba(36, 36, 36, 0.92);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .book-nav-link {
+    color: rgba(255, 255, 255, 0.8);
+
+    &:hover {
+      background: #333;
       color: #fff;
+      border-color: rgba(255, 255, 255, 0.15);
     }
 
-    &-link {
-      color: rgba(255, 255, 255, 0.8);
-
-      &:hover {
-        background: #333;
-        color: #fff;
-      }
+    &.active {
+      background: $book-accent;
+      color: #fff;
     }
   }
 
   .book-category {
     border-bottom-color: rgba(255, 255, 255, 0.1);
-    
+
     &-anchor {
       color: #fff;
     }
+  }
+
+  .book-cover-frame {
+    background: #2c2c2c;
+  }
+
+  .book-title {
+    color: #fff;
+  }
+
+  .book-author {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .goodreads-link img {
+    filter: invert(1);
   }
 }
