@@ -2,6 +2,7 @@
 title: "Grit: The Power of Passion and Perseverance"
 book_authors: ["Angela Duckworth"]
 book_categories: ["Psychology (cognitive, evolutionary, phylosophy...)"]
+year: 2016
 link: "https://www.goodreads.com/search?q=Grit:+The+Power+of+Passion+and+Perseverance+Angela+Duckworth"
 cover: "/images/books/grit-the-power-of-passion-and-perseverance.jpg"
 ---

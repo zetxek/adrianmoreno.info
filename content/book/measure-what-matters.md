@@ -2,6 +2,7 @@
 title: "Measure What Matters: How Google, Bono, and the Gates Foundation Rock the World with OKRs"
 book_authors: ["John Doerr"]
 book_categories: ["Product, strategy and business"]
+year: 2018
 link: "https://www.goodreads.com/search?q=Measure+What+Matters+John+Doerr"
 cover: "/images/books/measure-what-matters-how-google-bono-and-the-gates-foundation-rock-the-world-with-okrs.jpg"
 ---

@@ -2,6 +2,7 @@
 title: "Thinking Fast and Slow"
 book_authors: ["Daniel Kahneman"]
 book_categories: ["Psychology (cognitive, evolutionary, phylosophy...)"]
+year: 2011
 link: "https://www.goodreads.com/search?q=Thinking+Fast+and+Slow+Daniel+Kahneman"
 featured: true
 

@@ -45,7 +45,8 @@
               </a>
             </h2>
             <div class="row">
-              {{ range where (where site.RegularPages "Draft" false) "Params.book_categories" "intersect" (slice . ) }}
+              {{ $books := where (where site.RegularPages "Draft" false) "Params.book_categories" "intersect" (slice . ) }}
+              {{ range sort $books "Params.year" "desc" }}
                 {{ .Render "summary"}} 
               {{ end }}
             </div>

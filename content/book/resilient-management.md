@@ -2,6 +2,7 @@
 title: "Resilient Management"
 book_authors: ["Lara Hogan"]
 book_categories: ["Engineering Management"]
+year: 2018
 link: "https://www.goodreads.com/search?q=Resilient+Management+Lara+Hogan"
 cover: "/images/books/resilient-management.jpg"
 ---

@@ -7,6 +7,7 @@
 
   <body>
     {{ partial "header.html" . }}
+    {{- $year := .Params.year -}}
 
     <section
       id="book"
@@ -15,7 +16,7 @@
 
           <div class="row">
             <div class="col-12 col-md-7 mt-7 mt-sm-0">
-              <h2>{{ .Title }}</h2> {{ if isset .Params "book_authors" }} by {{ range .Params.book_authors }} {{ . }} {{ end }} {{ end}}
+              <h2>{{ .Title }}</h2> {{ if isset .Params "book_authors" }} by {{ range .Params.book_authors }} {{ . }} {{ end }} {{ end}}{{ if $year }} · {{ $year }}{{ end }}
               <br/>
               {{ .Content | safeHTML }}
             </div>

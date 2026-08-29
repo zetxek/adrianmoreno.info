@@ -1,5 +1,6 @@
 <div class="col-12 mb-3">
   <div class="card h-100 book-content {{ if .Params.featured }}featured{{ end }}">
+    {{- $year := .Params.year -}}
     <div class="row g-0">
       <div class="col-md-2 col-sm-3">
         {{ if .Params.cover }}
@@ -16,7 +17,7 @@
             <div>
               <h5 class="card-title book-title mb-1">{{ .Title }}</h5>
               {{- if isset .Params "book_authors" }}
-              <p class="book-author text-body-secondary mb-2">by {{ range .Params.book_authors }} {{ . }} {{ end}}</p>
+              <p class="book-author text-body-secondary mb-2">by {{ range .Params.book_authors }} {{ . }} {{ end}}{{ if $year }} · {{ $year }}{{ end }}</p>
               {{- end }}
             </div>
             <a

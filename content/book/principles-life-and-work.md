@@ -2,6 +2,7 @@
 title: "Principles: Life and Work"
 book_authors: ["Ray Dalio"]
 book_categories: ["Product, strategy and business"]
+year: 2017
 link: "https://www.goodreads.com/search?q=Principles:+Life+and+Work+Ray+Dalio"
 cover: "/images/books/principles-life-and-work.jpg"
 ---

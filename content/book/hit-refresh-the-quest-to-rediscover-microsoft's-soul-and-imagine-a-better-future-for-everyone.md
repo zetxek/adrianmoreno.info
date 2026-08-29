@@ -2,6 +2,7 @@
 title: "Hit Refresh: The Quest to Rediscover Microsoft's Soul and Imagine a Better Future for Everyone"
 book_authors: ["Satya Nadella"]
 book_categories: ["Biographies/company stories"]
+year: 2017
 link: "https://www.goodreads.com/search?q=Hit+Refresh:+The+Quest+to+Rediscover+Microsoft's+Soul+and+Imagine+a+Better+Future+for+Everyone+Satya+Nadella"
 cover: "/images/books/hit-refresh-the-quest-to-rediscover-microsoft-s-soul-and-imagine-a-better-future-for-everyone.jpg"
 ---

@@ -2,6 +2,7 @@
 title: "Radical Candor: Kick ass at work without losing your humanity"
 book_authors: ["Kim Scott"]
 book_categories: ["Leadership"]
+year: 2017
 link: "https://www.goodreads.com/search?q=Radical+Candor+Kim+Scott"
 featured: true
 

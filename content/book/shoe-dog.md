@@ -2,6 +2,7 @@
 title: "Shoe Dog"
 book_authors: ["Phil Knight"]
 book_categories: ["Biographies/company stories"]
+year: 2016
 link: "https://www.goodreads.com/search?q=Shoe+Dog+Phil+Knight"
 cover: "/images/books/shoe-dog.jpg"
 ---
