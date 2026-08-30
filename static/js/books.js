@@ -219,10 +219,12 @@
     // motion or fine pointers, where the modal opens exactly as before.
     // -------------------------------------------------------------------
     var spineGhost = null;
+    var spineGhostOriginRect = null; // card rect at creation time - the fixed anchor both FLIP beats measure deltas from
 
     function removeSpineGhost() {
       if (spineGhost && spineGhost.parentNode) spineGhost.parentNode.removeChild(spineGhost);
       spineGhost = null;
+      spineGhostOriginRect = null;
     }
 
     function cleanupSpineOpen() {
@@ -238,6 +240,7 @@
       if (!rect.width || !rect.height) return;
 
       removeSpineGhost();
+      spineGhostOriginRect = rect;
 
       var ghost = document.createElement('img');
       ghost.src = cardCover.src;
@@ -254,19 +257,21 @@
       modalEl.classList.add('is-opening');
     }
 
-    // FLIP: the ghost starts painted exactly over the card cover, then
-    // animates to the delta/scale needed to land on the modal cover - only
-    // `transform`/`opacity` are ever animated, so this stays compositor-only.
+    // FLIP, first beat: the ghost starts painted exactly over the card
+    // cover, then animates to the delta/scale needed to land on the
+    // full-size modal cover (the layout `.is-opening` still renders, before
+    // the compact header snaps in) - only `transform`/`opacity` are ever
+    // animated, so this stays compositor-only.
     function runSpineOpen() {
       var ghost = spineGhost;
-      if (!ghost || !ghost.animate || !coverImgEl.getBoundingClientRect) {
+      var originRect = spineGhostOriginRect;
+      if (!ghost || !originRect || !ghost.animate || !coverImgEl.getBoundingClientRect) {
         modalEl.classList.remove('is-opening');
         modalEl.classList.add('is-open');
         removeSpineGhost();
         return;
       }
 
-      var startRect = ghost.getBoundingClientRect();
       var endRect = coverImgEl.getBoundingClientRect();
       if (!endRect.width || !endRect.height) {
         modalEl.classList.remove('is-opening');
@@ -275,10 +280,10 @@
         return;
       }
 
-      var deltaX = endRect.left - startRect.left;
-      var deltaY = endRect.top - startRect.top;
-      var scaleX = endRect.width / startRect.width;
-      var scaleY = endRect.height / startRect.height;
+      var deltaX = endRect.left - originRect.left;
+      var deltaY = endRect.top - originRect.top;
+      var scaleX = endRect.width / originRect.width;
+      var scaleY = endRect.height / originRect.height;
 
       var flight = ghost.animate(
         [
@@ -290,14 +295,73 @@
 
       flight.onfinish = function () {
         if (!spineGhost) return;
+        runCompactSettleFlight(flight, deltaX, deltaY, scaleX, scaleY, originRect);
+      };
+    }
+
+    // FLIP, second beat: commits the first flight's landed transform onto
+    // the ghost as a plain inline style (so it keeps covering the full-size
+    // cover), lets `.is-open` snap the compact header/content layout in
+    // underneath, then - still anchored to the ORIGINAL card rect, so the
+    // transform stays absolute rather than relative to wherever the first
+    // beat left off - animates the same ghost the rest of the way down into
+    // the newly compact cover slot. This is what makes the header's snap
+    // into its compact grid read as the book physically closing onto its
+    // shelf-sized spine, instead of the cover just popping into place the
+    // instant `.is-open` lands.
+    function runCompactSettleFlight(flight, fromDeltaX, fromDeltaY, fromScaleX, fromScaleY, originRect) {
+      if (flight.commitStyles) {
+        try {
+          flight.commitStyles();
+        } catch (e) {
+          // Detached mid-flight or unsupported - cancel() below still leaves
+          // the ghost at its last painted frame either way.
+        }
+      }
+      if (flight.cancel) flight.cancel();
+
+      modalEl.classList.remove('is-opening');
+      modalEl.classList.add('is-open');
+
+      // Force a reflow so the compact grid layout is committed before the
+      // measurement below reads it.
+      void modalEl.offsetHeight;
+
+      var ghost = spineGhost;
+      if (!ghost || !ghost.animate) {
+        removeSpineGhost();
+        return;
+      }
+
+      var compactRect = coverImgEl.getBoundingClientRect();
+      if (!compactRect.width || !compactRect.height) {
+        removeSpineGhost();
+        return;
+      }
+
+      var toDeltaX = compactRect.left - originRect.left;
+      var toDeltaY = compactRect.top - originRect.top;
+      var toScaleX = compactRect.width / originRect.width;
+      var toScaleY = compactRect.height / originRect.height;
+
+      var settle = ghost.animate(
+        [
+          {
+            transform:
+              'translate(' + fromDeltaX + 'px, ' + fromDeltaY + 'px) scale(' + fromScaleX + ', ' + fromScaleY + ') rotate(0deg)',
+          },
+          {
+            transform:
+              'translate(' + toDeltaX + 'px, ' + toDeltaY + 'px) scale(' + toScaleX + ', ' + toScaleY + ') rotate(-10deg)',
+          },
+        ],
+        { duration: 260, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }
+      );
+
+      settle.onfinish = function () {
+        if (!spineGhost) return;
         var fade = spineGhost.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 120, fill: 'forwards' });
-        fade.onfinish = function () {
-          removeSpineGhost();
-          if (modalEl.classList.contains('is-opening')) {
-            modalEl.classList.remove('is-opening');
-            modalEl.classList.add('is-open');
-          }
-        };
+        fade.onfinish = removeSpineGhost;
       };
     }
 
