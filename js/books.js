@@ -183,6 +183,7 @@
               '<img class="book-detail-cover-img" alt="">' +
             '</div>' +
             '<p class="book-detail-authors"></p>' +
+            '<time class="book-detail-year"></time>' +
             '<div class="book-detail-content"></div>' +
             '<div class="book-detail-links">' +
               '<a class="goodreads-link book-detail-goodreads" target="_blank" rel="noopener noreferrer">' +
@@ -201,6 +202,7 @@
 
     var titleEl = modalEl.querySelector('.book-detail-title');
     var authorsEl = modalEl.querySelector('.book-detail-authors');
+    var yearEl = modalEl.querySelector('.book-detail-year');
     var coverImgEl = modalEl.querySelector('.book-detail-cover-img');
     var contentEl = modalEl.querySelector('.book-detail-content');
     var goodreadsEl = modalEl.querySelector('.book-detail-goodreads');
@@ -213,12 +215,17 @@
       var authors = trigger.getAttribute('data-authors') || '';
       var cover = trigger.getAttribute('data-cover') || '';
       var goodreads = trigger.getAttribute('data-goodreads') || '';
+      var year = trigger.getAttribute('data-year') || '';
       var permalink = trigger.getAttribute('href') || '';
       var contentSource = trigger.closest('.book-card').querySelector('.book-detail-content-source');
 
       titleEl.textContent = title;
       authorsEl.textContent = authors;
       authorsEl.hidden = !authors;
+
+      yearEl.textContent = year;
+      yearEl.dateTime = year;
+      yearEl.hidden = !year;
 
       coverImgEl.src = cover;
       coverImgEl.alt = authors ? 'Cover of ' + title + ' by ' + authors : 'Cover of ' + title;
