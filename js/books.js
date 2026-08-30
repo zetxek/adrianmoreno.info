@@ -9,24 +9,17 @@
   if (nav) {
     var header = document.getElementById('header');
 
-    function syncHeaderOffset() {
-      var headerHeight = header ? header.offsetHeight : 0;
-      document.documentElement.style.setProperty('--book-header-offset', headerHeight + 'px');
+    function getHeaderRect() {
+      return header ? header.getBoundingClientRect() : { height: 0, bottom: 0 };
     }
-    syncHeaderOffset();
-    window.addEventListener('resize', syncHeaderOffset);
 
-    // The header shrinks a bit after the page is scrolled (see the theme's
-    // sticky-header.js), so keep the offset in sync while scrolling too.
-    var offsetTicking = false;
-    window.addEventListener('scroll', function () {
-      if (offsetTicking) return;
-      offsetTicking = true;
-      window.requestAnimationFrame(function () {
-        syncHeaderOffset();
-        offsetTicking = false;
-      });
-    });
+    // Use getBoundingClientRect() rather than offsetHeight: the header's
+    // rendered height/bottom can include subpixel values (e.g. 69.4px) that
+    // offsetHeight rounds away, which was enough to leave a sliver of the
+    // nav peeking out from under the header. The extra 1px is a safety gap.
+    function syncHeaderOffset(headerRect) {
+      document.documentElement.style.setProperty('--book-header-offset', (headerRect.height + 1) + 'px');
+    }
 
     // Pin the nav bar once its spacer scrolls under the header. `position:
     // sticky` doesn't work here because the theme sets `body { overflow:
@@ -56,30 +49,43 @@
       spacer.style.height = '';
     };
 
-    var measureAndTogglePin = function (sentinelTop) {
-      var headerHeight = header ? header.offsetHeight : 0;
-      if (sentinelTop <= headerHeight) {
-        pin();
-      } else {
-        unpin();
-      }
-    };
-
     var sentinel = document.createElement('div');
     sentinel.className = 'book-nav-sentinel';
     nav.parentNode.insertBefore(sentinel, nav);
 
-    if ('IntersectionObserver' in window) {
-      var observer = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            measureAndTogglePin(entry.boundingClientRect.top);
-          });
-        },
-        { threshold: [0, 1] }
-      );
-      observer.observe(sentinel);
+    function measureAndTogglePin(headerRect) {
+      var sentinelTop = sentinel.getBoundingClientRect().top;
+      if (sentinelTop <= headerRect.bottom) {
+        pin();
+      } else {
+        unpin();
+      }
     }
+
+    // The header shrinks a bit after the page is scrolled (see the theme's
+    // sticky-header.js), and its bottom edge is what actually determines
+    // when the nav should pin — an IntersectionObserver on the sentinel only
+    // fires when the sentinel crosses the viewport edge, not when it crosses
+    // the (shrinking) fixed header's bottom, so pin state is driven directly
+    // off scroll/resize instead.
+    function update() {
+      var headerRect = getHeaderRect();
+      syncHeaderOffset(headerRect);
+      measureAndTogglePin(headerRect);
+    }
+
+    var updateTicking = false;
+    function scheduleUpdate() {
+      if (updateTicking) return;
+      updateTicking = true;
+      window.requestAnimationFrame(function () {
+        update();
+        updateTicking = false;
+      });
+    }
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+    update();
 
     // Re-measure the pinned nav's width/position on resize (using the
     // spacer, which stays in normal flow, as the source of truth).
@@ -177,6 +183,7 @@
               '<img class="book-detail-cover-img" alt="">' +
             '</div>' +
             '<p class="book-detail-authors"></p>' +
+            '<time class="book-detail-year"></time>' +
             '<div class="book-detail-content"></div>' +
             '<div class="book-detail-links">' +
               '<a class="goodreads-link book-detail-goodreads" target="_blank" rel="noopener noreferrer">' +
@@ -195,6 +202,7 @@
 
     var titleEl = modalEl.querySelector('.book-detail-title');
     var authorsEl = modalEl.querySelector('.book-detail-authors');
+    var yearEl = modalEl.querySelector('.book-detail-year');
     var coverImgEl = modalEl.querySelector('.book-detail-cover-img');
     var contentEl = modalEl.querySelector('.book-detail-content');
     var goodreadsEl = modalEl.querySelector('.book-detail-goodreads');
@@ -207,12 +215,17 @@
       var authors = trigger.getAttribute('data-authors') || '';
       var cover = trigger.getAttribute('data-cover') || '';
       var goodreads = trigger.getAttribute('data-goodreads') || '';
+      var year = trigger.getAttribute('data-year') || '';
       var permalink = trigger.getAttribute('href') || '';
       var contentSource = trigger.closest('.book-card').querySelector('.book-detail-content-source');
 
       titleEl.textContent = title;
       authorsEl.textContent = authors;
       authorsEl.hidden = !authors;
+
+      yearEl.textContent = year;
+      yearEl.dateTime = year;
+      yearEl.hidden = !year;
 
       coverImgEl.src = cover;
       coverImgEl.alt = authors ? 'Cover of ' + title + ' by ' + authors : 'Cover of ' + title;
