@@ -2,6 +2,7 @@
 title: "Continuous Discovery Habits: Discover Products that Create Customer Value and Business Value"
 book_authors: ["Teresa Torres"]
 book_categories: ["Product, strategy and business"]
+year: 2021
 link: "https://www.goodreads.com/search?q=Continous+Discovery+Habits+Teresa+Torres"
 cover: "/images/books/continuous-discovery-habits-discover-products-that-create-customer-value-and-business-value.jpg"
 ---

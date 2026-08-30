@@ -2,6 +2,7 @@
 title: "Blue Ocean Strategy: How to Create Uncontested Market Space and Make Competition Irrelevant"
 book_authors: ["W. Chan Kim"]
 book_categories: ["Product, strategy and business"]
+year: 2005
 link: "https://www.goodreads.com/search?q=Blue+Ocean+Strategy+W.+Chan+Kim"
 cover: "/images/books/blue-ocean-strategy-how-to-create-uncontested-market-space-and-make-competition-irrelevant.jpg"
 ---

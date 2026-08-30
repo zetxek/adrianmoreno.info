@@ -2,6 +2,7 @@
 title: "What We Owe the Future Hardcover"
 book_authors: ["William MacAskill"]
 book_categories: ["Society, world and future"]
+year: 2022
 link: "https://www.goodreads.com/search?q=What+We+Owe+the+Future+Hardcover+William+MacAskill"
 cover: "/images/books/what-we-owe-the-future-hardcover.jpg"
 ---

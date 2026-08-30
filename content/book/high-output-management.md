@@ -2,6 +2,7 @@
 title: "High Output Management"
 book_authors: ["Andrew S. Grove"]
 book_categories: ["Engineering Management"]
+year: 1983
 link: "https://www.goodreads.com/search?q=High+Output+Management+Andrew+S.+Grove"
 featured: true
 images:

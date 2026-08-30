@@ -1,7 +1,8 @@
 ---
 title: "Essentialism: The Disciplined Pursuit of Less"
 book_authors: ["Greg McKeown"]
-book_categories: ["Psychology (cognitive, evolutionary, phylosophy...)"]
+book_categories: ["Psychology (cognitive, evolutionary, philosophy...)"]
+year: 2014
 link: "https://www.goodreads.com/search?q=Essentialism:+The+Disciplined+Pursuit+of+Less+Greg+McKeown"
 cover: "/images/books/essentialism-the-disciplined-pursuit-of-less.jpg"
 ---

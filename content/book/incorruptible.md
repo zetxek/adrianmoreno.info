@@ -2,6 +2,7 @@
 title: "Incorruptible: Why Good Companies Go Bad... and How Great Companies Stay Great"
 book_authors: ["Eric Ries"]
 book_categories: ["Product, strategy and business"]
+year: 2024
 link: "https://www.goodreads.com/search?q=Incorruptible+Eric+Ries"
 cover: "/images/books/incorruptible.jpg"
 ---

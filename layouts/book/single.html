@@ -7,6 +7,7 @@
 
   <body>
     {{ partial "header.html" . }}
+    {{- $year := .Params.year -}}
 
     {{ $authors := "" }}
     {{ if isset .Params "book_authors" }}{{ $authors = delimit .Params.book_authors ", " }}{{ end }}
@@ -16,7 +17,7 @@
       A book listed under more than one category is keyed to the first of
       those categories (in this canonical order), matching where it first
       appears when reading the list page top to bottom. */}}
-    {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, phylosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
+    {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, philosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
 
     {{ $orderedEntries := slice }}
     {{ range $book_categories }}
@@ -66,6 +67,9 @@
             <h1 class="book-single-title">{{ .Title }}</h1>
             {{ if $authors }}
             <p class="book-single-authors">by {{ $authors }}</p>
+            {{ end }}
+            {{ if $year }}
+            <time class="book-single-year" datetime="{{ $year }}">{{ $year }}</time>
             {{ end }}
             {{ if .Params.book_categories }}
             <p class="book-single-categories">

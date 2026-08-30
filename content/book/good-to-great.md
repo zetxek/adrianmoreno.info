@@ -2,6 +2,7 @@
 title: "Good to Great: Why Some Companies Make the Leap... and Others Don't"
 book_authors: ["Jim Collins"]
 book_categories: ["Product, strategy and business"]
+year: 2001
 link: "https://www.goodreads.com/search?q=Good+to+Great+Jim+Collins"
 cover: "/images/books/good-to-great-why-some-companies-make-the-leap-and-others-don-t.jpg"
 ---

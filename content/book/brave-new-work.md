@@ -2,6 +2,7 @@
 title: "Brave New Work"
 book_authors: ["Aaron Dignan"]
 book_categories: ["Organization design"]
+year: 2019
 link: "https://www.goodreads.com/search?q=Brave+New+Work+Aaron+Dignan"
 cover: "/images/books/brave-new-work.jpg"
 ---

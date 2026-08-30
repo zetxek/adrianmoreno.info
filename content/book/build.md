@@ -2,6 +2,7 @@
 title: "Build"
 book_authors: ["Tom Fadell "]
 book_categories: ["Biographies/company stories"]
+year: 2023
 link: "https://www.goodreads.com/search?q=Build+Tom+Fadell+"
 featured: true
 

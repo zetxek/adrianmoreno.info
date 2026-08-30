@@ -14,6 +14,7 @@
       data-authors="{{ $authors }}"
       data-cover="{{ .Params.cover }}"
       data-goodreads="{{ .Params.link }}"
+      data-year="{{ .Params.year }}"
     >
       <span class="book-cover-frame">
         {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-cover" "loading" "lazy" "showCta" true) }}
@@ -22,6 +23,9 @@
         <h3 class="book-title">{{ .Title }}</h3>
         {{- if $authors }}
         <p class="book-author">{{ $authors }}</p>
+        {{- end }}
+        {{- if .Params.year }}
+        <time class="book-year" datetime="{{ .Params.year }}">{{ .Params.year }}</time>
         {{- end }}
       </span>
     </a>

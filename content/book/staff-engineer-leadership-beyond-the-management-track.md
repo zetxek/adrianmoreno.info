@@ -2,6 +2,7 @@
 title: "Staff Engineer: Leadership Beyond the Management Track"
 book_authors: ["Will Larson"]
 book_categories: ["My reading list"]
+year: 2022
 link: "https://www.goodreads.com/search?q=Staff+Engineer:+Leadership+Beyond+the+Management+Track+Will+Larson"
 cover: "/images/books/staff-engineer-leadership-beyond-the-management-track.jpg"
 ---

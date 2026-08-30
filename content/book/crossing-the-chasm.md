@@ -2,6 +2,7 @@
 title: "Crossing the Chasm"
 book_authors: ["Geoffrey A. Moore"]
 book_categories: ["Product, strategy and business"]
+year: 1991
 link: "https://www.goodreads.com/search?q=Crossing+the+Chasm+Geoffrey+A.+Moore"
 cover: "/images/books/crossing-the-chasm.jpg"
 ---

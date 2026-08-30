@@ -2,6 +2,7 @@
 title: "Pro Cycling on $10 a Day: From Fat Kid to Euro Pro"
 book_authors: ["Phil Gaimon"]
 book_categories: ["Sport & performance"]
+year: 2015
 link: "https://www.goodreads.com/search?q=Pro+Cycling+on+$10+a+Day:+From+Fat+Kid+to+Euro+Pro+Phil+Gaimon"
 cover: "/images/books/pro-cycling-on-10-a-day-from-fat-kid-to-euro-pro.jpg"
 ---

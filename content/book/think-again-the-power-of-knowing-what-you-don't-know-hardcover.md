@@ -1,7 +1,8 @@
 ---
 title: "Think Again: The Power of Knowing What You Don't Know Hardcover"
 book_authors: ["Adam Grant"]
-book_categories: ["Psychology (cognitive, evolutionary, phylosophy...)"]
+book_categories: ["Psychology (cognitive, evolutionary, philosophy...)"]
+year: 2021
 link: "https://www.goodreads.com/search?q=Think+Again:+The+Power+of+Knowing+What+You+Don't+Know+Hardcover+Adam+Grant"
 cover: "/images/books/think-again-the-power-of-knowing-what-you-don-t-know-hardcover.jpg"
 ---

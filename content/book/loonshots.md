@@ -2,6 +2,7 @@
 title: "Loonshots: How to Nurture the Crazy Ideas That Win Wars, Cure Diseases, and Transform Industries"
 book_authors: ["Safi Bahcall"]
 book_categories: ["Product, strategy and business"]
+year: 2019
 link: "https://www.goodreads.com/search?q=Loonshots+Safi+Bahcall"
 cover: "/images/books/loonshots-how-to-nurture-the-crazy-ideas-that-win-wars-cure-diseases-and-transform-industries.jpg"
 ---

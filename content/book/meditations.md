@@ -1,7 +1,8 @@
 ---
 title: "Meditations"
 book_authors: ["Marcus Aurelius"]
-book_categories: ["Psychology (cognitive, evolutionary, phylosophy...)"]
+book_categories: ["Psychology (cognitive, evolutionary, philosophy...)"]
+year: 180
 link: "https://www.goodreads.com/search?q=Meditations+Marcus+Aurelius"
 cover: "/images/books/meditations.jpg"
 ---

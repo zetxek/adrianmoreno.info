@@ -2,6 +2,7 @@
 title: "The Manager's Path: A Guide for Tech Leaders Navigating Growth and Change"
 book_authors: ["Camille Fournier"]
 book_categories: ["Engineering Management"]
+year: 2017
 link: "https://www.goodreads.com/search?q=The+Manager's+Path+Camille+Fournier"
 featured: true
 cover: "/images/books/the-manager-s-path-a-guide-for-tech-leaders-navigating-growth-and-change.jpg"

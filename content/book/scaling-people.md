@@ -2,6 +2,7 @@
 title: "Scaling People: Tactics for Management and Company Building"
 book_authors: ["Claire Hughes Johnson"]
 book_categories: ["Organization design", "Product, strategy and business", "Leadership", "Workplace and culture"]
+year: 2023
 link: "https://press.stripe.com/scaling-people"
 featured: true
 cover: "/images/books/scaling-people-tactics-for-management-and-company-building.jpg"

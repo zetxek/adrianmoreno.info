@@ -2,6 +2,7 @@
 title: "Zero to One: Notes on Startups, or How to Build the Future"
 book_authors: ["Peter Thiel"]
 book_categories: ["Product, strategy and business"]
+year: 2014
 link: "https://www.goodreads.com/search?q=Zero+to+One:+Notes+on+Startups,+or+How+to+Build+the+Future+Peter+Thiel"
 cover: "/images/books/zero-to-one-notes-on-startups-or-how-to-build-the-future.jpg"
 ---

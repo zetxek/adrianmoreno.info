@@ -2,6 +2,7 @@
 title: "Team Topologies: Organizing business and technology teams for fast flow"
 book_authors: ["Matthew Skelton and Manuel Pais"]
 book_categories: ["Organization design"]
+year: 2019
 book_web: "https://teamtopologies.com"
 link: "https://www.goodreads.com/search?q=Team+Topologies+Matthew+Skelton+and+Manuel+Pais"
 featured: true

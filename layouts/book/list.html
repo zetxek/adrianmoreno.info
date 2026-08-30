@@ -8,7 +8,7 @@
   <body tabindex="0">
     {{ partial "header.html" . }}
 
-    {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, phylosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
+    {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, philosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
 
     <section
       id="books"
@@ -41,7 +41,8 @@
               </a>
             </h2>
             <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-3 g-md-4 book-grid">
-              {{ range where (where site.RegularPages "Draft" false) "Params.book_categories" "intersect" (slice . ) }}
+              {{ $books := where (where site.RegularPages "Draft" false) "Params.book_categories" "intersect" (slice . ) }}
+              {{ range sort $books "Params.year" "desc" }}
                 {{ .Render "summary"}}
               {{ end }}
             </div>

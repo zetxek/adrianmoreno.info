@@ -2,6 +2,7 @@
 title: "Escaping the Build Trap: Ordinary People, Extraordinary Products"
 book_authors: ["Melissa Perri"]
 book_categories: ["Product, strategy and business"]
+year: 2018
 link: "https://www.goodreads.com/search?q=Escaping+the+Build+Trap+Melissa+Perri"
 cover: "/images/books/escaping-the-build-trap-ordinary-people-extraordinary-products.jpg"
 ---

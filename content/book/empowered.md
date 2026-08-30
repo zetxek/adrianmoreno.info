@@ -2,6 +2,7 @@
 title: "EMPOWERED: Ordinary People, Extraordinary Products"
 book_authors: ["Marty Cagan"]
 book_categories: ["Product, strategy and business"]
+year: 2020
 link: "https://www.goodreads.com/search?q=Empowered+Marty+Cagan"
 featured: true
 
