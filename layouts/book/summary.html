@@ -23,6 +23,9 @@
         {{- if $authors }}
         <p class="book-author">{{ $authors }}</p>
         {{- end }}
+        {{- if .Params.year }}
+        <time class="book-year" datetime="{{ .Params.year }}">{{ .Params.year }}</time>
+        {{- end }}
       </span>
     </a>
     <a

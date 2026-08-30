@@ -68,6 +68,9 @@
             {{ if $authors }}
             <p class="book-single-authors">by {{ $authors }}</p>
             {{ end }}
+            {{ if $year }}
+            <time class="book-single-year" datetime="{{ $year }}">{{ $year }}</time>
+            {{ end }}
             {{ if .Params.book_categories }}
             <p class="book-single-categories">
               {{ range .Params.book_categories }}

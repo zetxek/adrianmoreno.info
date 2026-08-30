@@ -535,6 +535,13 @@ $book-accent: #478079;
   -webkit-box-orient: vertical;
 }
 
+.book-year {
+  display: block;
+  font-size: 0.78rem;
+  color: #6c757d;
+  margin-top: 0.1rem;
+}
+
 .goodreads-link {
   position: absolute;
   top: 0.4rem;
@@ -730,6 +737,13 @@ $book-accent: #478079;
 .book-single-authors {
   color: #6c757d;
   font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+.book-single-year {
+  display: block;
+  color: #6c757d;
+  font-size: 0.95rem;
   margin-bottom: 1rem;
 }
 
