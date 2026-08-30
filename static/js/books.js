@@ -208,6 +208,107 @@
     var goodreadsEl = modalEl.querySelector('.book-detail-goodreads');
     var permalinkEl = modalEl.querySelector('.book-detail-permalink');
 
+    // -------------------------------------------------------------------
+    // Mobile "spine open" transition: on coarse-pointer devices, tapping a
+    // card feels like picking the book up off the shelf. A ghost <img> is
+    // FLIP-animated from the tapped card's cover rect to the modal's cover
+    // rect (static/js/books.js has no layout access to the modal until it's
+    // shown, hence the FLIP rather than a plain CSS transition); once it
+    // lands, `.is-opening` hands off to `.is-open`, which drives the
+    // spine-rotate + content settle in books.scss. Skipped for reduced
+    // motion or fine pointers, where the modal opens exactly as before.
+    // -------------------------------------------------------------------
+    var spineGhost = null;
+
+    function removeSpineGhost() {
+      if (spineGhost && spineGhost.parentNode) spineGhost.parentNode.removeChild(spineGhost);
+      spineGhost = null;
+    }
+
+    function cleanupSpineOpen() {
+      modalEl.classList.remove('is-opening', 'is-open');
+      removeSpineGhost();
+    }
+
+    function prepareSpineOpen(trigger) {
+      var cardCover = trigger.querySelector('.book-cover');
+      if (!cardCover || !cardCover.src) return;
+
+      var rect = cardCover.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      removeSpineGhost();
+
+      var ghost = document.createElement('img');
+      ghost.src = cardCover.src;
+      ghost.alt = '';
+      ghost.setAttribute('aria-hidden', 'true');
+      ghost.className = 'book-spine-ghost';
+      ghost.style.top = rect.top + 'px';
+      ghost.style.left = rect.left + 'px';
+      ghost.style.width = rect.width + 'px';
+      ghost.style.height = rect.height + 'px';
+      document.body.appendChild(ghost);
+      spineGhost = ghost;
+
+      modalEl.classList.add('is-opening');
+    }
+
+    // FLIP: the ghost starts painted exactly over the card cover, then
+    // animates to the delta/scale needed to land on the modal cover - only
+    // `transform`/`opacity` are ever animated, so this stays compositor-only.
+    function runSpineOpen() {
+      var ghost = spineGhost;
+      if (!ghost || !ghost.animate || !coverImgEl.getBoundingClientRect) {
+        modalEl.classList.remove('is-opening');
+        modalEl.classList.add('is-open');
+        removeSpineGhost();
+        return;
+      }
+
+      var startRect = ghost.getBoundingClientRect();
+      var endRect = coverImgEl.getBoundingClientRect();
+      if (!endRect.width || !endRect.height) {
+        modalEl.classList.remove('is-opening');
+        modalEl.classList.add('is-open');
+        removeSpineGhost();
+        return;
+      }
+
+      var deltaX = endRect.left - startRect.left;
+      var deltaY = endRect.top - startRect.top;
+      var scaleX = endRect.width / startRect.width;
+      var scaleY = endRect.height / startRect.height;
+
+      var flight = ghost.animate(
+        [
+          { transform: 'translate(0px, 0px) scale(1, 1)' },
+          { transform: 'translate(' + deltaX + 'px, ' + deltaY + 'px) scale(' + scaleX + ', ' + scaleY + ')' },
+        ],
+        { duration: 380, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }
+      );
+
+      flight.onfinish = function () {
+        if (!spineGhost) return;
+        var fade = spineGhost.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 120, fill: 'forwards' });
+        fade.onfinish = function () {
+          removeSpineGhost();
+          if (modalEl.classList.contains('is-opening')) {
+            modalEl.classList.remove('is-opening');
+            modalEl.classList.add('is-open');
+          }
+        };
+      };
+    }
+
+    modalEl.addEventListener('shown.bs.modal', function () {
+      if (!modalEl.classList.contains('is-opening')) return;
+      runSpineOpen();
+    });
+
+    modalEl.addEventListener('hide.bs.modal', cleanupSpineOpen);
+    modalEl.addEventListener('hidden.bs.modal', cleanupSpineOpen);
+
     function openDetail(trigger) {
       lastTrigger = trigger;
 
@@ -259,6 +360,7 @@
           // let those navigate natively to the book page instead of opening the modal.
           if (event.detail === 0) return;
           event.preventDefault();
+          if (coarsePointer && !reduceMotion) prepareSpineOpen(trigger);
           openDetail(trigger);
         });
       });

@@ -508,6 +508,30 @@ $book-accent: #478079;
   .book-single-cover-frame {
     transition: none !important;
   }
+
+  .book-card-link:active .book-cover-frame {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .book-spine-ghost {
+    display: none !important;
+  }
+
+  .book-detail-cover,
+  .book-detail-cover-img,
+  .book-detail-content,
+  .book-detail-authors,
+  .book-detail-year,
+  .book-detail-links {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
+  .book-detail-cover::after {
+    display: none !important;
+  }
 }
 
 .book-meta-text {
@@ -653,6 +677,107 @@ $book-accent: #478079;
   gap: 0.75rem;
   padding-top: 0.75rem;
   border-top: 1px solid #eee;
+}
+
+// ---------------------------------------------------------------------------
+// Mobile "spine open" transition: touch press feedback on the card, the
+// fixed FLIP ghost cloned by static/js/books.js, and the modal's own
+// spine-rotate + content settle. Coarse-pointer only, and fully neutralized
+// under prefers-reduced-motion (see that query further down).
+// ---------------------------------------------------------------------------
+@media (hover: none), (pointer: coarse) {
+  .book-card-link:active .book-cover-frame {
+    transform: scale(0.96);
+    box-shadow: 0 6px 10px -6px rgba(0, 0, 0, 0.35);
+  }
+}
+
+.book-spine-ghost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1070; // above Bootstrap's modal (1055) and its backdrop (1050)
+  margin: 0;
+  border-radius: 6px;
+  object-fit: cover;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  will-change: transform;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .book-detail-modal .modal-content {
+    perspective: 1400px;
+  }
+
+  .book-detail-cover {
+    position: relative;
+    transform-origin: left center;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease-in-out;
+
+    // Spine-edge shadow, revealed only once the cover has rotated away.
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 6px;
+      box-shadow: inset 8px 0 14px -6px rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+      pointer-events: none;
+    }
+  }
+
+  .book-detail-content,
+  .book-detail-authors,
+  .book-detail-year,
+  .book-detail-links {
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+  }
+
+  // Initial state right after the modal is shown: the real cover image stays
+  // hidden while the ghost flies over it, and the rest of the detail content
+  // waits off to the side instead of popping in all at once.
+  .book-detail-modal.is-opening {
+    .book-detail-cover-img {
+      opacity: 0;
+    }
+
+    .book-detail-content,
+    .book-detail-authors,
+    .book-detail-year,
+    .book-detail-links {
+      opacity: 0;
+      transform: translateX(16px);
+      transition: none;
+    }
+  }
+
+  // Once the ghost lands: the cover briefly shows the real image, then
+  // swings away like an opened paperback cover, while the rest of the
+  // content settles in behind it after a short delay.
+  .book-detail-modal.is-open {
+    .book-detail-cover-img {
+      opacity: 1;
+      transition: opacity 0.15s ease-in-out;
+    }
+
+    .book-detail-cover {
+      transform: rotateY(-92deg);
+      opacity: 0.55;
+
+      &::after {
+        opacity: 1;
+      }
+    }
+
+    .book-detail-content,
+    .book-detail-authors,
+    .book-detail-year,
+    .book-detail-links {
+      transition-delay: 0.15s;
+    }
+  }
 }
 
 .book-detail-goodreads,
