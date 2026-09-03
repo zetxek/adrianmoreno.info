@@ -52,7 +52,7 @@
     <section
       id="book"
       class="section section--border-bottom rad-animation-group book-single">
-      <div class="book-grain" aria-hidden="true"></div>
+      {{ partial "book-grain.html" . }}
       <div class="container" id="book-viewport">
         <p class="book-single-back">
           <a href="{{ "books" | relURL }}">&larr; Back to all books</a>
@@ -61,7 +61,7 @@
         <div class="row book-single-header gy-4">
           <div class="col-12 col-lg-4">
             <div class="book-single-cover-frame">
-              {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-single-cover" "showCta" false) }}
+              {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-single-cover" "loading" "eager" "showCta" false "width" 400) }}
             </div>
           </div>
           <div class="col-12 col-lg-8">

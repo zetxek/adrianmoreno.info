@@ -15,7 +15,7 @@
       id="books"
       class="content-list section section--border-bottom rad-animation-group"
     >
-      <div class="book-grain" aria-hidden="true"></div>
+      {{ partial "book-grain.html" . }}
       <h1 class="visually-hidden">{{ .Title }}</h1>
 
       {{ $sortedFeatured := sort (where (where site.RegularPages "Draft" false) "Params.featured" true) "Params.year" "desc" }}
@@ -23,14 +23,22 @@
       {{ with index . 0 }}
       {{ $heroAuthors := "" }}
       {{ if isset .Params "book_authors" }}{{ $heroAuthors = delimit .Params.book_authors ", " }}{{ end }}
+      {{ $heroBackdropURL := .Params.cover }}
+      {{ $heroCoverRes := resources.Get (strings.TrimPrefix "/" .Params.cover) }}
+      {{ with $heroCoverRes }}
+        {{ $heroBackdropURL = (.Resize "32x webp q60 Lanczos").RelPermalink }}
+      {{ end }}
       <div class="book-hero">
-        <div class="book-hero-backdrop" style="background-image: url('{{ .Params.cover }}');" aria-hidden="true"></div>
+        {{/* A ~32px source, upscaled via background-size:cover, reads as an
+             already-blurred backdrop for free — no expensive CSS filter:blur
+             on a full-resolution image needed (see books.scss). */}}
+        <div class="book-hero-backdrop" style="background-image: url('{{ $heroBackdropURL }}');" aria-hidden="true"></div>
         <div class="book-hero-scrim" aria-hidden="true"></div>
         <div class="container book-hero-inner">
           <p class="book-hero-eyebrow"><span class="book-hero-live-dot" aria-hidden="true"></span>Now Showing</p>
           <div class="book-hero-frame">
             <div class="book-hero-poster">
-              {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-cover" "loading" "eager" "showCta" false) }}
+              {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-cover" "loading" "eager" "showCta" false "width" 600) }}
             </div>
             <div class="book-hero-info">
               <h2 class="book-hero-title">{{ .Title }}</h2>
