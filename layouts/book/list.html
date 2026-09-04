@@ -5,15 +5,58 @@
     {{ partial "head.html" . }} {{ partial "head_custom.html" . }}
   </head>
 
-  <body tabindex="0">
+  <body tabindex="0" class="books-page">
     {{ partial "header.html" . }}
 
     {{ $book_categories := slice "Engineering Management" "Organization design" "Software engineering and development" "Technical interview preparation" "Product, strategy and business" "Leadership" "Workplace and culture" "Biographies/company stories" "Psychology (cognitive, evolutionary, philosophy...)" "Society, world and future" "Sport & performance" "My reading list" }}
+    {{ $book_category_acts := slice "Act I" "Act II" "Act III" "Act IV" "Act V" "Act VI" "Act VII" "Act VIII" "Act IX" "Act X" "Act XI" "Coming Soon" }}
 
     <section
       id="books"
       class="content-list section section--border-bottom rad-animation-group"
     >
+      {{ partial "book-grain.html" . }}
+      <h1 class="visually-hidden">{{ .Title }}</h1>
+
+      {{ $sortedFeatured := sort (where (where site.RegularPages "Draft" false) "Params.featured" true) "Params.year" "desc" }}
+      {{ with $sortedFeatured }}
+      {{ with index . 0 }}
+      {{ $heroAuthors := "" }}
+      {{ if isset .Params "book_authors" }}{{ $heroAuthors = delimit .Params.book_authors ", " }}{{ end }}
+      {{ $heroBackdropURL := .Params.cover }}
+      {{ $heroCoverRes := resources.Get (strings.TrimPrefix "/" .Params.cover) }}
+      {{ with $heroCoverRes }}
+        {{ $heroBackdropURL = (.Resize "32x webp q60 Lanczos").RelPermalink }}
+      {{ end }}
+      <div class="book-hero">
+        {{/* A ~32px source, upscaled via background-size:cover, reads as an
+             already-blurred backdrop for free — no expensive CSS filter:blur
+             on a full-resolution image needed (see books.scss). */}}
+        <div class="book-hero-backdrop" style="background-image: url('{{ $heroBackdropURL }}');" aria-hidden="true"></div>
+        <div class="book-hero-scrim" aria-hidden="true"></div>
+        <div class="container book-hero-inner">
+          <p class="book-hero-eyebrow"><span class="book-hero-live-dot" aria-hidden="true"></span>Now Showing</p>
+          <div class="book-hero-frame">
+            <div class="book-hero-poster">
+              {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-cover" "loading" "eager" "showCta" false "width" 600) }}
+            </div>
+            <div class="book-hero-info">
+              <h2 class="book-hero-title">{{ .Title }}</h2>
+              {{ if $heroAuthors }}<p class="book-hero-authors">{{ $heroAuthors }}</p>{{ end }}
+              {{ if .Params.year }}<p class="book-hero-year">{{ .Params.year }}</p>{{ end }}
+              {{ with .Summary }}<p class="book-hero-summary">{{ . | plainify | truncate 220 }}</p>{{ end }}
+              <div class="book-hero-actions">
+                <a href="{{ .RelPermalink }}" class="book-hero-cta">View feature &rarr;</a>
+                {{ if .Params.link }}
+                <a href="{{ .Params.link }}" target="_blank" rel="noopener noreferrer" class="book-hero-goodreads">Find on Goodreads</a>
+                {{ end }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+      {{ end }}
 
       <div class="container-fluid px-4">
         <div class="container mb-4">
@@ -33,20 +76,23 @@
         </nav>
 
         <div class="container book-categories">
-          {{ range $book_categories }}
-          <div class="book-section mb-5">
-            <h2 id="{{ anchorize . }}" class="book-category">
-              <a href="#{{ anchorize . }}" class="book-category-anchor">
-                <span class="icon">🔗</span> {{ . }}
+          {{ range $i, $cat := $book_categories }}
+          {{ $books := where (where site.RegularPages "Draft" false) "Params.book_categories" "intersect" (slice $cat) }}
+          {{ with $books }}
+          <div class="book-section mb-5{{ if eq $cat "My reading list" }} book-section--wishlist{{ end }}">
+            <h2 id="{{ anchorize $cat }}" class="book-category">
+              <a href="#{{ anchorize $cat }}" class="book-category-anchor">
+                <span class="book-category-eyebrow">{{ index $book_category_acts $i }}</span>
+                <span class="book-category-title">{{ $cat }} <span class="icon" aria-hidden="true">🔗</span></span>
               </a>
             </h2>
             <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-3 g-md-4 book-grid">
-              {{ $books := where (where site.RegularPages "Draft" false) "Params.book_categories" "intersect" (slice . ) }}
-              {{ range sort $books "Params.year" "desc" }}
+              {{ range sort . "Params.year" "desc" }}
                 {{ .Render "summary"}}
               {{ end }}
             </div>
           </div>
+          {{ end }}
           {{ end }}
         </div>
       </div>

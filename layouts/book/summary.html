@@ -4,7 +4,7 @@
 <div class="col book-item">
   <article class="book-card{{ if .Params.featured }} book-card--featured{{ end }}">
     {{ if .Params.featured }}
-    <span class="book-badge">★ Featured</span>
+    <span class="book-badge">★ Selection</span>
     {{ end }}
     <a
       href="{{ .RelPermalink }}"
@@ -17,7 +17,7 @@
       data-year="{{ .Params.year }}"
     >
       <span class="book-cover-frame">
-        {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-cover" "loading" "lazy" "showCta" true) }}
+        {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-cover" "loading" "lazy" "showCta" true "width" 380) }}
       </span>
       <span class="book-meta-text">
         <h3 class="book-title">{{ .Title }}</h3>

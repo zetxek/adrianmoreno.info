@@ -36,7 +36,7 @@ npm run test:e2e:install   # Install Playwright browsers
 
 ### Book Management
 - Use `scripts/fetch_book_covers.go` to automatically fetch book covers from Google Books API
-- Book covers stored in `static/images/books/` and referenced in frontmatter
+- Book covers stored in `assets/images/books/` (processed via Hugo image pipes: resized to webp with a 2x srcset) and referenced in frontmatter by their original `/images/books/*.jpg` path
 
 ## Project-Specific Conventions
 

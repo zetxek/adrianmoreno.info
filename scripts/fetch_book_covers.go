@@ -15,7 +15,7 @@ import (
 const (
 	contentDir     = "content"
 	contentType    = "book"
-	staticImgDir   = "static/images/books"
+	coverImgDir    = "assets/images/books"
 	googleBooksAPI = "https://www.googleapis.com/books/v1/volumes?q=%s"
 	skipExisting   = true // Skip books that already have a cover
 )
@@ -49,15 +49,15 @@ func main() {
 
 	// Navigate to content directory
 	contentPath := filepath.Join(projectRoot, contentDir, contentType)
-	staticPath := filepath.Join(projectRoot, staticImgDir)
+	coverImgPath := filepath.Join(projectRoot, coverImgDir)
 
 	fmt.Printf("Project root: %s\n", projectRoot)
 	fmt.Printf("Content path: %s\n", contentPath)
-	fmt.Printf("Static path: %s\n", staticPath)
+	fmt.Printf("Cover images path: %s\n", coverImgPath)
 
-	// Create static directory if it doesn't exist
-	if err := os.MkdirAll(staticPath, 0755); err != nil {
-		fmt.Printf("Error creating static directory: %v\n", err)
+	// Create assets images directory if it doesn't exist
+	if err := os.MkdirAll(coverImgPath, 0755); err != nil {
+		fmt.Printf("Error creating assets images directory: %v\n", err)
 		return
 	}
 
@@ -199,12 +199,12 @@ func downloadImage(imageURL, title string) string {
 	fileName = regexp.MustCompile(`[^a-z0-9]+`).ReplaceAllString(fileName, "-")
 	fileName = strings.Trim(fileName, "-") + ".jpg"
 
-	absStaticDir, _ := filepath.Abs(staticImgDir)
-	filePath := filepath.Join(absStaticDir, fileName)
+	absCoverImgDir, _ := filepath.Abs(coverImgDir)
+	filePath := filepath.Join(absCoverImgDir, fileName)
 
 	fmt.Printf("Saving image to: %s\n", filePath)
 
-	// Create static directory if it doesn't exist
+	// Create assets images directory if it doesn't exist
 	if err := os.MkdirAll(filepath.Dir(filePath), 0755); err != nil {
 		fmt.Printf("Error creating directory: %v\n", err)
 		return ""

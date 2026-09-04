@@ -20,13 +20,29 @@
 >
   <span class="book-pager-cover">
     {{- if $book.Params.cover }}
+    {{- $coverRes := resources.Get (strings.TrimPrefix "/" $book.Params.cover) }}
+    {{- with $coverRes }}
+      {{- $img1x := .Resize "100x webp q78 Lanczos" }}
+      {{- $img2x := .Resize "200x webp q78 Lanczos" }}
+    <img
+      src="{{ $img1x.RelPermalink }}"
+      srcset="{{ $img1x.RelPermalink }} 1x, {{ $img2x.RelPermalink }} 2x"
+      alt=""
+      loading="lazy"
+      decoding="async"
+      width="80"
+      height="120"
+    />
+    {{- else }}
     <img
       src="{{ $book.Params.cover }}"
       alt=""
       loading="lazy"
+      decoding="async"
       width="80"
       height="120"
     />
+    {{- end }}
     {{- end }}
   </span>
   <span class="book-pager-text">

@@ -12,7 +12,10 @@
     showCta  - whether to show the "click to read more" affordance on the
                inner page (grid cards only; the single page already shows
                the full text alongside the cover)
-    loading  - optional `loading` attribute value for the <img>
+    loading  - optional `loading` attribute value for the <img>. "eager"
+               also adds fetchpriority="high" (above-the-fold covers only).
+    width    - target 1x display width in px used to pick a resize target;
+               a 2x source is generated too for srcset. Defaults to 400.
 */ -}}
 {{- $page := .page -}}
 {{- $authors := "" -}}
@@ -32,14 +35,44 @@
   {{- end }}
   <span class="book-3d-cover">
     <span class="book-3d-cover-face">
+      {{- $alt := printf "Cover of %s" $page.Title -}}
+      {{- if $authors }}{{ $alt = printf "Cover of %s by %s" $page.Title $authors }}{{ end -}}
+      {{- $coverRes := resources.Get (strings.TrimPrefix "/" $page.Params.cover) -}}
+      {{- with $coverRes }}
+        {{- $baseWidth := $.width | default 400 -}}
+        {{- $w1x := $baseWidth -}}
+        {{- if lt .Width $baseWidth }}{{ $w1x = .Width }}{{ end -}}
+        {{- $w2xTarget := mul $baseWidth 2 -}}
+        {{- $w2x := $w2xTarget -}}
+        {{- if lt .Width $w2xTarget }}{{ $w2x = .Width }}{{ end -}}
+        {{- $img1x := .Resize (printf "%dx webp q78 Lanczos" $w1x) -}}
+        {{- $img2x := .Resize (printf "%dx webp q78 Lanczos" $w2x) -}}
+      <img
+        src="{{ $img1x.RelPermalink }}"
+        srcset="{{ $img1x.RelPermalink }} 1x, {{ $img2x.RelPermalink }} 2x"
+        width="{{ $img1x.Width }}"
+        height="{{ $img1x.Height }}"
+        class="{{ $.imgClass }}"
+        {{- with $.loading }}
+        loading="{{ . }}"
+        {{- if eq . "eager" }}
+        fetchpriority="high"
+        {{- end }}
+        {{- end }}
+        decoding="async"
+        alt="{{ $alt }}"
+      />
+      {{- else }}
       <img
         src="{{ $page.Params.cover }}"
         class="{{ .imgClass }}"
         {{- with .loading }}
         loading="{{ . }}"
         {{- end }}
-        alt="Cover of {{ $page.Title }}{{ if $authors }} by {{ $authors }}{{ end }}"
+        decoding="async"
+        alt="{{ $alt }}"
       />
+      {{- end }}
     </span>
     <span class="book-3d-cover-back" aria-hidden="true"></span>
   </span>
