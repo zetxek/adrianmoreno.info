@@ -871,8 +871,9 @@ $book-hero-fg-muted: rgba(246, 241, 230, 0.72);
 }
 
 .book-author {
-  font-size: 0.82rem;
-  color: $cinema-fg-muted;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba($cinema-fg, 0.85);
   margin-bottom: 0;
   overflow: hidden;
   display: -webkit-box;
@@ -882,8 +883,8 @@ $book-hero-fg-muted: rgba(246, 241, 230, 0.72);
 
 .book-year {
   display: block;
-  font-size: 0.78rem;
-  color: rgba($cinema-fg, 0.5);
+  font-size: 0.8rem;
+  color: rgba($cinema-fg, 0.7);
   margin-top: 0.1rem;
 }
 
@@ -1502,7 +1503,7 @@ a.book-detail-goodreads {
 .book-pager-author {
   display: block;
   font-size: 0.8rem;
-  color: $cinema-fg-muted;
+  color: rgba($cinema-fg, 0.8);
   margin-top: 0.1rem;
 }
 
