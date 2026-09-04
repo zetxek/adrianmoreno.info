@@ -1,22 +1,31 @@
 // ---------------------------------------------------------------------------
-// Cinematic palette: the books page reads as a small, permanently-dark
-// "screening room" regardless of the site-wide light/dark toggle (the rest
-// of the site is untouched — these variables and the dark backdrop below
-// are scoped to `#books` / `#book` and the JS-injected `.book-detail-modal`
-// only).
+// Cinematic palette: the books page reads as a small, permanently-light
+// "screening room" (a bright projection wall rather than a dark theater)
+// regardless of the site-wide light/dark toggle (the rest of the site is
+// untouched — these variables and the backdrop below are scoped to
+// `#books` / `#book` and the JS-injected `.book-detail-modal` only).
 // ---------------------------------------------------------------------------
-$cinema-bg-1: #0b0a0d;
-$cinema-bg-2: #1a171d;
-$cinema-bg-3: #221e25;
-$cinema-fg: #f3ede2;
-$cinema-fg-muted: rgba(243, 237, 226, 0.68);
+$cinema-bg-1: #ffffff;
+$cinema-bg-2: #f6f3ec;
+$cinema-bg-3: #ece6d8;
+$cinema-fg: #201b14;
+$cinema-fg-muted: rgba(32, 27, 20, 0.66);
 $cinema-ink: #17130f;
-$book-accent: #caa15d; // warm spotlight gold
+$book-accent: #caa15d; // warm spotlight gold, for filled surfaces (buttons, active pills, badges) paired with $cinema-ink text
+$book-accent-fg: #8a5f18; // deeper brass, for accent-colored text/borders sitting directly on the light backdrop (needs more contrast than the fill tone)
+
+// The hero (below) is the one place that keeps a dark, photographic
+// backdrop — the featured cover's own art needs a scrim to stay legible
+// regardless of the light page around it — so it gets its own light-on-dark
+// tokens instead of the page-wide (dark-on-light) ones above.
+$book-hero-scrim: #14110d;
+$book-hero-fg: #f6f1e6;
+$book-hero-fg-muted: rgba(246, 241, 230, 0.72);
 
 // ---------------------------------------------------------------------------
-// Theater backdrop: dark gradient + vignette + film grain, applied to the
-// two book sections only. Grain/vignette are static textures (no motion),
-// so nothing here needs a `prefers-reduced-motion` override.
+// Theater backdrop: a soft light gradient + film grain, applied to the two
+// book sections only. Grain is a static texture (no motion), so nothing
+// here needs a `prefers-reduced-motion` override.
 // ---------------------------------------------------------------------------
 #books,
 #book {
@@ -24,15 +33,6 @@ $book-accent: #caa15d; // warm spotlight gold
   isolation: isolate;
   background: radial-gradient(ellipse 120% 60% at 50% -10%, $cinema-bg-3, $cinema-bg-1 70%);
   color: $cinema-fg;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background: radial-gradient(ellipse at 50% 30%, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.55) 100%);
-  }
 }
 
 // The texture (layouts/partials/book-grain.html) is a pre-rendered noise
@@ -88,8 +88,8 @@ $book-accent: #caa15d; // warm spotlight gold
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgba($cinema-bg-1, 0.8) 0%, rgba($cinema-bg-1, 0.5) 35%, rgba($cinema-bg-1, 0.94) 100%),
-    linear-gradient(90deg, rgba($cinema-bg-1, 0.88) 0%, rgba($cinema-bg-1, 0.25) 55%);
+  background: linear-gradient(180deg, rgba($book-hero-scrim, 0.8) 0%, rgba($book-hero-scrim, 0.5) 35%, rgba($book-hero-scrim, 0.94) 100%),
+    linear-gradient(90deg, rgba($book-hero-scrim, 0.88) 0%, rgba($book-hero-scrim, 0.25) 55%);
 }
 
 .book-hero-eyebrow {
@@ -152,26 +152,26 @@ $book-accent: #caa15d; // warm spotlight gold
   font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
   font-size: clamp(1.6rem, calc(1.1rem + 2vw), 2.75rem);
   line-height: 1.15;
-  color: $cinema-fg;
+  color: $book-hero-fg;
   margin-bottom: 0.4rem;
 }
 
 .book-hero-authors {
   font-size: 1.05rem;
-  color: $cinema-fg-muted;
+  color: $book-hero-fg-muted;
   margin-bottom: 0.15rem;
 }
 
 .book-hero-year {
   font-size: 0.85rem;
-  color: rgba($cinema-fg, 0.5);
+  color: rgba($book-hero-fg, 0.5);
   margin-bottom: 1rem;
 }
 
 .book-hero-summary {
   max-width: 52ch;
   line-height: 1.6;
-  color: $cinema-fg-muted;
+  color: $book-hero-fg-muted;
   margin-bottom: 1.5rem;
 }
 
@@ -202,7 +202,7 @@ $book-accent: #caa15d; // warm spotlight gold
   }
 
   &:focus-visible {
-    outline: 2px solid $cinema-fg;
+    outline: 2px solid $book-hero-fg;
     outline-offset: 2px;
   }
 }
@@ -212,8 +212,8 @@ $book-accent: #caa15d; // warm spotlight gold
   align-items: center;
   padding: 0.6rem 1.3rem;
   border-radius: 999px;
-  border: 1px solid rgba($cinema-fg, 0.3);
-  color: $cinema-fg;
+  border: 1px solid rgba($book-hero-fg, 0.3);
+  color: $book-hero-fg;
   font-weight: 600;
   font-size: 0.9rem;
   text-decoration: none;
@@ -223,7 +223,7 @@ $book-accent: #caa15d; // warm spotlight gold
   &:focus-visible {
     border-color: $book-accent;
     background: rgba($book-accent, 0.14);
-    color: $cinema-fg;
+    color: $book-hero-fg;
     text-decoration: none;
   }
 
@@ -248,18 +248,18 @@ $book-accent: #caa15d; // warm spotlight gold
 // resolves to the non-scrolling body). The nav is pinned via JS instead
 // (see static/js/books.js), toggling `.is-pinned` to switch to `fixed`.
 .book-nav {
-  --book-nav-bg: rgba(20, 18, 22, 0.6);
-  --book-nav-fade: rgba(20, 18, 22, 0.92);
+  --book-nav-bg: rgba(255, 255, 255, 0.68);
+  --book-nav-fade: rgba(255, 255, 255, 0.94);
   position: relative;
   z-index: 10;
   background: var(--book-nav-bg);
   backdrop-filter: blur(16px) saturate(1.4);
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba($cinema-fg, 0.1);
   border-radius: 999px;
   padding: 0.4rem;
   margin-bottom: 2rem;
-  box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.55), 0 1px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.22), 0 1px 2px rgba(0, 0, 0, 0.08);
 
   // Pinned (position: fixed) means the page scrolls underneath it
   // continuously, which forces the browser to resample `backdrop-filter`
@@ -272,10 +272,10 @@ $book-accent: #caa15d; // warm spotlight gold
     border-radius: 0;
     border-width: 0 0 1px;
     margin-bottom: 0;
-    background: rgba(15, 13, 17, 0.97);
+    background: rgba(255, 255, 255, 0.97);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
   }
 
   // The pill strip scrolls horizontally on every breakpoint (it never
@@ -344,14 +344,14 @@ $book-accent: #caa15d; // warm spotlight gold
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
-  color: rgba(255, 255, 255, 0.75);
+  color: $cinema-fg-muted;
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 500;
   padding: 0.45rem 1rem;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba($cinema-fg, 0.12);
+  background: rgba($cinema-fg, 0.04);
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 
   @media (max-width: 991.98px) {
@@ -359,8 +359,8 @@ $book-accent: #caa15d; // warm spotlight gold
   }
 
   &:hover {
-    border-color: $book-accent;
-    color: #fff;
+    border-color: $book-accent-fg;
+    color: $cinema-fg;
   }
 
   &.active {
@@ -371,7 +371,7 @@ $book-accent: #caa15d; // warm spotlight gold
   }
 
   &:focus-visible {
-    outline: 2px solid $book-accent;
+    outline: 2px solid $book-accent-fg;
     outline-offset: 2px;
   }
 }
@@ -414,7 +414,7 @@ $book-accent: #caa15d; // warm spotlight gold
   font-weight: 700;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: $book-accent;
+  color: $book-accent-fg;
   margin-bottom: 0.35rem;
 }
 
@@ -523,7 +523,7 @@ $book-accent: #caa15d; // warm spotlight gold
   }
 
   &:focus-visible {
-    outline: 2px solid $book-accent;
+    outline: 2px solid $book-accent-fg;
     outline-offset: 2px;
   }
 }
@@ -675,8 +675,8 @@ $book-accent: #caa15d; // warm spotlight gold
   inset: 0;
   transform: translateZ(-1px);
   border-radius: 3px;
-  background: #23211b;
-  box-shadow: inset 6px 0 10px -6px rgba(0, 0, 0, 0.6);
+  background: #f6f1e6; // paper cream, matching $book-hero-fg
+  box-shadow: inset 6px 0 10px -6px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -711,7 +711,7 @@ $book-accent: #caa15d; // warm spotlight gold
   font-family: Georgia, "Times New Roman", serif;
   font-size: 0.72rem;
   line-height: 1.35;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(32, 27, 20, 0.82); // dark ink on the paper-cream page
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 11;
@@ -910,7 +910,7 @@ $book-accent: #caa15d; // warm spotlight gold
   }
 
   &:focus-visible {
-    outline: 2px solid $book-accent;
+    outline: 2px solid $book-accent-fg;
     outline-offset: 2px;
   }
 }
@@ -976,18 +976,20 @@ $book-accent: #caa15d; // warm spotlight gold
 // ---------------------------------------------------------------------------
 // Full-screen / centered book detail dialog (Bootstrap modal, JS-injected).
 // Appended to `document.body`, outside `#books`/`#book`, so it doesn't
-// inherit the backdrop above — it's forced dark here instead (via
-// Bootstrap's own `--bs-modal-*` custom properties) so the shared gold
-// accent, which needs a dark surface to stay AA-contrast, always has one.
+// inherit the backdrop above — it's given its own light surface here instead
+// (via Bootstrap's own `--bs-modal-*` custom properties), matching the page's
+// light theme, so text/borders need the same dark-on-light tokens used
+// everywhere else and the shared gold accent needs the deeper
+// $book-accent-fg to stay AA-contrast.
 // ---------------------------------------------------------------------------
 
 .book-detail-modal {
   .modal-content {
     --bs-modal-bg: #{$cinema-bg-2};
     --bs-modal-color: #{$cinema-fg};
-    --bs-modal-border-color: rgba(255, 255, 255, 0.1);
-    --bs-modal-header-border-color: rgba(255, 255, 255, 0.1);
-    --bs-modal-footer-border-color: rgba(255, 255, 255, 0.1);
+    --bs-modal-border-color: rgba($cinema-fg, 0.1);
+    --bs-modal-header-border-color: rgba($cinema-fg, 0.1);
+    --bs-modal-footer-border-color: rgba($cinema-fg, 0.1);
   }
 
   .modal-title {
@@ -996,10 +998,6 @@ $book-accent: #caa15d; // warm spotlight gold
 
   .modal-body {
     padding-top: 0.5rem;
-  }
-
-  .btn-close {
-    filter: invert(1) grayscale(1) brightness(1.8);
   }
 }
 
@@ -1024,14 +1022,14 @@ $book-accent: #caa15d; // warm spotlight gold
 
 .book-detail-authors {
   text-align: center;
-  color: rgba(255, 255, 255, 0.7);
+  color: $cinema-fg-muted;
   margin-bottom: 1.25rem;
 }
 
 .book-detail-year {
   display: block;
   text-align: center;
-  color: rgba(255, 255, 255, 0.7);
+  color: $cinema-fg-muted;
   font-size: 0.85rem;
   margin-top: -0.75rem;
   margin-bottom: 1.25rem;
@@ -1055,7 +1053,7 @@ $book-accent: #caa15d; // warm spotlight gold
   }
 
   a {
-    color: $book-accent;
+    color: $book-accent-fg;
   }
 }
 
@@ -1064,7 +1062,7 @@ $book-accent: #caa15d; // warm spotlight gold
   flex-wrap: wrap;
   gap: 0.75rem;
   padding-top: 0.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba($cinema-fg, 0.12);
 }
 
 // ---------------------------------------------------------------------------
@@ -1244,7 +1242,7 @@ $book-accent: #caa15d; // warm spotlight gold
   margin-bottom: 1rem;
 
   a {
-    color: rgba(255, 255, 255, 0.65);
+    color: $cinema-fg-muted;
     text-decoration: none;
 
     &:hover {
@@ -1310,14 +1308,14 @@ $book-accent: #caa15d; // warm spotlight gold
 }
 
 .book-single-authors {
-  color: rgba(255, 255, 255, 0.7);
+  color: $cinema-fg-muted;
   font-size: 1.05rem;
   margin-bottom: 1rem;
 }
 
 .book-single-year {
   display: block;
-  color: rgba(255, 255, 255, 0.7);
+  color: $cinema-fg-muted;
   font-size: 0.95rem;
   margin-bottom: 1rem;
 }
@@ -1411,7 +1409,7 @@ a.book-detail-goodreads {
   gap: 1rem;
   margin-top: 3rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba($cinema-fg, 0.12);
 
   @media (max-width: 767.98px) {
     grid-template-columns: 1fr;
@@ -1425,7 +1423,7 @@ a.book-detail-goodreads {
   padding: 1rem;
   border-radius: 10px;
   background: $cinema-bg-2;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba($cinema-fg, 0.1);
   color: inherit;
   text-decoration: none;
   transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -1433,7 +1431,7 @@ a.book-detail-goodreads {
   &:hover,
   &:focus-visible {
     border-color: $book-accent;
-    box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.22);
     color: inherit;
     text-decoration: none;
   }
@@ -1504,7 +1502,7 @@ a.book-detail-goodreads {
 .book-pager-author {
   display: block;
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: $cinema-fg-muted;
   margin-top: 0.1rem;
 }
 
