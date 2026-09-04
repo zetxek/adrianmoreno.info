@@ -738,10 +738,13 @@ $book-hero-fg-muted: rgba(246, 241, 230, 0.72);
     transform: rotateY(6deg);
   }
 
-  .book-card:hover .book-3d-cover,
-  .book-card-link:focus-visible .book-3d-cover,
-  .book-single-cover-frame:hover .book-3d-cover,
-  .book-single-cover-frame:focus-within .book-3d-cover {
+  // Books with no summary have no inner page to reveal (the partial omits
+  // `.book-3d-page`), so keep their covers shut — otherwise the flip
+  // reveals a blank page.
+  .book-card:hover .book-3d:has(.book-3d-page) .book-3d-cover,
+  .book-card-link:focus-visible .book-3d:has(.book-3d-page) .book-3d-cover,
+  .book-single-cover-frame:hover .book-3d:has(.book-3d-page) .book-3d-cover,
+  .book-single-cover-frame:focus-within .book-3d:has(.book-3d-page) .book-3d-cover {
     transform: rotateY(-150deg);
   }
 
