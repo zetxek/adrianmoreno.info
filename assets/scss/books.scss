@@ -991,9 +991,9 @@ $book-hero-fg-muted: rgba(246, 241, 230, 0.72);
   .modal-content {
     --bs-modal-bg: #{$cinema-bg-2};
     --bs-modal-color: #{$cinema-fg};
-    --bs-modal-border-color: rgba($cinema-fg, 0.1);
-    --bs-modal-header-border-color: rgba($cinema-fg, 0.1);
-    --bs-modal-footer-border-color: rgba($cinema-fg, 0.1);
+    --bs-modal-border-color: #{rgba($cinema-fg, 0.1)};
+    --bs-modal-header-border-color: #{rgba($cinema-fg, 0.1)};
+    --bs-modal-footer-border-color: #{rgba($cinema-fg, 0.1)};
   }
 
   .modal-title {
@@ -1223,7 +1223,7 @@ $book-hero-fg-muted: rgba(246, 241, 230, 0.72);
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
   background: rgba($book-accent, 0.16);
-  color: $book-accent;
+  color: $book-accent-fg;
   font-size: 0.85rem;
   font-weight: 600;
   text-decoration: none;
@@ -1250,7 +1250,7 @@ $book-hero-fg-muted: rgba(246, 241, 230, 0.72);
     text-decoration: none;
 
     &:hover {
-      color: $book-accent;
+      color: $book-accent-fg;
       text-decoration: underline;
     }
   }
@@ -1262,7 +1262,7 @@ $book-hero-fg-muted: rgba(246, 241, 230, 0.72);
   font-weight: 700;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: $book-accent;
+  color: $book-accent-fg;
 }
 
 .book-single-cover-frame {
@@ -1337,7 +1337,7 @@ $book-hero-fg-muted: rgba(246, 241, 230, 0.72);
   padding: 0.3rem 0.8rem;
   border-radius: 999px;
   background: rgba($book-accent, 0.16);
-  color: $book-accent;
+  color: $book-accent-fg;
   text-decoration: none;
 
   &:hover {
@@ -1399,7 +1399,7 @@ a.book-detail-goodreads {
   }
 
   a {
-    color: $book-accent;
+    color: $book-accent-fg;
   }
 }
 
