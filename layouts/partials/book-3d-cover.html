@@ -62,16 +62,6 @@
         decoding="async"
         alt="{{ $alt }}"
       />
-      {{- else }}
-      <img
-        src="{{ $page.Params.cover }}"
-        class="{{ .imgClass }}"
-        {{- with .loading }}
-        loading="{{ . }}"
-        {{- end }}
-        decoding="async"
-        alt="{{ $alt }}"
-      />
       {{- end }}
     </span>
     <span class="book-3d-cover-back" aria-hidden="true"></span>

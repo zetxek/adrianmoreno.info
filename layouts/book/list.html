@@ -27,7 +27,7 @@
       {{ with index . 0 }}
       {{ $heroAuthors := "" }}
       {{ if isset .Params "book_authors" }}{{ $heroAuthors = delimit .Params.book_authors ", " }}{{ end }}
-      {{ $heroBackdropURL := .Params.cover }}
+      {{ $heroBackdropURL := "" }}
       {{ $heroCoverRes := resources.Get (strings.TrimPrefix "/" .Params.cover) }}
       {{ with $heroCoverRes }}
         {{ $heroBackdropURL = (.Resize "32x webp q60 Lanczos").RelPermalink }}
@@ -69,34 +69,39 @@
           <br/>If you see any book that could fit in the list and is missing - let me know! I'm very open to suggestions 👂</p>
         </div>
 
+        {{ $nonEmptyCategories := slice }}
+        {{ range $i, $cat := $book_categories }}
+        {{ $books := where (where site.RegularPages "Draft" false) "Params.book_categories" "intersect" (slice $cat) }}
+        {{ with $books }}
+        {{ $nonEmptyCategories = $nonEmptyCategories | append (dict "cat" $cat "act" (index $book_category_acts $i) "books" .) }}
+        {{ end }}
+        {{ end }}
+
         <nav class="book-nav" id="book-nav" aria-label="Book categories">
           <ul class="book-nav-list">
-            {{ range $book_categories }}
+            {{ range $nonEmptyCategories }}
             <li class="book-nav-item">
-              <a class="book-nav-link" href="#{{ anchorize . }}">{{ . }}</a>
+              <a class="book-nav-link" href="#{{ anchorize .cat }}">{{ .cat }}</a>
             </li>
             {{ end }}
           </ul>
         </nav>
 
         <div class="container book-categories">
-          {{ range $i, $cat := $book_categories }}
-          {{ $books := where (where site.RegularPages "Draft" false) "Params.book_categories" "intersect" (slice $cat) }}
-          {{ with $books }}
-          <div class="book-section mb-5{{ if eq $cat "My reading list" }} book-section--wishlist{{ end }}">
-            <h2 id="{{ anchorize $cat }}" class="book-category">
-              <a href="#{{ anchorize $cat }}" class="book-category-anchor">
-                <span class="book-category-eyebrow">{{ index $book_category_acts $i }}</span>
-                <span class="book-category-title">{{ $cat }} <span class="icon" aria-hidden="true">🔗</span></span>
+          {{ range $nonEmptyCategories }}
+          <div class="book-section mb-5{{ if eq .cat "My reading list" }} book-section--wishlist{{ end }}">
+            <h2 id="{{ anchorize .cat }}" class="book-category">
+              <a href="#{{ anchorize .cat }}" class="book-category-anchor">
+                <span class="book-category-eyebrow">{{ .act }}</span>
+                <span class="book-category-title">{{ .cat }} <span class="icon" aria-hidden="true">🔗</span></span>
               </a>
             </h2>
             <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-3 g-md-4 book-grid">
-              {{ range sort . "Params.year" "desc" }}
+              {{ range sort .books "Params.year" "desc" }}
                 {{ .Render "summary"}}
               {{ end }}
             </div>
           </div>
-          {{ end }}
           {{ end }}
         </div>
       </div>
