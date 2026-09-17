@@ -43,7 +43,6 @@
     "autoprefixer": "^10.5.5",
     "bootstrap": "^5.3.8",
     "bootstrap-print-css": "^1.0.0",
-    "browser-sync": "^3.0.4",
     "critical": "^8.0.0",
     "del": "^8.0.1",
     "juice": "^12.1.2",
