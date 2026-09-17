@@ -32,14 +32,30 @@ p { text-wrap: pretty; }
 .race-frame span:nth-child(3) { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
 .race-frame span:nth-child(4) { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
 .race-nav { position: fixed; z-index: 10; inset: auto 0 0; padding: .45rem .6rem calc(.45rem + env(safe-area-inset-bottom, 0px)); background: #151719; color: #e2e4e6; border-top: 1px solid #42464a; }
-.race-nav ol { margin: 0 auto; padding: 0; list-style: none; display: flex; justify-content: space-between; max-width: 45rem; }
+/* Every chip is a constant width (mobile: icon/number + split only; desktop:
+   + label, widened below) so a chip never resizes when its split field's
+   text changes ("—" to "100%") -- the strip scrolls horizontally instead of
+   squeezing chips together, per spec: "chips may scroll horizontally within
+   their own navigation strip. The document itself must not overflow." */
+.race-nav ol { margin: 0 auto; padding: 0; list-style: none; display: flex; gap: .6rem; max-width: 45rem; overflow-x: auto; scrollbar-width: none; }
+.race-nav ol::-webkit-scrollbar { display: none; }
+.race-nav li { flex: 0 0 3.75rem; width: 3.75rem; }
 .race-nav a { display: flex; align-items: center; justify-content: center; gap: .5rem; min-width: 44px; min-height: 44px; font: .72rem/1 var(--race-mono); text-decoration: none; border-bottom: 2px solid transparent; }
 .race-nav a:hover, .race-nav a[aria-current="location"] { color: #fff; border-bottom-color: var(--race-red); background: #292c30; }
 .race-readout { display: none; }
 #race-main { position: relative; isolation: isolate; }
-.race-course { position: absolute; inset: 0 auto 0 .5rem; width: 2rem; z-index: 2; pointer-events: none; }
+/* Insets match html's scroll-padding-block (5rem/7rem) -- the rail's own
+   fraction-0/1 endpoints must clear the fixed chrome and nav exactly like
+   anchor-scroll targets do, or the athlete spawns invisible under the header. */
+.race-course { position: absolute; inset: 6.5rem auto 8rem .5rem; width: 2rem; z-index: 2; pointer-events: none; }
 .race-course svg { width: 100%; height: 100%; overflow: visible; }
 .race-course use { fill: none; stroke: var(--race-red); stroke-width: 2; vector-effect: non-scaling-stroke; }
+/* Below 48rem the course lane is only 2rem wide: the desktop path's wavy
+   excursions (as far as x=10-15 of its 0-120 viewBox) don't fit that lane and
+   push the athlete off the left edge. CSS `d` overrides the authored curve
+   with a straight measurement path -- same element, same rail, no second
+   visible line -- so getTotalLength()/getPointAtLength() stay on-lane. */
+#race-path { d: path("M60 0 L60 1000"); }
 .race-track { opacity: .35; }
 .race-progress { opacity: 1; }
 .race-stage { position: relative; overflow: clip; background: var(--race-ground); padding: 7rem 1.5rem 7rem 3.25rem; scroll-margin-block: 4rem 6rem; }
@@ -101,10 +117,16 @@ p { text-wrap: pretty; }
   .race-stage { padding: 9rem 10vw 9rem 30vw; }
   .race-content { margin-inline: 0; }
   .race-course { left: 5vw; width: 20vw; }
+  #race-path { d: path("M60 0 C110 40 10 75 60 130 S100 190 60 235 L105 270 15 295 60 320 C110 365 10 400 60 445 S110 510 60 565 L105 600 15 625 60 650 C105 710 20 750 60 810 S100 900 60 955 L60 1000"); }
   .race-chrome { padding: .75rem 2.5rem; }
   .race-edition { max-width: none; font-size: .65rem; }
   .race-frame { inset: 1.25rem; }
   .race-nav { inset: auto 50% 1.25rem auto; transform: translateX(50%); width: max-content; max-width: calc(100% - 3rem); border: 1px solid #42464a; padding: .4rem .7rem; }
+  /* The 45rem cap only matters full-bleed on mobile; at desktop the pill's
+     own max-width already bounds it, so let the row reach its natural
+     (wider, label-bearing) content width instead of scrolling needlessly. */
+  .race-nav ol { max-width: none; }
+  .race-nav li { flex-basis: 8rem; width: 8rem; }
   .race-nav a { padding-inline: .65rem; }
   .race-nav-label { position: static; width: auto; height: auto; padding: 0; margin: 0; clip-path: none; overflow: visible; }
   .race-hero { min-height: 100svh; padding-top: 8rem; padding-bottom: 7rem; }
@@ -131,6 +153,60 @@ p { text-wrap: pretty; }
   .race-course, .race-scenery, .race-frame { display: none; }
   .race-button { border: 1px solid ButtonText; }
 }
+/* Enhancement layer: athlete, goal, world stage, splits, hint, live status.
+   Everything here is additive; the rules above remain the no-JS baseline.
+   Root-level JS state hooks (race--enhanced/world-ready/complete) and the
+   race-athlete--/race-nav-split--/race-world__canvas selectors are written
+   only at runtime, so they're force-kept via the PostCSS safelist. */
+.race-nav-split { display: inline-block; min-width: 4ch; margin-left: .5rem; text-align: right; font-variant-numeric: tabular-nums; color: var(--race-muted); }
+.race-nav a[aria-current="location"] .race-nav-split { color: var(--race-red); }
+.race-nav-split--passed { color: inherit; }
+
+.race-athlete-wrap { position: fixed; top: 0; left: 0; z-index: 16; width: 40px; height: 40px; pointer-events: none; will-change: transform; }
+.race-athlete { display: block; width: 100%; height: 100%; overflow: visible; }
+.race-athlete__backplate { fill: var(--race-athlete-ground, var(--race-ground)); }
+.race-athlete__glyph { fill: none; stroke: var(--race-athlete-ink, var(--race-ink)); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.race-athlete__glyph .race-athlete__head { fill: var(--race-athlete-ink, var(--race-ink)); stroke: none; }
+.race-athlete__pose { display: none; }
+.race-athlete--ready .race-athlete__pose--finish,
+.race-athlete--finish .race-athlete__pose--finish,
+.race-athlete--swim .race-athlete__pose--swim,
+.race-athlete--bike .race-athlete__pose--bike,
+.race-athlete--run .race-athlete__pose--run,
+.race-athlete--transition .race-athlete__pose--transition { display: block; }
+.race-athlete__course-dot { fill: var(--race-red); }
+
+.race-goal { position: fixed; top: 0; left: 0; z-index: 16; width: 32px; height: 24px; pointer-events: none; }
+.race-goal__post, .race-goal__crossbar, .race-goal__square { fill: none; stroke-width: 1.6; stroke-linecap: round; }
+.race-goal__post { stroke: var(--race-goal-ink, var(--race-ink)); }
+.race-goal__crossbar { stroke: var(--race-red); }
+.race-goal__square { stroke: var(--race-red); }
+.race--complete .race-goal__square { fill: var(--race-red); }
+
+.race-scroll-hint { position: absolute; left: .6rem; bottom: 6rem; z-index: 16; font: .68rem/1 var(--race-mono); letter-spacing: .08em; color: var(--race-muted); pointer-events: none; }
+
+.race-status.race-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+.race-world { display: none; }
+
+@media (min-width: 64rem) {
+  .race--world-ready .race-stage { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) 30vw; column-gap: 2rem; padding-inline: 2rem; }
+  .race--world-ready .race-stage.race-hero,
+  .race--world-ready .race-stage.race-transition { padding-block: 9rem; }
+  .race--world-ready .race-content { grid-column: 2; margin-inline: 0; }
+  .race--world-ready .race-course { left: 2.75rem; width: 2rem; z-index: 14; }
+  .race--world-ready .race-world { display: block; position: fixed; right: 2rem; top: 50%; width: 30vw; aspect-ratio: 1; transform: translateY(-50%); pointer-events: none; overflow: hidden; z-index: 10; }
+  .race-world__canvas { display: block; width: 100%; height: 100%; }
+}
+
+@media (forced-colors: active) {
+  .race-athlete-wrap, .race-goal, .race-world { display: none; }
+}
+
+@media print {
+  .race-athlete-wrap, .race-goal, .race-scroll-hint, .race-world { display: none !important; }
+}
+
 @media print {
   .race-chrome, .race-frame, .race-nav, .race-course, .race-scenery, .race-numeral, .race-readout, .race-skip, .race-hero-stamp { display: none !important; }
   body.race, .race-stage, .race-transition .race-content { color: #111; background: #fff; }

@@ -10,7 +10,9 @@ const purgecssconfig = purgecssPlugin({
     },
     variables: true,
     safelist: {
-    greedy: [/header.*/, /.*icon.*/, /btn$/, /.*\[class.*/, /race-readout/, /aria-current/]
+    // race-- / race-athlete-- / etc: JS-toggled state classes never present in
+    // the rendered hugo_stats.json markup (added at runtime by assets/js/race).
+    greedy: [/header.*/, /.*icon.*/, /btn$/, /.*\[class.*/, /race-readout/, /aria-current/, /race--/, /race-athlete--/, /race-nav-split--/, /race-world__canvas/]
     },
     dynamicAttributes: ["type"]
 });

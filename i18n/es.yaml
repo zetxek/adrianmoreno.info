@@ -135,6 +135,10 @@
   translation: "Escríbeme"
 - id: race_back
   translation: "Volver al inicio"
+- id: race_scroll_hint
+  translation: "SCROLL"
+- id: race_complete
+  translation: "Recorrido completado"
 
 
 - id: "newsletter_placeholder"

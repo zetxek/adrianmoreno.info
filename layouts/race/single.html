@@ -20,8 +20,14 @@
   {{ $css := resources.Get "css/race.css" }}
   {{ if hugo.IsProduction }}{{ $css = $css | css.PostCSS | minify | fingerprint | resources.PostProcess }}{{ end }}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}">
-  {{ $js := resources.Get "js/race.js" | minify | fingerprint }}
-  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>
+  {{/* Two independent js.Build entries: the base controller (no deps, always
+       downloaded) and the Three.js world (pinned npm dep, loaded only via a
+       runtime dynamic import when assets/js/race/index.js decides the reader
+       is eligible). Keeping them as separate entries -- rather than trusting
+       code-splitting -- guarantees three never reaches the mobile bundle. */}}
+  {{ $raceJS := resources.Get "js/race/index.js" | js.Build (dict "targetPath" "js/race.js" "minify" true) | fingerprint }}
+  {{ $raceWorldJS := resources.Get "js/race-world/main.js" | js.Build (dict "targetPath" "js/race-world.js" "format" "esm" "minify" true) | fingerprint }}
+  <script src="{{ $raceJS.RelPermalink }}" integrity="{{ $raceJS.Data.Integrity }}" crossorigin="anonymous" defer></script>
 </head>
 <body class="race">
   <a class="race-skip" href="#race-main">{{ i18n "skipToMainContent" }}</a>
@@ -32,16 +38,16 @@
   </header>
   <nav class="race-nav" aria-label="{{ i18n "race_chapters" }}">
     <ol>
-      <li><a href="#start"><span aria-hidden="true">○</span><span class="race-nav-label">{{ i18n "race_start" }}</span><span class="race-sr">{{ i18n "race_start" }}</span></a></li>
+      <li><a href="#start" data-race-nav="start"><span aria-hidden="true">○</span><span class="race-nav-label">{{ i18n "race_start" }}</span><span class="race-sr">{{ i18n "race_start" }}</span><span class="race-nav-split" aria-hidden="true">—</span></a></li>
       {{ range $race.chapters }}
-      <li><a href="#{{ .id }}"><span>{{ .number }}</span><span class="race-nav-label">{{ .discipline }}</span><span class="race-sr">{{ .discipline }} · {{ .place }}</span></a></li>
-      {{ with .transition }}<li><a href="#{{ .id }}"><span>{{ .number }}</span><span class="race-sr">{{ .destination }}</span></a></li>{{ end }}
+      <li><a href="#{{ .id }}" data-race-nav="{{ .id }}"><span>{{ .number }}</span><span class="race-nav-label">{{ .discipline }}</span><span class="race-sr">{{ .discipline }} · {{ .place }}</span><span class="race-nav-split" aria-hidden="true">—</span></a></li>
+      {{ with .transition }}<li><a href="#{{ .id }}" data-race-nav="{{ .id }}"><span>{{ .number }}</span><span class="race-sr">{{ .destination }}</span><span class="race-nav-split" aria-hidden="true">—</span></a></li>{{ end }}
       {{ end }}
-      <li><a href="#finish"><span aria-hidden="true">↗</span><span class="race-nav-label">{{ i18n "race_finish" }}</span><span class="race-sr">{{ i18n "race_finish" }}</span></a></li>
+      <li><a href="#finish" data-race-nav="finish"><span aria-hidden="true">↗</span><span class="race-nav-label">{{ i18n "race_finish" }}</span><span class="race-sr">{{ i18n "race_finish" }}</span><span class="race-nav-split" aria-hidden="true">—</span></a></li>
     </ol>
   </nav>
   <div class="race-readout" hidden aria-hidden="true"><span data-race-progress></span><span data-race-coordinates></span></div>
-  <main id="race-main" tabindex="-1">
+  <main id="race-main" data-race data-race-world-src="{{ $raceWorldJS.RelPermalink }}" data-race-world-integrity="{{ $raceWorldJS.Data.Integrity }}" tabindex="-1">
     <div class="race-course" aria-hidden="true">
       <svg viewBox="0 0 120 1000" preserveAspectRatio="none" focusable="false">
         {{/* One continuous path, reused for the illuminated overlay. */}}
@@ -117,6 +123,7 @@
         <a class="race-back" href="#start">↑ {{ i18n "race_back" }}</a>
       </div>
     </section>
+    {{ partial "race/enhancements.html" . }}
   </main>
 </body>
 </html>

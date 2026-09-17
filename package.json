@@ -50,7 +50,8 @@
     "postcss": "^8.5.28",
     "postcss-cli": "^12.0.0",
     "postcss-flexbugs-fixes": "^5.0.2",
-    "qrcode": "^1.5.4"
+    "qrcode": "^1.5.4",
+    "three": "^0.186.0"
   },
   "engines": {
     "node": ">=22",
