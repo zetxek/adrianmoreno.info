@@ -1,0 +1,122 @@
+{{- $race := hugo.Data.race -}}
+{{- $current := partial "race/page.html" (dict "site" .Site "path" $race.currentExperience) -}}
+<!doctype html>
+<html lang="{{ .Language.Lang }}" dir="{{ .Language.Direction | default "ltr" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#151719">
+  <title>{{ .Title }} | {{ .Site.Params.logo_text1 }} {{ .Site.Params.logo_text2 }}</title>
+  <meta name="description" content="{{ .Description }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+  {{ range .AllTranslations }}<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">{{ end }}
+  {{ partial "head-favicons.html" . }}
+  {{ template "_internal/opengraph.html" . }}
+  {{ template "_internal/twitter_cards.html" . }}
+  {{ partial "seo/jsonld.html" . }}
+  {{/* A small blocking page-only sheet is its own critical CSS. PostProcess waits
+       for hugo_stats.json before PurgeCSS runs; no race styles enter the home bundle. */}}
+  {{ $css := resources.Get "css/race.css" }}
+  {{ if hugo.IsProduction }}{{ $css = $css | css.PostCSS | minify | fingerprint | resources.PostProcess }}{{ end }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+  {{ $js := resources.Get "js/race.js" | minify | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>
+</head>
+<body class="race">
+  <a class="race-skip" href="#race-main">{{ i18n "skipToMainContent" }}</a>
+  <div class="race-frame" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <header class="race-chrome">
+    <a class="race-exit" href="{{ .Site.Home.RelPermalink }}"><span aria-hidden="true">↖</span> {{ i18n "race_exit" }}</a>
+    <span class="race-edition">{{ $race.hero.eyebrow }} <span aria-hidden="true">/</span> {{ $race.edition }}</span>
+  </header>
+  <nav class="race-nav" aria-label="{{ i18n "race_chapters" }}">
+    <ol>
+      <li><a href="#start"><span aria-hidden="true">○</span><span class="race-nav-label">{{ i18n "race_start" }}</span><span class="race-sr">{{ i18n "race_start" }}</span></a></li>
+      {{ range $race.chapters }}
+      <li><a href="#{{ .id }}"><span>{{ .number }}</span><span class="race-nav-label">{{ .discipline }}</span><span class="race-sr">{{ .discipline }} · {{ .place }}</span></a></li>
+      {{ with .transition }}<li><a href="#{{ .id }}"><span>{{ .number }}</span><span class="race-sr">{{ .destination }}</span></a></li>{{ end }}
+      {{ end }}
+      <li><a href="#finish"><span aria-hidden="true">↗</span><span class="race-nav-label">{{ i18n "race_finish" }}</span><span class="race-sr">{{ i18n "race_finish" }}</span></a></li>
+    </ol>
+  </nav>
+  <div class="race-readout" hidden aria-hidden="true"><span data-race-progress></span><span data-race-coordinates></span></div>
+  <main id="race-main" tabindex="-1">
+    <div class="race-course" aria-hidden="true">
+      <svg viewBox="0 0 120 1000" preserveAspectRatio="none" focusable="false">
+        {{/* One continuous path, reused for the illuminated overlay. */}}
+        <defs><path id="race-path" pathLength="1" d="M60 0 C110 40 10 75 60 130 S100 190 60 235 L105 270 15 295 60 320 C110 365 10 400 60 445 S110 510 60 565 L105 600 15 625 60 650 C105 710 20 750 60 810 S100 900 60 955 L60 1000"/></defs>
+        <use href="#race-path" class="race-track"/>
+        <use href="#race-path" class="race-progress"/>
+      </svg>
+    </div>
+    <section class="race-stage race-hero" id="start" aria-labelledby="race-title" data-coordinates="{{ $race.hero.coordinates }}" tabindex="-1">
+      <div class="race-scenery race-contours" aria-hidden="true"></div>
+      <div class="race-content">
+        <p class="race-telemetry">{{ $race.hero.eyebrow }} <span class="race-status-dot" aria-hidden="true"></span></p>
+        <h1 id="race-title">{{ .Site.Params.logo_text1 }}<br>{{ .Site.Params.logo_text2 }}<span class="race-period">.</span></h1>
+        <p class="race-hero-role">{{ index (last 1 (split $current.Params.jobTitle " → ")) 0 }}<br><span>{{ $current.Params.company }} · {{ $current.Params.location }}</span></p>
+        <p class="race-tagline">{{ $race.hero.tagline }}</p>
+        <p class="race-intro">{{ $race.hero.body }}</p>
+        <a class="race-button" href="#{{ (index $race.chapters 0).id }}">{{ $race.hero.start }} <span aria-hidden="true">↓</span></a>
+        <p class="race-origin race-telemetry">{{ $race.hero.originNote }}<br>{{ $race.hero.origin }} // {{ $race.hero.coordinates }}</p>
+      </div>
+      <span class="race-hero-stamp" aria-hidden="true">{{ partial "race/icon.html" . }}</span>
+    </section>
+    {{ range $race.chapters }}
+    <section class="race-stage race-{{ .terrain }}" id="{{ .id }}" aria-labelledby="{{ .id }}-heading" data-coordinates="{{ .coordinates }}" tabindex="-1">
+      <div class="race-scenery race-landscape" aria-hidden="true"></div>
+      <span class="race-numeral" aria-hidden="true">{{ .number }}</span>
+      <div class="race-content">
+        <p class="race-telemetry">[{{ .period }}] // {{ .location }}<br>{{ .coordinates }}</p>
+        <p class="race-discipline">{{ .number }} / {{ .discipline }} <span>· {{ .place }}</span></p>
+        <h2 id="{{ .id }}-heading">{{ .title }}</h2>
+        <p class="race-lede">{{ .lede }}</p>
+        <p class="race-briefing race-telemetry">{{ .briefing }}</p>
+        <ol class="race-roles">
+          {{ range .roles }}
+          {{ $role := partial "race/page.html" (dict "site" $.Site "path" .) }}
+          <li class="race-role">
+            <p class="race-telemetry">[{{ $role.Params.duration }}] // {{ i18n "race_role" }}: {{ $role.Params.jobTitle | upper | replaceRE `\s+` "_" }}</p>
+            <h3><a href="{{ $role.RelPermalink }}">{{ $role.Params.company }} <span aria-hidden="true">↗</span></a></h3>
+            <p>{{ $role.Params.cvSummary | default ($role.Summary | plainify | truncate 260) }}</p>
+          </li>
+          {{ end }}
+        </ol>
+        <blockquote class="race-lesson"><p>{{ .lesson }}</p></blockquote>
+        {{ if eq .id "run" }}
+        <h3 class="race-telemetry race-section-label">{{ i18n "race_principles" }}</h3>
+        <ol class="race-principles">{{ range $race.principles }}<li><h4>{{ .title }}</h4><p>{{ .body }}</p></li>{{ end }}</ol>
+        {{ end }}
+      </div>
+    </section>
+    {{ with .transition }}
+    <section class="race-stage race-transition" id="{{ .id }}" aria-labelledby="{{ .id }}-heading" data-coordinates="{{ .coordinates }}" tabindex="-1">
+      <div class="race-scenery race-tunnel" aria-hidden="true"></div>
+      <span class="race-numeral" aria-hidden="true">{{ .number }}</span>
+      <div class="race-content">
+        <p class="race-telemetry">[{{ .period }}] // {{ .route }}<br>{{ .destination }} // {{ .coordinates }}</p>
+        <p class="race-discipline">{{ .number }} / {{ i18n "race_transition" }}</p>
+        <h2 id="{{ .id }}-heading">{{ .title }}</h2>
+        <p class="race-lede">{{ .body }}</p>
+      </div>
+    </section>
+    {{ end }}
+    {{ end }}
+    <section class="race-stage race-chalk race-finish" id="finish" aria-labelledby="finish-heading" tabindex="-1">
+      <div class="race-content">
+        <p class="race-telemetry">{{ i18n "race_finish" }} // {{ i18n "race_next" }}</p>
+        <h2 id="finish-heading">{{ $race.finish.title }}</h2>
+        <p class="race-lede">{{ $race.finish.body }}</p>
+        <a class="race-button" href="mailto:{{ hugo.Data.cv.information.email }}">{{ i18n "race_email" }} <span aria-hidden="true">↗</span></a>
+        <p class="race-contact"><a href="mailto:{{ hugo.Data.cv.information.email }}">{{ hugo.Data.cv.information.email }}</a></p>
+        <ul class="race-links">
+          {{ range $race.finish.links }}{{ $page := partial "race/page.html" (dict "site" $.Site "path" .page) }}<li><a href="{{ $page.RelPermalink }}">{{ .label }} <span aria-hidden="true">↗</span></a></li>{{ end }}
+        </ul>
+        <p class="race-colophon">{{ $race.finish.colophon }}</p>
+        <a class="race-back" href="#start">↑ {{ i18n "race_back" }}</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

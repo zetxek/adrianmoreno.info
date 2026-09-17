@@ -112,6 +112,31 @@
 - id: "newsletter_button"
   translation: "Suscribirme"
 
+## Engineered Race UI (biography lives in data/race.yml)
+- id: race_mode
+  translation: "Modo juego · Natación, ciclismo, carrera"
+- id: race_exit
+  translation: "Volver al portfolio"
+- id: race_chapters
+  translation: "Etapas del recorrido"
+- id: race_start
+  translation: "Inicio"
+- id: race_finish
+  translation: "Meta"
+- id: race_role
+  translation: "ROL"
+- id: race_principles
+  translation: "Notas / Principios"
+- id: race_transition
+  translation: "Transición"
+- id: race_next
+  translation: "Siguiente: conversación"
+- id: race_email
+  translation: "Escríbeme"
+- id: race_back
+  translation: "Volver al inicio"
+
+
 - id: "newsletter_placeholder"
   translation: "tu@email.com"
 
