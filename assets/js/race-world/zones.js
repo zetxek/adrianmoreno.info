@@ -171,13 +171,13 @@ function materials(palette) {
 const ZONE_FACTORIES = [startPlateau, swimBasin, t1Tunnel, amsterdamBike, t2Tunnel, copenhagenRun, finishPier];
 
 export const ZONE_PALETTES = [
-  { ground: 0x242729, main: 0x62676a, secondary: 0x858b8f },
+  { ground: 0x242729, main: 0x62676a, secondary: 0x858b8f, tertiary: 0xff331f },
   { ground: 0x242729, main: 0x62676a, secondary: 0x343f45, tertiary: 0x858b8f },
   { ground: 0x222222, main: 0x545454, secondary: 0x969696, tertiary: 0xff331f },
   { ground: 0x343a40, main: 0x737c84, secondary: 0x252d33, tertiary: 0x4a535b },
   { ground: 0x222222, main: 0x545454, secondary: 0x969696, tertiary: 0xff331f },
   { ground: 0xe2e4e6, main: 0xc3c9cd, secondary: 0xadb9c0, tertiary: 0x7c878f },
-  { ground: 0xe2e4e6, main: 0xc3c9cd, secondary: 0x909ca4 },
+  { ground: 0xe2e4e6, main: 0xc3c9cd, secondary: 0x909ca4, tertiary: 0xff331f },
 ];
 
 export function buildZones() {
@@ -192,14 +192,82 @@ function addBatch(group, geometry, material, placements, kind, tally) {
   tally.triangles += placements.length * TRIANGLES_PER_KIND[kind];
 }
 
+/* START — a labelled launch gantry releases one red course ribbon from its
+   transverse start line toward +Z. (GPT-6 Astra, normalized to file conventions.) */
 function startPlateau(unit, mat) {
   const group = new Group();
   const tally = { triangles: 0, instances: 0 };
-  addBatch(group, unit.box, mat.secondary, row(3, { x0: -10, x1: 10, y: 0, z: -6, size: [7, 0.6, 5], hJitter: 0.2 }), 'box', tally); // terrace
-  addBatch(group, unit.box, mat.main, grid(4, 2, { x0: -9, x1: 9, z0: -8, z1: 8, y: 3, size: [0.6, 6, 0.6] }), 'box', tally); // pylons
-  addBatch(group, unit.box, mat.main, pairedRows(2, { x0: -10, x1: 10, y: 0, z0: -9.5, z1: 9.5, size: [20, 2.4, 0.6] }), 'box', tally); // retaining walls
-  addBatch(group, unit.box, mat.tertiary, row(12, { x0: -8, x1: 8, y: 0, z: 5, size: [1.2, 0.35, 3], hJitter: 0.1 }), 'box', tally); // steps
-  addBatch(group, unit.box, mat.secondary, row(10, { x0: -11, x1: 11, y: 2, z: -9.5, size: [1.8, 0.4, 0.4] }), 'box', tally); // perimeter beams
+
+  // All authored y values are BOTTOM elevations; no anchor:'base'.
+  const surfaceY = 0.24;
+  const sceneEdgeZ = 12;
+  const gateZ = -3.5;
+  const gateX = 6.15;
+  const footingH = 0.32;
+  const postY = surfaceY + footingH;
+  const barY = 10;
+  const barH = 1.6;
+  const faceZ = gateZ - 0.45;
+  const lineDepth = 0.5;
+  const ribbonH = 0.055;
+
+  // A flush staging apron, not a raised dock.
+  addBatch(group, unit.box, mat.ground, row(1, { x0: 0, x1: 0, y: 0, z: 0, size: [24, surfaceY, 24] }), 'box', tally);
+  // Subordinate lateral terraces, entirely behind the start.
+  addBatch(group, unit.box, mat.main, row(2, { x0: -9.2, x1: 9.2, y: surfaceY, z: -7.7, size: [4.4, 0.24, 7.4] }), 'box', tally);
+  addBatch(group, unit.box, mat.main, row(2, { x0: -9.2, x1: 9.2, y: surfaceY + 0.24, z: -8.2, size: [3.6, 0.18, 5.8] }), 'box', tally);
+  // One dominant timing gate: compact feet, slender paired uprights,
+  // pale header and a dark fascia inset within its face.
+  addBatch(group, unit.box, mat.main, row(2, { x0: -gateX, x1: gateX, y: surfaceY, z: gateZ, size: [1.4, footingH, 1.65] }), 'box', tally);
+  addBatch(group, unit.box, mat.secondary, row(2, { x0: -gateX, x1: gateX, y: postY, z: gateZ, size: [0.64, barY - postY, 0.9] }), 'box', tally);
+  addBatch(group, unit.box, mat.secondary, row(1, { x0: 0, x1: 0, y: barY, z: gateZ, size: [13.7, barH, 0.9] }), 'box', tally);
+  addBatch(group, unit.box, mat.ground, row(1, { x0: 0, x1: 0, y: barY + 0.2, z: faceZ - 0.018, size: [12.5, 1.2, 0.036] }), 'box', tally);
+  // Neutral timing strips; red is reserved for the course marking.
+  addBatch(group, unit.box, mat.main, row(2, { x0: -gateX, x1: gateX, y: postY + 0.3, z: faceZ - 0.018, size: [0.22, barY - postY - 0.6, 0.036] }), 'box', tally);
+  // Exactly two slender survey pylons, seated on the upper terraces.
+  const terraceTopY = surfaceY + 0.24 + 0.18;
+  addBatch(group, unit.box, mat.main, row(2, { x0: -9.2, x1: 9.2, y: terraceTopY, z: -9.7, size: [0.22, 2.8, 0.22] }), 'box', tally);
+  addBatch(group, unit.box, mat.secondary, row(2, { x0: -9.2, x1: 9.2, y: terraceTopY + 2.8, z: -9.7, size: [0.42, 0.14, 0.42] }), 'box', tally);
+  // A single connected red marking. The ribbon begins at the line's
+  // departure edge and reaches the apron boundary without an overlap.
+  addBatch(group, unit.box, mat.tertiary, row(1, { x0: 0, x1: 0, y: surfaceY, z: gateZ, size: [10.8, ribbonH, lineDepth] }), 'box', tally);
+  const ribbonStartZ = gateZ + lineDepth / 2;
+  addBatch(group, unit.box, mat.tertiary, row(1, { x0: 0, x1: 0, y: surfaceY, z: (ribbonStartZ + sceneEdgeZ) / 2, size: [1.1, ribbonH, sceneEdgeZ - ribbonStartZ] }), 'box', tally);
+
+  // Box-built START lettering: no font, canvas, texture or extra material.
+  // Approach is from -Z, so readable left-to-right runs from +X to -X.
+  const glyphs = {
+    S: ['111', '100', '111', '001', '111'],
+    T: ['111', '010', '010', '010', '010'],
+    A: ['010', '101', '111', '101', '101'],
+    R: ['110', '101', '110', '101', '101'],
+  };
+  const word = 'START';
+  const cellX = 0.32;
+  const cellY = 0.19;
+  const textY = barY + 0.32;
+  const textZ = faceZ - 0.05;
+  const wordWidth = [...word].reduce((width, letter) => width + glyphs[letter][0].length + 1, -1);
+  const lettering = [];
+  let cursor = 0;
+  for (const letter of word) {
+    const glyph = glyphs[letter];
+    for (let r = 0; r < glyph.length; r++) {
+      const mask = glyph[r];
+      let c = 0;
+      while (c < mask.length) {
+        if (mask[c] !== '1') { c++; continue; }
+        const first = c;
+        while (c < mask.length && mask[c] === '1') c++;
+        const run = c - first;
+        const x = (wordWidth / 2 - cursor - first - run / 2) * cellX;
+        lettering.push(...row(1, { x0: x, x1: x, y: textY + (glyph.length - 1 - r) * cellY, z: textZ, size: [run * cellX - 0.018, cellY - 0.022, 0.028] }));
+      }
+    }
+    cursor += glyph[0].length + 1;
+  }
+  addBatch(group, unit.box, mat.secondary, lettering, 'box', tally);
+
   return { group, ...tally };
 }
 
@@ -630,14 +698,92 @@ function copenhagenRun(unit, mat) {
   return { group, ...tally };
 }
 
+/* FINISH — an arriving red ribbon stops beneath the labelled finish gantry
+   at one small, upright hollow red goal square (the page's goal-gate motif). */
 function finishPier(unit, mat) {
   const group = new Group();
   const tally = { triangles: 0, instances: 0 };
-  addBatch(group, unit.box, mat.main, row(3, { x0: -10, x1: 10, y: 0, z: 0, size: [22, 0.5, 14] }), 'box', tally); // ground/pier
-  addBatch(group, unit.box, mat.tertiary, row(16, { x0: -9, x1: 9, y: 0, z: -6, size: [1, 0.3, 2.5], hJitter: 0.1 }), 'box', tally); // steps
-  addBatch(group, unit.box, mat.main, pairedRows(12, { x0: -10, x1: 10, y: 0.2, z0: -7, z1: 7, size: [1.6, 0.4, 0.4] }), 'box', tally); // pier edges
-  addBatch(group, unit.box, mat.tertiary, row(3, { x0: -8, x1: 8, y: 0.3, z: 6.8, size: [5, 0.5, 0.5] }), 'box', tally); // end-pier beams
-  addBatch(group, unit.box, mat.secondary, row(6, { x0: -8, x1: 8, y: 0.25, z: 3, size: [1.2, 0.5, 0.4] }), 'box', tally); // benches
-  addBatch(group, unit.hex, mat.secondary, row(4, { x0: -6, x1: 6, y: 0, z: -4, size: [1, 0.6, 1], anchor: 'base' }), 'hex', tally); // mooring drums
+
+  // Same +Z travel direction and bottom-anchor convention as START.
+  const surfaceY = 0.24;
+  const arrivalEdgeZ = -12;
+  const gateZ = 4;
+  const gateX = 6.15;
+  const footingH = 0.32;
+  const postY = surfaceY + footingH;
+  const barY = 8.9;
+  const barH = 1.6;
+  const faceZ = gateZ - 0.45;
+  const lineDepth = 0.5;
+  const ribbonH = 0.055;
+
+  // Pale, broad finish apron; no pier edges, end beams or mooring clutter.
+  addBatch(group, unit.box, mat.ground, row(1, { x0: 0, x1: 0, y: 0, z: 0, size: [24, surfaceY, 24] }), 'box', tally);
+  // The same gantry family, slightly lower. On this light palette,
+  // main is the pale shell and secondary supplies the darker fascia.
+  addBatch(group, unit.box, mat.secondary, row(2, { x0: -gateX, x1: gateX, y: surfaceY, z: gateZ, size: [1.4, footingH, 1.65] }), 'box', tally);
+  addBatch(group, unit.box, mat.main, row(2, { x0: -gateX, x1: gateX, y: postY, z: gateZ, size: [0.64, barY - postY, 0.9] }), 'box', tally);
+  addBatch(group, unit.box, mat.main, row(1, { x0: 0, x1: 0, y: barY, z: gateZ, size: [13.7, barH, 0.9] }), 'box', tally);
+  addBatch(group, unit.box, mat.secondary, row(1, { x0: 0, x1: 0, y: barY + 0.2, z: faceZ - 0.018, size: [12.5, 1.2, 0.036] }), 'box', tally);
+  addBatch(group, unit.box, mat.secondary, row(2, { x0: -gateX, x1: gateX, y: postY + 0.3, z: faceZ - 0.018, size: [0.28, barY - postY - 0.6, 0.036] }), 'box', tally);
+  // The arriving ribbon ends at the approach edge of the finish line.
+  const ribbonEndZ = gateZ - lineDepth / 2;
+  addBatch(group, unit.box, mat.tertiary, row(1, { x0: 0, x1: 0, y: surfaceY, z: (arrivalEdgeZ + ribbonEndZ) / 2, size: [1.1, ribbonH, ribbonEndZ - arrivalEdgeZ] }), 'box', tally);
+  addBatch(group, unit.box, mat.tertiary, row(1, { x0: 0, x1: 0, y: surfaceY, z: gateZ, size: [10.8, ribbonH, lineDepth] }), 'box', tally);
+  // Signature goal: exactly four thin boxes, a truly hollow square.
+  const goalSize = 2.4;
+  const goalStroke = 0.16;
+  const goalDepth = 0.16;
+  const goalY = surfaceY + ribbonH;
+  const goalZ = gateZ + lineDepth / 2 - goalDepth / 2;
+  const goalSideX = (goalSize - goalStroke) / 2;
+  addBatch(group, unit.box, mat.tertiary, [
+    ...row(1, { x0: 0, x1: 0, y: goalY, z: goalZ, size: [goalSize, goalStroke, goalDepth] }),
+    ...row(2, { x0: -goalSideX, x1: goalSideX, y: goalY + goalStroke, z: goalZ, size: [goalStroke, goalSize - 2 * goalStroke, goalDepth] }),
+    ...row(1, { x0: 0, x1: 0, y: goalY + goalSize - goalStroke, z: goalZ, size: [goalSize, goalStroke, goalDepth] }),
+  ], 'box', tally);
+  // Just two low benches, beyond the gate and outside the course.
+  const benchZ = 8.6;
+  const benchLegH = 0.48;
+  addBatch(group, unit.box, mat.secondary, [
+    ...row(2, { x0: -9.95, x1: -7.65, y: surfaceY, z: benchZ, size: [0.22, benchLegH, 0.85] }),
+    ...row(2, { x0: 7.65, x1: 9.95, y: surfaceY, z: benchZ, size: [0.22, benchLegH, 0.85] }),
+  ], 'box', tally);
+  addBatch(group, unit.box, mat.main, row(2, { x0: -8.8, x1: 8.8, y: surfaceY + benchLegH, z: benchZ, size: [3.4, 0.18, 1.15] }), 'box', tally);
+
+  // Matching box-built FINISH lettering on the approaching (-Z) face.
+  const glyphs = {
+    F: ['111', '100', '110', '100', '100'],
+    I: ['111', '010', '010', '010', '111'],
+    N: ['10001', '11001', '10101', '10011', '10001'],
+    S: ['111', '100', '111', '001', '111'],
+    H: ['101', '101', '111', '101', '101'],
+  };
+  const word = 'FINISH';
+  const cellX = 0.32;
+  const cellY = 0.19;
+  const textY = barY + 0.32;
+  const textZ = faceZ - 0.05;
+  const wordWidth = [...word].reduce((width, letter) => width + glyphs[letter][0].length + 1, -1);
+  const lettering = [];
+  let cursor = 0;
+  for (const letter of word) {
+    const glyph = glyphs[letter];
+    for (let r = 0; r < glyph.length; r++) {
+      const mask = glyph[r];
+      let c = 0;
+      while (c < mask.length) {
+        if (mask[c] !== '1') { c++; continue; }
+        const first = c;
+        while (c < mask.length && mask[c] === '1') c++;
+        const run = c - first;
+        const x = (wordWidth / 2 - cursor - first - run / 2) * cellX;
+        lettering.push(...row(1, { x0: x, x1: x, y: textY + (glyph.length - 1 - r) * cellY, z: textZ, size: [run * cellX - 0.018, cellY - 0.022, 0.028] }));
+      }
+    }
+    cursor += glyph[0].length + 1;
+  }
+  addBatch(group, unit.box, mat.main, lettering, 'box', tally);
+
   return { group, ...tally };
 }

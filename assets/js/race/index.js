@@ -382,15 +382,24 @@ import * as S from './state.js';
 
   function updateWorldFrame(bits) {
     if (state.world.status !== 'ready' || !state.world.instance) return;
-    const signature = `${state.scroll.chapterIndex}:${state.scroll.localProgress.toFixed(4)}:${window.scrollY}`;
+    /* Zone anticipation: the athlete/splits follow the 40% reading probe,
+       but the world should become the next city as its chapter scrolls IN
+       (its title is visible well before the probe arrives). Derive the
+       world's own course state from an anticipated line at ~85% viewport
+       height so zone, camera and dissolve band stay mutually consistent. */
+    const anticipatedY = Math.min(window.scrollY + window.innerHeight * 0.45, state.layout.maxScroll);
+    const worldDerived = state.layout.boundaries.length > 1
+      ? S.deriveCourseState(state.layout.boundaries, anticipatedY, state.layout.maxScroll)
+      : { fraction: 0, chapterIndex: 0, localProgress: 0 };
+    const signature = `${worldDerived.chapterIndex}:${worldDerived.localProgress.toFixed(4)}:${anticipatedY.toFixed(0)}`;
     const changed = signature !== state.world.signature;
     if (changed || bits & DIRTY.WORLD) {
       state.world.signature = signature;
       state.world.instance.update({
-        zoneIndex: state.scroll.chapterIndex,
-        localProgress: state.scroll.localProgress,
+        zoneIndex: worldDerived.chapterIndex,
+        localProgress: worldDerived.localProgress,
         boundaries: state.layout.boundaries,
-        scrollY: window.scrollY,
+        scrollY: anticipatedY,
       });
       state.world.instance.render();
     } else if (state.world.settleFrames > 0) {
