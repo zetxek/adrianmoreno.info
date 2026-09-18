@@ -113,12 +113,38 @@ export function jointTransforms(discipline, theta, amplitude, courseFraction) {
       t['swim-arm-rear'] = rotate(-48 * amplitude * sinT, 13, 10);
       t['swim-kick'] = rotate(7 * amplitude * sin2T, 8, 13);
       break;
-    case 'bike':
-      t['bike-torso'] = translateY(0.3 * amplitude * sin2T);
-      t['bike-crank'] = rotate(crankAngleDeg(courseFraction), 12, 17);
-      t['bike-wheel-rear'] = rotate(wheelAngleDeg(courseFraction), 8, 17);
-      t['bike-wheel-front'] = rotate(wheelAngleDeg(courseFraction), 19, 17);
+    case 'bike': {
+      const bob = 0.3 * amplitude * sin2T;
+      const crankDeg = crankAngleDeg(courseFraction);
+      const wheelDeg = wheelAngleDeg(courseFraction);
+      const radians = Math.PI / 180;
+      const hipX = 9.4;
+      const hipY = 10.1 + bob;
+      const legLength = 4.4;
+      const pedalRadius = 1.5;
+
+      t['bike-torso'] = translateY(bob);
+      t['bike-crank'] = rotate(crankDeg, 11, 16.5);
+      t['bike-wheel-rear'] = rotate(wheelDeg, 5, 17.5);
+      t['bike-wheel-front'] = rotate(wheelDeg, 19, 17.5);
+
+      // Fixed-length thigh and shin; feet follow opposite crank tips (IK).
+      for (const [side, phase] of [['far', Math.PI], ['near', 0]]) {
+        const angle = (crankDeg - 90) * radians + phase;
+        const footX = 11 + pedalRadius * Math.cos(angle);
+        const footY = 16.5 + pedalRadius * Math.sin(angle);
+        const dx = footX - hipX;
+        const dy = footY - hipY;
+        const distance = Math.hypot(dx, dy);
+        const bend = Math.acos(Math.min(1, distance / (2 * legLength)));
+        const thighDeg = (Math.atan2(dy, dx) - bend) / radians;
+        const kneeDeg = (2 * bend) / radians;
+
+        t[`bike-leg-${side}-upper`] = `translate(${hipX} ${hipY}) rotate(${thighDeg})`;
+        t[`bike-leg-${side}-lower`] = `translate(${legLength} 0) rotate(${kneeDeg})`;
+      }
       break;
+    }
     case 'run': {
       const bodyY = -0.8 * amplitude * Math.abs(sinT);
       t['run-body'] = translateY(bodyY);

@@ -19,16 +19,29 @@
       </g>
       <g class="race-athlete__pose race-athlete__pose--bike">
         <g data-race-joint="bike-frame">
-          <path d="M8 17 12 17 15 10 19 17M12 17 15 10"/>
-          <circle cx="8" cy="17" r="4"/>
-          <circle cx="19" cy="17" r="4"/>
-          <g data-race-joint="bike-wheel-rear"><path d="M8 13 8 21"/></g>
-          <g data-race-joint="bike-wheel-front"><path d="M19 13 19 21"/></g>
-          <g data-race-joint="bike-crank"><path d="M9.5 17 14.5 17"/></g>
+          <circle cx="5" cy="17.5" r="3.5"/>
+          <circle cx="19" cy="17.5" r="3.5"/>
+          <g data-race-joint="bike-wheel-rear"><path d="M5 14V21"/></g>
+          <g data-race-joint="bike-wheel-front"><path d="M19 14V21"/></g>
+          <path d="M5 17.5 9.2 11 16 10.5 11 16.5Z M9.2 11 11 16.5 M16 10.5 19 17.5"/>
+          <path d="M8 10.2H10.6 M16 10.5 15.5 8.8H17.2Q18.3 8.8 18.3 9.9L17.9 10.5"/>
+          <g data-race-joint="bike-crank"><path d="M11 15V18"/></g>
+        </g>
+        <g data-race-joint="bike-leg-far-upper" transform="translate(9.4 10.1) rotate(54.89)" opacity=".55">
+          <path d="M0 0H4.4"/>
+          <g data-race-joint="bike-leg-far-lower" transform="translate(4.4 0) rotate(47.32)">
+            <path d="M0 0H4.4"/>
+          </g>
         </g>
         <g data-race-joint="bike-torso">
-          <circle class="race-athlete__head" cx="19" cy="6" r="2"/>
-          <path d="M19 8 15 10 12 17"/>
+          <circle class="race-athlete__head" cx="15.1" cy="3.4" r="2"/>
+          <path d="M9.4 10.1 13.4 6.2 14.2 5.2 M13.4 6.2 14.9 7.5 17.2 8.8"/>
+        </g>
+        <g data-race-joint="bike-leg-near-upper" transform="translate(9.4 10.1) rotate(17.77)">
+          <path d="M0 0H4.4"/>
+          <g data-race-joint="bike-leg-near-lower" transform="translate(4.4 0) rotate(108.29)">
+            <path d="M0 0H4.4"/>
+          </g>
         </g>
       </g>
       <g class="race-athlete__pose race-athlete__pose--run">
@@ -43,19 +56,19 @@
       </g>
       <g class="race-athlete__pose race-athlete__pose--transition">
         <g data-race-joint="transition-bike">
-          <circle cx="19" cy="17" r="3.4"/>
-          <circle cx="12" cy="17" r="3.4"/>
-          <path d="M12 17 15.5 10 19 17M15.5 10 17 8"/>
-          <g data-race-joint="transition-bike-wheel-rear"><path d="M12 13.6 12 20.4"/></g>
-          <g data-race-joint="transition-bike-wheel-front"><path d="M19 13.6 19 20.4"/></g>
+          <path d="M12 17 L14.4 13.4 L16 17 Z M14.4 13.4 L17.8 13.4 L16 17 M17.8 13.4 L19 17 M14.4 13.4 L14.2 12.5 M13.2 12.5 H15.2 M17.8 13.4 L16.5 10.3 L14.2 9 L13 9.7"/>
+          <circle cx="12" cy="17" r="3"/>
+          <circle cx="19" cy="17" r="3"/>
+          <g data-race-joint="transition-bike-wheel-rear"><path d="M12 14 V20"/></g>
+          <g data-race-joint="transition-bike-wheel-front"><path d="M19 14 V20"/></g>
         </g>
+        <g data-race-joint="transition-leg-rear"><path d="M7 14 L4.2 17.2 L2.2 16.8 L2.6 18.1"/></g>
+        <g data-race-joint="transition-leg-front"><path d="M7 14 L6.4 17 L7.4 20 H8.4"/></g>
         <g data-race-joint="transition-body">
-          <circle class="race-athlete__head" cx="7" cy="7" r="2"/>
-          <path d="M7 9 7 14"/>
-          <g data-race-joint="transition-arm"><path d="M7 10 12 9 17 8"/></g>
-          <g data-race-joint="transition-leg-front"><path d="M7 14 8 17 9 20.4"/></g>
-          <g data-race-joint="transition-leg-rear"><path d="M7 14 6 17 5 20.4"/></g>
+          <circle class="race-athlete__head" cx="7" cy="5.5" r="2"/>
+          <path d="M7 7.5 V14"/>
         </g>
+        <g data-race-joint="transition-arm"><path d="M7 10 L10 11.1 L13 9.7"/></g>
       </g>
       <g class="race-athlete__pose race-athlete__pose--finish">
         <g data-race-joint="finish-body">

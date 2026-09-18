@@ -70,8 +70,11 @@
       <span class="race-hero-stamp" aria-hidden="true">{{ partial "race/icon.html" . }}</span>
     </section>
     {{ range $race.chapters }}
-    <section class="race-stage race-{{ .terrain }}" id="{{ .id }}" aria-labelledby="{{ .id }}-heading" data-coordinates="{{ .coordinates }}" tabindex="-1">
+    {{ $city := index (dict "swim" "galicia" "bike" "amsterdam" "run" "copenhagen") .id }}
+    {{ $cid := .id }}
+    <section class="race-stage race-{{ .terrain }}{{ with $city }} race-stage--city race-stage--{{ $cid }}{{ end }}" id="{{ .id }}" aria-labelledby="{{ .id }}-heading" data-coordinates="{{ .coordinates }}" tabindex="-1">
       <div class="race-scenery race-landscape" aria-hidden="true"></div>
+      {{ with $city }}{{ partial (printf "race/city-%s.html" .) $ }}{{ end }}
       <span class="race-numeral" aria-hidden="true">{{ .number }}</span>
       <div class="race-content">
         <p class="race-telemetry">[{{ .period }}] // {{ .location }}<br>{{ .coordinates }}</p>

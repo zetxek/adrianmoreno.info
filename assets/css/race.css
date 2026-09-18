@@ -208,11 +208,53 @@ p { text-wrap: pretty; }
 }
 
 @media print {
-  .race-chrome, .race-frame, .race-nav, .race-course, .race-scenery, .race-numeral, .race-readout, .race-skip, .race-hero-stamp { display: none !important; }
+  .race-chrome, .race-frame, .race-nav, .race-course, .race-scenery, .race-numeral, .race-readout, .race-skip, .race-hero-stamp, .race-city { display: none !important; }
   body.race, .race-stage, .race-transition .race-content { color: #111; background: #fff; }
   .race-stage { min-height: 0; padding: 2rem 0; overflow: visible; }
   .race-content { max-width: none; }
   .race-role, .race-lesson, .race-principles li { break-inside: avoid; }
   .race-telemetry, .race-lede, .race-role > p:last-child, .race-intro, .race-hero-role span, .race-colophon { color: #333; }
   .race-button { background: none; border: 1px solid #111; }
+}
+
+/* Mobile city vignettes (GPT-6 Astra contract A1-A4): hand-authored isometric
+   inline SVGs, visible only below 64rem where the Three.js world does not load.
+   Pure static markup — no JS, no animation; aria-hidden imagery.
+   Ground corrections vs contract A1 table: bike stays slate #252C32,
+   run stays chalk-light #E9E7E1 (matches the poster and WebGL palettes). */
+.race-city {
+  display: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media screen and (width < 64rem) {
+  .race-stage--city {
+    --race-city-band-height: clamp(9rem, 32vw, 15rem);
+    --race-city-opacity: 0.78;
+    position: relative;
+    isolation: isolate;
+  }
+  .race-stage--city.race-stage--swim { --race-city-ground: #151719; --race-city-ink: #E2E4E6; }
+  .race-stage--city.race-stage--bike { --race-city-ground: #252C32; --race-city-ink: #E2E4E6; }
+  .race-stage--city.race-stage--run { --race-city-ground: #E9E7E1; --race-city-ink: #151719; --race-city-opacity: 0.84; }
+  .race-stage--city > .race-scenery { opacity: 0.16; }
+  .race-stage--city > .race-city {
+    display: block;
+    position: absolute;
+    inset-inline-start: 3.25rem;
+    inset-inline-end: 1.5rem;
+    inset-block-end: 0;
+    inline-size: calc(100% - 4.75rem);
+    block-size: var(--race-city-band-height);
+    z-index: 1;
+    overflow: hidden;
+    opacity: var(--race-city-opacity);
+    pointer-events: none;
+  }
+  .race-stage--city > .race-content {
+    position: relative;
+    z-index: 2;
+    padding-block-end: calc(var(--race-city-band-height) - 5rem);
+  }
 }
