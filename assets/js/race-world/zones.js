@@ -173,9 +173,9 @@ const ZONE_FACTORIES = [startPlateau, swimBasin, t1Tunnel, amsterdamBike, t2Tunn
 export const ZONE_PALETTES = [
   { ground: 0x242729, main: 0x62676a, secondary: 0x858b8f },
   { ground: 0x242729, main: 0x62676a, secondary: 0x343f45, tertiary: 0x858b8f },
-  { ground: 0x151719, main: 0x2a2d30, secondary: 0x41464a },
+  { ground: 0x222222, main: 0x545454, secondary: 0x969696, tertiary: 0xff331f },
   { ground: 0x343a40, main: 0x737c84, secondary: 0x252d33, tertiary: 0x4a535b },
-  { ground: 0x151719, main: 0x2a2d30, secondary: 0x41464a },
+  { ground: 0x222222, main: 0x545454, secondary: 0x969696, tertiary: 0xff331f },
   { ground: 0xe2e4e6, main: 0xc3c9cd, secondary: 0xadb9c0, tertiary: 0x7c878f },
   { ground: 0xe2e4e6, main: 0xc3c9cd, secondary: 0x909ca4 },
 ];
@@ -341,10 +341,41 @@ function moored(unit, mat, specs) {
 function tunnel(unit, mat, spacing) {
   const group = new Group();
   const tally = { triangles: 0, instances: 0 };
-  addBatch(group, unit.box, mat.main, row(4, { x0: -12, x1: 12, y: -0.3, z: 0, size: [8, 0.4, 6] }), 'box', tally); // floor
-  addBatch(group, unit.box, mat.main, pairedRows(12, { x0: -12, x1: 12, y: 0, z0: -3, z1: 3, size: [1.2, 3, 0.4] }), 'box', tally); // side walls
-  addBatch(group, unit.box, mat.secondary, row(12, { x0: -11, x1: 11, y: 3, z: 0, size: [0.4, 0.4, 6.2], zJitter: spacing }), 'box', tally); // overhead ribs
-  addBatch(group, unit.box, mat.secondary, pairedRows(12, { x0: -11.5, x1: 11.5, y: 1.4, z0: -2.7, z1: 2.7, size: [0.9, 0.2, 0.2] }), 'box', tally); // equipment racks
+
+  // Keep every portal aligned; variation changes pitch, not lateral jitter.
+  const halfSpan = 10.8 - spacing;
+  const x0 = -halfSpan;
+  const x1 = halfSpan;
+  const rackSpan = halfSpan * 0.75;
+
+  // Dark deck: its upper surface establishes y = 0.
+  addBatch(group, unit.box, mat.ground, row(1, { x0: 0, x1: 0, y: -0.32, z: 0, size: [26.4, 0.32, 6.8] }), 'box', tally);
+  // Continuous neutral edges make the dark floor read as a deliberate slab.
+  addBatch(group, unit.box, mat.main, pairedRows(1, { x0: 0, x1: 0, y: 0.05, z0: -3.26, z1: 3.26, size: [26.4, 0.1, 0.14] }), 'box', tally);
+  // Open side walls: seven slim pylon pairs with generous gaps.
+  // NOTE: vertical elements pass anchor:'base' — y is their CENTER (the
+  // default anchor treats y as the box bottom, which buried the floor
+  // details inside the deck and floated the pylons).
+  addBatch(group, unit.box, mat.main, pairedRows(7, { x0, x1, y: 1.3, z0: -2.9, z1: 2.9, size: [0.42, 2.6, 0.38], anchor: 'base' }), 'box', tally);
+  // Stepped capitals suggest chamfered shoulders without extra mesh complexity.
+  addBatch(group, unit.box, mat.secondary, pairedRows(7, { x0, x1, y: 2.73, z0: -2.78, z1: 2.78, size: [0.66, 0.26, 0.66], anchor: 'base' }), 'box', tally);
+  // Pale, narrow ribs describe the roof while leaving the tunnel open to light.
+  addBatch(group, unit.box, mat.secondary, row(7, { x0, x1, y: 2.98, z: 0, size: [0.4, 0.24, 6.24], anchor: 'base' }), 'box', tally);
+  // Equipment racks: grounded back panels with projecting shelf tops.
+  addBatch(group, unit.box, mat.main, pairedRows(4, { x0: -rackSpan, x1: rackSpan, y: 0.46, z0: -2.84, z1: 2.84, size: [0.86, 0.92, 0.16], anchor: 'base' }), 'box', tally);
+  addBatch(group, unit.box, mat.secondary, pairedRows(4, { x0: -rackSpan, x1: rackSpan, y: 0.98, z0: -2.63, z1: 2.63, size: [1.1, 0.12, 0.62], anchor: 'base' }), 'box', tally);
+  // Two unmistakable timing gates: taller and brighter than the internal bays.
+  addBatch(group, unit.box, mat.secondary, pairedRows(2, { x0: -12.15, x1: 12.15, y: 1.62, z0: -3.08, z1: 3.08, size: [0.6, 3.24, 0.52], anchor: 'base' }), 'box', tally);
+  addBatch(group, unit.box, mat.secondary, row(2, { x0: -12.15, x1: 12.15, y: 3.4, z: 0, size: [0.6, 0.32, 6.68], anchor: 'base' }), 'box', tally);
+  // Dark fascia projects slightly from both gate faces; no coplanar overlays.
+  addBatch(group, unit.box, mat.main, row(2, { x0: -12.15, x1: 12.15, y: 3.4, z: 0, size: [0.64, 0.14, 5.58], anchor: 'base' }), 'box', tally);
+  // T2 adds a neutral timing stripe at each threshold.
+  if (spacing > 0) {
+    addBatch(group, unit.box, mat.secondary, row(2, { x0: -11.65, x1: 11.65, y: 0.006, z: 0, size: [0.22, 0.012, 5.7] }), 'box', tally);
+  }
+  // The sole colored element: one uninterrupted course ribbon.
+  addBatch(group, unit.box, mat.tertiary, row(1, { x0: 0, x1: 0, y: 0.024, z: 0, size: [26.4, 0.02, 0.18] }), 'box', tally);
+
   return { group, ...tally };
 }
 function t1Tunnel(unit, mat) { return tunnel(unit, mat, 0); }
