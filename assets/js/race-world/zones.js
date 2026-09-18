@@ -1,8 +1,8 @@
 /* Exact geometry inventory, deterministic transforms, and material
    assignments for the seven course zones. Every batch below is a literal
-   transcription of the authored triangle table (9,860 triangles / 801
-   instances); TRIANGLES_PER_KIND and the batch counts are the source of
-   truth checked by scripts/race-triangle-check.mjs. */
+   transcription of the authored triangle table checked by
+   tests/unit/race-world-geometry.test.mjs (source of truth for exact
+   per-zone and total counts). */
 import { BoxGeometry, BufferGeometry, Euler, ExtrudeGeometry, Float32BufferAttribute, Group, InstancedMesh, Matrix4, MeshLambertMaterial, Quaternion, Shape, Vector3 } from 'three';
 
 export const TRIANGLES_PER_KIND = { box: 12, tri: 8, penta: 16, hex: 20, cone: 16 };
@@ -30,7 +30,7 @@ function row(count, { x0, x1, y, z, size, zJitter = 0, hJitter = 0, rotationY = 
   return out;
 }
 
-function pairedRows(count, { x0, x1, y, z0, z1, size, hJitter = 0, rotationY = 0, anchor = 'center' }) {
+function pairedRows(count, { x0, x1, y, z0, z1, size, hJitter = 0, zJitter = 0, rotationY = 0, anchor = 'center' }) {
   const out = [];
   const perRow = Math.ceil(count / 2);
   for (let i = 0; i < count; i++) {
@@ -40,8 +40,10 @@ function pairedRows(count, { x0, x1, y, z0, z1, size, hJitter = 0, rotationY = 0
     const t = localCount > 1 ? localI / (localCount - 1) : 0.5;
     const x = lerp(x0, x1, t);
     const h = size[1] * (1 + (hash(i, 3) - 0.5) * hJitter);
+    const baseZ = side === 0 ? z0 : z1;
+    const zPos = baseZ + (hash(i, 9) - 0.5) * zJitter * (side === 0 ? 1 : -1);
     const yPos = anchor === 'base' ? y : y + h / 2;
-    out.push({ position: [x, yPos, side === 0 ? z0 : z1], scale: [size[0], h, size[2]], rotationY });
+    out.push({ position: [x, yPos, zPos], scale: [size[0], h, size[2]], rotationY });
   }
   return out;
 }
@@ -69,31 +71,6 @@ function grid(cols, rows, { x0, x1, z0, z1, y, size }) {
     }
   }
   return out;
-}
-
-/* House facades: one gable pentagon + one roof triangle + N window boxes per
-   house, laid out along X. Shared by Amsterdam and Copenhagen. */
-function houseRow(count, { x0, x1, z, width, wallHeight, peakHeight, depth, windowsPerHouse }) {
-  const gables = [];
-  const roofs = [];
-  const windows = [];
-  for (let i = 0; i < count; i++) {
-    const t = count > 1 ? i / (count - 1) : 0.5;
-    const x = lerp(x0, x1, t);
-    const w = width * (1 + (hash(i, 4) - 0.5) * 0.3);
-    const wh = wallHeight * (1 + (hash(i, 5) - 0.5) * 0.25);
-    gables.push({ position: [x, 0, z], scale: [w, wh + peakHeight, depth], rotationY: 0 });
-    roofs.push({ position: [x, wh, z], scale: [w, peakHeight, depth * 1.05], rotationY: 0 });
-    for (let wIdx = 0; wIdx < windowsPerHouse; wIdx++) {
-      const wt = windowsPerHouse > 1 ? wIdx / (windowsPerHouse - 1) : 0.5;
-      windows.push({
-        position: [x + (wt - 0.5) * w * 0.6, wh * 0.55, z + depth / 2 + 0.02],
-        scale: [w * 0.12, wh * 0.28, 0.05],
-        rotationY: 0,
-      });
-    }
-  }
-  return { gables, roofs, windows };
 }
 
 // ---- shared unit geometries (scaled per instance via the instance matrix) ----
@@ -226,15 +203,138 @@ function startPlateau(unit, mat) {
   return { group, ...tally };
 }
 
+/* Hórreos: elevated granary boxes on square pillars with a pitched roof
+   (two rotated deck-style panels meeting at a ridge) and rat-guard caps
+   on every pillar; the main hórreo also gets a small cross finial at one
+   gable end. All boxes, per the geometry-accounting discipline. */
+function horreoRow(unit, mat, specs) {
+  const group = new Group();
+  const tally = { triangles: 0, instances: 0 };
+  const bodies = [];
+  const pillars = [];
+  const caps = [];
+  const roofPanels = [];
+  const crossParts = [];
+
+  specs.forEach(({ x, z, length, width, wallHeight, pillarCount, hasCross, rotationY = 0 }) => {
+    const pillarHeight = wallHeight * 0.55;
+    const bodyHeight = wallHeight * 0.45;
+    bodies.push({ position: [x, pillarHeight + bodyHeight / 2, z], scale: [length, bodyHeight, width], rotationY });
+
+    const perSide = Math.ceil(pillarCount / 2);
+    for (let i = 0; i < pillarCount; i++) {
+      const side = i < perSide ? 0 : 1;
+      const localI = side === 0 ? i : i - perSide;
+      const localCount = side === 0 ? perSide : pillarCount - perSide;
+      const t = localCount > 1 ? localI / (localCount - 1) : 0.5;
+      const px = x + lerp(-length / 2 + 0.35, length / 2 - 0.35, t);
+      const pz = z + (side === 0 ? -(width / 2 - 0.18) : (width / 2 - 0.18));
+      pillars.push({ position: [px, pillarHeight / 2, pz], scale: [0.32, pillarHeight, 0.32], rotationY });
+      caps.push({ position: [px, pillarHeight + 0.03, pz], scale: [0.6, 0.08, 0.6], rotationY });
+    }
+
+    const roofRise = bodyHeight * 0.85;
+    const roofY = pillarHeight + bodyHeight;
+    const slopeAngle = Math.atan2(roofRise, width / 2);
+    const panelLen = Math.sqrt(roofRise * roofRise + (width / 2) * (width / 2));
+    [-1, 1].forEach((side) => {
+      roofPanels.push({
+        position: [x, roofY + roofRise / 2, z + side * (width / 4)],
+        scale: [length * 1.06, 0.1, panelLen],
+        rotationX: side > 0 ? -slopeAngle : slopeAngle,
+        rotationY,
+      });
+    });
+
+    if (hasCross) {
+      const crossX = x + length / 2 + 0.08;
+      const crossY = roofY + roofRise + 0.32;
+      crossParts.push({ position: [crossX, crossY, z], scale: [0.08, 0.6, 0.08], rotationY });
+      crossParts.push({ position: [crossX, crossY + 0.16, z], scale: [0.4, 0.08, 0.08], rotationY });
+    }
+  });
+
+  addBatch(group, unit.box, mat.main, bodies, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, pillars, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, caps, 'box', tally);
+  addBatch(group, unit.box, mat.tertiary, roofPanels, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, crossParts, 'box', tally);
+  return { group, ...tally };
+}
+
+/* Angular granite monoliths: rotated boxes only (no icosahedron/dodecahedron
+   primitive is part of the authored kind table), tilted on all three axes
+   so they read as boulders rather than crates. */
+function boulderField(unit, mat, count, { x0, x1, z, zJitter }) {
+  const placements = [];
+  for (let i = 0; i < count; i++) {
+    const sx = 1.5 + hash(i, 31) * 1.3;
+    const sy = 1 + hash(i, 32) * 0.9;
+    const sz = 1.3 + hash(i, 33) * 1.1;
+    const x = lerp(x0, x1, count > 1 ? i / (count - 1) : 0.5);
+    const z2 = z + (hash(i, 34) - 0.5) * zJitter;
+    placements.push({
+      position: [x, sy / 2, z2],
+      scale: [sx, sy, sz],
+      rotationX: (hash(i, 35) - 0.5) * 0.35,
+      rotationY: hash(i, 36) * Math.PI * 2,
+      rotationZ: (hash(i, 37) - 0.5) * 0.35,
+    });
+  }
+  const tally = { triangles: placements.length * TRIANGLES_PER_KIND.box, instances: placements.length };
+  const group = new Group();
+  if (placements.length) group.add(buildInstancedMesh(unit.box, mat.main, placements));
+  return { group, ...tally };
+}
+
 function swimBasin(unit, mat) {
   const group = new Group();
   const tally = { triangles: 0, instances: 0 };
-  addBatch(group, unit.box, mat.secondary, row(5, { x0: -12, x1: 12, y: -0.3, z: 0, size: [24, 0.4, 16] }), 'box', tally); // ground/water
-  addBatch(group, unit.box, mat.main, pairedRows(16, { x0: -12, x1: 12, y: 0, z0: -8, z1: 8, size: [1.4, 1, 2] }), 'box', tally); // quay terraces
-  addBatch(group, unit.box, mat.main, pairedRows(24, { x0: -13, x1: 13, y: 0, z0: -9, z1: 9, size: [1, 1.6, 0.5] }), 'box', tally); // retaining walls
+  addBatch(group, unit.box, mat.secondary, row(5, { x0: -12, x1: 12, y: -0.3, z: 0, size: [24, 0.4, 16] }), 'box', tally); // ground/water (the ría)
+  addBatch(group, unit.box, mat.main, pairedRows(16, { x0: -12, x1: 12, y: 0, z0: -8, z1: 8, size: [1.4, 1, 2], zJitter: 1.1 }), 'box', tally); // irregular coastline: quay terraces
+  addBatch(group, unit.box, mat.main, pairedRows(24, { x0: -13, x1: 13, y: 0, z0: -9, z1: 9, size: [1, 1.6, 0.5], zJitter: 0.8 }), 'box', tally); // irregular coastline: retaining walls
   addBatch(group, unit.box, mat.tertiary, grid(20, 2, { x0: -12, x1: 12, z0: -7.5, z1: 7.5, y: 0.4, size: [1, 0.2, 3] }), 'box', tally); // jetty decks
   addBatch(group, unit.cone, mat.tertiary, ring(20, { radius: 11, y: 0, size: [0.3, 0.6, 0.3] }), 'cone', tally); // bollards
   addBatch(group, unit.hex, mat.tertiary, row(13, { x0: -12, x1: 12, y: 0, z: -9.5, size: [1.4, 1, 1.4], hJitter: 0.15, anchor: 'base' }), 'hex', tally); // breakwaters
+
+  const horreos = horreoRow(unit, mat, [
+    { x: -1.5, z: 1.5, length: 6.5, width: 2.4, wallHeight: 2.6, pillarCount: 8, hasCross: true },
+    { x: 6.5, z: 3, length: 3.6, width: 1.9, wallHeight: 2.1, pillarCount: 6, hasCross: false },
+    { x: -8, z: 3.5, length: 3.2, width: 1.8, wallHeight: 1.9, pillarCount: 6, hasCross: false, rotationY: 0.18 },
+    { x: 1.5, z: 6.5, length: 2.8, width: 1.7, wallHeight: 1.7, pillarCount: 6, hasCross: false, rotationY: -0.12 },
+  ]);
+  group.add(horreos.group);
+  tally.triangles += horreos.triangles;
+  tally.instances += horreos.instances;
+
+  const boulders = boulderField(unit, mat, 3, { x0: -9, x1: 9, z: -4.5, zJitter: 1.6 });
+  group.add(boulders.group);
+  tally.triangles += boulders.triangles;
+  tally.instances += boulders.instances;
+
+  const boats = moored(unit, mat, [
+    { x: -4, z: 0, length: 1.8, sail: true },
+    { x: 3.5, z: -1, length: 1.5, sail: false },
+    { x: -0.5, z: -2.5, length: 1.6, sail: true },
+  ]);
+  group.add(boats.group);
+  tally.triangles += boats.triangles;
+  tally.instances += boats.instances;
+
+  return { group, ...tally };
+}
+
+/* Small moored boats resting on the water plane: a stretched box hull,
+   optionally with a thin mast and a triangular-extrusion sail. */
+function moored(unit, mat, specs) {
+  const group = new Group();
+  const tally = { triangles: 0, instances: 0 };
+  const hulls = specs.map(({ x, z, length }) => ({ position: [x, 0.05, z], scale: [length, 0.18, length * 0.42], rotationY: hash(x + z, 51) * 0.6 }));
+  const masts = specs.filter((s) => s.sail).map(({ x, z }) => ({ position: [x, 0.55, z], scale: [0.03, 1, 0.03], rotationY: 0 }));
+  const sails = specs.filter((s) => s.sail).map(({ x, z }) => ({ position: [x + 0.12, 0.75, z], scale: [0.02, 0.5, 0.4], rotationY: Math.PI / 2 }));
+  addBatch(group, unit.box, mat.tertiary, hulls, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, masts, 'box', tally);
+  addBatch(group, unit.tri, mat.secondary, sails, 'tri', tally);
   return { group, ...tally };
 }
 
@@ -250,39 +350,252 @@ function tunnel(unit, mat, spacing) {
 function t1Tunnel(unit, mat) { return tunnel(unit, mat, 0); }
 function t2Tunnel(unit, mat) { return tunnel(unit, mat, 0.4); }
 
-function riverfront(unit, mat, houseCount, windowsPerHouse) {
+const GABLE_TYPES = ['point', 'stepped', 'flat'];
+
+/* Deterministic per-house dimensions, packed shoulder-to-shoulder (no
+   gaps) and centred on x = 0. `types` cycles through the requested gable
+   silhouettes so neighbouring houses never repeat the same profile. */
+function houseSpecs(count, { depth, baseWidth, baseHeight, floors, windowsPerFloor, types = GABLE_TYPES, seed = 0 }) {
+  const specs = [];
+  let cursor = 0;
+  for (let i = 0; i < count; i++) {
+    const width = baseWidth * (0.8 + hash(i + seed, 41) * 0.55);
+    const wallHeight = baseHeight * (0.75 + hash(i + seed, 42) * 0.6);
+    specs.push({ width, wallHeight, depth, type: types[i % types.length], floors, windowsPerFloor });
+    cursor += width;
+  }
+  let x = -cursor / 2;
+  specs.forEach((s) => { s.x = x + s.width / 2; x += s.width; });
+  return specs;
+}
+
+/* Individual canal/harbour houses with three distinct gable silhouettes:
+   'point' (box body + triangular-extrusion roof), 'stepped' (box body +
+   three stacked shrinking boxes, the Amsterdam corbie-step profile), and
+   'flat' (box body + a thin cornice cap). Each house also gets its own
+   window rows so the row reads as individual buildings, not one texture. */
+function canalHouses(unit, mat, specs, z, { chimneys = false } = {}) {
   const group = new Group();
   const tally = { triangles: 0, instances: 0 };
-  const houses = houseRow(houseCount, {
-    x0: -13, x1: 13, z: -4, width: 1.6, wallHeight: 3.2, peakHeight: 1.4, depth: 1.6, windowsPerHouse,
+  const bodies = [];
+  const roofs = [];
+  const steppedBoxes = [];
+  const cornices = [];
+  const windows = [];
+  const chimneyBoxes = [];
+
+  specs.forEach(({ x, width, wallHeight, depth, type, floors, windowsPerFloor }) => {
+    bodies.push({ position: [x, wallHeight / 2, z], scale: [width, wallHeight, depth], rotationY: 0 });
+
+    let roofTopY = wallHeight;
+    if (type === 'point') {
+      const peak = wallHeight * 0.42;
+      roofs.push({ position: [x, wallHeight, z], scale: [width * 1.03, peak, depth * 1.03], rotationY: 0 });
+      roofTopY = wallHeight + peak * 0.6;
+    } else if (type === 'stepped') {
+      const stepCount = 3;
+      for (let st = 0; st < stepCount; st++) {
+        const t = st / stepCount;
+        const stepW = width * (1 - t * 0.62);
+        const stepH = wallHeight * 0.15;
+        steppedBoxes.push({
+          position: [x, wallHeight + stepH * (st + 0.5), z],
+          scale: [stepW, stepH, depth * 0.92],
+          rotationY: 0,
+        });
+      }
+    } else {
+      cornices.push({ position: [x, wallHeight + wallHeight * 0.035, z], scale: [width * 1.1, wallHeight * 0.07, depth * 1.1], rotationY: 0 });
+      roofTopY = wallHeight + wallHeight * 0.07;
+    }
+
+    if (chimneys) {
+      chimneyBoxes.push({ position: [x + width * 0.28, roofTopY + 0.2, z - depth * 0.15], scale: [0.14, 0.4, 0.14], rotationY: 0 });
+    }
+
+    for (let f = 0; f < floors; f++) {
+      const fy = floors > 1 ? wallHeight * lerp(0.26, 0.84, f / (floors - 1)) : wallHeight * 0.55;
+      for (let wIdx = 0; wIdx < windowsPerFloor; wIdx++) {
+        const wt = windowsPerFloor > 1 ? wIdx / (windowsPerFloor - 1) : 0.5;
+        windows.push({
+          position: [x + (wt - 0.5) * width * 0.62, fy, z + depth / 2 + 0.02],
+          scale: [width * 0.15, wallHeight * (0.16 / floors) * 1.4, 0.05],
+          rotationY: 0,
+        });
+      }
+    }
   });
-  addBatch(group, unit.box, mat.main, houses.gables.map((p) => {
-    const wallHeight = p.scale[1] - 1.4; // gable scale includes the 1.4-unit peak; the body box is the wall below it
-    return { position: [p.position[0], p.position[1] + wallHeight / 2, p.position[2]], scale: [p.scale[0], wallHeight, p.scale[2]], rotationY: p.rotationY };
-  }), 'box', tally); // house bodies
-  addBatch(group, unit.penta, mat.main, houses.gables, 'penta', tally); // gable faces
-  addBatch(group, unit.tri, mat.tertiary, houses.roofs, 'tri', tally); // roof wedges
-  addBatch(group, unit.box, mat.secondary, houses.windows, 'box', tally); // windows
-  return { group, tally, houses };
+
+  addBatch(group, unit.box, mat.main, bodies, 'box', tally);
+  addBatch(group, unit.tri, mat.tertiary, roofs, 'tri', tally);
+  addBatch(group, unit.box, mat.tertiary, steppedBoxes, 'box', tally);
+  addBatch(group, unit.box, mat.tertiary, cornices, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, windows, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, chimneyBoxes, 'box', tally);
+  return { group, ...tally };
+}
+
+/* Lamp posts: thin pole + small cap box, deterministically spaced. */
+function lampPosts(unit, mat, specs) {
+  const group = new Group();
+  const tally = { triangles: 0, instances: 0 };
+  const poles = specs.map(({ x, z, height }) => ({ position: [x, height / 2, z], scale: [0.08, height, 0.08], rotationY: 0 }));
+  const caps = specs.map(({ x, z, height }) => ({ position: [x, height + 0.06, z], scale: [0.2, 0.12, 0.2], rotationY: 0 }));
+  addBatch(group, unit.box, mat.secondary, poles, 'box', tally);
+  addBatch(group, unit.box, mat.tertiary, caps, 'box', tally);
+  return { group, ...tally };
+}
+
+/* One arched bridge crossing the canal: deck built from short straight
+   segments following a half-sine profile (tangent-tilted via rotationX,
+   never bevelled/curved geometry), plus rail posts on both edges and two
+   abutment boxes anchoring the banks. */
+function archBridge(unit, mat, { x, z0, z1, rise, deckWidth, segments, postsPerSide }) {
+  const group = new Group();
+  const tally = { triangles: 0, instances: 0 };
+  const deck = [];
+  const posts = [];
+  const abutments = [];
+
+  for (let i = 0; i < segments; i++) {
+    const t0 = i / segments;
+    const t1 = (i + 1) / segments;
+    const y0 = rise * Math.sin(Math.PI * t0);
+    const y1 = rise * Math.sin(Math.PI * t1);
+    const z0i = z0 + t0 * (z1 - z0);
+    const z1i = z0 + t1 * (z1 - z0);
+    const dz = z1i - z0i;
+    const dy = y1 - y0;
+    const len = Math.sqrt(dz * dz + dy * dy);
+    const angle = Math.atan2(dy, dz);
+    deck.push({
+      position: [x, (y0 + y1) / 2, (z0i + z1i) / 2],
+      scale: [deckWidth, 0.12, len],
+      rotationX: -angle,
+    });
+  }
+
+  for (let side = 0; side < 2; side++) {
+    const xPos = x + (side === 0 ? -deckWidth / 2 : deckWidth / 2);
+    for (let i = 0; i < postsPerSide; i++) {
+      const t = postsPerSide > 1 ? i / (postsPerSide - 1) : 0.5;
+      const y = rise * Math.sin(Math.PI * t);
+      const zPos = z0 + t * (z1 - z0);
+      posts.push({ position: [xPos, y + 0.3, zPos], scale: [0.12, 0.6, 0.12], rotationY: 0 });
+    }
+  }
+
+  abutments.push({ position: [x, 0.15, z0 - 0.4], scale: [deckWidth * 1.4, 0.3, 0.9], rotationY: 0 });
+  abutments.push({ position: [x, 0.15, z1 + 0.4], scale: [deckWidth * 1.4, 0.3, 0.9], rotationY: 0 });
+
+  addBatch(group, unit.box, mat.tertiary, deck, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, posts, 'box', tally);
+  addBatch(group, unit.box, mat.tertiary, abutments, 'box', tally);
+  return { group, ...tally };
 }
 
 function amsterdamBike(unit, mat) {
-  const { group, tally } = riverfront(unit, mat, 30, 4);
+  const group = new Group();
+  const tally = { triangles: 0, instances: 0 };
+
+  // near bank: 9 individual houses (brief's 6-9 range), each with its own
+  // gable silhouette, chimney, and multi-floor window rows
+  const nearSpecs = houseSpecs(9, { depth: 1.7, baseWidth: 2.3, baseHeight: 3.8, floors: 3, windowsPerFloor: 2, seed: 5 });
+  const nearHouses = canalHouses(unit, mat, nearSpecs, -4, { chimneys: true });
+  group.add(nearHouses.group);
+  tally.triangles += nearHouses.triangles;
+  tally.instances += nearHouses.instances;
+
+  // far bank: a sparser, smaller row so the canal reads as flanked on both sides
+  const farSpecs = houseSpecs(5, { depth: 1.5, baseWidth: 2, baseHeight: 3, floors: 2, windowsPerFloor: 2, seed: 19 });
+  const farHouses = canalHouses(unit, mat, farSpecs, 11, {});
+  group.add(farHouses.group);
+  tally.triangles += farHouses.triangles;
+  tally.instances += farHouses.instances;
+
   addBatch(group, unit.box, mat.secondary, row(3, { x0: -12, x1: 12, y: -0.3, z: 5, size: [24, 0.4, 6] }), 'box', tally); // canal water
   addBatch(group, unit.box, mat.main, pairedRows(12, { x0: -12, x1: 12, y: 0, z0: 2, z1: 8, size: [1.6, 0.7, 1] }), 'box', tally); // quay
-  addBatch(group, unit.box, mat.tertiary, row(20, { x0: -12, x1: 12, y: 0.5, z: 5, size: [1.1, 0.25, 5.5] }), 'box', tally); // bridge deck/beam
-  addBatch(group, unit.box, mat.main, pairedRows(45, { x0: -12.5, x1: 12.5, y: 0.7, z0: 1.6, z1: 8.4, size: [0.15, 0.7, 0.15] }), 'box', tally); // quay posts
+
+  const bridge = archBridge(unit, mat, { x: 0, z0: 2, z1: 8, rise: 1.5, deckWidth: 1.8, segments: 9, postsPerSide: 5 });
+  group.add(bridge.group);
+  tally.triangles += bridge.triangles;
+  tally.instances += bridge.instances;
+
+  const lamps = lampPosts(unit, mat, [
+    { x: -4, z: 1.3, height: 1.1 },
+    { x: 4, z: 1.3, height: 1.1 },
+    { x: -4, z: 8.7, height: 1.1 },
+    { x: 4, z: 8.7, height: 1.1 },
+  ]);
+  group.add(lamps.group);
+  tally.triangles += lamps.triangles;
+  tally.instances += lamps.instances;
+
+  return { group, ...tally };
+}
+
+/* Squat cylinder-like tower (built from the hexagonal upright polygon,
+   the only round-ish primitive in the authored kind table) topped with a
+   small observatory box and a cone spire -- a low-poly Rundetårn silhouette. */
+function landmarkTower(unit, mat, { x, z }) {
+  const group = new Group();
+  const tally = { triangles: 0, instances: 0 };
+  addBatch(group, unit.hex, mat.main, [{ position: [x, 0, z], scale: [2.2, 3.4, 2.2], rotationY: 0 }], 'hex', tally); // tower base
+  addBatch(group, unit.box, mat.secondary, [{ position: [x, 3.4 + 0.4, z], scale: [1.2, 0.8, 1.2], rotationY: 0 }], 'box', tally); // observatory box
+  addBatch(group, unit.cone, mat.tertiary, [{ position: [x, 4.2, z], scale: [0.6, 0.9, 0.6], rotationY: 0 }], 'cone', tally); // spire
+  return { group, ...tally };
+}
+
+/* Sailboat masts: thin boxes (not cylinders -- keeps every primitive
+   inside the authored box/extrusion/cone kind table), a few carrying a
+   small triangular-extrusion sail. */
+function sailMasts(unit, mat, specs) {
+  const group = new Group();
+  const tally = { triangles: 0, instances: 0 };
+  const masts = specs.map(({ x, z, height }) => ({ position: [x, height / 2, z], scale: [0.05, height, 0.05], rotationY: 0 }));
+  const sails = specs.filter((s) => s.sail).map(({ x, z, height }) => ({
+    position: [x + 0.28, height * 0.55, z],
+    scale: [0.03, height * 0.5, 0.55],
+    rotationY: Math.PI / 2,
+  }));
+  addBatch(group, unit.box, mat.secondary, masts, 'box', tally);
+  addBatch(group, unit.tri, mat.tertiary, sails, 'tri', tally);
   return { group, ...tally };
 }
 
 function copenhagenRun(unit, mat) {
-  const { group, tally } = riverfront(unit, mat, 24, 4);
+  const group = new Group();
+  const tally = { triangles: 0, instances: 0 };
+
+  const specs = houseSpecs(10, { depth: 1.5, baseWidth: 2, baseHeight: 3.6, floors: 3, windowsPerFloor: 2, types: ['point'], seed: 13 });
+  const houses = canalHouses(unit, mat, specs, -4.5);
+  group.add(houses.group);
+  tally.triangles += houses.triangles;
+  tally.instances += houses.instances;
+
   addBatch(group, unit.box, mat.secondary, row(4, { x0: -12, x1: 12, y: -0.3, z: 5, size: [24, 0.4, 7] }), 'box', tally); // harbour water
-  addBatch(group, unit.box, mat.main, pairedRows(16, { x0: -12, x1: 12, y: 0, z0: 2, z1: 8.5, size: [1.6, 0.7, 1] }), 'box', tally); // quay
+  addBatch(group, unit.box, mat.main, pairedRows(16, { x0: -12, x1: 12, y: 0, z0: 2, z1: 8.5, size: [1.6, 0.7, 1], zJitter: 0.6 }), 'box', tally); // quay edge
   addBatch(group, unit.box, mat.main, pairedRows(24, { x0: -12.5, x1: 12.5, y: 0, z0: 3, z1: 9, size: [1, 0.5, 3] }), 'box', tally); // docks
   addBatch(group, unit.box, mat.tertiary, pairedRows(12, { x0: -12, x1: 12, y: 0.6, z0: 2.5, z1: 8.8, size: [0.2, 1.2, 0.2] }), 'box', tally); // harbour posts
   addBatch(group, unit.cone, mat.tertiary, ring(8, { radius: 10, y: 0, size: [0.4, 0.8, 0.4] }), 'cone', tally); // harbour markers
-  addBatch(group, unit.box, mat.secondary, row(2, { x0: -6, x1: 6, y: 0.5, z: 5, size: [3, 0.25, 5.5] }), 'box', tally); // bridge deck
+  addBatch(group, unit.box, mat.secondary, row(2, { x0: -6, x1: 6, y: 0.5, z: 5, size: [3, 0.25, 5.5] }), 'box', tally); // small bridge deck
+
+  const masts = sailMasts(unit, mat, [
+    { x: -9, z: 3, height: 3.2, sail: true },
+    { x: -6, z: 4, height: 2.6, sail: false },
+    { x: -2.5, z: 3.4, height: 3, sail: true },
+    { x: 3, z: 4, height: 2.7, sail: false },
+    { x: 8, z: 3.2, height: 3.1, sail: true },
+  ]);
+  group.add(masts.group);
+  tally.triangles += masts.triangles;
+  tally.instances += masts.instances;
+
+  const tower = landmarkTower(unit, mat, { x: 10.5, z: -5 });
+  group.add(tower.group);
+  tally.triangles += tower.triangles;
+  tally.instances += tower.instances;
+
   return { group, ...tally };
 }
 

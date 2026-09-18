@@ -5,11 +5,11 @@ import { buildZones, buildUnitGeometries, TRIANGLES_PER_KIND } from '../../asset
 
 const EXPECTED_PER_ZONE = [
   { name: 'start-plateau', triangles: 420, instances: 35 },
-  { name: 'swim-basin', triangles: 1600, instances: 118 },
+  { name: 'swim-basin', triangles: 2504, instances: 194 },
   { name: 't1-tunnel', triangles: 480, instances: 40 },
-  { name: 'amsterdam-bike', triangles: 3480, instances: 290 },
+  { name: 'amsterdam-bike', triangles: 1960, instances: 165 },
   { name: 't2-tunnel', triangles: 480, instances: 40 },
-  { name: 'copenhagen-run', triangles: 2840, instances: 234 },
+  { name: 'copenhagen-run', triangles: 1876, instances: 157 },
   { name: 'finish-pier', triangles: 560, instances: 44 },
 ];
 
@@ -46,18 +46,19 @@ test('each zone matches its authored per-zone triangle/instance budget', () => {
   });
 });
 
-test('the full course totals exactly 9,860 triangles across 801 instances, under the 25,000 ceiling', () => {
+test('the full course totals exactly 8,280 triangles across 675 instances, under the 25,000 ceiling', () => {
   const zones = buildZones();
   const triangles = zones.reduce((sum, z) => sum + z.triangles, 0);
   const instances = zones.reduce((sum, z) => sum + z.instances, 0);
-  assert.equal(triangles, 9860);
-  assert.equal(instances, 801);
+  assert.equal(triangles, 8280);
+  assert.equal(instances, 675);
   assert.ok(triangles <= 25000);
+  assert.ok(triangles <= 16000, 'stays within the disciplined target ceiling');
 });
 
-test('no single zone exceeds the 3,480 visible-submission budget', () => {
+test('no single zone exceeds the 2,504 visible-submission budget', () => {
   const zones = buildZones();
-  zones.forEach((zone) => assert.ok(zone.triangles <= 3480));
+  zones.forEach((zone) => assert.ok(zone.triangles <= 2504));
 });
 
 function triangleCount(geometry) {

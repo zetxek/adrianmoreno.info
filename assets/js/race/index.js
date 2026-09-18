@@ -347,6 +347,11 @@ import * as S from './state.js';
     state.world.settleFrames = 2;
     worldWrap.hidden = false;
     root.classList.add('race--world-ready');
+    /* The wrap is display:none until now (rect 0x0 -> 1x1 drawing buffer).
+       Size the buffer explicitly: the wrap is position:fixed, so the
+       ResizeObserver on root cannot be relied on to fire here (it only
+       fires if the grid change happens to alter root's box). */
+    onWorldResize();
     invalidate(DIRTY.LAYOUT | DIRTY.WORLD);
   }
 
