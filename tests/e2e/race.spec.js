@@ -44,7 +44,10 @@ test('race renders all nine canonical experience records and real destinations',
     expect((await page.request.get(href)).ok()).toBeTruthy();
   }
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/race\/$/);
-  const scripts = await page.locator('script[src]').evaluateAll(nodes => nodes.map(n => ({ src: n.src, defer: n.defer })));
+  const scripts = await page.locator('script[src]').evaluateAll(nodes => nodes
+    .map(n => ({ src: n.src, defer: n.defer }))
+    // `hugo server` injects a livereload.js script tag not present in production builds; it's not the app bundle under test.
+    .filter(s => !/\/livereload\.js/.test(s.src)));
   expect(scripts).toHaveLength(1);
   expect(scripts[0]).toMatchObject({ defer: true });
   expect(scripts[0].src).toMatch(/\/js\/race\./);
@@ -266,7 +269,13 @@ test('idle: no recurring animation frame once scrolling and gait cadence settle'
   await page.goto(raceURL);
   await page.waitForTimeout(500);
   await page.evaluate(() => window.scrollBy(0, 1200));
-  await page.waitForTimeout(700); // past the 300ms cadence-idle threshold
+  // `html { scroll-behavior: smooth }` (assets/css/race.css) means the scroll
+  // triggered above is still animating when this runs; its own scroll events
+  // keep resetting the app's cadence-idle timer. Wait for scrollY to actually
+  // stop moving (duration varies by browser, notably longer on Firefox)
+  // before assuming we're past the 300ms cadence-idle threshold.
+  await waitForScrollSettle(page);
+  await page.waitForTimeout(400); // past the 300ms cadence-idle threshold
   const rafCalls = await page.evaluate(() => new Promise((resolve) => {
     let count = 0;
     const original = window.requestAnimationFrame;

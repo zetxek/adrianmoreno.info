@@ -18,7 +18,7 @@ test.describe('Homepage', () => {
 
     // Verify header navigation
     const headerLinks = page.locator('header nav a');
-    await expect(headerLinks).toHaveCount(7); // About, Experience, Articles, Books, Contact, Search, Theme selector
+    await expect(headerLinks).toHaveCount(8); // About, Experience, Articles, Books, Contact, Search, Game mode, Theme selector
 
     // Verify social links are present
     const socialLinks = page.locator('.platform-links a');
