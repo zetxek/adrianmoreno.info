@@ -195,104 +195,6 @@ function addBatch(group, geometry, material, placements, kind, tally) {
 /* START — a labelled launch gantry releases one red course ribbon from its
    transverse start line toward +Z. (GPT-6 Astra, normalized to file conventions.) */
 function startPlateau(unit, mat) {
-// --- PREVIOUS HORREO ROW FUNCTION ---
-// --- END PREVIOUS HORREO ROW FUNCTION ---
-
-function horreoRow(unit, mat, specs) {
-// --- PREVIOUS SWIM BASIN FUNCTION ---
-// --- END PREVIOUS SWIM BASIN FUNCTION ---
-
-function swimBasin(unit, mat) {
-  const group = new Group();
-  const tally = { triangles: 0, instances: 0 };
-  addBatch(group, unit.box, mat.secondary, row(5, { x0: -12, x1: 12, y: -0.3, z: 0, size: [24, 0.4, 16] }), 'box', tally); // ground/water (the ría)
-  addBatch(group, unit.box, mat.main, pairedRows(16, { x0: -12, x1: 12, y: 0, z0: -8, z1: 8, size: [1.4, 1, 2], zJitter: 1.1 }), 'box', tally); // irregular coastline: quay terraces
-  addBatch(group, unit.box, mat.main, pairedRows(24, { x0: -13, x1: 13, y: 0, z0: -9, z1: 9, size: [1, 1.6, 0.5], zJitter: 0.8 }), 'box', tally); // irregular coastline: retaining walls
-  addBatch(group, unit.box, mat.tertiary, grid(20, 2, { x0: -12, x1: 12, z0: -7.5, z1: 7.5, y: 0.4, size: [1, 0.2, 3] }), 'box', tally); // jetty decks
-  addBatch(group, unit.cone, mat.tertiary, ring(20, { radius: 11, y: 0, size: [0.3, 0.6, 0.3] }), 'cone', tally); // bollards
-  addBatch(group, unit.hex, mat.tertiary, row(13, { x0: -12, x1: 12, y: 0, z: -9.5, size: [1.4, 1, 1.4], hJitter: 0.15, anchor: 'base' }), 'hex', tally); // breakwaters
-
-  const horreos = horreoRow(unit, mat, [
-    { x: -1.5, z: 1.5, length: 6.5, width: 2.4, wallHeight: 2.6, pillarCount: 8, hasCross: true },
-    { x: 6.5, z: 3, length: 3.6, width: 1.9, wallHeight: 2.1, pillarCount: 6, hasCross: false },
-    { x: -8, z: 3.5, length: 3.2, width: 1.8, wallHeight: 1.9, pillarCount: 6, hasCross: false, rotationY: 0.18 },
-    { x: 1.5, z: 6.5, length: 2.8, width: 1.7, wallHeight: 1.7, pillarCount: 6, hasCross: false, rotationY: -0.12 },
-  ]);
-  group.add(horreos.group);
-  tally.triangles += horreos.triangles;
-  tally.instances += horreos.instances;
-
-  const boulders = boulderField(unit, mat, 3, { x0: -9, x1: 9, z: -4.5, zJitter: 1.6 });
-  group.add(boulders.group);
-  tally.triangles += boulders.triangles;
-  tally.instances += boulders.instances;
-
-  const boats = moored(unit, mat, [
-    { x: -4, z: 0, length: 1.8, sail: true },
-    { x: 3.5, z: -1, length: 1.5, sail: false },
-    { x: -0.5, z: -2.5, length: 1.6, sail: true },
-  ]);
-  group.add(boats.group);
-  tally.triangles += boats.triangles;
-  tally.instances += boats.instances;
-
-  return { group, ...tally };
-}
-
-  const group = new Group();
-  const tally = { triangles: 0, instances: 0 };
-  const bodies = [];
-  const pillars = [];
-  const caps = [];
-  const roofPanels = [];
-  const crossParts = [];
-
-  specs.forEach(({ x, z, length, width, wallHeight, pillarCount, hasCross, rotationY = 0 }) => {
-    const pillarHeight = wallHeight * 0.55;
-    const bodyHeight = wallHeight * 0.45;
-    bodies.push({ position: [x, pillarHeight + bodyHeight / 2, z], scale: [length, bodyHeight, width], rotationY });
-
-    const perSide = Math.ceil(pillarCount / 2);
-    for (let i = 0; i < pillarCount; i++) {
-      const side = i < perSide ? 0 : 1;
-      const localI = side === 0 ? i : i - perSide;
-      const localCount = side === 0 ? perSide : pillarCount - perSide;
-      const t = localCount > 1 ? localI / (localCount - 1) : 0.5;
-      const px = x + lerp(-length / 2 + 0.35, length / 2 - 0.35, t);
-      const pz = z + (side === 0 ? -(width / 2 - 0.18) : (width / 2 - 0.18));
-      pillars.push({ position: [px, pillarHeight / 2, pz], scale: [0.32, pillarHeight, 0.32], rotationY });
-      caps.push({ position: [px, pillarHeight + 0.03, pz], scale: [0.6, 0.08, 0.6], rotationY });
-    }
-
-    const roofRise = bodyHeight * 0.85;
-    const roofY = pillarHeight + bodyHeight;
-    const slopeAngle = Math.atan2(roofRise, width / 2);
-    const panelLen = Math.sqrt(roofRise * roofRise + (width / 2) * (width / 2));
-    [-1, 1].forEach((side) => {
-      roofPanels.push({
-        position: [x, roofY + roofRise / 2, z + side * (width / 4)],
-        scale: [length * 1.06, 0.1, panelLen],
-        rotationX: side > 0 ? -slopeAngle : slopeAngle,
-        rotationY,
-      });
-    });
-
-    if (hasCross) {
-      const crossX = x + length / 2 + 0.08;
-      const crossY = roofY + roofRise + 0.32;
-      crossParts.push({ position: [crossX, crossY, z], scale: [0.08, 0.6, 0.08], rotationY });
-      crossParts.push({ position: [crossX, crossY + 0.16, z], scale: [0.4, 0.08, 0.08], rotationY });
-    }
-  });
-
-  addBatch(group, unit.box, mat.main, bodies, 'box', tally);
-  addBatch(group, unit.box, mat.secondary, pillars, 'box', tally);
-  addBatch(group, unit.box, mat.secondary, caps, 'box', tally);
-  addBatch(group, unit.box, mat.tertiary, roofPanels, 'box', tally);
-  addBatch(group, unit.box, mat.secondary, crossParts, 'box', tally);
-  return { group, ...tally };
-}
-
   const group = new Group();
   const tally = { triangles: 0, instances: 0 };
 
@@ -376,6 +278,60 @@ function swimBasin(unit, mat) {
    (two rotated deck-style panels meeting at a ridge) and rat-guard caps
    on every pillar; the main hórreo also gets a small cross finial at one
    gable end. All boxes, per the geometry-accounting discipline. */
+function horreoRow(unit, mat, specs) {
+  const group = new Group();
+  const tally = { triangles: 0, instances: 0 };
+  const bodies = [];
+  const pillars = [];
+  const caps = [];
+  const roofPanels = [];
+  const crossParts = [];
+
+  specs.forEach(({ x, z, length, width, wallHeight, pillarCount, hasCross, rotationY = 0 }) => {
+    const pillarHeight = wallHeight * 0.55;
+    const bodyHeight = wallHeight * 0.45;
+    bodies.push({ position: [x, pillarHeight + bodyHeight / 2, z], scale: [length, bodyHeight, width], rotationY });
+
+    const perSide = Math.ceil(pillarCount / 2);
+    for (let i = 0; i < pillarCount; i++) {
+      const side = i < perSide ? 0 : 1;
+      const localI = side === 0 ? i : i - perSide;
+      const localCount = side === 0 ? perSide : pillarCount - perSide;
+      const t = localCount > 1 ? localI / (localCount - 1) : 0.5;
+      const px = x + lerp(-length / 2 + 0.35, length / 2 - 0.35, t);
+      const pz = z + (side === 0 ? -(width / 2 - 0.18) : (width / 2 - 0.18));
+      pillars.push({ position: [px, pillarHeight / 2, pz], scale: [0.32, pillarHeight, 0.32], rotationY });
+      caps.push({ position: [px, pillarHeight + 0.03, pz], scale: [0.6, 0.08, 0.6], rotationY });
+    }
+
+    const roofRise = bodyHeight * 0.85;
+    const roofY = pillarHeight + bodyHeight;
+    const slopeAngle = Math.atan2(roofRise, width / 2);
+    const panelLen = Math.sqrt(roofRise * roofRise + (width / 2) * (width / 2));
+    [-1, 1].forEach((side) => {
+      roofPanels.push({
+        position: [x, roofY + roofRise / 2, z + side * (width / 4)],
+        scale: [length * 1.06, 0.1, panelLen],
+        rotationX: side > 0 ? -slopeAngle : slopeAngle,
+        rotationY,
+      });
+    });
+
+    if (hasCross) {
+      const crossX = x + length / 2 + 0.08;
+      const crossY = roofY + roofRise + 0.32;
+      crossParts.push({ position: [crossX, crossY, z], scale: [0.08, 0.6, 0.08], rotationY });
+      crossParts.push({ position: [crossX, crossY + 0.16, z], scale: [0.4, 0.08, 0.08], rotationY });
+    }
+  });
+
+  addBatch(group, unit.box, mat.main, bodies, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, pillars, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, caps, 'box', tally);
+  addBatch(group, unit.box, mat.tertiary, roofPanels, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, crossParts, 'box', tally);
+  return { group, ...tally };
+}
 
 /* Angular granite monoliths: rotated boxes only (no icosahedron/dodecahedron
    primitive is part of the authored kind table), tilted on all three axes
@@ -472,6 +428,103 @@ function checkedCityResult(group, tally) {
 // Only SWIM's water color changes. T1 still uses the original dark ria water.
 // -----------------------------------------------------------------------------
 
+function swimBasin(unit, mat) {
+  const group = new Group();
+  const tally = { triangles: 0, instances: 0 };
+  const waterY = -0.08;
+  const shoreY = 0.24;
+
+  const atlanticWater = riaWaterMaterial(mat);
+  atlanticWater.color.setHex(0x1e4d5c);
+
+  addBatch(group, unit.box, atlanticWater, row(1, {
+    x0: 0, x1: 0, y: waterY - 0.32, z: -0.5,
+    size: [27.6, 0.32, 21],
+  }), 'box', tally);
+
+  const shoreFronts = [8.55, 9.2, 8.85, 9.25, 8.6];
+  const shoreSections = [];
+  for (let i = 0; i < shoreFronts.length; i++) {
+    const x = -11.04 + i * 5.52;
+    const front = shoreFronts[i];
+    shoreSections.push(...row(1, {
+      x0: x, x1: x, y: -0.4, z: (front + 12.4) / 2,
+      size: [5.52, shoreY + 0.4, 12.4 - front],
+    }));
+  }
+  addBatch(group, unit.box, mat.ground, shoreSections, 'box', tally);
+
+  const coping = [];
+  for (const i of [0, 2, 4]) {
+    const x = -11.04 + i * 5.52;
+    coping.push(...row(1, {
+      x0: x, x1: x, y: shoreY, z: shoreFronts[i] + 0.24,
+      size: [3.7, 0.18, 0.48],
+    }));
+  }
+  addBatch(group, unit.box, mat.main, coping, 'box', tally);
+
+  addBatch(group, unit.box, mat.main, row(1, {
+    x0: 4.6, x1: 4.6, y: shoreY - 0.16, z: 8.25,
+    size: [1.3, 0.16, 2.3],
+  }), 'box', tally);
+
+  const raftSpecs = [
+    { x: -7.3, z: -4.8, yaw: -0.055 },
+    { x: -2.8, z: -4.1, yaw:  0.035 },
+    { x: -6.6, z:  0.0, yaw:  0.065 },
+    { x: -1.8, z:  0.8, yaw: -0.025 },
+  ];
+  const platforms = [];
+  const battens = [];
+  const raftTopY = waterY + 0.17;
+  const battenH = 0.055;
+
+  for (const { x, z, yaw } of raftSpecs) {
+    const c = Math.cos(yaw);
+    const s = Math.sin(yaw);
+    const localBox = (dx, y, dz, scale) => ({
+      position: [x + dx * c + dz * s, y, z - dx * s + dz * c],
+      scale,
+      rotationY: yaw,
+    });
+
+    platforms.push(localBox(0, raftTopY - 0.125, 0, [2.2, 0.25, 2.2]));
+
+    for (const offset of [-0.72, 0, 0.72]) {
+      battens.push(localBox(0, raftTopY + battenH / 2, offset, [2.12, battenH, 0.075]));
+      battens.push(localBox(offset, raftTopY + battenH * 1.5, 0, [0.075, battenH, 2.12]));
+    }
+  }
+  addBatch(group, unit.box, mat.main, platforms, 'box', tally);
+  addBatch(group, unit.box, mat.tertiary, battens, 'box', tally);
+
+  addBatch(group, unit.hex, mat.main, [
+    { position: [9.5, waterY - 0.3, -9.6], scale: [1.65, 0.63, 1.55], rotationY: 0.12 },
+    { position: [10.85, waterY - 0.3, -9.05], scale: [1.6, 0.72, 1.5], rotationY: -0.08 },
+    { position: [12.05, waterY - 0.3, -8.35], scale: [1.55, 0.58, 1.45], rotationY: 0.2 },
+  ], 'hex', tally);
+
+  const horreo = horreoRow(unit, mat, [{
+    x: 8.4, z: 10.3, length: 3.3, width: 1.45,
+    wallHeight: 1.65, pillarCount: 4, hasCross: true, rotationY: 0,
+  }]);
+  horreo.group.position.y = shoreY;
+  group.add(horreo.group);
+  tally.triangles += horreo.triangles;
+  tally.instances += horreo.instances;
+
+  const boats = moored(unit, mat, [
+    { x: 2.45, z: 8.0, length: 2.1, sail: false },
+    { x: 6.7, z: 7.85, length: 1.8, sail: false },
+  ]);
+  boats.group.position.y = waterY;
+  group.add(boats.group);
+  tally.triangles += boats.triangles;
+  tally.instances += boats.instances;
+
+  return { group, ...tally };
+}
 
 
 /* Small moored boats resting on the water plane: a stretched box hull,
