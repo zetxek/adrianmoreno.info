@@ -7,9 +7,9 @@ const EXPECTED_PER_ZONE = [
   { name: 'start-plateau', triangles: 600, instances: 50 },
   { name: 'swim-basin', triangles: 696, instances: 56 },
   { name: 't1-tunnel', triangles: 612, instances: 51 },
-  { name: 'amsterdam-bike', triangles: 1984, instances: 167 },
+  { name: 'amsterdam-bike', triangles: 1000, instances: 149 },
   { name: 't2-tunnel', triangles: 552, instances: 46 },
-  { name: 'copenhagen-run', triangles: 1900, instances: 159 },
+  { name: 'copenhagen-run', triangles: 828, instances: 137 },
   { name: 'finish-pier', triangles: 732, instances: 61 },
 ];
 
@@ -50,8 +50,8 @@ test('the full course totals exactly 8,280 triangles across 675 instances, under
   const zones = buildZones();
   const triangles = zones.reduce((sum, z) => sum + z.triangles, 0);
   const instances = zones.reduce((sum, z) => sum + z.instances, 0);
-  assert.equal(triangles, 7076);
-  assert.equal(instances, 590);
+  assert.equal(triangles, 5020);
+  assert.equal(instances, 550);
   assert.ok(triangles <= 25000);
   assert.ok(triangles <= 16000, 'stays within the disciplined target ceiling');
 });

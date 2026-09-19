@@ -80,6 +80,11 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
 
   function update({ zoneIndex, localProgress, boundaries, scrollY }) {
     if (disposed) return;
+    /* Scroll-driven micro-interaction (no idle loop): the Amsterdam
+       windmill's sails turn with chapter progress. Rotation is set
+       absolutely from localProgress — never accumulated per frame. */
+    const sails = zones[zoneIndex].group.getObjectByName('windmill-sails');
+    if (sails) sails.rotation.z = localProgress * Math.PI * 2 * (sails.userData.scrollTurns || 1);
     const dissolve = dissolveBand(zoneIndex, boundaries, scrollY, zones.length);
     if (!dissolve) {
       showOnly(zoneIndex);

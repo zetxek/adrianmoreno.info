@@ -3,7 +3,7 @@
    transcription of the authored triangle table checked by
    tests/unit/race-world-geometry.test.mjs (source of truth for exact
    per-zone and total counts). */
-import { BoxGeometry, BufferGeometry, Euler, ExtrudeGeometry, Float32BufferAttribute, Group, InstancedMesh, Matrix4, MeshLambertMaterial, Quaternion, Shape, Vector3 } from 'three';
+import { BoxGeometry, DoubleSide, BufferGeometry, Euler, ExtrudeGeometry, Float32BufferAttribute, Group, InstancedMesh, Matrix4, MeshLambertMaterial, Quaternion, Shape, Vector3 } from 'three';
 
 export const TRIANGLES_PER_KIND = { box: 12, tri: 8, penta: 16, hex: 20, cone: 16 };
 
@@ -367,22 +367,81 @@ function riaWaterMaterial(mat) {
   return water;
 }
 
-/* RÍA DE AROUSA — broad open water, four timber bateas, one inhabited shore.
-   No perimeter enclosure, central rocks, jetty grid or red swim markings. */
+function cityColorMaterial(source, color, { doubleSided = false, glow = 0 } = {}) {
+  const material = source.clone();
+  material.color.setHex(color);
+  if (doubleSided) material.side = DoubleSide;
+  if (glow > 0) {
+    material.emissive.setHex(color);
+    material.emissiveIntensity = glow;
+  }
+  return material;
+}
+
+/* Default: a unit XY quad facing +Z. Custom quads use four perimeter-ordered
+   vertices. These are actual two-triangle surfaces, not box-count shortcuts.
+   DoubleSide materials make thin lattice/stem details visible from either side. */
+function cityQuadGeometry(quads = [[
+  [-0.5, -0.5, 0],
+  [ 0.5, -0.5, 0],
+  [ 0.5,  0.5, 0],
+  [-0.5,  0.5, 0],
+]]) {
+  const positions = [];
+  for (const q of quads) {
+    for (const i of [0, 1, 2, 0, 2, 3]) positions.push(...q[i]);
+  }
+  const geometry = new BufferGeometry();
+  geometry.setAttribute('position', new Float32BufferAttribute(positions, 3));
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+/* New surface/profile geometries are counted from their actual topology.
+   Existing unit primitives continue through addBatch() and its authored kinds. */
+function addCityGeometryBatch(group, geometry, material, placements, tally) {
+  if (!placements.length) return;
+  const vertexCount = geometry.index
+    ? geometry.index.count
+    : geometry.getAttribute('position').count;
+  group.add(buildInstancedMesh(geometry, material, placements));
+  tally.instances += placements.length;
+  tally.triangles += placements.length * vertexCount / 3;
+}
+
+function attachCityPart(group, tally, part) {
+  group.add(part.group);
+  tally.instances += part.instances;
+  tally.triangles += part.triangles;
+}
+
+function checkedCityResult(group, tally) {
+  if (tally.triangles > 1100) {
+    throw new Error(`${group.name}: ${tally.triangles} triangles exceeds the 1100-triangle budget`);
+  }
+  return { group, ...tally };
+}
+
+
+// -----------------------------------------------------------------------------
+// GALICIA — identical shoreline, boats, bateas, hórreo, and placements.
+// Only SWIM's water color changes. T1 still uses the original dark ria water.
+// -----------------------------------------------------------------------------
+
 function swimBasin(unit, mat) {
   const group = new Group();
   const tally = { triangles: 0, instances: 0 };
   const waterY = -0.08;
   const shoreY = 0.24;
 
-  // One uninterrupted water slab: x=-13.8..13.8, z=-11..10.
-  // Its back strip continues beneath the irregular shoreline, preventing gaps.
-  addBatch(group, unit.box, riaWaterMaterial(mat), row(1, {
+  const atlanticWater = riaWaterMaterial(mat);
+  atlanticWater.color.setHex(0x1e4d5c);
+
+  addBatch(group, unit.box, atlanticWater, row(1, {
     x0: 0, x1: 0, y: waterY - 0.32, z: -0.5,
     size: [27.6, 0.32, 21],
   }), 'box', tally);
 
-  // Five adjoining land sections describe ONE coastline, along +Z only.
   const shoreFronts = [8.55, 9.2, 8.85, 9.25, 8.6];
   const shoreSections = [];
   for (let i = 0; i < shoreFronts.length; i++) {
@@ -395,7 +454,6 @@ function swimBasin(unit, mat) {
   }
   addBatch(group, unit.box, mat.ground, shoreSections, 'box', tally);
 
-  // Three short granite coping runs articulate the shore without fencing it.
   const coping = [];
   for (const i of [0, 2, 4]) {
     const x = -11.04 + i * 5.52;
@@ -406,15 +464,11 @@ function swimBasin(unit, mat) {
   }
   addBatch(group, unit.box, mat.main, coping, 'box', tally);
 
-  // One modest working landing, attached to the shore rather than a dock grid.
   addBatch(group, unit.box, mat.main, row(1, {
     x0: 4.6, x1: 4.6, y: shoreY - 0.16, z: 8.25,
     size: [1.3, 0.16, 2.3],
   }), 'box', tally);
 
-  // Four square bateas occupy a loose western grid. The eastern half and
-  // foreground remain open water. Exposed crossed battens suggest the rope
-  // grid: submerged rope geometry would disappear beneath opaque water.
   const raftSpecs = [
     { x: -7.3, z: -4.8, yaw: -0.055 },
     { x: -2.8, z: -4.1, yaw:  0.035 },
@@ -437,7 +491,6 @@ function swimBasin(unit, mat) {
 
     platforms.push(localBox(0, raftTopY - 0.125, 0, [2.2, 0.25, 2.2]));
 
-    // Two physically stacked timber directions, not coplanar overlays.
     for (const offset of [-0.72, 0, 0.72]) {
       battens.push(localBox(0, raftTopY + battenH / 2, offset, [2.12, battenH, 0.075]));
       battens.push(localBox(offset, raftTopY + battenH * 1.5, 0, [0.075, battenH, 2.12]));
@@ -446,14 +499,12 @@ function swimBasin(unit, mat) {
   addBatch(group, unit.box, mat.main, platforms, 'box', tally);
   addBatch(group, unit.box, mat.tertiary, battens, 'box', tally);
 
-  // A small, isolated breakwater at the far corner—not a ring of markers.
   addBatch(group, unit.hex, mat.main, [
     { position: [9.5, waterY - 0.3, -9.6], scale: [1.65, 0.63, 1.55], rotationY: 0.12 },
     { position: [10.85, waterY - 0.3, -9.05], scale: [1.6, 0.72, 1.5], rotationY: -0.08 },
     { position: [12.05, waterY - 0.3, -8.35], scale: [1.55, 0.58, 1.45], rotationY: 0.2 },
   ], 'hex', tally);
 
-  // Exactly one modest hórreo, with its feet seated on coastal land.
   const horreo = horreoRow(unit, mat, [{
     x: 8.4, z: 10.3, length: 3.3, width: 1.45,
     wallHeight: 1.65, pillarCount: 4, hasCross: true, rotationY: 0,
@@ -463,7 +514,6 @@ function swimBasin(unit, mat) {
   tally.triangles += horreo.triangles;
   tally.instances += horreo.instances;
 
-  // Two small working skiffs beside the landing; no forest of sail masts.
   const boats = moored(unit, mat, [
     { x: 2.45, z: 8.0, length: 2.1, sail: false },
     { x: 6.7, z: 7.85, length: 1.8, sail: false },
@@ -475,6 +525,7 @@ function swimBasin(unit, mat) {
 
   return { group, ...tally };
 }
+
 
 /* Small moored boats resting on the water plane: a stretched box hull,
    optionally with a thin mast and a triangular-extrusion sail. */
@@ -858,50 +909,453 @@ function archBridge(unit, mat, { x, z0, z1, rise, deckWidth, segments, postsPerS
   return { group, ...tally };
 }
 
-function amsterdamBike(unit, mat) {
+// -----------------------------------------------------------------------------
+// AMSTERDAM — six narrow merchant houses, three gable families, hijsbalks,
+// a side garden, warm windows/lamps, and a scroll-ready smock mill.
+// -----------------------------------------------------------------------------
+
+function amsterdamMerchantHouses(unit, mat, { baseY, z, centerX = 0.65 }) {
   const group = new Group();
+  group.name = 'amsterdam-merchant-houses';
   const tally = { triangles: 0, instances: 0 };
 
-  // near bank: 9 individual houses (brief's 6-9 range), each with its own
-  // gable silhouette, chimney, and multi-floor window rows
-  const nearSpecs = houseSpecs(9, { depth: 1.7, baseWidth: 2.3, baseHeight: 3.8, floors: 3, windowsPerFloor: 2, seed: 5 });
-  // Near-bank ground: z=-6..2, behind the houses through to the canal edge.
-  // Bottom=-0.2, thickness=0.3: top=0.1, flush with the existing water.
-  addBatch(group, unit.box, mat.ground, row(1, { x0: 0, x1: 0, y: -0.2, z: -2, size: [Math.max(26.4, nearSpecs.reduce((sum, s) => sum + s.width, 0) + 2), 0.3, 8] }), 'box', tally);
-  const nearHouses = canalHouses(unit, mat, nearSpecs, -4, { chimneys: true });
-  group.add(nearHouses.group);
-  tally.triangles += nearHouses.triangles;
-  tally.instances += nearHouses.instances;
+  const specs = [
+    { width: 2.05, height: 4.70, floors: 4, type: 'stepped' },
+    { width: 1.90, height: 5.05, floors: 5, type: 'bell' },
+    { width: 2.15, height: 4.50, floors: 4, type: 'neck' },
+    { width: 1.95, height: 5.25, floors: 5, type: 'stepped' },
+    { width: 2.10, height: 4.80, floors: 4, type: 'bell' },
+    { width: 1.90, height: 5.00, floors: 5, type: 'neck' },
+  ];
+  const depth = 1.75;
+  const frontZ = z + depth / 2;
+  const quad = cityQuadGeometry();
+  const darkGlass = cityColorMaterial(mat.secondary, 0x242e34, { doubleSided: true });
+  const litGlass = cityColorMaterial(mat.secondary, 0xe8d9a0, { glow: 0.35 });
 
-  // far bank: a sparser, smaller row so the canal reads as flanked on both sides
-  const farSpecs = houseSpecs(5, { depth: 1.5, baseWidth: 2, baseHeight: 3, floors: 2, windowsPerFloor: 2, seed: 19 });
-  // Far-bank ground: z=8..13, from the canal edge to behind the houses.
-  addBatch(group, unit.box, mat.ground, row(1, { x0: 0, x1: 0, y: -0.2, z: 10.5, size: [26.4, 0.3, 5] }), 'box', tally);
-  const farHouses = canalHouses(unit, mat, farSpecs, 11, {});
-  group.add(farHouses.group);
-  tally.triangles += farHouses.triangles;
-  tally.instances += farHouses.instances;
+  // BoxGeometry material order: +X, -X, +Y, -Y, +Z, -Z.
+  // Dark roof surfaces, but stone-colored front gables.
+  const gableBoxMaterials = [
+    mat.tertiary, mat.tertiary, mat.tertiary,
+    mat.secondary, mat.secondary, mat.secondary,
+  ];
 
-  addBatch(group, unit.box, mat.secondary, row(3, { x0: -12, x1: 12, y: -0.3, z: 5, size: [24, 0.4, 6] }), 'box', tally); // canal water
-  addBatch(group, unit.box, mat.main, pairedRows(12, { x0: -12, x1: 12, y: 0, z0: 2, z1: 8, size: [1.6, 0.7, 1] }), 'box', tally); // quay
-
-  const bridge = archBridge(unit, mat, { x: 0, z0: 2, z1: 8, rise: 1.5, deckWidth: 1.8, segments: 9, postsPerSide: 5 });
-  group.add(bridge.group);
-  tally.triangles += bridge.triangles;
-  tally.instances += bridge.instances;
-
-  const lamps = lampPosts(unit, mat, [
-    { x: -4, z: 1.3, height: 1.1 },
-    { x: 4, z: 1.3, height: 1.1 },
-    { x: -4, z: 8.7, height: 1.1 },
-    { x: 4, z: 8.7, height: 1.1 },
+  // Faceted bell shoulders, not another triangular roof.
+  // Eight profile vertices => 28 actual extrusion triangles.
+  const bellGeometry = flatPolygon([
+    [-0.50, 0.00],
+    [ 0.50, 0.00],
+    [ 0.38, 0.18],
+    [ 0.25, 0.38],
+    [ 0.18, 0.70],
+    [-0.18, 0.70],
+    [-0.25, 0.38],
+    [-0.38, 0.18],
   ]);
-  group.add(lamps.group);
-  tally.triangles += lamps.triangles;
-  tally.instances += lamps.instances;
+
+  const bodies = [];
+  const steppedAndNeck = [];
+  const bells = [];
+  const beams = [];
+  const darkWindows = [];
+  const litWindows = [];
+  const doors = [];
+  const litHouses = new Set([0, 1, 3, 5]);
+
+  let cursor = centerX - specs.reduce((sum, s) => sum + s.width, 0) / 2;
+
+  specs.forEach((spec, houseIndex) => {
+    const { width, height, floors, type } = spec;
+    const x = cursor + width / 2;
+    cursor += width;
+
+    bodies.push({
+      position: [x, baseY + height / 2, z],
+      scale: [width, height, depth],
+      rotationY: 0,
+    });
+
+    const wallTop = baseY + height;
+    let gableHeight;
+
+    if (type === 'stepped') {
+      gableHeight = 0.68;
+      for (let step = 0; step < 2; step++) {
+        steppedAndNeck.push({
+          position: [x, wallTop + 0.34 * (step + 0.5), z],
+          scale: [width * (step === 0 ? 0.76 : 0.43), 0.34, depth],
+          rotationY: 0,
+        });
+      }
+    } else if (type === 'bell') {
+      gableHeight = 0.78;
+      bells.push({
+        // Extrusions run from local Z=0..1; center their depth explicitly.
+        position: [x, wallTop, z - depth / 2],
+        scale: [width, gableHeight / 0.70, depth],
+        rotationY: 0,
+      });
+    } else {
+      gableHeight = 0.72;
+      steppedAndNeck.push({
+        position: [x, wallTop + 0.06, z],
+        scale: [width, 0.12, depth],
+        rotationY: 0,
+      });
+      steppedAndNeck.push({
+        position: [x, wallTop + 0.12 + 0.30, z],
+        scale: [width * 0.40, 0.60, depth],
+        rotationY: 0,
+      });
+    }
+
+    // Every house has a real projecting hijsbalk: 0.33 forward of its facade.
+    beams.push({
+      position: [x, wallTop + gableHeight - 0.12, frontZ + 0.18],
+      scale: [0.13, 0.13, 0.58],
+      rotationY: 0,
+    });
+
+    for (let floor = 0; floor < floors; floor++) {
+      const fy = baseY + height * lerp(0.21, 0.85, floor / (floors - 1));
+      for (let column = 0; column < 2; column++) {
+        const wx = x + (column === 0 ? -1 : 1) * width * 0.22;
+        const isLit = litHouses.has(houseIndex) && floor === 1 && column === 1;
+
+        if (isLit) {
+          // Back edge slightly inset; visible face sits just proud of masonry.
+          litWindows.push({
+            position: [wx, fy, frontZ + 0.008],
+            scale: [width * 0.18, 0.40, 0.026],
+            rotationY: 0,
+          });
+        } else {
+          darkWindows.push({
+            position: [wx, fy, frontZ + 0.016],
+            scale: [width * 0.18, 0.40, 1],
+            rotationY: 0,
+          });
+        }
+      }
+    }
+
+    doors.push({
+      position: [x, baseY + 0.36, frontZ + 0.016],
+      scale: [width * 0.18, 0.64, 1],
+      rotationY: 0,
+    });
+  });
+
+  addBatch(group, unit.box, mat.main, bodies, 'box', tally);
+  addBatch(group, unit.box, gableBoxMaterials, steppedAndNeck, 'box', tally);
+  addCityGeometryBatch(
+    group, bellGeometry, [mat.secondary, mat.tertiary], bells, tally,
+  );
+  addBatch(group, unit.box, mat.secondary, beams, 'box', tally);
+  addCityGeometryBatch(group, quad, darkGlass, darkWindows, tally);
+  addCityGeometryBatch(group, quad, darkGlass, doors, tally);
+  addBatch(group, unit.box, litGlass, litWindows, 'box', tally);
 
   return { group, ...tally };
 }
+
+/* Five faceted deck segments preserve the arched canal crossing.
+   Low bank landings support its ends; continuous thin handrails connect
+   four endpoint posts. No floating deck or repeated quay-block fence. */
+function amsterdamCanalBridge(unit, mat, { x = 0.65, z0 = 2, z1 = 8, bankY }) {
+  const group = new Group();
+  group.name = 'amsterdam-canal-bridge';
+  const tally = { triangles: 0, instances: 0 };
+  const segments = 5;
+  const width = 1.55;
+  const rise = 0.90;
+  const thickness = 0.12;
+  const railHeight = 0.60;
+
+  const deck = [];
+  const posts = [];
+  const landings = [];
+  const railQuads = [];
+  const profileY = (t) => bankY + thickness / 2 + rise * Math.sin(Math.PI * t);
+
+  for (let i = 0; i < segments; i++) {
+    const t0 = i / segments;
+    const t1 = (i + 1) / segments;
+    const za = lerp(z0, z1, t0);
+    const zb = lerp(z0, z1, t1);
+    const ya = profileY(t0);
+    const yb = profileY(t1);
+    const angle = Math.atan2(yb - ya, zb - za);
+
+    deck.push({
+      position: [x, (ya + yb) / 2, (za + zb) / 2],
+      scale: [width, thickness, Math.hypot(zb - za, yb - ya) + 0.025],
+      rotationX: -angle,
+    });
+
+    for (const side of [-1, 1]) {
+      const railX = x + side * width / 2;
+      const railA = ya + thickness / 2 + railHeight;
+      const railB = yb + thickness / 2 + railHeight;
+      railQuads.push([
+        [railX, railA - 0.03, za],
+        [railX, railB - 0.03, zb],
+        [railX, railB + 0.03, zb],
+        [railX, railA + 0.03, za],
+      ]);
+    }
+  }
+
+  for (const side of [-1, 1]) {
+    for (const endZ of [z0, z1]) {
+      posts.push({
+        position: [
+          x + side * width / 2,
+          bankY + thickness + railHeight / 2,
+          endZ,
+        ],
+        scale: [0.075, railHeight, 0.075],
+        rotationY: 0,
+      });
+    }
+  }
+
+  for (const [endZ, direction] of [[z0, -1], [z1, 1]]) {
+    landings.push({
+      position: [x, bankY + 0.03, endZ + direction * 0.35],
+      scale: [2.0, 0.18, 0.80],
+      rotationY: 0,
+    });
+  }
+
+  addBatch(group, unit.box, mat.tertiary, deck, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, posts, 'box', tally);
+  addBatch(group, unit.box, mat.main, landings, 'box', tally);
+
+  const railMaterial = mat.secondary.clone();
+  railMaterial.side = DoubleSide;
+  addCityGeometryBatch(group, cityQuadGeometry(railQuads), railMaterial, [{
+    position: [0, 0, 0], scale: [1, 1, 1], rotationY: 0,
+  }], tally);
+
+  return { group, ...tally };
+}
+
+/* Twelve small blooms in two planted rows beside—not across—the houses.
+   Heads are solid boxes. Narrow two-sided green-grey stem surfaces save
+   geometry for the architectural silhouettes. */
+function amsterdamTulipRows(unit, mat, { baseY }) {
+  const group = new Group();
+  group.name = 'amsterdam-tulips';
+  const tally = { triangles: 0, instances: 0 };
+  const red = cityColorMaterial(mat.main, 0xd92b1a);
+  const yellow = cityColorMaterial(mat.main, 0xd9a41a);
+  const stemMaterial = cityColorMaterial(mat.main, 0x4a5d46, { doubleSided: true });
+  const redHeads = [];
+  const yellowHeads = [];
+  const stems = [];
+  const soilY = baseY + 0.05;
+
+  addBatch(group, unit.box, mat.tertiary, row(1, {
+    x0: -10.1, x1: -10.1, y: baseY, z: -3.9,
+    size: [4.1, 0.05, 1.4],
+  }), 'box', tally);
+
+  for (let r = 0; r < 2; r++) {
+    for (let i = 0; i < 6; i++) {
+      const x = lerp(-11.55, -8.65, i / 5);
+      const z = r === 0 ? -4.25 : -3.55;
+      const height = 0.22 + ((i + r) % 3) * 0.015;
+
+      stems.push({
+        position: [x, soilY + height / 2, z],
+        scale: [0.032, height, 1],
+        rotationY: 0,
+      });
+
+      const head = {
+        position: [x, soilY + height + 0.04, z],
+        scale: [0.17, 0.16, 0.17],
+        rotationY: ((i + r) % 2) * 0.18,
+      };
+      ((i + r * 2) % 3 === 0 ? yellowHeads : redHeads).push(head);
+    }
+  }
+
+  addCityGeometryBatch(group, cityQuadGeometry(), stemMaterial, stems, tally);
+  addBatch(group, unit.box, red, redHeads, 'box', tally);
+  addBatch(group, unit.box, yellow, yellowHeads, 'box', tally);
+  return { group, ...tally };
+}
+
+/* 80 triangles total:
+   tapered hex body 20 + cap 16 + hub 12 + sixteen lattice quads 32.
+   The open ladder sails are four radial blades, not a solid crossed sign. */
+function amsterdamWindmill(unit, mat, { x, z, baseY }) {
+  const group = new Group();
+  group.name = 'amsterdam-windmill';
+  const tally = { triangles: 0, instances: 0 };
+
+  // Preserve the shared hex geometry. Only this clone is tapered.
+  const bodyGeometry = unit.hex.clone();
+  const positions = bodyGeometry.getAttribute('position');
+  for (let i = 0; i < positions.count; i++) {
+    const taper = lerp(1, 0.62, Math.max(0, Math.min(1, positions.getY(i))));
+    positions.setX(i, positions.getX(i) * taper);
+    positions.setZ(i, positions.getZ(i) * taper);
+  }
+  positions.needsUpdate = true;
+  bodyGeometry.computeVertexNormals();
+  bodyGeometry.computeBoundingBox();
+  bodyGeometry.computeBoundingSphere();
+
+  addBatch(group, bodyGeometry, mat.main, [{
+    position: [x, baseY, z],
+    scale: [1.6, 3.5, 1.6],
+    rotationY: Math.PI / 6,
+  }], 'hex', tally);
+
+  addBatch(group, unit.cone, mat.tertiary, [{
+    position: [x, baseY + 3.5, z],
+    scale: [1.38, 0.48, 1.38],
+    rotationY: Math.PI / 8,
+  }], 'cone', tally);
+
+  // Faces the canal / -Z. All blade coordinates below are HUB-LOCAL.
+  // Parent integration:
+  //   const sails = zone.group.getObjectByName('windmill-sails');
+  //   sails.rotation.z = normalizedScrollProgress * Math.PI * 2;
+  // Do not accumulate rotation per frame; there is deliberately no idle motion.
+  const sails = new Group();
+  sails.name = 'windmill-sails';
+  sails.position.set(x, baseY + 3.15, z - 0.94);
+  sails.userData.scrollAxis = 'z';
+  sails.userData.scrollTurns = 1;
+  sails.userData.restRotation = 0;
+
+  const sailTally = { triangles: 0, instances: 0 };
+  const lattice = [];
+  const latticeMaterial = cityColorMaterial(mat.main, 0xb1b5b3, { doubleSided: true });
+
+  const bladeMember = (angle, lateral, radial, width, length) => {
+    const c = Math.cos(angle);
+    const s = Math.sin(angle);
+    return {
+      position: [
+        lateral * c - radial * s,
+        lateral * s + radial * c,
+        0,
+      ],
+      scale: [width, length, 1],
+      rotationZ: angle,
+    };
+  };
+
+  for (let blade = 0; blade < 4; blade++) {
+    const angle = Math.PI / 4 + blade * Math.PI / 2;
+
+    // Radial extent 0.14..1.60: approximately 3.2 total rotor span.
+    for (const side of [-1, 1]) {
+      lattice.push(bladeMember(angle, side * 0.13, 0.87, 0.045, 1.46));
+    }
+    for (const radial of [0.48, 1.25]) {
+      lattice.push(bladeMember(angle, 0, radial, 0.30, 0.055));
+    }
+  }
+
+  addCityGeometryBatch(sails, cityQuadGeometry(), latticeMaterial, lattice, sailTally);
+  addBatch(sails, unit.box, mat.secondary, [{
+    position: [0, 0, 0],
+    scale: [0.28, 0.28, 0.20],
+    rotationY: 0,
+  }], 'box', sailTally);
+
+  group.add(sails);
+  tally.instances += sailTally.instances;
+  tally.triangles += sailTally.triangles;
+
+  return { group, ...tally };
+}
+
+function amsterdamBike(unit, mat) {
+  const group = new Group();
+  group.name = 'amsterdam-bike';
+  const tally = { triangles: 0, instances: 0 };
+  const bankY = 0.16;
+  const waterY = -0.08;
+  const bridgeX = 0.65;
+
+  // Preserve the two land/quay slabs and the single canal crossing.
+  addBatch(group, unit.box, mat.ground, [
+    ...row(1, {
+      x0: 0, x1: 0, y: -0.20, z: -2,
+      size: [26.4, bankY + 0.20, 8],
+    }),
+    ...row(1, {
+      x0: 0, x1: 0, y: -0.20, z: 10.5,
+      size: [26.4, bankY + 0.20, 5],
+    }),
+  ], 'box', tally);
+
+  // One bounded water slab; no overlapping 24-unit repetitions.
+  addBatch(group, unit.box, mat.secondary, row(1, {
+    x0: 0, x1: 0, y: waterY - 0.26, z: 5,
+    size: [26.4, 0.26, 6],
+  }), 'box', tally);
+
+  // Continuous low coping, interrupted only by the bridge landings.
+  const coping = [];
+  for (const z of [2, 8]) {
+    for (const [left, right] of [
+      [-13.2, bridgeX - 1.0],
+      [bridgeX + 1.0, 13.2],
+    ]) {
+      coping.push(...row(1, {
+        x0: (left + right) / 2,
+        x1: (left + right) / 2,
+        y: bankY, z,
+        size: [right - left, 0.12, 0.30],
+      }));
+    }
+  }
+  addBatch(group, unit.box, mat.main, coping, 'box', tally);
+
+  attachCityPart(group, tally, amsterdamMerchantHouses(unit, mat, {
+    baseY: bankY, z: -4.3, centerX: bridgeX,
+  }));
+  attachCityPart(group, tally, amsterdamTulipRows(unit, mat, { baseY: bankY }));
+  attachCityPart(group, tally, amsterdamCanalBridge(unit, mat, {
+    x: bridgeX, z0: 2, z1: 8, bankY,
+  }));
+
+  // The open far bank gives the mill a clean silhouette and keeps its
+  // complete rotating sail envelope clear of houses, lamps, and the bridge.
+  attachCityPart(group, tally, amsterdamWindmill(unit, mat, {
+    x: 8.9, z: 10.55, baseY: bankY,
+  }));
+
+  const lampMaterial = cityColorMaterial(mat.secondary, 0xe8d9a0, { glow: 0.45 });
+  const poles = [];
+  const lamps = [];
+  for (const { x, z } of [{ x: -3.5, z: 1.15 }, { x: 4.65, z: 8.75 }]) {
+    poles.push({
+      position: [x, bankY + 1.05, z],
+      scale: [0.065, 2.10, 0.065],
+      rotationY: 0,
+    });
+    lamps.push({
+      position: [x, bankY + 2.185, z],
+      scale: [0.20, 0.17, 0.20],
+      rotationY: 0,
+    });
+  }
+  addBatch(group, unit.box, mat.secondary, poles, 'box', tally);
+  addBatch(group, unit.box, lampMaterial, lamps, 'box', tally);
+
+  // 1100 actual triangles, including window/door surfaces and lattice sails.
+  return checkedCityResult(group, tally);
+}
+
 
 /* Squat cylinder-like tower (built from the hexagonal upright polygon,
    the only round-ish primitive in the authored kind table) topped with a
@@ -934,44 +1388,311 @@ function sailMasts(unit, mat, specs) {
   return { group, ...tally };
 }
 
-function copenhagenRun(unit, mat) {
+// -----------------------------------------------------------------------------
+// COPENHAGEN — colorful Nyhavn street wall beside the long Børsen building.
+// One waterfront, a broad promenade, a few moored boats, and the dragon spire.
+// -----------------------------------------------------------------------------
+
+function nyhavnRow(unit, mat, { baseY, z, centerX = -5.8 }) {
   const group = new Group();
+  group.name = 'nyhavn';
   const tally = { triangles: 0, instances: 0 };
 
-  const specs = houseSpecs(10, { depth: 1.5, baseWidth: 2, baseHeight: 3.6, floors: 3, windowsPerFloor: 2, types: ['point'], seed: 13 });
-  // Harbour-side ground: z=-6.5..1.5, beneath/behind the houses and tower.
-  // Top=0.1, flush with harbour water; width includes house-row margins.
-  addBatch(group, unit.box, mat.ground, row(1, { x0: 0, x1: 0, y: -0.2, z: -2.5, size: [Math.max(26.4, specs.reduce((sum, s) => sum + s.width, 0) + 2), 0.3, 8] }), 'box', tally);
-  const houses = canalHouses(unit, mat, specs, -4.5);
-  group.add(houses.group);
-  tally.triangles += houses.triangles;
-  tally.instances += houses.instances;
+  const facadeMaterials = [0xc49a5a, 0xa85a4a, 0x5a7a8c, 0xd8cba8]
+    .map((color) => cityColorMaterial(mat.main, color));
+  const roofMaterial = cityColorMaterial(mat.tertiary, 0x343a3e);
+  const trimMaterial = cityColorMaterial(mat.main, 0xd0d2cd);
+  const glassMaterial = cityColorMaterial(mat.secondary, 0x26333a, { doubleSided: true });
+  const quad = cityQuadGeometry();
 
-  addBatch(group, unit.box, mat.secondary, row(4, { x0: -12, x1: 12, y: -0.3, z: 5, size: [24, 0.4, 7] }), 'box', tally); // harbour water
-  addBatch(group, unit.box, mat.main, pairedRows(16, { x0: -12, x1: 12, y: 0, z0: 2, z1: 8.5, size: [1.6, 0.7, 1], zJitter: 0.6 }), 'box', tally); // quay edge
-  addBatch(group, unit.box, mat.main, pairedRows(24, { x0: -12.5, x1: 12.5, y: 0, z0: 3, z1: 9, size: [1, 0.5, 3] }), 'box', tally); // docks
-  addBatch(group, unit.box, mat.tertiary, pairedRows(12, { x0: -12, x1: 12, y: 0.6, z0: 2.5, z1: 8.8, size: [0.2, 1.2, 0.2] }), 'box', tally); // harbour posts
-  addBatch(group, unit.cone, mat.tertiary, ring(8, { radius: 10, y: 0, size: [0.4, 0.8, 0.4] }), 'cone', tally); // harbour markers
-  addBatch(group, unit.box, mat.secondary, row(2, { x0: -6, x1: 6, y: 0.5, z: 5, size: [3, 0.25, 5.5] }), 'box', tally); // small bridge deck
+  const specs = [
+    { width: 1.75, height: 2.85, color: 0 },
+    { width: 1.85, height: 3.55, color: 1 },
+    { width: 1.70, height: 3.15, color: 3 },
+    { width: 1.90, height: 3.95, color: 2 },
+    { width: 1.80, height: 3.40, color: 0 },
+    { width: 1.85, height: 3.75, color: 3 },
+    { width: 1.65, height: 2.95, color: 1 },
+  ];
 
-  const masts = sailMasts(unit, mat, [
-    { x: -9, z: 3, height: 3.2, sail: true },
-    { x: -6, z: 4, height: 2.6, sail: false },
-    { x: -2.5, z: 3.4, height: 3, sail: true },
-    { x: 3, z: 4, height: 2.7, sail: false },
-    { x: 8, z: 3.2, height: 3.1, sail: true },
-  ]);
-  group.add(masts.group);
-  tally.triangles += masts.triangles;
-  tally.instances += masts.instances;
+  const bodies = facadeMaterials.map(() => []);
+  const roofs = [];
+  const cornices = [];
+  const windows = [];
+  const doors = [];
+  const gableWindows = [];
+  const chimneys = [];
+  const depth = 1.90;
+  const frontZ = z + depth / 2;
+  let cursor = centerX - specs.reduce((sum, s) => sum + s.width, 0) / 2;
 
-  const tower = landmarkTower(unit, mat, { x: 10.5, z: -5 });
-  group.add(tower.group);
-  tally.triangles += tower.triangles;
-  tally.instances += tower.instances;
+  specs.forEach(({ width, height, color }, i) => {
+    const x = cursor + width / 2;
+    cursor += width;
+    const roofRise = 0.62 + (i % 3) * 0.08;
+    const wallTop = baseY + height;
+
+    bodies[color].push({
+      position: [x, baseY + height / 2, z],
+      scale: [width, height, depth],
+      rotationY: 0,
+    });
+
+    roofs.push({
+      position: [x, wallTop, z - depth / 2],
+      // Unit triangle is 0.6 high; use an explicit physical roof rise.
+      scale: [width, roofRise / 0.6, depth],
+      rotationY: 0,
+    });
+
+    cornices.push({
+      position: [x, wallTop - 0.06, frontZ + 0.025],
+      scale: [width * 0.97, 0.09, 0.09],
+      rotationY: 0,
+    });
+
+    for (let floor = 0; floor < 3; floor++) {
+      const fy = baseY + height * lerp(0.28, 0.83, floor / 2);
+      for (const side of [-1, 1]) {
+        windows.push({
+          position: [x + side * width * 0.23, fy, frontZ + 0.014],
+          scale: [width * 0.19, 0.34, 1],
+          rotationY: 0,
+        });
+      }
+    }
+
+    doors.push({
+      position: [x, baseY + 0.32, frontZ + 0.014],
+      scale: [width * 0.18, 0.58, 1],
+      rotationY: 0,
+    });
+
+    gableWindows.push({
+      position: [x, wallTop + roofRise * 0.30, frontZ + 0.014],
+      scale: [0.18, 0.19, 1],
+      rotationY: 0,
+    });
+
+    if (i === 1 || i === 3 || i === 5) {
+      chimneys.push({
+        // Begin slightly inside the actual sloping roof, not above its ridge.
+        position: [x + width * 0.28, wallTop + roofRise * 0.40 + 0.22, z - 0.18],
+        scale: [0.14, 0.44, 0.16],
+        rotationY: 0,
+      });
+    }
+  });
+
+  bodies.forEach((placements, i) => {
+    addBatch(group, unit.box, facadeMaterials[i], placements, 'box', tally);
+  });
+  addBatch(group, unit.tri, roofMaterial, roofs, 'tri', tally);
+  addBatch(group, unit.box, trimMaterial, cornices, 'box', tally);
+  addCityGeometryBatch(group, quad, glassMaterial, windows, tally);
+  addCityGeometryBatch(group, quad, glassMaterial, doors, tally);
+  addCityGeometryBatch(group, quad, glassMaterial, gableWindows, tally);
+  addBatch(group, unit.box, roofMaterial, chimneys, 'box', tally);
 
   return { group, ...tally };
 }
+
+/* The long exchange hall and central dragon-tail silhouette form one
+   composition. Six rotated square tiers describe four twisting corner
+   ridges; a final pointed cap completes the approximately 3m spire.
+   The landmark stays neutral so Nyhavn owns Copenhagen's color accent. */
+function borsenLandmark(unit, mat, { x, z, baseY }) {
+  const group = new Group();
+  group.name = 'borsen';
+  const tally = { triangles: 0, instances: 0 };
+  const stone = cityColorMaterial(mat.main, 0x969b9c);
+  const trim = cityColorMaterial(mat.main, 0xb6bbb9);
+  const roof = cityColorMaterial(mat.secondary, 0x343a3e);
+  const spireMaterial = cityColorMaterial(mat.secondary, 0x4b5357);
+  const glass = cityColorMaterial(mat.secondary, 0x263039, { doubleSided: true });
+  const quad = cityQuadGeometry();
+
+  const length = 7.70;
+  const depth = 2.40;
+  const plinthH = 0.14;
+  const bodyY = baseY + plinthH;
+  const wallH = 1.85;
+  const wallTop = bodyY + wallH;
+  const roofRise = 0.68;
+  const frontZ = z + depth / 2;
+
+  addBatch(group, unit.box, trim, row(1, {
+    x0: x, x1: x, y: baseY, z,
+    size: [length + 0.24, plinthH, depth + 0.20],
+  }), 'box', tally);
+
+  addBatch(group, unit.box, stone, row(1, {
+    x0: x, x1: x, y: bodyY, z,
+    size: [length, wallH, depth],
+  }), 'box', tally);
+
+  // Rotate the triangular section so the ridge follows the LONG X axis.
+  // Its 0..1 extrusion becomes x=-length/2..+length/2.
+  addBatch(group, unit.tri, roof, [{
+    position: [x - length / 2, wallTop, z],
+    scale: [depth * 1.04, roofRise / 0.6, length],
+    rotationY: Math.PI / 2,
+  }], 'tri', tally);
+
+  addBatch(group, unit.box, trim, [
+    ...row(1, {
+      x0: x, x1: x, y: wallTop - 0.10, z: frontZ + 0.015,
+      size: [length, 0.10, 0.12],
+    }),
+    ...row(1, {
+      x0: x, x1: x, y: wallTop - 0.10, z: z - depth / 2 - 0.015,
+      size: [length, 0.10, 0.12],
+    }),
+  ], 'box', tally);
+
+  const pilasters = [];
+  for (const offset of [-0.44, -0.18, 0.18, 0.44]) {
+    pilasters.push(...row(1, {
+      x0: x + length * offset, x1: x + length * offset,
+      y: bodyY, z: frontZ + 0.028,
+      size: [0.11, wallH - 0.10, 0.10],
+    }));
+  }
+  addBatch(group, unit.box, trim, pilasters, 'box', tally);
+
+  const windows = [];
+  for (let floor = 0; floor < 2; floor++) {
+    for (let i = 0; i < 11; i++) {
+      if (floor === 0 && i === 5) continue; // Central entrance replaces this bay.
+      windows.push({
+        position: [
+          x + lerp(-3.15, 3.15, i / 10),
+          bodyY + (floor === 0 ? 0.49 : 1.22),
+          frontZ + 0.017,
+        ],
+        scale: [0.24, 0.31, 1],
+        rotationY: 0,
+      });
+    }
+  }
+  addCityGeometryBatch(group, quad, glass, windows, tally);
+  addCityGeometryBatch(group, quad, glass, [{
+    position: [x, bodyY + 0.38, frontZ + 0.017],
+    scale: [0.39, 0.70, 1],
+    rotationY: 0,
+  }], tally);
+
+  const towerBottom = wallTop + roofRise * 0.48;
+  const towerH = 0.82;
+  const collarH = 0.12;
+  addBatch(group, unit.box, stone, row(1, {
+    x0: x, x1: x, y: towerBottom, z,
+    size: [0.98, towerH, 0.98],
+  }), 'box', tally);
+  addBatch(group, unit.box, trim, row(1, {
+    x0: x, x1: x, y: towerBottom + towerH, z,
+    size: [1.10, collarH, 1.10],
+  }), 'box', tally);
+
+  const spireY = towerBottom + towerH + collarH;
+  const tierH = 0.39;
+  const tiers = [];
+  for (let i = 0; i < 6; i++) {
+    const width = 1.10 * Math.pow(0.72, i);
+    tiers.push({
+      position: [x, spireY + tierH * (i + 0.5), z],
+      scale: [width, tierH, width],
+      rotationY: i * 0.52,
+    });
+  }
+  addBatch(group, unit.box, spireMaterial, tiers, 'box', tally);
+  addBatch(group, unit.cone, spireMaterial, [{
+    position: [x, spireY + tierH * 6, z],
+    scale: [0.22, 0.50, 0.22],
+    rotationY: 6 * 0.52,
+  }], 'cone', tally);
+
+  return { group, ...tally };
+}
+
+function copenhagenRun(unit, mat) {
+  const group = new Group();
+  group.name = 'copenhagen-run';
+  const tally = { triangles: 0, instances: 0 };
+  const bankY = 0.16;
+  const waterY = -0.08;
+
+  // One inhabited waterfront, with enough dry promenade to read as a run.
+  addBatch(group, unit.box, mat.ground, row(1, {
+    x0: 0, x1: 0, y: -0.20, z: -2.5,
+    size: [26.4, bankY + 0.20, 8],
+  }), 'box', tally);
+
+  addBatch(group, unit.box, mat.secondary, row(1, {
+    x0: 0, x1: 0, y: waterY - 0.26, z: 5.5,
+    size: [26.4, 0.26, 8],
+  }), 'box', tally);
+
+  addBatch(group, unit.box, mat.main, row(1, {
+    x0: 0, x1: 0, y: bankY, z: 1.35,
+    size: [26.4, 0.13, 0.30],
+  }), 'box', tally);
+
+  // The two landmarks share an aligned street frontage but do not overlap.
+  attachCityPart(group, tally, nyhavnRow(unit, mat, {
+    baseY: bankY, z: -3.7, centerX: -5.8,
+  }));
+  attachCityPart(group, tally, borsenLandmark(unit, mat, {
+    baseY: bankY, x: 7.1, z: -3.95,
+  }));
+
+  // Two modest land-connected fingers, not an enclosing marina grid.
+  addBatch(group, unit.box, mat.main, [
+    ...row(1, {
+      x0: -8.7, x1: -8.7, y: waterY - 0.08, z: 2.45,
+      size: [0.75, bankY - waterY + 0.08, 2.20],
+    }),
+    ...row(1, {
+      x0: 4.8, x1: 4.8, y: waterY - 0.08, z: 2.45,
+      size: [0.75, bankY - waterY + 0.08, 2.20],
+    }),
+  ], 'box', tally);
+
+  const bollards = [];
+  for (const x of [-11, -5, 1, 10.8]) {
+    bollards.push(...row(1, {
+      x0: x, x1: x, y: bankY, z: 1.05,
+      size: [0.15, 0.28, 0.15],
+    }));
+  }
+  addBatch(group, unit.box, mat.secondary, bollards, 'box', tally);
+
+  // Actual hulls support the retained low-poly mast/sail vocabulary.
+  const boatSpecs = [
+    { x: -8.7, z: 4.30, height: 2.10, sail: true },
+    { x:  2.8, z: 3.85, height: 2.50, sail: false },
+    { x:  8.5, z: 4.60, height: 1.90, sail: true },
+  ];
+  addBatch(group, unit.box, mat.tertiary, boatSpecs.map(({ x, z }) => ({
+    position: [x, waterY + 0.12, z],
+    scale: [2.1, 0.26, 0.70],
+    rotationY: 0,
+  })), 'box', tally);
+
+  const rigging = cityColorMaterial(mat.secondary, 0x46535c);
+  const sailCloth = cityColorMaterial(mat.main, 0xb9c0c2);
+  const masts = sailMasts(unit, {
+    ...mat,
+    secondary: rigging,
+    tertiary: sailCloth,
+  }, boatSpecs);
+  masts.group.position.y = waterY + 0.13;
+  attachCityPart(group, tally, masts);
+
+  // Børsen is the skyline priority; no crowded extra Rundetårn or marker ring.
+  return checkedCityResult(group, tally);
+}
+
 
 /* FINISH — an arriving red ribbon stops beneath the labelled finish gantry
    at one small, upright hollow red goal square (the page's goal-gate motif). */
