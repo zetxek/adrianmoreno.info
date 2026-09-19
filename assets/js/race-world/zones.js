@@ -1398,7 +1398,7 @@ function nyhavnRow(unit, mat, { baseY, z, centerX = -5.8 }) {
   group.name = 'nyhavn';
   const tally = { triangles: 0, instances: 0 };
 
-  const facadeMaterials = [0xc49a5a, 0xa85a4a, 0x5a7a8c, 0xd8cba8]
+  const facadeMaterials = [0xde8c5c, 0xcb4c3e, 0x6e8a9c, 0xe8e2c8]
     .map((color) => cityColorMaterial(mat.main, color));
   const roofMaterial = cityColorMaterial(mat.tertiary, 0x343a3e);
   const trimMaterial = cityColorMaterial(mat.main, 0xd0d2cd);
@@ -1595,21 +1595,21 @@ function borsenLandmark(unit, mat, { x, z, baseY }) {
   }), 'box', tally);
 
   const spireY = towerBottom + towerH + collarH;
-  const tierH = 0.39;
+  const tierH = 0.50;
   const tiers = [];
   for (let i = 0; i < 6; i++) {
-    const width = 1.10 * Math.pow(0.72, i);
+    const width = 1.25 * Math.pow(0.68, i); // Wider base, faster taper
     tiers.push({
       position: [x, spireY + tierH * (i + 0.5), z],
       scale: [width, tierH, width],
-      rotationY: i * 0.52,
+      rotationY: i * 0.75, // More aggressive twist
     });
   }
   addBatch(group, unit.box, spireMaterial, tiers, 'box', tally);
   addBatch(group, unit.cone, spireMaterial, [{
     position: [x, spireY + tierH * 6, z],
-    scale: [0.22, 0.50, 0.22],
-    rotationY: 6 * 0.52,
+    scale: [0.35, 0.70, 0.35],
+    rotationY: 6 * 0.75,
   }], 'cone', tally);
 
   return { group, ...tally };
@@ -1674,8 +1674,8 @@ function copenhagenRun(unit, mat) {
     { x:  8.5, z: 4.60, height: 1.90, sail: true },
   ];
   addBatch(group, unit.box, mat.tertiary, boatSpecs.map(({ x, z }) => ({
-    position: [x, waterY + 0.12, z],
-    scale: [2.1, 0.26, 0.70],
+    position: [x, waterY + 0.08, z],
+    scale: [2.5, 0.35, 0.90],
     rotationY: 0,
   })), 'box', tally);
 
