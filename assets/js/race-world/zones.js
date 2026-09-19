@@ -1141,50 +1141,83 @@ function amsterdamCanalBridge(unit, mat, { x = 0.65, z0 = 2, z1 = 8, bankY }) {
   return { group, ...tally };
 }
 
-/* Twelve small blooms in two planted rows beside—not across—the houses.
-   Heads are solid boxes. Narrow two-sided green-grey stem surfaces save
-   geometry for the architectural silhouettes. */
+/* A bordered planting bed beside—not across—the houses, built as three
+   saturated colour bands (not individually-modelled blooms, which read
+   as sub-pixel specks at the zone camera's distance). Each band is a few
+   overlapping, height-jittered blocks so it reads as one continuous
+   stripe: the signature look of a distant Dutch tulip field. amsterdamBike
+   enforces a hard 1100-triangle ceiling (checkedCityResult below), so
+   this stays deliberately lean rather than spending the wider 2504-cap
+   budget the zone as a whole is allowed. */
 function amsterdamTulipRows(unit, mat, { baseY }) {
   const group = new Group();
   group.name = 'amsterdam-tulips';
   const tally = { triangles: 0, instances: 0 };
-  const red = cityColorMaterial(mat.main, 0xd92b1a);
-  const yellow = cityColorMaterial(mat.main, 0xd9a41a);
-  const stemMaterial = cityColorMaterial(mat.main, 0x4a5d46, { doubleSided: true });
-  const redHeads = [];
-  const yellowHeads = [];
-  const stems = [];
-  const soilY = baseY + 0.05;
 
-  addBatch(group, unit.box, mat.tertiary, row(1, {
-    x0: -10.1, x1: -10.1, y: baseY, z: -3.9,
-    size: [4.1, 0.05, 1.4],
+  const bedX0 = -13.6, bedX1 = -8.6; // clear of the houses (x -5.35..6.65)
+  const bedCenterX = (bedX0 + bedX1) / 2;
+  const bedWidth = bedX1 - bedX0;
+  const bedZ0 = -6.3, bedZ1 = -2.9; // clear of the quay/canal/bridge (z >= 2)
+  const bedCenterZ = (bedZ0 + bedZ1) / 2;
+  const bedDepth = bedZ1 - bedZ0;
+  const soilY = baseY;
+  const soilH = 0.09;
+  const curbH = 0.05;
+  const curbTop = soilY + soilH + curbH;
+
+  // A raised soil slab framed by a low curb — a clearly delimited bed,
+  // not a scatter of unbounded plants.
+  addBatch(group, unit.box, mat.ground, row(1, {
+    x0: bedCenterX, x1: bedCenterX, y: soilY, z: bedCenterZ,
+    size: [bedWidth, soilH, bedDepth],
   }), 'box', tally);
 
-  for (let r = 0; r < 2; r++) {
-    for (let i = 0; i < 6; i++) {
-      const x = lerp(-11.55, -8.65, i / 5);
-      const z = r === 0 ? -4.25 : -3.55;
-      const height = 0.22 + ((i + r) % 3) * 0.015;
+  const curbMaterial = cityColorMaterial(mat.main, 0x5b4632);
+  addBatch(group, unit.box, curbMaterial, [
+    ...row(1, { x0: bedCenterX, x1: bedCenterX, y: soilY + soilH, z: bedZ0 - 0.06, size: [bedWidth + 0.24, curbH, 0.14] }),
+    ...row(1, { x0: bedCenterX, x1: bedCenterX, y: soilY + soilH, z: bedZ1 + 0.06, size: [bedWidth + 0.24, curbH, 0.14] }),
+    ...row(1, { x0: bedX0 - 0.06, x1: bedX0 - 0.06, y: soilY + soilH, z: bedCenterZ, size: [0.14, curbH, bedDepth] }),
+    ...row(1, { x0: bedX1 + 0.06, x1: bedX1 + 0.06, y: soilY + soilH, z: bedCenterZ, size: [0.14, curbH, bedDepth] }),
+  ], 'box', tally);
 
-      stems.push({
-        position: [x, soilY + height / 2, z],
-        scale: [0.032, height, 1],
+  // Three strong, repeated colour bands rather than a random bloom mix.
+  const bandColors = [0xd92b1a, 0xd9a41a, 0xc23a6e]; // red, yellow, magenta
+  const bandZs = [bedZ0 + bedDepth * 0.2, bedCenterZ, bedZ1 - bedDepth * 0.2];
+  const segmentsPerBand = 4;
+  const plantX0 = bedX0 + 0.15;
+  const plantX1 = bedX1 - 0.15;
+  const plantWidth = plantX1 - plantX0;
+  const segLength = (plantWidth / segmentsPerBand) * 1.15; // overlap: no gaps
+  const centerX0 = plantX0 + segLength / 2;
+  const centerX1 = plantX1 - segLength / 2;
+  const stemMaterial = cityColorMaterial(mat.main, 0x4a5d46, { doubleSided: true });
+  const stemQuads = [];
+
+  bandColors.forEach((color, bandIndex) => {
+    const bandMaterial = cityColorMaterial(mat.main, color);
+    const z = bandZs[bandIndex];
+    const heads = [];
+    for (let i = 0; i < segmentsPerBand; i++) {
+      const t = segmentsPerBand > 1 ? i / (segmentsPerBand - 1) : 0.5;
+      const x = lerp(centerX0, centerX1, t);
+      const jitterH = 0.36 + (hash(i + bandIndex * 7, 61) - 0.5) * 0.08;
+      const jitterZ = (hash(i + bandIndex * 7, 62) - 0.5) * 0.12;
+      heads.push({
+        position: [x, curbTop + jitterH / 2, z + jitterZ],
+        scale: [segLength, jitterH, 0.42],
         rotationY: 0,
       });
-
-      const head = {
-        position: [x, soilY + height + 0.04, z],
-        scale: [0.17, 0.16, 0.17],
-        rotationY: ((i + r) % 2) * 0.18,
-      };
-      ((i + r * 2) % 3 === 0 ? yellowHeads : redHeads).push(head);
     }
-  }
+    addBatch(group, unit.box, bandMaterial, heads, 'box', tally);
 
-  addCityGeometryBatch(group, cityQuadGeometry(), stemMaterial, stems, tally);
-  addBatch(group, unit.box, red, redHeads, 'box', tally);
-  addBatch(group, unit.box, yellow, yellowHeads, 'box', tally);
+    stemQuads.push({
+      position: [bedCenterX, curbTop + 0.06, z + 0.24],
+      scale: [bedWidth - 0.7, 0.12, 1],
+      rotationY: 0,
+    });
+  });
+
+  addCityGeometryBatch(group, cityQuadGeometry(), stemMaterial, stemQuads, tally);
   return { group, ...tally };
 }
 
@@ -1594,23 +1627,74 @@ function borsenLandmark(unit, mat, { x, z, baseY }) {
     size: [1.10, collarH, 1.10],
   }), 'box', tally);
 
+  // Interior rotation alone is invisible at this render scale (flat-lit
+  // boxes rotating in place move their silhouette by 1-6px on a 60px-tall
+  // spire). The Dragon Spire twist has to displace the SILHOUETTE instead:
+  // a slim twisting core carries the close-range detail, and four helical
+  // strands (the dragon tails) are held OUT from that core by a radial
+  // protrusion that stays wide through most of the climb, so their spiral
+  // reads as corner movement of several render-px at many heights, not a
+  // rotation the eye can't resolve.
   const spireY = towerBottom + towerH + collarH;
-  const tierH = 0.50;
-  const tiers = [];
-  for (let i = 0; i < 6; i++) {
-    const width = 1.25 * Math.pow(0.68, i); // Wider base, faster taper
-    tiers.push({
-      position: [x, spireY + tierH * (i + 0.5), z],
-      scale: [width, tierH, width],
-      rotationY: i * 0.75, // More aggressive twist
+  const spireH = 3.10;
+  const twistStepDeg = 27;
+  const twistStep = twistStepDeg * Math.PI / 180;
+  const coreBaseWidth = 0.62;
+  const coreTipWidth = 0.12;
+  const coreEnvelopeRadius = (t) => (coreBaseWidth * Math.pow(coreTipWidth / coreBaseWidth, t)) / 2;
+
+  const coreTierCount = 5;
+  const coreTierH = spireH / coreTierCount;
+  const coreTiers = [];
+  for (let i = 0; i < coreTierCount; i++) {
+    const t = i / (coreTierCount - 1);
+    const width = coreEnvelopeRadius(t) * 2;
+    coreTiers.push({
+      position: [x, spireY + coreTierH * (i + 0.5), z],
+      scale: [width, coreTierH, width * 0.72],
+      rotationY: i * twistStep,
     });
   }
-  addBatch(group, unit.box, spireMaterial, tiers, 'box', tally);
+  addBatch(group, unit.box, spireMaterial, coreTiers, 'box', tally);
+
+  const capWidth = coreTipWidth * 0.9;
   addBatch(group, unit.cone, spireMaterial, [{
-    position: [x, spireY + tierH * 6, z],
-    scale: [0.35, 0.70, 0.35],
-    rotationY: 6 * 0.75,
+    position: [x, spireY + spireH, z],
+    scale: [capWidth, 0.55, capWidth],
+    rotationY: coreTierCount * twistStep,
   }], 'cone', tally);
+
+  // Four dragon tails: chains of segments spiraling ~1.3 turns up the
+  // spire, offset from the core envelope by a protrusion that decays
+  // slowly (pow 0.35) so it stays large until the tails converge into the
+  // last stretch below the cap.
+  const strandCount = 4;
+  const segCount = 5;
+  const turnsPerStrand = 1.3;
+  const protrusionMax = 0.48;
+  const segWidth = 0.17;
+  const segTipWidth = 0.05;
+  const wTaperStart = 5 / 7;
+  const strandSegs = [];
+  for (let s = 0; s < strandCount; s++) {
+    const phase = s * (Math.PI * 2 / strandCount);
+    for (let j = 0; j < segCount; j++) {
+      const t = j / (segCount - 1);
+      const theta = phase + t * turnsPerStrand * Math.PI * 2;
+      const protrusion = protrusionMax * Math.pow(1 - t, 0.35);
+      const r = coreEnvelopeRadius(t) + protrusion;
+      const w = t <= wTaperStart
+        ? segWidth
+        : lerp(segWidth, segTipWidth, (t - wTaperStart) / (1 - wTaperStart));
+      const y = spireY + t * spireH;
+      strandSegs.push({
+        position: [x + Math.sin(theta) * r, y, z + Math.cos(theta) * r],
+        scale: [w, (spireH / segCount) * 1.3, w],
+        rotationY: theta,
+      });
+    }
+  }
+  addBatch(group, unit.box, spireMaterial, strandSegs, 'box', tally);
 
   return { group, ...tally };
 }
