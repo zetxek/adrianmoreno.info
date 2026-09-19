@@ -134,7 +134,11 @@ p { text-wrap: pretty; }
   .race-nav a { padding-inline: .65rem; }
   .race-nav-label { position: static; width: auto; height: auto; padding: 0; margin: 0; clip-path: none; overflow: visible; }
   .race-hero { min-height: 100svh; padding-top: 8rem; padding-bottom: 7rem; }
-  .race-hero-stamp { display: block; position: absolute; left: 9vw; bottom: 12%; transform: rotate(-90deg); opacity: .4; }
+  /* The mark is authored as a left-to-right swim>bike>run sequence. A
+     rotate(-90deg) here knocked the cyclist and runner onto their sides,
+     stacked the sequence vertically, and pushed the 150px-tall box up over
+     the origin telemetry. Keep it horizontal and drop it clear of the text. */
+  .race-hero-stamp { display: block; position: absolute; left: 9vw; bottom: 5%; opacity: .4; }
   .race-hero-stamp svg { width: 150px; height: auto; }
   .race-telemetry { font-size: .72rem; }
   .race-origin { font-size: .62rem; }
