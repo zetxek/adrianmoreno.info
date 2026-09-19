@@ -4,13 +4,13 @@ import * as THREE from 'three';
 import { buildZones, buildUnitGeometries, TRIANGLES_PER_KIND } from '../../assets/js/race-world/zones.js';
 
 const EXPECTED_PER_ZONE = [
-  { name: 'start-plateau', triangles: 420, instances: 35 },
-  { name: 'swim-basin', triangles: 1088, instances: 86 },
-  { name: 't1-tunnel', triangles: 480, instances: 40 },
-  { name: 'amsterdam-bike', triangles: 3480, instances: 290 },
-  { name: 't2-tunnel', triangles: 480, instances: 40 },
-  { name: 'copenhagen-run', triangles: 2840, instances: 234 },
-  { name: 'finish-pier', triangles: 560, instances: 44 },
+  { name: 'start-plateau', triangles: 600, instances: 50 },
+  { name: 'swim-basin', triangles: 696, instances: 56 },
+  { name: 't1-tunnel', triangles: 612, instances: 51 },
+  { name: 'amsterdam-bike', triangles: 1000, instances: 149 },
+  { name: 't2-tunnel', triangles: 552, instances: 46 },
+  { name: 'copenhagen-run', triangles: 828, instances: 137 },
+  { name: 'finish-pier', triangles: 732, instances: 61 },
 ];
 
 test('unit geometries have the exact prescribed triangle counts', () => {
@@ -50,12 +50,16 @@ test('the full course totals exactly 8,280 triangles across 675 instances, under
   const zones = buildZones();
   const triangles = zones.reduce((sum, z) => sum + z.triangles, 0);
   const instances = zones.reduce((sum, z) => sum + z.instances, 0);
-  assert.equal(triangles, 9348);
-  assert.equal(instances, 769);
+  assert.equal(triangles, 5020);
+  assert.equal(instances, 550);
   assert.ok(triangles <= 25000);
   assert.ok(triangles <= 16000, 'stays within the disciplined target ceiling');
 });
 
+test('no single zone exceeds the 2,504 visible-submission budget', () => {
+  const zones = buildZones();
+  zones.forEach((zone) => assert.ok(zone.triangles <= 2504));
+});
 
 function triangleCount(geometry) {
   const index = geometry.getIndex();
