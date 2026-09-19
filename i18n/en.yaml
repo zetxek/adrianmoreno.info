@@ -146,3 +146,32 @@
 
 - id: "continue_reading"
   translation: "Continue reading"
+
+## Engineered Race UI (biography lives in data/race.yml)
+- id: race_mode
+  translation: "Game mode · Swim, bike, run"
+- id: race_exit
+  translation: "Exit to portfolio"
+- id: race_chapters
+  translation: "Course chapters"
+- id: race_start
+  translation: "Start"
+- id: race_finish
+  translation: "Finish"
+- id: race_role
+  translation: "ROLE"
+- id: race_principles
+  translation: "Field notes / Principles"
+- id: race_transition
+  translation: "Transition"
+- id: race_next
+  translation: "Next: conversation"
+- id: race_email
+  translation: "Email me"
+- id: race_back
+  translation: "Back to the start"
+- id: race_scroll_hint
+  translation: "SCROLL"
+- id: race_complete
+  translation: "Course complete"
+

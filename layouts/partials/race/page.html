@@ -1,0 +1,6 @@
+{{/* Follow the theme's current-language / default-language content fallback.
+     Resolve Page objects, never construct URLs from content paths. */}}
+{{ $page := .site.GetPage .path }}
+{{ if not $page }}{{ $page = hugo.Sites.Default.GetPage .path }}{{ end }}
+{{ if not $page }}{{ errorf "Race: missing content page %q" .path }}{{ end }}
+{{ return $page }}

@@ -1,0 +1,264 @@
+/* The poster is the baseline. No text is hidden, faded, or JS-positioned. */
+:root {
+  color-scheme: dark;
+  --race-ink: #e2e4e6;
+  --race-muted: #b1b7bd;
+  --race-ground: #151719;
+  --race-red: #ff331f;
+  --race-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-block: 5rem 7rem; }
+body.race { margin: 0; background: var(--race-ground); color: var(--race-ink); font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+[hidden] { display: none !important; }
+a { color: inherit; text-underline-offset: .23em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
+::selection { background: #a62418; color: #fff; }
+h1, h2, h3, h4, p { margin: 0; }
+h1, h2, h3, h4 { text-wrap: balance; }
+p { text-wrap: pretty; }
+.race-sr, .race-nav-label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.race-skip { position: fixed; inset: 1rem auto auto 1rem; z-index: 20; padding: .75rem 1rem; background: #fff; color: #151719; transform: translateY(-200%); }
+.race-skip:focus { transform: none; }
+.race-chrome { position: fixed; inset: 0 0 auto; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .6rem 1.25rem; min-height: 3.8rem; background: #151719; border-bottom: 1px solid #393c3f; color: #e2e4e6; font: .65rem/1.4 var(--race-mono); letter-spacing: .06em; text-transform: uppercase; }
+.race-exit { display: inline-flex; align-items: center; min-height: 44px; gap: .6rem; text-decoration: none; }
+.race-exit span { font-size: 1.2rem; color: #ff6e5f; }
+.race-edition { max-width: 10rem; text-align: right; font-size: .58rem; color: #b1b7bd; }
+.race-frame { position: fixed; inset: .65rem; z-index: 9; pointer-events: none; }
+.race-frame span { position: absolute; width: 16px; height: 16px; border-color: #737a81; border-style: solid; }
+.race-frame span:nth-child(1) { top: 0; left: 0; border-width: 1px 0 0 1px; }
+.race-frame span:nth-child(2) { top: 0; right: 0; border-width: 1px 1px 0 0; }
+.race-frame span:nth-child(3) { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
+.race-frame span:nth-child(4) { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+.race-nav { position: fixed; z-index: 10; inset: auto 0 0; padding: .45rem .6rem calc(.45rem + env(safe-area-inset-bottom, 0px)); background: #151719; color: #e2e4e6; border-top: 1px solid #42464a; }
+/* Every chip is a constant width (mobile: icon/number + split only; desktop:
+   + label, widened below) so a chip never resizes when its split field's
+   text changes ("—" to "100%") -- the strip scrolls horizontally instead of
+   squeezing chips together, per spec: "chips may scroll horizontally within
+   their own navigation strip. The document itself must not overflow." */
+.race-nav ol { margin: 0 auto; padding: 0; list-style: none; display: flex; gap: .6rem; max-width: 45rem; overflow-x: auto; scrollbar-width: none; }
+.race-nav ol::-webkit-scrollbar { display: none; }
+.race-nav li { flex: 0 0 3.75rem; width: 3.75rem; }
+.race-nav a { display: flex; align-items: center; justify-content: center; gap: .5rem; min-width: 44px; min-height: 44px; font: .72rem/1 var(--race-mono); text-decoration: none; border-bottom: 2px solid transparent; }
+.race-nav a:hover, .race-nav a[aria-current="location"] { color: #fff; border-bottom-color: var(--race-red); background: #292c30; }
+.race-readout { display: none; }
+#race-main { position: relative; isolation: isolate; }
+/* Insets match html's scroll-padding-block (5rem/7rem) -- the rail's own
+   fraction-0/1 endpoints must clear the fixed chrome and nav exactly like
+   anchor-scroll targets do, or the athlete spawns invisible under the header. */
+.race-course { position: absolute; inset: 6.5rem auto 8rem .5rem; width: 2rem; z-index: 2; pointer-events: none; }
+.race-course svg { width: 100%; height: 100%; overflow: visible; }
+.race-course use { fill: none; stroke: var(--race-red); stroke-width: 2; vector-effect: non-scaling-stroke; }
+/* Below 48rem the course lane is only 2rem wide: the desktop path's wavy
+   excursions (as far as x=10-15 of its 0-120 viewBox) don't fit that lane and
+   push the athlete off the left edge. CSS `d` overrides the authored curve
+   with a straight measurement path -- same element, same rail, no second
+   visible line -- so getTotalLength()/getPointAtLength() stay on-lane. */
+#race-path { d: path("M60 0 L60 1000"); }
+.race-track { opacity: .35; }
+.race-progress { opacity: 1; }
+.race-stage { position: relative; overflow: clip; background: var(--race-ground); padding: 7rem 1.5rem 7rem 3.25rem; scroll-margin-block: 4rem 6rem; }
+.race-content { position: relative; z-index: 3; width: 100%; max-width: 44rem; margin-inline: auto; }
+.race-scenery { position: absolute; inset: 0; pointer-events: none; opacity: .35; }
+.race-contours { background: repeating-radial-gradient(ellipse at 120% 40%, transparent 0 39px, #4a5055 40px, transparent 41px 76px); mask-image: linear-gradient(90deg, transparent 30%, #000); }
+.race-hero { min-height: 100svh; padding-top: 8rem; padding-bottom: 6rem; display: flex; align-items: center; }
+.race-telemetry { font: .68rem/1.85 var(--race-mono); letter-spacing: .055em; text-transform: uppercase; color: var(--race-muted); overflow-wrap: anywhere; }
+.race-status-dot { display: inline-block; margin-left: .5rem; width: 6px; height: 6px; background: var(--race-red); border-radius: 50%; vertical-align: middle; }
+.race-hero h1 { font-size: clamp(3.5rem, 15vw, 8rem); font-weight: 750; letter-spacing: -.075em; line-height: .91; margin: 2rem 0 1.75rem; }
+.race-period { color: var(--race-red); }
+.race-hero-role { font-size: clamp(1.1rem, 4vw, 1.7rem); font-weight: 550; line-height: 1.4; letter-spacing: -.025em; }
+.race-hero-role span { font: .7rem/1.9 var(--race-mono); color: var(--race-muted); letter-spacing: 0; }
+.race-tagline { font-size: 1.15rem; margin-top: 2rem; letter-spacing: -.02em; }
+.race-intro { max-width: 32rem; font-size: .96rem; color: var(--race-muted); margin-top: .65rem; }
+.race-button { display: inline-flex; min-height: 48px; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 1.8rem; padding: .8rem 1.15rem; color: #151719; background: var(--race-red); font: 600 .75rem/1.4 var(--race-mono); text-decoration: none; }
+.race-button:hover { background: #ff6e5f; }
+.race-button span { font-size: 1.2rem; }
+.race-origin { margin-top: 2.5rem; font-size: .6rem; }
+.race-hero-stamp { display: none; }
+.race-numeral { position: absolute; right: -1rem; top: 1.5rem; z-index: 1; font-size: clamp(9rem, 34vw, 27rem); font-weight: 750; line-height: 1; letter-spacing: -.08em; opacity: .06; user-select: none; }
+.race-discipline { font: .8rem/1.8 var(--race-mono); letter-spacing: .08em; text-transform: uppercase; margin-top: 2.5rem; }
+.race-discipline span { color: var(--race-muted); }
+.race-stage h2 { font-size: clamp(2.4rem, 8vw, 4.8rem); font-weight: 650; line-height: 1.05; letter-spacing: -.055em; margin-top: 1.25rem; }
+.race-lede { font-size: clamp(1.05rem, 2vw, 1.3rem); line-height: 1.65; margin-top: 1.75rem; color: var(--race-muted); }
+.race-briefing { border-block: 1px solid #50565c; padding-block: 1rem; margin-top: 2.5rem; }
+.race-roles { list-style: none; padding: 0; margin: 0; }
+.race-role { padding: 2.5rem 0; border-bottom: 1px solid #50565c; }
+.race-role h3 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 600; letter-spacing: -.035em; margin: .65rem 0 .8rem; }
+.race-role h3 a { text-decoration: none; }
+.race-role h3 a:hover { text-decoration: underline; }
+.race-role h3 span { font-size: 1rem; margin-left: .4rem; }
+.race-role > p:last-child { color: var(--race-muted); font-size: 1rem; }
+.race-lesson { margin: 3rem 0 0; padding: 0 0 0 1.25rem; border-left: 3px solid var(--race-red); font-size: clamp(1.25rem, 3vw, 1.7rem); line-height: 1.4; letter-spacing: -.025em; }
+.race-granite .race-landscape { background: repeating-radial-gradient(ellipse at 0 100%, transparent 0 60px, #353c42 61px, transparent 62px 92px); mask-image: linear-gradient(90deg, #000, transparent 60%); }
+.race-slate { --race-ground: #252c32; --race-muted: #c0c6cc; }
+.race-slate .race-landscape { background: repeating-linear-gradient(170deg, transparent 0 150px, #5c6973 151px, transparent 152px 190px); mask-image: linear-gradient(90deg, #000, transparent 65%); }
+.race-transition { --race-ground: #0b0d0f; --race-muted: #b1b7bd; min-height: 85svh; display: flex; align-items: center; padding-block: 9rem; }
+.race-transition h2 { max-width: 11ch; }
+.race-tunnel { inset: 20% -40%; transform: perspective(700px) rotateX(65deg) rotateZ(-15deg); background: repeating-linear-gradient(90deg, transparent 0 80px, #5a3b37 81px, transparent 82px 160px), repeating-linear-gradient(0deg, transparent 0 80px, #5a3b37 81px, transparent 82px 160px); opacity: .3; }
+@media (max-width: 48rem) {
+  /* narrower viewports pushed the tunnel gradient off-screen entirely */
+  .race-tunnel { inset: 12% -20%; opacity: .45; transform: perspective(700px) rotateX(50deg) rotateZ(-12deg); }
+}
+.race-transition .race-content { background: #0b0d0f; padding-block: 1rem; }
+.race-transition .race-discipline { color: #ff6e5f; }
+.race-chalk { --race-ground: #e9e7e1; --race-ink: #20272b; --race-muted: #50575c; color: var(--race-ink); color-scheme: light; }
+.race-chalk .race-landscape { background: repeating-linear-gradient(0deg, transparent 0 180px, #899297 181px, transparent 182px 220px); mask-image: linear-gradient(90deg, #000, transparent 70%); opacity: .2; }
+.race-chalk .race-role, .race-chalk .race-briefing { border-color: #a0a5a4; }
+.race-section-label { margin-top: 5rem; }
+.race-principles { list-style: none; counter-reset: principle; padding: 0; margin: 1rem 0 0; }
+.race-principles li { counter-increment: principle; position: relative; padding: 1.5rem 0 1.5rem 2.5rem; border-top: 1px solid #a0a5a4; }
+.race-principles li::before { content: counter(principle, decimal-leading-zero); position: absolute; left: 0; top: 1.65rem; font: .75rem var(--race-mono); color: #50575c; }
+.race-principles h4 { font-size: 1.15rem; line-height: 1.35; font-weight: 650; letter-spacing: -.015em; }
+.race-principles p { color: var(--race-muted); margin-top: .75rem; }
+.race-finish { min-height: 100svh; border-top: 1px solid #a0a5a4; padding-bottom: calc(9rem + env(safe-area-inset-bottom, 0px)); }
+.race-contact { margin-top: 1rem; font: .8rem/1.8 var(--race-mono); overflow-wrap: anywhere; }
+.race-links { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; padding: 0; margin: 2.5rem 0; }
+.race-links a { display: inline-flex; align-items: center; min-height: 44px; gap: 1rem; font: .8rem var(--race-mono); }
+.race-colophon { max-width: 28rem; font: .7rem/1.85 var(--race-mono); color: var(--race-muted); padding-top: 2rem; border-top: 1px solid #a0a5a4; }
+.race-back { display: inline-flex; min-height: 44px; align-items: center; font: .7rem var(--race-mono); margin-top: 1rem; }
+@media (min-width: 48rem) {
+  .race-stage { padding: 9rem 10vw 9rem 30vw; }
+  .race-content { margin-inline: 0; }
+  .race-course { left: 5vw; width: 20vw; }
+  #race-path { d: path("M60 0 C110 40 10 75 60 130 S100 190 60 235 L105 270 15 295 60 320 C110 365 10 400 60 445 S110 510 60 565 L105 600 15 625 60 650 C105 710 20 750 60 810 S100 900 60 955 L60 1000"); }
+  .race-chrome { padding: .75rem 2.5rem; }
+  .race-edition { max-width: none; font-size: .65rem; }
+  .race-frame { inset: 1.25rem; }
+  .race-nav { inset: auto 50% 1.25rem auto; transform: translateX(50%); width: max-content; max-width: calc(100% - 3rem); border: 1px solid #42464a; padding: .4rem .7rem; }
+  /* The 45rem cap only matters full-bleed on mobile; at desktop the pill's
+     own max-width already bounds it, so let the row reach its natural
+     (wider, label-bearing) content width instead of scrolling needlessly. */
+  .race-nav ol { max-width: none; }
+  .race-nav li { flex-basis: 8rem; width: 8rem; }
+  .race-nav a { padding-inline: .65rem; }
+  .race-nav-label { position: static; width: auto; height: auto; padding: 0; margin: 0; clip-path: none; overflow: visible; }
+  .race-hero { min-height: 100svh; padding-top: 8rem; padding-bottom: 7rem; }
+  .race-hero-stamp { display: block; position: absolute; left: 9vw; bottom: 12%; transform: rotate(-90deg); opacity: .4; }
+  .race-hero-stamp svg { width: 150px; height: auto; }
+  .race-telemetry { font-size: .72rem; }
+  .race-origin { font-size: .62rem; }
+  .race-transition { min-height: 85svh; }
+  .race-finish { padding-bottom: 10rem; }
+}
+@media (min-width: 75rem) {
+  /* JS-gated: PurgeCSS strips attribute selectors (hugo_stats has tags/classes/ids
+     only), so visibility cannot hinge on the [hidden] attribute in production. */
+  .race-readout.race-readout--live { position: fixed; z-index: 10; inset: auto 2.5rem 2rem auto; display: flex; flex-direction: column; text-align: right; padding: .5rem .75rem; font: .6rem/1.8 var(--race-mono); color: #e2e4e6; background: #151719; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .race-progress { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; }
+}
+@media (forced-colors: active) {
+  .race-course, .race-scenery, .race-frame { display: none; }
+  .race-button { border: 1px solid ButtonText; }
+}
+/* Enhancement layer: athlete, goal, world stage, splits, hint, live status.
+   Everything here is additive; the rules above remain the no-JS baseline.
+   Root-level JS state hooks (race--enhanced/world-ready/complete) and the
+   race-athlete--/race-nav-split--/race-world__canvas selectors are written
+   only at runtime, so they're force-kept via the PostCSS safelist. */
+.race-nav-split { display: inline-block; min-width: 4ch; margin-left: .5rem; text-align: right; font-variant-numeric: tabular-nums; color: var(--race-muted); }
+.race-nav a[aria-current="location"] .race-nav-split { color: var(--race-red); }
+.race-nav-split--passed { color: inherit; }
+
+.race-athlete-wrap { position: fixed; top: 0; left: 0; z-index: 16; width: 40px; height: 40px; pointer-events: none; will-change: transform; }
+.race-athlete { display: block; width: 100%; height: 100%; overflow: visible; }
+.race-athlete__backplate { fill: var(--race-athlete-ground, var(--race-ground)); }
+.race-athlete__glyph { fill: none; stroke: var(--race-athlete-ink, var(--race-ink)); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.race-athlete__glyph .race-athlete__head { fill: var(--race-athlete-ink, var(--race-ink)); stroke: none; }
+.race-athlete__pose { display: none; }
+.race-athlete--ready .race-athlete__pose--finish,
+.race-athlete--finish .race-athlete__pose--finish,
+.race-athlete--swim .race-athlete__pose--swim,
+.race-athlete--bike .race-athlete__pose--bike,
+.race-athlete--run .race-athlete__pose--run,
+.race-athlete--transition .race-athlete__pose--transition { display: block; }
+.race-athlete__course-dot { fill: var(--race-red); }
+
+.race-goal { position: fixed; top: 0; left: 0; z-index: 16; width: 32px; height: 24px; pointer-events: none; }
+.race-goal__post, .race-goal__crossbar, .race-goal__square { fill: none; stroke-width: 1.6; stroke-linecap: round; }
+.race-goal__post { stroke: var(--race-goal-ink, var(--race-ink)); }
+.race-goal__crossbar { stroke: var(--race-red); }
+.race-goal__square { stroke: var(--race-red); }
+.race--complete .race-goal__square { fill: var(--race-red); }
+
+.race-scroll-hint { position: absolute; left: .6rem; bottom: 6rem; z-index: 16; font: .68rem/1 var(--race-mono); letter-spacing: .08em; color: var(--race-muted); pointer-events: none; }
+
+.race-status.race-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+.race-world { display: none; }
+
+@media (min-width: 64rem) {
+  .race--world-ready .race-stage { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) 30vw; column-gap: 2rem; padding-inline: 2rem; }
+  .race--world-ready .race-stage.race-hero,
+  .race--world-ready .race-stage.race-transition { padding-block: 9rem; }
+  .race--world-ready .race-content { grid-column: 2; margin-inline: 0; }
+  .race--world-ready .race-course { left: 2.75rem; width: 2rem; z-index: 14; }
+  .race--world-ready .race-world { display: block; position: fixed; right: 2rem; top: 50%; width: 30vw; aspect-ratio: 1; transform: translateY(-50%); pointer-events: none; overflow: hidden; z-index: 10; }
+  .race-world__canvas { display: block; width: 100%; height: 100%; }
+}
+
+@media (forced-colors: active) {
+  .race-athlete-wrap, .race-goal, .race-world { display: none; }
+}
+
+@media print {
+  .race-athlete-wrap, .race-goal, .race-scroll-hint, .race-world { display: none !important; }
+}
+
+@media print {
+  .race-chrome, .race-frame, .race-nav, .race-course, .race-scenery, .race-numeral, .race-readout, .race-skip, .race-hero-stamp, .race-city { display: none !important; }
+  body.race, .race-stage, .race-transition .race-content { color: #111; background: #fff; }
+  .race-stage { min-height: 0; padding: 2rem 0; overflow: visible; }
+  .race-content { max-width: none; }
+  .race-role, .race-lesson, .race-principles li { break-inside: avoid; }
+  .race-telemetry, .race-lede, .race-role > p:last-child, .race-intro, .race-hero-role span, .race-colophon { color: #333; }
+  .race-button { background: none; border: 1px solid #111; }
+}
+
+/* Mobile city vignettes (GPT-6 Astra contract A1-A4): hand-authored isometric
+   inline SVGs, visible only below 64rem where the Three.js world does not load.
+   Pure static markup — no JS, no animation; aria-hidden imagery.
+   Ground corrections vs contract A1 table: bike stays slate #252C32,
+   run stays chalk-light #E9E7E1 (matches the poster and WebGL palettes). */
+.race-city {
+  display: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media screen and (width < 64rem) {
+  .race-stage--city {
+    --race-city-band-height: clamp(9rem, 32vw, 15rem);
+    --race-city-opacity: 0.78;
+    position: relative;
+    isolation: isolate;
+  }
+  .race-stage--city.race-stage--swim { --race-city-ground: #151719; --race-city-ink: #E2E4E6; }
+  .race-stage--city.race-stage--bike { --race-city-ground: #252C32; --race-city-ink: #E2E4E6; }
+  .race-stage--city.race-stage--run { --race-city-ground: #E9E7E1; --race-city-ink: #151719; --race-city-opacity: 0.84; }
+  .race-stage--city > .race-scenery { opacity: 0.16; }
+  .race-stage--city > .race-city {
+    display: block;
+    position: absolute;
+    inset-inline-start: 3.25rem;
+    inset-inline-end: 1.5rem;
+    inset-block-end: 0;
+    inline-size: calc(100% - 4.75rem);
+    block-size: var(--race-city-band-height);
+    z-index: 1;
+    overflow: hidden;
+    opacity: var(--race-city-opacity);
+    pointer-events: none;
+  }
+  .race-stage--city > .race-content {
+    position: relative;
+    z-index: 2;
+    padding-block-end: calc(var(--race-city-band-height) - 5rem);
+  }
+}
