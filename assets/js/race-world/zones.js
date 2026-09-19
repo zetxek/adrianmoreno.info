@@ -1,4 +1,3 @@
-```js
 /* Deterministic geometry and material assignments for the seven course zones.
  *
  * Galicia redesign:
@@ -757,4 +756,3 @@ function finishPier(unit, mat) {
   addBatch(group, unit.hex, mat.secondary, row(4, { x0: -6, x1: 6, y: 0, z: -4, size: [1, 0.6, 1], anchor: 'base' }), 'hex', tally); // mooring drums
   return { group, ...tally };
 }
-```
