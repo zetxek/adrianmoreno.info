@@ -358,36 +358,117 @@ function boulderField(unit, mat, count, { x0, x1, z, zJitter }) {
   return { group, ...tally };
 }
 
+/* Preserve the authored palettes and pale transition hardware. Only the
+   secondary-derived water material receives this darker marine value.
+   SWIM and T1 therefore share the same water, despite T1's pale secondary. */
+function riaWaterMaterial(mat) {
+  const water = mat.secondary.clone();
+  water.color.setHex(0x16232a);
+  return water;
+}
+
+/* RÍA DE AROUSA — broad open water, four timber bateas, one inhabited shore.
+   No perimeter enclosure, central rocks, jetty grid or red swim markings. */
 function swimBasin(unit, mat) {
   const group = new Group();
   const tally = { triangles: 0, instances: 0 };
-  addBatch(group, unit.box, mat.secondary, row(5, { x0: -12, x1: 12, y: -0.3, z: 0, size: [24, 0.4, 16] }), 'box', tally); // ground/water (the ría)
-  addBatch(group, unit.box, mat.main, pairedRows(16, { x0: -12, x1: 12, y: 0, z0: -8, z1: 8, size: [1.4, 1, 2], zJitter: 1.1 }), 'box', tally); // irregular coastline: quay terraces
-  addBatch(group, unit.box, mat.main, pairedRows(24, { x0: -13, x1: 13, y: 0, z0: -9, z1: 9, size: [1, 1.6, 0.5], zJitter: 0.8 }), 'box', tally); // irregular coastline: retaining walls
-  addBatch(group, unit.box, mat.tertiary, grid(20, 2, { x0: -12, x1: 12, z0: -7.5, z1: 7.5, y: 0.4, size: [1, 0.2, 3] }), 'box', tally); // jetty decks
-  addBatch(group, unit.cone, mat.tertiary, ring(20, { radius: 11, y: 0, size: [0.3, 0.6, 0.3] }), 'cone', tally); // bollards
-  addBatch(group, unit.hex, mat.tertiary, row(13, { x0: -12, x1: 12, y: 0, z: -9.5, size: [1.4, 1, 1.4], hJitter: 0.15, anchor: 'base' }), 'hex', tally); // breakwaters
+  const waterY = -0.08;
+  const shoreY = 0.24;
 
-  const horreos = horreoRow(unit, mat, [
-    { x: -1.5, z: 1.5, length: 6.5, width: 2.4, wallHeight: 2.6, pillarCount: 8, hasCross: true },
-    { x: 6.5, z: 3, length: 3.6, width: 1.9, wallHeight: 2.1, pillarCount: 6, hasCross: false },
-    { x: -8, z: 3.5, length: 3.2, width: 1.8, wallHeight: 1.9, pillarCount: 6, hasCross: false, rotationY: 0.18 },
-    { x: 1.5, z: 6.5, length: 2.8, width: 1.7, wallHeight: 1.7, pillarCount: 6, hasCross: false, rotationY: -0.12 },
-  ]);
-  group.add(horreos.group);
-  tally.triangles += horreos.triangles;
-  tally.instances += horreos.instances;
+  // One uninterrupted water slab: x=-13.8..13.8, z=-11..10.
+  // Its back strip continues beneath the irregular shoreline, preventing gaps.
+  addBatch(group, unit.box, riaWaterMaterial(mat), row(1, {
+    x0: 0, x1: 0, y: waterY - 0.32, z: -0.5,
+    size: [27.6, 0.32, 21],
+  }), 'box', tally);
 
-  const boulders = boulderField(unit, mat, 3, { x0: -9, x1: 9, z: -4.5, zJitter: 1.6 });
-  group.add(boulders.group);
-  tally.triangles += boulders.triangles;
-  tally.instances += boulders.instances;
+  // Five adjoining land sections describe ONE coastline, along +Z only.
+  const shoreFronts = [8.55, 9.2, 8.85, 9.25, 8.6];
+  const shoreSections = [];
+  for (let i = 0; i < shoreFronts.length; i++) {
+    const x = -11.04 + i * 5.52;
+    const front = shoreFronts[i];
+    shoreSections.push(...row(1, {
+      x0: x, x1: x, y: -0.4, z: (front + 12.4) / 2,
+      size: [5.52, shoreY + 0.4, 12.4 - front],
+    }));
+  }
+  addBatch(group, unit.box, mat.ground, shoreSections, 'box', tally);
 
+  // Three short granite coping runs articulate the shore without fencing it.
+  const coping = [];
+  for (const i of [0, 2, 4]) {
+    const x = -11.04 + i * 5.52;
+    coping.push(...row(1, {
+      x0: x, x1: x, y: shoreY, z: shoreFronts[i] + 0.24,
+      size: [3.7, 0.18, 0.48],
+    }));
+  }
+  addBatch(group, unit.box, mat.main, coping, 'box', tally);
+
+  // One modest working landing, attached to the shore rather than a dock grid.
+  addBatch(group, unit.box, mat.main, row(1, {
+    x0: 4.6, x1: 4.6, y: shoreY - 0.16, z: 8.25,
+    size: [1.3, 0.16, 2.3],
+  }), 'box', tally);
+
+  // Four square bateas occupy a loose western grid. The eastern half and
+  // foreground remain open water. Exposed crossed battens suggest the rope
+  // grid: submerged rope geometry would disappear beneath opaque water.
+  const raftSpecs = [
+    { x: -7.3, z: -4.8, yaw: -0.055 },
+    { x: -2.8, z: -4.1, yaw:  0.035 },
+    { x: -6.6, z:  0.0, yaw:  0.065 },
+    { x: -1.8, z:  0.8, yaw: -0.025 },
+  ];
+  const platforms = [];
+  const battens = [];
+  const raftTopY = waterY + 0.17;
+  const battenH = 0.055;
+
+  for (const { x, z, yaw } of raftSpecs) {
+    const c = Math.cos(yaw);
+    const s = Math.sin(yaw);
+    const localBox = (dx, y, dz, scale) => ({
+      position: [x + dx * c + dz * s, y, z - dx * s + dz * c],
+      scale,
+      rotationY: yaw,
+    });
+
+    platforms.push(localBox(0, raftTopY - 0.125, 0, [2.2, 0.25, 2.2]));
+
+    // Two physically stacked timber directions, not coplanar overlays.
+    for (const offset of [-0.72, 0, 0.72]) {
+      battens.push(localBox(0, raftTopY + battenH / 2, offset, [2.12, battenH, 0.075]));
+      battens.push(localBox(offset, raftTopY + battenH * 1.5, 0, [0.075, battenH, 2.12]));
+    }
+  }
+  addBatch(group, unit.box, mat.main, platforms, 'box', tally);
+  addBatch(group, unit.box, mat.tertiary, battens, 'box', tally);
+
+  // A small, isolated breakwater at the far corner—not a ring of markers.
+  addBatch(group, unit.hex, mat.main, [
+    { position: [9.5, waterY - 0.3, -9.6], scale: [1.65, 0.63, 1.55], rotationY: 0.12 },
+    { position: [10.85, waterY - 0.3, -9.05], scale: [1.6, 0.72, 1.5], rotationY: -0.08 },
+    { position: [12.05, waterY - 0.3, -8.35], scale: [1.55, 0.58, 1.45], rotationY: 0.2 },
+  ], 'hex', tally);
+
+  // Exactly one modest hórreo, with its feet seated on coastal land.
+  const horreo = horreoRow(unit, mat, [{
+    x: 8.4, z: 10.3, length: 3.3, width: 1.45,
+    wallHeight: 1.65, pillarCount: 4, hasCross: true, rotationY: 0,
+  }]);
+  horreo.group.position.y = shoreY;
+  group.add(horreo.group);
+  tally.triangles += horreo.triangles;
+  tally.instances += horreo.instances;
+
+  // Two small working skiffs beside the landing; no forest of sail masts.
   const boats = moored(unit, mat, [
-    { x: -4, z: 0, length: 1.8, sail: true },
-    { x: 3.5, z: -1, length: 1.5, sail: false },
-    { x: -0.5, z: -2.5, length: 1.6, sail: true },
+    { x: 2.45, z: 8.0, length: 2.1, sail: false },
+    { x: 6.7, z: 7.85, length: 1.8, sail: false },
   ]);
+  boats.group.position.y = waterY;
   group.add(boats.group);
   tally.triangles += boats.triangles;
   tally.instances += boats.instances;
@@ -409,49 +490,229 @@ function moored(unit, mat, specs) {
   return { group, ...tally };
 }
 
-function tunnel(unit, mat, spacing) {
+/* Open-air transition racks, parallel to +X travel and outside the course.
+   Each bicycle-sized divider is a paired, splayed hanger beneath a rail. */
+function transitionBikeRacks(unit, mat, specs) {
+  const group = new Group();
+  const tally = { triangles: 0, instances: 0 };
+  const supports = [];
+  const rails = [];
+  const dividers = [];
+  const railY = 1.1;
+  const footH = 0.06;
+
+  specs.forEach(({ x, z, length, count = 7, seed = 0 }) => {
+    rails.push({
+      position: [x, railY, z],
+      scale: [length, 0.12, 0.16],
+      rotationY: 0,
+    });
+
+    for (const end of [-1, 1]) {
+      const supportX = x + end * (length / 2 - 0.18);
+      supports.push({
+        position: [supportX, footH / 2, z],
+        scale: [0.42, footH, 0.72],
+        rotationY: 0,
+      });
+      supports.push({
+        position: [supportX, (footH + railY) / 2, z],
+        scale: [0.09, railY - footH, 0.09],
+        rotationY: 0,
+      });
+    }
+
+    for (let i = 0; i < count; i++) {
+      const t = count > 1 ? i / (count - 1) : 0.5;
+      const bayX = x + lerp(-length / 2 + 0.6, length / 2 - 0.6, t);
+      const outward = z < 0 ? -1 : 1;
+      const yaw = outward * (0.22 + (hash(i + seed, 81) - 0.5) * 0.18);
+      const spread = 0.25 + hash(i + seed, 82) * 0.08;
+      const lowerY = 0.08;
+      const rise = railY - lowerY;
+      const memberLength = Math.hypot(spread, rise);
+      const tilt = Math.atan2(spread, rise);
+
+      // Both upper endpoints meet the rack rail. Lower endpoints splay
+      // into a narrow inverted V, leaving bike-frame-like negative space.
+      for (const side of [-1, 1]) {
+        dividers.push({
+          position: [
+            bayX + side * spread * 0.5 * Math.cos(yaw),
+            (lowerY + railY) / 2,
+            z - side * spread * 0.5 * Math.sin(yaw),
+          ],
+          scale: [0.055, memberLength, 0.075],
+          rotationY: yaw,
+          rotationZ: side * tilt,
+        });
+      }
+    }
+  });
+
+  addBatch(group, unit.box, mat.main, supports, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, rails, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, dividers, 'box', tally);
+  return { group, ...tally };
+}
+
+/* One exit timing portal, shared equipment rather than a repeated tunnel.
+   Neutral hardware only: tertiary red remains exclusively on the ground. */
+function transitionExitGate(unit, mat, x) {
   const group = new Group();
   const tally = { triangles: 0, instances: 0 };
 
-  // Keep every portal aligned; variation changes pitch, not lateral jitter.
-  const halfSpan = 10.8 - spacing;
-  const x0 = -halfSpan;
-  const x1 = halfSpan;
-  const rackSpan = halfSpan * 0.75;
+  addBatch(group, unit.box, mat.main, [
+    ...row(1, { x0: x, x1: x, y: 0, z: -3, size: [0.8, 0.16, 0.38] }),
+    ...row(1, { x0: x, x1: x, y: 0, z: 3, size: [0.8, 0.16, 0.38] }),
+  ], 'box', tally);
 
-  // Dark deck: its upper surface establishes y = 0.
-  addBatch(group, unit.box, mat.ground, row(1, { x0: 0, x1: 0, y: -0.32, z: 0, size: [26.4, 0.32, 6.8] }), 'box', tally);
-  // Continuous neutral edges make the dark floor read as a deliberate slab.
-  addBatch(group, unit.box, mat.main, pairedRows(1, { x0: 0, x1: 0, y: 0.05, z0: -3.26, z1: 3.26, size: [26.4, 0.1, 0.14] }), 'box', tally);
-  // Open side walls: seven slim pylon pairs with generous gaps.
-  // NOTE: vertical elements pass anchor:'base' — y is their CENTER (the
-  // default anchor treats y as the box bottom, which buried the floor
-  // details inside the deck and floated the pylons).
-  addBatch(group, unit.box, mat.main, pairedRows(7, { x0, x1, y: 1.3, z0: -2.9, z1: 2.9, size: [0.42, 2.6, 0.38], anchor: 'base' }), 'box', tally);
-  // Stepped capitals suggest chamfered shoulders without extra mesh complexity.
-  addBatch(group, unit.box, mat.secondary, pairedRows(7, { x0, x1, y: 2.73, z0: -2.78, z1: 2.78, size: [0.66, 0.26, 0.66], anchor: 'base' }), 'box', tally);
-  // Pale, narrow ribs describe the roof while leaving the tunnel open to light.
-  addBatch(group, unit.box, mat.secondary, row(7, { x0, x1, y: 2.98, z: 0, size: [0.4, 0.24, 6.24], anchor: 'base' }), 'box', tally);
-  // Equipment racks: grounded back panels with projecting shelf tops.
-  addBatch(group, unit.box, mat.main, pairedRows(4, { x0: -rackSpan, x1: rackSpan, y: 0.46, z0: -2.84, z1: 2.84, size: [0.86, 0.92, 0.16], anchor: 'base' }), 'box', tally);
-  addBatch(group, unit.box, mat.secondary, pairedRows(4, { x0: -rackSpan, x1: rackSpan, y: spacing > 0 ? 1.15 : 0.98, z0: -2.63, z1: 2.63, size: spacing > 0 ? [1.3, 0.14, 0.75] : [1.1, 0.12, 0.62], anchor: 'base' }), 'box', tally);
-  // Two unmistakable timing gates: taller and brighter than the internal bays.
-  addBatch(group, unit.box, mat.secondary, pairedRows(2, { x0: -12.15, x1: 12.15, y: 1.62, z0: -3.08, z1: 3.08, size: [0.6, 3.24, 0.52], anchor: 'base' }), 'box', tally);
-  addBatch(group, unit.box, mat.secondary, row(2, { x0: -12.15, x1: 12.15, y: 3.4, z: 0, size: [0.6, 0.32, 6.68], anchor: 'base' }), 'box', tally);
-  // Dark fascia projects slightly from both gate faces; no coplanar overlays.
-  addBatch(group, unit.box, mat.main, row(2, { x0: -12.15, x1: 12.15, y: 3.4, z: 0, size: [0.64, 0.14, 5.58], anchor: 'base' }), 'box', tally);
-  // T2 widens both thresholds; only the departing NL→DK stripe is red.
-  if (spacing > 0) {
-    addBatch(group, unit.box, mat.secondary, row(1, { x0: -11.65, x1: -11.65, y: 0.006, z: 0, size: [0.5, 0.012, 5.7] }), 'box', tally);
-    addBatch(group, unit.box, mat.tertiary, row(1, { x0: 11.65, x1: 11.65, y: 0.006, z: 0, size: [0.5, 0.012, 5.7] }), 'box', tally);
-  }
-  // One uninterrupted course ribbon, joined visually by T2's red threshold.
-  addBatch(group, unit.box, mat.tertiary, row(1, { x0: 0, x1: 0, y: 0.024, z: 0, size: [26.4, 0.02, 0.18] }), 'box', tally);
+  addBatch(group, unit.box, mat.secondary, [
+    ...row(1, { x0: x, x1: x, y: 0.16, z: -3, size: [0.34, 2.94, 0.28] }),
+    ...row(1, { x0: x, x1: x, y: 0.16, z: 3, size: [0.34, 2.94, 0.28] }),
+    ...row(1, { x0: x, x1: x, y: 3.1, z: 0, size: [0.6, 0.34, 6.5] }),
+  ], 'box', tally);
+
+  // Approach-facing fascia, seated against rather than inside the header.
+  addBatch(group, unit.box, mat.ground, row(1, {
+    x0: x - 0.3225, x1: x - 0.3225, y: 3.17, z: 0,
+    size: [0.045, 0.2, 5.5],
+  }), 'box', tally);
 
   return { group, ...tally };
 }
-function t1Tunnel(unit, mat) { return tunnel(unit, mat, 0); }
-function t2Tunnel(unit, mat) { return tunnel(unit, mat, 0.4); }
+
+/* T1 — SWIM → BIKE, travelling from -X to +X.
+   Water and a low exit landing → stripping mat → two full rack rows →
+   one bike-departure gate. Open sky throughout. */
+function t1Tunnel(unit, mat) {
+  const group = new Group();
+  const tally = { triangles: 0, instances: 0 };
+  const entryX = -13.2;
+  const shoreX = -9.2;
+  const exitX = 13.2;
+  const gateX = 11.65;
+  const waterY = -0.08;
+
+  // The dark deck begins at the shoreline, not beneath the exposed water.
+  addBatch(group, unit.box, mat.ground, row(1, {
+    x0: (shoreX + exitX) / 2, x1: (shoreX + exitX) / 2,
+    y: -0.32, z: 0,
+    size: [exitX - shoreX, 0.32, 6.8],
+  }), 'box', tally);
+
+  addBatch(group, unit.box, riaWaterMaterial(mat), row(1, {
+    x0: (entryX + shoreX) / 2, x1: (entryX + shoreX) / 2,
+    y: waterY - 0.24, z: 0,
+    size: [shoreX - entryX, 0.24, 6.8],
+  }), 'box', tally);
+
+  // Low, unrailed swim-exit landing. Water laps both sides; its top joins
+  // the deck at y=0, supporting the ribbon rather than floating it at sea.
+  addBatch(group, unit.box, mat.main, row(1, {
+    x0: (entryX + shoreX) / 2, x1: (entryX + shoreX) / 2,
+    y: -0.22, z: 0,
+    size: [shoreX - entryX, 0.22, 2.2],
+  }), 'box', tally);
+
+  // Exactly two continuous deck trims. pairedRows() takes a TOTAL count.
+  addBatch(group, unit.box, mat.main, pairedRows(2, {
+    x0: (shoreX + exitX) / 2, x1: (shoreX + exitX) / 2,
+    y: 0, z0: -3.26, z1: 3.26,
+    size: [exitX - shoreX, 0.1, 0.14],
+  }), 'box', tally);
+
+  // Broad, nearly flush wetsuit-strip mat immediately after the water.
+  addBatch(group, unit.box, mat.main, row(1, {
+    x0: -7.65, x1: -7.65, y: 0, z: 0,
+    size: [2.4, 0.018, 3.4],
+  }), 'box', tally);
+
+  const racks = transitionBikeRacks(unit, mat, [
+    { x: 0.2, z: -2.05, length: 9.2, count: 7, seed: 11 },
+    { x: 0.2, z:  2.05, length: 9.2, count: 7, seed: 29 },
+  ]);
+  group.add(racks.group);
+  tally.triangles += racks.triangles;
+  tally.instances += racks.instances;
+
+  // A single uninterrupted red course line through landing, mat and deck.
+  addBatch(group, unit.box, mat.tertiary, row(1, {
+    x0: 0, x1: 0, y: 0.02, z: 0,
+    size: [exitX - entryX, 0.024, 0.26],
+  }), 'box', tally);
+
+  const gate = transitionExitGate(unit, mat, gateX);
+  group.add(gate.group);
+  tally.triangles += gate.triangles;
+  tally.instances += gate.instances;
+
+  return { group, ...tally };
+}
+
+/* T2 — BIKE → RUN, also travelling from -X to +X.
+   Shorter rack rows are concentrated at entry. Beyond them, deliberately
+   empty ground releases the athlete into the run. No water or roof ribs. */
+function t2Tunnel(unit, mat) {
+  const group = new Group();
+  const tally = { triangles: 0, instances: 0 };
+  const entryX = -13.2;
+  const exitX = 13.2;
+  const gateX = 11.65;
+  const thresholdWidth = 0.5;
+  const thresholdStartX = gateX - thresholdWidth / 2;
+  const thresholdEndX = gateX + thresholdWidth / 2;
+  const ribbonY = 0.02;
+  const ribbonH = 0.024;
+
+  addBatch(group, unit.box, mat.ground, row(1, {
+    x0: 0, x1: 0, y: -0.32, z: 0,
+    size: [26.4, 0.32, 6.8],
+  }), 'box', tally);
+
+  addBatch(group, unit.box, mat.main, pairedRows(2, {
+    x0: 0, x1: 0, y: 0, z0: -3.26, z1: 3.26,
+    size: [26.4, 0.1, 0.14],
+  }), 'box', tally);
+
+  // Bike drop-off happens first; all rack geometry ends before x=-2.7.
+  const racks = transitionBikeRacks(unit, mat, [
+    { x: -6.7, z: -2.05, length: 8, count: 6, seed: 43 },
+    { x: -6.7, z:  2.05, length: 8, count: 6, seed: 61 },
+  ]);
+  group.add(racks.group);
+  tally.triangles += racks.triangles;
+  tally.instances += racks.instances;
+
+  // No furniture or pylons in the departing run apron.
+  // Split the ribbon at the threshold so their top faces never overlap.
+  addBatch(group, unit.box, mat.tertiary, [
+    ...row(1, {
+      x0: (entryX + thresholdStartX) / 2,
+      x1: (entryX + thresholdStartX) / 2,
+      y: ribbonY, z: 0,
+      size: [thresholdStartX - entryX, ribbonH, 0.26],
+    }),
+    ...row(1, {
+      x0: gateX, x1: gateX, y: ribbonY, z: 0,
+      size: [thresholdWidth, ribbonH, 5.7],
+    }),
+    ...row(1, {
+      x0: (thresholdEndX + exitX) / 2,
+      x1: (thresholdEndX + exitX) / 2,
+      y: ribbonY, z: 0,
+      size: [exitX - thresholdEndX, ribbonH, 0.26],
+    }),
+  ], 'box', tally);
+
+  // The NL→DK departure stripe sits directly beneath the sole timing gate.
+  const gate = transitionExitGate(unit, mat, gateX);
+  group.add(gate.group);
+  tally.triangles += gate.triangles;
+  tally.instances += gate.instances;
+
+  return { group, ...tally };
+}
 
 const GABLE_TYPES = ['point', 'stepped', 'flat'];
 
