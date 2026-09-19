@@ -96,6 +96,10 @@ p { text-wrap: pretty; }
 .race-transition { --race-ground: #0b0d0f; --race-muted: #b1b7bd; min-height: 85svh; display: flex; align-items: center; padding-block: 9rem; }
 .race-transition h2 { max-width: 11ch; }
 .race-tunnel { inset: 20% -40%; transform: perspective(700px) rotateX(65deg) rotateZ(-15deg); background: repeating-linear-gradient(90deg, transparent 0 80px, #5a3b37 81px, transparent 82px 160px), repeating-linear-gradient(0deg, transparent 0 80px, #5a3b37 81px, transparent 82px 160px); opacity: .3; }
+@media (max-width: 48rem) {
+  /* narrower viewports pushed the tunnel gradient off-screen entirely */
+  .race-tunnel { inset: 12% -20%; opacity: .45; transform: perspective(700px) rotateX(50deg) rotateZ(-12deg); }
+}
 .race-transition .race-content { background: #0b0d0f; padding-block: 1rem; }
 .race-transition .race-discipline { color: #ff6e5f; }
 .race-chalk { --race-ground: #e9e7e1; --race-ink: #20272b; --race-muted: #50575c; color: var(--race-ink); color-scheme: light; }

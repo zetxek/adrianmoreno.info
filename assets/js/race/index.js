@@ -144,7 +144,9 @@ import * as S from './state.js';
     const { boundaries, maxScroll } = measureBoundaries(refs.stages);
     state.layout.boundaries = boundaries;
     state.layout.maxScroll = maxScroll;
-    state.layout.athleteSize = wideMQ.matches ? 48 : 40;
+    /* Legibility bump (adversarial audit): 24-unit pose detail needs more
+       pixels — 44px mobile / 56px on the desktop world viewports. */
+    state.layout.athleteSize = wideMQ.matches ? 56 : 44;
     athleteWrap.style.width = `${state.layout.athleteSize}px`;
     athleteWrap.style.height = `${state.layout.athleteSize}px`;
 
@@ -206,7 +208,7 @@ import * as S from './state.js';
     if (!state.layout.railReady) return;
     const point = screenPointForFraction(refs.pathEl, state.layout.rail, 1);
     positionGoal(goalEl, point.x, point.y);
-    if (goalEl.hidden) goalEl.hidden = false;
+    if (goalEl.hasAttribute('hidden')) goalEl.removeAttribute('hidden');
   }
 
   function writeGoalState(chapterIndex, fraction) {

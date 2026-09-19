@@ -175,8 +175,8 @@ export const ZONE_PALETTES = [
   { ground: 0x242729, main: 0x62676a, secondary: 0x343f45, tertiary: 0x858b8f },
   { ground: 0x222222, main: 0x545454, secondary: 0x969696, tertiary: 0xff331f },
   { ground: 0x343a40, main: 0x737c84, secondary: 0x252d33, tertiary: 0x4a535b },
-  { ground: 0x222222, main: 0x545454, secondary: 0x969696, tertiary: 0xff331f },
-  { ground: 0xe2e4e6, main: 0xc3c9cd, secondary: 0xadb9c0, tertiary: 0x7c878f },
+  { ground: 0x2a2521, main: 0x59524b, secondary: 0x9a938a, tertiary: 0xff331f },
+  { ground: 0xf0f0ee, main: 0xb8bfc3, secondary: 0x46535c, tertiary: 0x7c878f },
   { ground: 0xe2e4e6, main: 0xc3c9cd, secondary: 0x909ca4, tertiary: 0xff331f },
 ];
 
@@ -234,8 +234,9 @@ function startPlateau(unit, mat) {
   const ribbonStartZ = gateZ + lineDepth / 2;
   addBatch(group, unit.box, mat.tertiary, row(1, { x0: 0, x1: 0, y: surfaceY, z: (ribbonStartZ + sceneEdgeZ) / 2, size: [1.1, ribbonH, sceneEdgeZ - ribbonStartZ] }), 'box', tally);
 
-  // Box-built START lettering: no font, canvas, texture or extra material.
-  // Approach is from -Z, so readable left-to-right runs from +X to -X.
+  // Box-built START lettering on the crossbar's top face (readable from the
+  // downward camera — the vertical face was nearly edge-on and invisible).
+  // Approach is from -Z: columns run +X to -X, top rows lie toward +Z.
   const glyphs = {
     S: ['111', '100', '111', '001', '111'],
     T: ['111', '010', '010', '010', '010'],
@@ -243,11 +244,12 @@ function startPlateau(unit, mat) {
     R: ['110', '101', '110', '101', '101'],
   };
   const word = 'START';
-  const cellX = 0.32;
-  const cellY = 0.19;
-  const textY = barY + 0.32;
-  const textZ = faceZ - 0.05;
+  const cellX = 0.42;
+  const cellZ = 0.26;
+  const textY = barY + barH;
   const wordWidth = [...word].reduce((width, letter) => width + glyphs[letter][0].length + 1, -1);
+  const fitX = 12.5 / (wordWidth * cellX);
+  const fitZ = 0.8 / (glyphs.S.length * cellZ);
   const lettering = [];
   let cursor = 0;
   for (const letter of word) {
@@ -260,13 +262,14 @@ function startPlateau(unit, mat) {
         const first = c;
         while (c < mask.length && mask[c] === '1') c++;
         const run = c - first;
-        const x = (wordWidth / 2 - cursor - first - run / 2) * cellX;
-        lettering.push(...row(1, { x0: x, x1: x, y: textY + (glyph.length - 1 - r) * cellY, z: textZ, size: [run * cellX - 0.018, cellY - 0.022, 0.028] }));
+        const x = (wordWidth / 2 - cursor - first - run / 2) * cellX * fitX;
+        const textZ = gateZ + ((glyph.length - 1) / 2 - r) * cellZ * fitZ;
+        lettering.push(...row(1, { x0: x, x1: x, y: textY, z: textZ, size: [(run * cellX - 0.018) * fitX, 0.06, (cellZ - 0.022) * fitZ] }));
       }
     }
     cursor += glyph[0].length + 1;
   }
-  addBatch(group, unit.box, mat.secondary, lettering, 'box', tally);
+  addBatch(group, unit.box, mat.ground, lettering, 'box', tally);
 
   return { group, ...tally };
 }
@@ -431,17 +434,18 @@ function tunnel(unit, mat, spacing) {
   addBatch(group, unit.box, mat.secondary, row(7, { x0, x1, y: 2.98, z: 0, size: [0.4, 0.24, 6.24], anchor: 'base' }), 'box', tally);
   // Equipment racks: grounded back panels with projecting shelf tops.
   addBatch(group, unit.box, mat.main, pairedRows(4, { x0: -rackSpan, x1: rackSpan, y: 0.46, z0: -2.84, z1: 2.84, size: [0.86, 0.92, 0.16], anchor: 'base' }), 'box', tally);
-  addBatch(group, unit.box, mat.secondary, pairedRows(4, { x0: -rackSpan, x1: rackSpan, y: 0.98, z0: -2.63, z1: 2.63, size: [1.1, 0.12, 0.62], anchor: 'base' }), 'box', tally);
+  addBatch(group, unit.box, mat.secondary, pairedRows(4, { x0: -rackSpan, x1: rackSpan, y: spacing > 0 ? 1.15 : 0.98, z0: -2.63, z1: 2.63, size: spacing > 0 ? [1.3, 0.14, 0.75] : [1.1, 0.12, 0.62], anchor: 'base' }), 'box', tally);
   // Two unmistakable timing gates: taller and brighter than the internal bays.
   addBatch(group, unit.box, mat.secondary, pairedRows(2, { x0: -12.15, x1: 12.15, y: 1.62, z0: -3.08, z1: 3.08, size: [0.6, 3.24, 0.52], anchor: 'base' }), 'box', tally);
   addBatch(group, unit.box, mat.secondary, row(2, { x0: -12.15, x1: 12.15, y: 3.4, z: 0, size: [0.6, 0.32, 6.68], anchor: 'base' }), 'box', tally);
   // Dark fascia projects slightly from both gate faces; no coplanar overlays.
   addBatch(group, unit.box, mat.main, row(2, { x0: -12.15, x1: 12.15, y: 3.4, z: 0, size: [0.64, 0.14, 5.58], anchor: 'base' }), 'box', tally);
-  // T2 adds a neutral timing stripe at each threshold.
+  // T2 widens both thresholds; only the departing NL→DK stripe is red.
   if (spacing > 0) {
-    addBatch(group, unit.box, mat.secondary, row(2, { x0: -11.65, x1: 11.65, y: 0.006, z: 0, size: [0.22, 0.012, 5.7] }), 'box', tally);
+    addBatch(group, unit.box, mat.secondary, row(1, { x0: -11.65, x1: -11.65, y: 0.006, z: 0, size: [0.5, 0.012, 5.7] }), 'box', tally);
+    addBatch(group, unit.box, mat.tertiary, row(1, { x0: 11.65, x1: 11.65, y: 0.006, z: 0, size: [0.5, 0.012, 5.7] }), 'box', tally);
   }
-  // The sole colored element: one uninterrupted course ribbon.
+  // One uninterrupted course ribbon, joined visually by T2's red threshold.
   addBatch(group, unit.box, mat.tertiary, row(1, { x0: 0, x1: 0, y: 0.024, z: 0, size: [26.4, 0.02, 0.18] }), 'box', tally);
 
   return { group, ...tally };
@@ -600,6 +604,9 @@ function amsterdamBike(unit, mat) {
   // near bank: 9 individual houses (brief's 6-9 range), each with its own
   // gable silhouette, chimney, and multi-floor window rows
   const nearSpecs = houseSpecs(9, { depth: 1.7, baseWidth: 2.3, baseHeight: 3.8, floors: 3, windowsPerFloor: 2, seed: 5 });
+  // Near-bank ground: z=-6..2, behind the houses through to the canal edge.
+  // Bottom=-0.2, thickness=0.3: top=0.1, flush with the existing water.
+  addBatch(group, unit.box, mat.ground, row(1, { x0: 0, x1: 0, y: -0.2, z: -2, size: [Math.max(26.4, nearSpecs.reduce((sum, s) => sum + s.width, 0) + 2), 0.3, 8] }), 'box', tally);
   const nearHouses = canalHouses(unit, mat, nearSpecs, -4, { chimneys: true });
   group.add(nearHouses.group);
   tally.triangles += nearHouses.triangles;
@@ -607,6 +614,8 @@ function amsterdamBike(unit, mat) {
 
   // far bank: a sparser, smaller row so the canal reads as flanked on both sides
   const farSpecs = houseSpecs(5, { depth: 1.5, baseWidth: 2, baseHeight: 3, floors: 2, windowsPerFloor: 2, seed: 19 });
+  // Far-bank ground: z=8..13, from the canal edge to behind the houses.
+  addBatch(group, unit.box, mat.ground, row(1, { x0: 0, x1: 0, y: -0.2, z: 10.5, size: [26.4, 0.3, 5] }), 'box', tally);
   const farHouses = canalHouses(unit, mat, farSpecs, 11, {});
   group.add(farHouses.group);
   tally.triangles += farHouses.triangles;
@@ -639,9 +648,11 @@ function amsterdamBike(unit, mat) {
 function landmarkTower(unit, mat, { x, z }) {
   const group = new Group();
   const tally = { triangles: 0, instances: 0 };
-  addBatch(group, unit.hex, mat.main, [{ position: [x, 0, z], scale: [2.2, 3.4, 2.2], rotationY: 0 }], 'hex', tally); // tower base
-  addBatch(group, unit.box, mat.secondary, [{ position: [x, 3.4 + 0.4, z], scale: [1.2, 0.8, 1.2], rotationY: 0 }], 'box', tally); // observatory box
-  addBatch(group, unit.cone, mat.tertiary, [{ position: [x, 4.2, z], scale: [0.6, 0.9, 0.6], rotationY: 0 }], 'cone', tally); // spire
+  addBatch(group, unit.hex, mat.main, [{ position: [x, 0, z], scale: [1.8, 6.0, 1.8], rotationY: 0 }], 'hex', tally); // tower base
+  // The tower conceals the slab's centre, leaving a projecting balcony ring.
+  addBatch(group, unit.box, mat.secondary, [{ position: [x, 4.6, z], scale: [2.6, 0.25, 2.6], rotationY: 0 }], 'box', tally);
+  addBatch(group, unit.box, mat.secondary, [{ position: [x, 6.0 + 0.4, z], scale: [1.2, 0.8, 1.2], rotationY: 0 }], 'box', tally); // observatory box
+  addBatch(group, unit.cone, mat.tertiary, [{ position: [x, 6.8, z], scale: [0.6, 0.9, 0.6], rotationY: 0 }], 'cone', tally); // spire
   return { group, ...tally };
 }
 
@@ -667,6 +678,9 @@ function copenhagenRun(unit, mat) {
   const tally = { triangles: 0, instances: 0 };
 
   const specs = houseSpecs(10, { depth: 1.5, baseWidth: 2, baseHeight: 3.6, floors: 3, windowsPerFloor: 2, types: ['point'], seed: 13 });
+  // Harbour-side ground: z=-6.5..1.5, beneath/behind the houses and tower.
+  // Top=0.1, flush with harbour water; width includes house-row margins.
+  addBatch(group, unit.box, mat.ground, row(1, { x0: 0, x1: 0, y: -0.2, z: -2.5, size: [Math.max(26.4, specs.reduce((sum, s) => sum + s.width, 0) + 2), 0.3, 8] }), 'box', tally);
   const houses = canalHouses(unit, mat, specs, -4.5);
   group.add(houses.group);
   tally.triangles += houses.triangles;
@@ -751,7 +765,8 @@ function finishPier(unit, mat) {
   ], 'box', tally);
   addBatch(group, unit.box, mat.main, row(2, { x0: -8.8, x1: 8.8, y: surfaceY + benchLegH, z: benchZ, size: [3.4, 0.18, 1.15] }), 'box', tally);
 
-  // Matching box-built FINISH lettering on the approaching (-Z) face.
+  // Matching box-built FINISH lettering on the crossbar's top face.
+  // Approach is from -Z: columns run +X to -X, top rows lie toward +Z.
   const glyphs = {
     F: ['111', '100', '110', '100', '100'],
     I: ['111', '010', '010', '010', '111'],
@@ -760,11 +775,12 @@ function finishPier(unit, mat) {
     H: ['101', '101', '111', '101', '101'],
   };
   const word = 'FINISH';
-  const cellX = 0.32;
-  const cellY = 0.19;
-  const textY = barY + 0.32;
-  const textZ = faceZ - 0.05;
+  const cellX = 0.42;
+  const cellZ = 0.26;
+  const textY = barY + barH;
   const wordWidth = [...word].reduce((width, letter) => width + glyphs[letter][0].length + 1, -1);
+  const fitX = 12.5 / (wordWidth * cellX);
+  const fitZ = 0.8 / (glyphs.F.length * cellZ);
   const lettering = [];
   let cursor = 0;
   for (const letter of word) {
@@ -777,13 +793,14 @@ function finishPier(unit, mat) {
         const first = c;
         while (c < mask.length && mask[c] === '1') c++;
         const run = c - first;
-        const x = (wordWidth / 2 - cursor - first - run / 2) * cellX;
-        lettering.push(...row(1, { x0: x, x1: x, y: textY + (glyph.length - 1 - r) * cellY, z: textZ, size: [run * cellX - 0.018, cellY - 0.022, 0.028] }));
+        const x = (wordWidth / 2 - cursor - first - run / 2) * cellX * fitX;
+        const textZ = gateZ + ((glyph.length - 1) / 2 - r) * cellZ * fitZ;
+        lettering.push(...row(1, { x0: x, x1: x, y: textY, z: textZ, size: [(run * cellX - 0.018) * fitX, 0.06, (cellZ - 0.022) * fitZ] }));
       }
     }
     cursor += glyph[0].length + 1;
   }
-  addBatch(group, unit.box, mat.main, lettering, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, lettering, 'box', tally);
 
   return { group, ...tally };
 }
