@@ -98,6 +98,31 @@ function flatPolygon(points) {
   return new ExtrudeGeometry(shape, { depth: 1, steps: 1, bevelEnabled: false, curveSegments: 1 });
 }
 
+/* Signed area of a 2D polygon (shoelace formula); positive == counter-
+   clockwise winding in standard (x right, y up) orientation. */
+function signedArea2D(points) {
+  let area = 0;
+  for (let i = 0; i < points.length; i++) {
+    const [x0, y0] = points[i];
+    const [x1, y1] = points[(i + 1) % points.length];
+    area += x0 * y1 - x1 * y0;
+  }
+  return area / 2;
+}
+
+/* Builds a vertical extrusion from a plan-view (u, v) travel-frame polygon.
+   flatPolygon() extrudes a Shape's XY plane along local Z; rotateX(-90deg)
+   turns that depth into world height and maps local (x, y) to world
+   (x, -z), i.e. world (x, y, z) = (u, height, -v). Winding is normalised
+   to counter-clockwise first -- flatPolygon() does not do this itself, and
+   inconsistent winding renders the caps black/inside-out. */
+function travelFootprint(points) {
+  const ordered = signedArea2D(points) > 0 ? points : [...points].reverse();
+  const geometry = flatPolygon(ordered);
+  geometry.rotateX(-Math.PI / 2);
+  return geometry;
+}
+
 function uprightPolygon(sides) {
   const shape = new Shape();
   for (let i = 0; i < sides; i++) {
@@ -541,228 +566,211 @@ function moored(unit, mat, specs) {
   return { group, ...tally };
 }
 
-/* Open-air transition racks, parallel to +X travel and outside the course.
-   Each bicycle-sized divider is a paired, splayed hanger beneath a rail. */
-function transitionBikeRacks(unit, mat, specs) {
+/* T1 — "The Atlantic Packet": the loaded vessel, animated as a whole via
+   getObjectByName('t1-atlantic-packet') in main.js. All child positions are
+   local to this group, matching the authored travel-transitions brief
+   (Concept A, section 4). Baked initial transform == the p=0 animation
+   state, so the no-JS/poster baseline matches the scroll-driven start. */
+function t1AtlanticPacket(unit, mat) {
   const group = new Group();
+  group.name = 't1-atlantic-packet';
+  group.position.set(-5.1, 0, 0);
   const tally = { triangles: 0, instances: 0 };
-  const supports = [];
-  const rails = [];
-  const dividers = [];
-  const railY = 1.1;
-  const footH = 0.06;
 
-  specs.forEach(({ x, z, length, count = 7, seed = 0 }) => {
-    rails.push({
-      position: [x, railY, z],
-      scale: [length, 0.12, 0.16],
-      rotationY: 0,
-    });
+  const hullGeometry = travelFootprint([
+    [-3.7, -1.25], [2.3, -1.25], [3.7, 0], [2.3, 1.25], [-3.7, 1.25],
+  ]);
+  addCityGeometryBatch(group, hullGeometry, mat.main, [
+    { position: [0, 0.52, 0], scale: [1, 1.15, 1], rotationY: 0 },
+  ], tally);
 
-    for (const end of [-1, 1]) {
-      const supportX = x + end * (length / 2 - 0.18);
-      supports.push({
-        position: [supportX, footH / 2, z],
-        scale: [0.42, footH, 0.72],
-        rotationY: 0,
-      });
-      supports.push({
-        position: [supportX, (footH + railY) / 2, z],
-        scale: [0.09, railY - footH, 0.09],
-        rotationY: 0,
-      });
-    }
+  const deckGeometry = travelFootprint([
+    [-3.5, -1.10], [2.2, -1.10], [3.4, 0], [2.2, 1.10], [-3.5, 1.10],
+  ]);
+  addCityGeometryBatch(group, deckGeometry, mat.secondary, [
+    { position: [0, 1.65, 0], scale: [1, 0.24, 1], rotationY: 0 },
+  ], tally);
 
-    for (let i = 0; i < count; i++) {
-      const t = count > 1 ? i / (count - 1) : 0.5;
-      const bayX = x + lerp(-length / 2 + 0.6, length / 2 - 0.6, t);
-      const outward = z < 0 ? -1 : 1;
-      const yaw = outward * (0.22 + (hash(i + seed, 81) - 0.5) * 0.18);
-      const spread = 0.25 + hash(i + seed, 82) * 0.08;
-      const lowerY = 0.08;
-      const rise = railY - lowerY;
-      const memberLength = Math.hypot(spread, rise);
-      const tilt = Math.atan2(spread, rise);
+  addBatch(group, unit.box, mat.main, [
+    { position: [1.65, 2.54, 0], scale: [1.8, 1.3, 1.8], rotationY: 0 },
+    { position: [1.65, 3.315, 0], scale: [2.15, 0.25, 2.05], rotationY: 0 },
+  ], 'box', tally);
 
-      // Both upper endpoints meet the rack rail. Lower endpoints splay
-      // into a narrow inverted V, leaving bike-frame-like negative space.
-      for (const side of [-1, 1]) {
-        dividers.push({
-          position: [
-            bayX + side * spread * 0.5 * Math.cos(yaw),
-            (lowerY + railY) / 2,
-            z - side * spread * 0.5 * Math.sin(yaw),
-          ],
-          scale: [0.055, memberLength, 0.075],
-          rotationY: yaw,
-          rotationZ: side * tilt,
-        });
-      }
-    }
-  });
+  addBatch(group, unit.box, mat.ground, [
+    { position: [1.65, 2.68, 0.935], scale: [1.25, 0.65, 0.10], rotationY: 0 },
+    { position: [2.585, 2.68, -0.05], scale: [0.10, 0.65, 1.10], rotationY: 0 },
+  ], 'box', tally);
 
-  addBatch(group, unit.box, mat.main, supports, 'box', tally);
-  addBatch(group, unit.box, mat.secondary, rails, 'box', tally);
-  addBatch(group, unit.box, mat.secondary, dividers, 'box', tally);
+  // The suitcase is the identity move: oversized, tertiary (accent), with
+  // an open handle whose gap must actually read at the real camera.
+  addBatch(group, unit.box, mat.tertiary, [
+    { position: [-1.1, 3.19, 0], scale: [2.8, 2.6, 1.6], rotationY: 0 },
+  ], 'box', tally);
+  addBatch(group, unit.box, mat.main, [
+    { position: [-1.85, 5.015, 0], scale: [0.4, 1.05, 0.5], rotationY: 0 },
+    { position: [-0.35, 5.015, 0], scale: [0.4, 1.05, 0.5], rotationY: 0 },
+    { position: [-1.1, 5.34, 0], scale: [1.9, 0.4, 0.5], rotationY: 0 },
+  ], 'box', tally);
+  addBatch(group, unit.box, mat.ground, [
+    { position: [-1.95, 3.19, 0.835], scale: [0.4, 2.6, 0.10], rotationY: 0 },
+    { position: [-0.25, 3.19, 0.835], scale: [0.4, 2.6, 0.10], rotationY: 0 },
+  ], 'box', tally);
+
   return { group, ...tally };
 }
 
-/* One exit timing portal, shared equipment rather than a repeated tunnel.
-   Neutral hardware only: tertiary red remains exclusively on the ground. */
-function transitionExitGate(unit, mat, x) {
+/* T1 — Galicia -> Amsterdam. A cream coastal vessel carrying one oversized
+   suitcase crosses a dark water slab between a warm departure quay and a
+   lower, pale arrival quay. No port machinery, bike racks, or gate. */
+function t1Tunnel(unit, mat) {
+  const group = new Group();
+  const tally = { triangles: 0, instances: 0 };
+
+  const seaGeometry = travelFootprint([
+    [-10, -2.8], [-9, -3.8], [9, -3.8], [10, -2.8],
+    [10, 2.8], [9, 3.8], [-9, 3.8], [-10, 2.8],
+  ]);
+  // Ground-plane convention shared by every zone: the base surface matches
+  // the clear colour so the water reads as negative space (per the brief's
+  // "water and negative space dominate"), leaving the hull/deck/bridge as
+  // the only lit contrast -- confirmed by rendering (see verification notes).
+  addCityGeometryBatch(group, seaGeometry, mat.ground, [
+    { position: [0, 0.08, 0], scale: [1, 0.48, 1], rotationY: 0 },
+  ], tally);
+
+  addBatch(group, unit.box, mat.tertiary, [
+    { position: [-7.1, 0.65, 2.9], scale: [5.6, 0.66, 1.4], rotationY: 0 },
+  ], 'box', tally);
+  addBatch(group, unit.box, mat.main, [
+    { position: [7.1, 0.51, 2.9], scale: [5.6, 0.38, 1.4], rotationY: 0 },
+    { position: [-9, 1.48, 2.8], scale: [1.2, 1, 1], rotationY: 0 },
+  ], 'box', tally);
+  addBatch(group, unit.box, mat.ground, [
+    { position: [-8.7, 1.355, 2.55], scale: [0.6, 0.75, 0.6], rotationY: 0 },
+    { position: [-5.2, 1.355, 2.55], scale: [0.6, 0.75, 0.6], rotationY: 0 },
+    { position: [5.2, 1.075, 2.55], scale: [0.6, 0.75, 0.6], rotationY: 0 },
+    { position: [8.7, 1.075, 2.55], scale: [0.6, 0.75, 0.6], rotationY: 0 },
+  ], 'box', tally);
+
+  const vessel = t1AtlanticPacket(unit, mat);
+  attachCityPart(group, tally, vessel);
+
+  return checkedCityResult(group, tally);
+}
+
+/* T2 — "The Room That Moves": the removal van, animated as a whole via
+   getObjectByName('t2-moving-room'). Four named wheel pivots and the
+   't2-room-wall' fold pivot are real Object3D groups so main.js can drive
+   them absolutely from scroll progress every frame. */
+function t2MovingRoom(unit, mat) {
+  const group = new Group();
+  group.name = 't2-moving-room';
+  group.position.set(-3.4, 0, 0);
+  const tally = { triangles: 0, instances: 0 };
+
+  addBatch(group, unit.box, mat.main, [
+    { position: [0, 1.83, 0], scale: [8.2, 0.40, 2.85], rotationY: 0 },
+  ], 'box', tally);
+  addBatch(group, unit.box, mat.tertiary, [
+    { position: [2.45, 3.08, 0], scale: [2.5, 2.1, 2.7], rotationY: 0 },
+    { position: [3.95, 2.60, 0], scale: [1, 1.14, 2.4], rotationY: 0 },
+  ], 'box', tally);
+  addBatch(group, unit.box, mat.secondary, [
+    { position: [2.45, 4.255, 0], scale: [2.75, 0.25, 2.85], rotationY: 0 },
+  ], 'box', tally);
+  addBatch(group, unit.box, mat.main, [
+    { position: [2.45, 3.53, 1.385], scale: [1.6, 0.85, 0.10], rotationY: 0 },
+    { position: [3.735, 3.56, 0], scale: [0.10, 0.85, 1.9], rotationY: 0 },
+    { position: [4.46, 2.13, 0], scale: [0.22, 0.30, 2.65], rotationY: 0 },
+  ], 'box', tally);
+
+  // Wheel pivots: real groups (not instanced placements) so main.js can
+  // spin them every frame from travelled distance. The hex primitive's
+  // upright (+Y) axis is reoriented to the pivot's local Z (the axle/depth
+  // axis) with a fixed +90 deg X rotation baked into its own placement;
+  // the pivot's own rotation.z is left at 0 here for main.js to drive.
+  const wheelSpecs = [
+    { name: 't2-wheel-rear-near', position: [-2.65, 1.17, 1.40], sigma: 1 },
+    { name: 't2-wheel-rear-far', position: [-2.65, 1.17, -1.40], sigma: -1 },
+    { name: 't2-wheel-front-near', position: [2.80, 1.17, 1.40], sigma: 1 },
+    { name: 't2-wheel-front-far', position: [2.80, 1.17, -1.40], sigma: -1 },
+  ];
+  wheelSpecs.forEach(({ name, position, sigma }) => {
+    const pivot = new Group();
+    pivot.name = name;
+    pivot.position.set(position[0], position[1], position[2]);
+    addBatch(pivot, unit.hex, mat.main, [
+      { position: [0, 0, -0.22], scale: [1.44, 0.44, 1.44], rotationX: Math.PI / 2 },
+    ], 'hex', tally);
+    addBatch(pivot, unit.box, mat.tertiary, [
+      { position: [0, 0, sigma * 0.26], scale: [0.85, 0.22, 0.12], rotationY: 0 },
+    ], 'box', tally);
+    group.add(pivot);
+  });
+
+  addBatch(group, unit.box, mat.main, [
+    { position: [-1.4, 2.13, 0], scale: [4.8, 0.20, 3], rotationY: 0 },
+  ], 'box', tally);
+  addBatch(group, unit.box, mat.secondary, [
+    { position: [-1.4, 4.13, -1.4], scale: [4.8, 3.8, 0.20], rotationY: 0 },
+    { position: [-3.7, 4.13, 0.1], scale: [0.20, 3.8, 2.8], rotationY: 0 },
+    { position: [0.9, 4.13, 0.1], scale: [0.20, 3.8, 2.8], rotationY: 0 },
+  ], 'box', tally);
+  addBatch(group, unit.box, mat.tertiary, [
+    { position: [-1.4, 6.13, 0], scale: [5, 0.20, 3.2], rotationY: 0 },
+  ], 'box', tally);
+
+  // Folding-wall pivot: closed (rotation.x = 0) until main.js opens it past
+  // p=0.6. The panel rises upward from the hinge when closed, matching the
+  // van's packed p=0 baseline (also the no-JS/poster state).
+  const wallPivot = new Group();
+  wallPivot.name = 't2-room-wall';
+  wallPivot.position.set(-1.4, 2.23, 1.62);
+  addBatch(wallPivot, unit.box, mat.secondary, [
+    { position: [0, 1.9, 0], scale: [4.8, 3.8, 0.16], rotationY: 0 },
+  ], 'box', tally);
+  group.add(wallPivot);
+
+  addBatch(group, unit.box, mat.tertiary, [
+    { position: [-1.5, 3.52, -0.62], scale: [2.5, 0.20, 0.95], rotationY: 0 },
+    { position: [-2.45, 2.825, -0.62], scale: [0.20, 1.19, 0.80], rotationY: 0 },
+    { position: [-0.55, 2.825, -0.62], scale: [0.20, 1.19, 0.80], rotationY: 0 },
+  ], 'box', tally);
+  addBatch(group, unit.box, mat.main, [
+    { position: [-1.5, 4, -0.9], scale: [1.1, 0.76, 0.14], rotationY: 0 },
+    { position: [-1.5, 3.67, -0.5], scale: [1.1, 0.10, 0.60], rotationY: 0 },
+    { position: [-1.3, 2.94, 0.55], scale: [0.95, 0.18, 0.85], rotationY: 0 },
+    { position: [-1.3, 3.50, 0.91], scale: [0.95, 1, 0.16], rotationY: 0 },
+  ], 'box', tally);
+  addBatch(group, unit.box, mat.tertiary, [
+    { position: [-1.64, 2.54, 0.55], scale: [0.18, 0.62, 0.62], rotationY: 0 },
+    { position: [-0.96, 2.54, 0.55], scale: [0.18, 0.62, 0.62], rotationY: 0 },
+  ], 'box', tally);
+
+  return { group, ...tally };
+}
+
+/* T2 — Amsterdam -> Copenhagen. A removal van crosses a short pale deck;
+   on arrival its camera-facing cargo wall folds down into a ramp,
+   revealing a small workroom. No canal houses, towers, or bike racks. */
+function t2Tunnel(unit, mat) {
   const group = new Group();
   const tally = { triangles: 0, instances: 0 };
 
   addBatch(group, unit.box, mat.main, [
-    ...row(1, { x0: x, x1: x, y: 0, z: -3, size: [0.8, 0.16, 0.38] }),
-    ...row(1, { x0: x, x1: x, y: 0, z: 3, size: [0.8, 0.16, 0.38] }),
+    { position: [0, 0.15, 0], scale: [19.6, 0.30, 4.8], rotationY: 0 },
+  ], 'box', tally);
+  addBatch(group, unit.box, mat.ground, [
+    { position: [0, 0.35, 0], scale: [18.6, 0.20, 3.2], rotationY: 0 },
+  ], 'box', tally);
+  addBatch(group, unit.box, mat.main, [
+    { position: [2, 0.225, 3.8], scale: [5.8, 0.45, 3.4], rotationY: 0 },
   ], 'box', tally);
 
-  addBatch(group, unit.box, mat.secondary, [
-    ...row(1, { x0: x, x1: x, y: 0.16, z: -3, size: [0.34, 2.94, 0.28] }),
-    ...row(1, { x0: x, x1: x, y: 0.16, z: 3, size: [0.34, 2.94, 0.28] }),
-    ...row(1, { x0: x, x1: x, y: 3.1, z: 0, size: [0.6, 0.34, 6.5] }),
-  ], 'box', tally);
+  const truck = t2MovingRoom(unit, mat);
+  attachCityPart(group, tally, truck);
 
-  // Approach-facing fascia, seated against rather than inside the header.
-  addBatch(group, unit.box, mat.ground, row(1, {
-    x0: x - 0.3225, x1: x - 0.3225, y: 3.17, z: 0,
-    size: [0.045, 0.2, 5.5],
-  }), 'box', tally);
-
-  return { group, ...tally };
-}
-
-/* T1 — SWIM → BIKE, travelling from -X to +X.
-   Water and a low exit landing → stripping mat → two full rack rows →
-   one bike-departure gate. Open sky throughout. */
-function t1Tunnel(unit, mat) {
-  const group = new Group();
-  const tally = { triangles: 0, instances: 0 };
-  const entryX = -13.2;
-  const shoreX = -9.2;
-  const exitX = 13.2;
-  const gateX = 11.65;
-  const waterY = -0.08;
-
-  // The dark deck begins at the shoreline, not beneath the exposed water.
-  addBatch(group, unit.box, mat.ground, row(1, {
-    x0: (shoreX + exitX) / 2, x1: (shoreX + exitX) / 2,
-    y: -0.32, z: 0,
-    size: [exitX - shoreX, 0.32, 6.8],
-  }), 'box', tally);
-
-  addBatch(group, unit.box, riaWaterMaterial(mat), row(1, {
-    x0: (entryX + shoreX) / 2, x1: (entryX + shoreX) / 2,
-    y: waterY - 0.24, z: 0,
-    size: [shoreX - entryX, 0.24, 6.8],
-  }), 'box', tally);
-
-  // Low, unrailed swim-exit landing. Water laps both sides; its top joins
-  // the deck at y=0, supporting the ribbon rather than floating it at sea.
-  addBatch(group, unit.box, mat.main, row(1, {
-    x0: (entryX + shoreX) / 2, x1: (entryX + shoreX) / 2,
-    y: -0.22, z: 0,
-    size: [shoreX - entryX, 0.22, 2.2],
-  }), 'box', tally);
-
-  // Exactly two continuous deck trims. pairedRows() takes a TOTAL count.
-  addBatch(group, unit.box, mat.main, pairedRows(2, {
-    x0: (shoreX + exitX) / 2, x1: (shoreX + exitX) / 2,
-    y: 0, z0: -3.26, z1: 3.26,
-    size: [exitX - shoreX, 0.1, 0.14],
-  }), 'box', tally);
-
-  // Broad, nearly flush wetsuit-strip mat immediately after the water.
-  addBatch(group, unit.box, mat.main, row(1, {
-    x0: -7.65, x1: -7.65, y: 0, z: 0,
-    size: [2.4, 0.018, 3.4],
-  }), 'box', tally);
-
-  const racks = transitionBikeRacks(unit, mat, [
-    { x: 0.2, z: -2.05, length: 9.2, count: 7, seed: 11 },
-    { x: 0.2, z:  2.05, length: 9.2, count: 7, seed: 29 },
-  ]);
-  group.add(racks.group);
-  tally.triangles += racks.triangles;
-  tally.instances += racks.instances;
-
-  // A single uninterrupted red course line through landing, mat and deck.
-  addBatch(group, unit.box, mat.tertiary, row(1, {
-    x0: 0, x1: 0, y: 0.02, z: 0,
-    size: [exitX - entryX, 0.024, 0.26],
-  }), 'box', tally);
-
-  const gate = transitionExitGate(unit, mat, gateX);
-  group.add(gate.group);
-  tally.triangles += gate.triangles;
-  tally.instances += gate.instances;
-
-  return { group, ...tally };
-}
-
-/* T2 — BIKE → RUN, also travelling from -X to +X.
-   Shorter rack rows are concentrated at entry. Beyond them, deliberately
-   empty ground releases the athlete into the run. No water or roof ribs. */
-function t2Tunnel(unit, mat) {
-  const group = new Group();
-  const tally = { triangles: 0, instances: 0 };
-  const entryX = -13.2;
-  const exitX = 13.2;
-  const gateX = 11.65;
-  const thresholdWidth = 0.5;
-  const thresholdStartX = gateX - thresholdWidth / 2;
-  const thresholdEndX = gateX + thresholdWidth / 2;
-  const ribbonY = 0.02;
-  const ribbonH = 0.024;
-
-  addBatch(group, unit.box, mat.ground, row(1, {
-    x0: 0, x1: 0, y: -0.32, z: 0,
-    size: [26.4, 0.32, 6.8],
-  }), 'box', tally);
-
-  addBatch(group, unit.box, mat.main, pairedRows(2, {
-    x0: 0, x1: 0, y: 0, z0: -3.26, z1: 3.26,
-    size: [26.4, 0.1, 0.14],
-  }), 'box', tally);
-
-  // Bike drop-off happens first; all rack geometry ends before x=-2.7.
-  const racks = transitionBikeRacks(unit, mat, [
-    { x: -6.7, z: -2.05, length: 8, count: 6, seed: 43 },
-    { x: -6.7, z:  2.05, length: 8, count: 6, seed: 61 },
-  ]);
-  group.add(racks.group);
-  tally.triangles += racks.triangles;
-  tally.instances += racks.instances;
-
-  // No furniture or pylons in the departing run apron.
-  // Split the ribbon at the threshold so their top faces never overlap.
-  addBatch(group, unit.box, mat.tertiary, [
-    ...row(1, {
-      x0: (entryX + thresholdStartX) / 2,
-      x1: (entryX + thresholdStartX) / 2,
-      y: ribbonY, z: 0,
-      size: [thresholdStartX - entryX, ribbonH, 0.26],
-    }),
-    ...row(1, {
-      x0: gateX, x1: gateX, y: ribbonY, z: 0,
-      size: [thresholdWidth, ribbonH, 5.7],
-    }),
-    ...row(1, {
-      x0: (thresholdEndX + exitX) / 2,
-      x1: (thresholdEndX + exitX) / 2,
-      y: ribbonY, z: 0,
-      size: [exitX - thresholdEndX, ribbonH, 0.26],
-    }),
-  ], 'box', tally);
-
-  // The NL→DK departure stripe sits directly beneath the sole timing gate.
-  const gate = transitionExitGate(unit, mat, gateX);
-  group.add(gate.group);
-  tally.triangles += gate.triangles;
-  tally.instances += gate.instances;
-
-  return { group, ...tally };
+  return checkedCityResult(group, tally);
 }
 
 const GABLE_TYPES = ['point', 'stepped', 'flat'];

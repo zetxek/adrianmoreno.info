@@ -85,6 +85,49 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
        absolutely from localProgress — never accumulated per frame. */
     const sails = zones[zoneIndex].group.getObjectByName('windmill-sails');
     if (sails) sails.rotation.z = localProgress * Math.PI * 2 * (sails.userData.scrollTurns || 1);
+
+    /* T1 "The Atlantic Packet": the whole vessel group is repositioned
+       absolutely from localProgress every frame -- a long, shallow steering
+       arc from the departure quay to the arrival quay. No accumulation. */
+    const t1Vessel = zones[zoneIndex].group.getObjectByName('t1-atlantic-packet');
+    if (t1Vessel) {
+      const p = clamp01(localProgress);
+      const s = smoothstep(0, 1, p);
+      const sinPiS = Math.sin(Math.PI * s);
+      const u = -5.1 + 10.2 * s;
+      const v = -1.6 * sinPiS * sinPiS;
+      const yaw = Math.atan((1.6 * Math.PI / 10.2) * Math.sin(2 * Math.PI * s));
+      t1Vessel.position.set(u, 0, v);
+      t1Vessel.rotation.set(0, yaw, 0);
+      t1Vessel.scale.set(1, 1, 1);
+    }
+
+    /* T2 "The Room That Moves": the van drives in over the first 60% of the
+       chapter, then its wheels stop and the camera-facing wall folds down
+       into a ramp over the remaining 40%. Wheel spin follows travelled
+       distance at a constant rolling radius (no independent spin). */
+    const t2Truck = zones[zoneIndex].group.getObjectByName('t2-moving-room');
+    if (t2Truck) {
+      const p = clamp01(localProgress);
+      const wheelRadius = 0.72;
+      const distance = 6.8 * smoothstep(0, 1, p / 0.6);
+      t2Truck.position.set(-3.4 + distance, 0, 0);
+      t2Truck.rotation.set(0, 0, 0);
+      t2Truck.scale.set(1, 1, 1);
+
+      const wheelAngle = -distance / wheelRadius;
+      ['t2-wheel-rear-near', 't2-wheel-rear-far', 't2-wheel-front-near', 't2-wheel-front-far'].forEach((name) => {
+        const wheel = t2Truck.getObjectByName(name);
+        if (wheel) wheel.rotation.z = wheelAngle;
+      });
+
+      const wallPivot = t2Truck.getObjectByName('t2-room-wall');
+      if (wallPivot) {
+        const openAmount = smoothstep(0, 1, (p - 0.6) / 0.4);
+        wallPivot.rotation.set((Math.PI / 2) * openAmount, 0, 0);
+      }
+    }
+
     const dissolve = dissolveBand(zoneIndex, boundaries, scrollY, zones.length);
     if (!dissolve) {
       showOnly(zoneIndex);
