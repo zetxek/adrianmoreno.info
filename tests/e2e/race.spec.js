@@ -1,6 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const fs = require('node:fs');
 const path = require('node:path');
+const crypto = require('node:crypto');
 
 const root = path.resolve(__dirname, '../..');
 const raceURL = '/race/';
@@ -298,4 +299,153 @@ test('idle: no recurring animation frame once scrolling and gait cadence settle'
     setTimeout(() => resolve(count), 800);
   }));
   expect(rafCalls).toBe(0);
+});
+
+test('course passport: save is an explicit choice, the summary/links/reset reflect it, and it is keyboard-operable', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(raceURL);
+  await page.waitForTimeout(300);
+
+  const galiciaSave = page.locator('.race-passport-save[data-passport-save="galicia"]');
+  const amsterdamSave = page.locator('.race-passport-save[data-passport-save="amsterdam"]');
+  const count = page.locator('.race-passport-count');
+  const galiciaLink = page.locator('.race-passport-links a[data-passport-link="galicia"]');
+  const resetButton = page.locator('.race-passport-reset');
+  const status = page.locator('.race-status');
+
+  await expect(galiciaSave).toBeVisible();
+  await expect(galiciaSave).toHaveAttribute('aria-pressed', 'false');
+  await expect(count).toHaveText('0 of 4 saved');
+  await expect(galiciaLink).toBeHidden();
+
+  // Merely scrolling past the takeaway must never count as "saving" it --
+  // only the explicit click below does.
+  await page.evaluate(() => document.querySelector('#swim')?.scrollIntoView());
+  await page.waitForTimeout(300);
+  await expect(galiciaSave).toHaveAttribute('aria-pressed', 'false');
+  await expect(count).toHaveText('0 of 4 saved');
+
+  await galiciaSave.click();
+  await expect(galiciaSave).toHaveAttribute('aria-pressed', 'true');
+  await expect(galiciaSave).toHaveText('Saved — select to remove');
+  await expect(count).toHaveText('1 of 4 saved');
+  await expect(galiciaLink).toBeVisible();
+  await expect(galiciaLink).toHaveAttribute('href', '#swim');
+  await expect(status).toHaveText(/Galicia takeaway saved\. 1 of 4 saved\./);
+  // The click neither moves focus away from the control it acted on...
+  await expect(galiciaSave).toBeFocused();
+
+  // ...and a second, independent takeaway saves alongside the first (this is
+  // a collection, not a single-slot toggle).
+  await amsterdamSave.focus();
+  await page.keyboard.press('Enter');
+  await expect(amsterdamSave).toHaveAttribute('aria-pressed', 'true');
+  await expect(count).toHaveText('2 of 4 saved');
+
+  // Session persistence: state survives navigating away and back.
+  await goToChapter(page, 'run');
+  await goToChapter(page, 'swim');
+  await expect(galiciaSave).toHaveAttribute('aria-pressed', 'true');
+  await expect(count).toHaveText('2 of 4 saved');
+
+  // Un-saving is the same explicit toggle, in reverse.
+  await galiciaSave.click();
+  await expect(galiciaSave).toHaveAttribute('aria-pressed', 'false');
+  await expect(galiciaSave).toHaveText('Save this takeaway');
+  await expect(count).toHaveText('1 of 4 saved');
+  await expect(galiciaLink).toBeHidden();
+  await expect(status).toHaveText(/Galicia takeaway removed\. 1 of 4 saved\./);
+
+  await resetButton.click();
+  await expect(amsterdamSave).toHaveAttribute('aria-pressed', 'false');
+  await expect(count).toHaveText('0 of 4 saved');
+  await expect(page.locator('.race-passport-links a:visible')).toHaveCount(0);
+  await expect(status).toHaveText('All saved takeaways cleared.');
+});
+
+test('course passport: notes remain readable without JS; controls stay hidden rather than inert', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 1440, height: 900 } });
+  const page = await context.newPage();
+  await page.goto(raceURL);
+  await expect(page.locator('.race-passport-takeaway')).toHaveCount(4);
+  await expect(page.locator('.race-passport-save').first()).toBeHidden();
+  await expect(page.locator('.race-passport-summary')).toBeHidden();
+  await context.close();
+});
+
+test('atlas route wake: dash motion is a pure function of scroll position, not elapsed time', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const hasWebGL = await page.evaluate(() => {
+    try {
+      const canvas = document.createElement('canvas');
+      return !!(canvas.getContext('webgl2') || canvas.getContext('webgl'));
+    } catch (e) {
+      return false;
+    }
+  });
+  await page.goto(raceURL);
+  test.skip(!hasWebGL, 'headless browser has no WebGL support in this environment');
+  await expect(page.locator('[data-race]')).toHaveClass(/race--world-ready/, { timeout: 5000 });
+  await page.waitForTimeout(600);
+
+  const canvas = page.locator('.race-world canvas');
+  const hash = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex');
+
+  const atTop1 = hash(await canvas.screenshot());
+  // Idle: no elapsed-time animation -- the frame must not drift while parked.
+  await page.waitForTimeout(700);
+  const atTop2 = hash(await canvas.screenshot());
+  expect(atTop2).toBe(atTop1);
+
+  // Scrolling within the start chapter must change the rendered wake.
+  await page.evaluate(() => window.scrollTo({ top: 220, left: 0, behavior: 'instant' }));
+  await waitForScrollSettle(page);
+  await page.waitForTimeout(300);
+  const mid = hash(await canvas.screenshot());
+  expect(mid).not.toBe(atTop1);
+
+  // Reversing the scroll reproduces the exact earlier frame -- deterministic
+  // and reversible, never accumulated.
+  await page.evaluate(() => window.scrollTo({ top: 0, left: 0, behavior: 'instant' }));
+  await waitForScrollSettle(page);
+  await page.waitForTimeout(300);
+  const back = hash(await canvas.screenshot());
+  expect(back).toBe(atTop1);
+});
+
+test('atlas route wake: a scroll that lands before the world finishes loading still renders the correct wake, never a half-completed opening that then catches up', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const hasWebGL = await page.evaluate(() => {
+    try {
+      const canvas = document.createElement('canvas');
+      return !!(canvas.getContext('webgl2') || canvas.getContext('webgl'));
+    } catch (e) {
+      return false;
+    }
+  });
+  test.skip(!hasWebGL, 'headless browser has no WebGL support in this environment');
+
+  const hash = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex');
+  const canvas = page.locator('.race-world canvas');
+
+  // Reference: reach scrollY 220 the "normal" way -- world ready first, then scroll.
+  await page.goto(raceURL);
+  await expect(page.locator('[data-race]')).toHaveClass(/race--world-ready/, { timeout: 5000 });
+  await page.waitForTimeout(600);
+  await page.evaluate(() => window.scrollTo({ top: 220, left: 0, behavior: 'instant' }));
+  await waitForScrollSettle(page);
+  await page.waitForTimeout(300);
+  const reference = hash(await canvas.screenshot());
+
+  // Simulate a slow connection: the reader has already scrolled to the same
+  // position before the (still-loading) world becomes ready. Its very first
+  // rendered frame must already show the correct, fully-current wake for
+  // that scroll position -- not an unlifted start that then animates in.
+  await page.goto(raceURL);
+  await page.evaluate(() => window.scrollTo({ top: 220, left: 0, behavior: 'instant' }));
+  await expect(page.locator('[data-race]')).toHaveClass(/race--world-ready/, { timeout: 5000 });
+  await page.waitForTimeout(600);
+  const lateScroll = hash(await canvas.screenshot());
+
+  expect(lateScroll).toBe(reference);
 });

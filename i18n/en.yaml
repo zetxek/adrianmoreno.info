@@ -180,4 +180,20 @@
   translation: "Select the model to turn it. Scroll to explore."
 - id: race_atlas_description
   translation: "A tilted toy map of the journey: Madrid to Galicia, across the Atlantic to Amsterdam, then Copenhagen."
+- id: race_passport_heading
+  translation: "Course passport"
+- id: race_passport_save
+  translation: "Save this takeaway"
+- id: race_passport_saved
+  translation: "Saved — select to remove"
+- id: race_passport_reset
+  translation: "Reset saved takeaways"
+- id: race_passport_count_template
+  translation: "{count} of 4 saved"
+- id: race_passport_announce_saved
+  translation: "{label} takeaway saved. {count}."
+- id: race_passport_announce_removed
+  translation: "{label} takeaway removed. {count}."
+- id: race_passport_announce_reset
+  translation: "All saved takeaways cleared."
 

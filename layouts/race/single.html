@@ -66,6 +66,7 @@
         <p class="race-intro">{{ $race.hero.body }}</p>
         <a class="race-button" href="#{{ (index $race.chapters 0).id }}">{{ $race.hero.start }} <span aria-hidden="true">↓</span></a>
         <p class="race-origin race-telemetry">{{ $race.hero.originNote }}<br>{{ $race.hero.origin }} // {{ $race.hero.coordinates }}</p>
+        {{ with (index $race.passport "madrid") }}{{ partial "race/field-notes.html" (dict "mode" "item" "id" "madrid" "item" .) }}{{ end }}
       </div>
       <span class="race-hero-stamp" aria-hidden="true">{{ partial "race/icon.html" . }}</span>
     </section>
@@ -93,6 +94,7 @@
           {{ end }}
         </ol>
         <blockquote class="race-lesson"><p>{{ .lesson }}</p></blockquote>
+        {{ with (index $race.passport $city) }}{{ partial "race/field-notes.html" (dict "mode" "item" "id" $city "item" .) }}{{ end }}
         {{ if eq .id "run" }}
         <h3 class="race-telemetry race-section-label">{{ i18n "race_principles" }}</h3>
         <ol class="race-principles">{{ range $race.principles }}<li><h4>{{ .title }}</h4><p>{{ .body }}</p></li>{{ end }}</ol>
@@ -123,6 +125,7 @@
           {{ range $race.finish.links }}{{ $page := partial "race/page.html" (dict "site" $.Site "path" .page) }}<li><a href="{{ $page.RelPermalink }}">{{ .label }} <span aria-hidden="true">↗</span></a></li>{{ end }}
         </ul>
         <p class="race-colophon">{{ $race.finish.colophon }}</p>
+        {{ partial "race/field-notes.html" (dict "mode" "summary" "passport" $race.passport) }}
         <a class="race-back" href="#start">↑ {{ i18n "race_back" }}</a>
       </div>
     </section>

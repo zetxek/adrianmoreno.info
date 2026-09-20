@@ -376,3 +376,49 @@ p { text-wrap: pretty; }
 @media print {
   .race-mobile-dock, .race-game-controls { display: none !important; }
 }
+
+/* Course passport (item 3): a collection mechanic, not a score. Static
+   saved/selected state only -- no transitions, no animation. Completion is
+   expressed in the button's own text (writePassportButton() swaps it), not
+   color alone; the border/color change below is a secondary reinforcement. */
+.race-passport-item { margin-top: 1.5rem; }
+.race-passport-takeaway { font-size: 1rem; color: var(--race-muted); }
+.race-passport-save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  margin-top: .7rem;
+  padding: .5rem .9rem;
+  background: none;
+  color: inherit;
+  border: 1px solid currentColor;
+  font: 600 .68rem var(--race-mono);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.race-passport-save[aria-pressed="true"] { border-color: var(--race-red); color: var(--race-red); }
+.race-passport-save:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+.race-passport-summary { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid #a0a5a4; }
+.race-passport-count { font: .8rem var(--race-mono); }
+.race-passport-links { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; padding: 0; margin: 1rem 0 0; }
+.race-passport-links a { display: inline-flex; align-items: center; min-height: 44px; font: .8rem var(--race-mono); }
+.race-passport-reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: 1rem;
+  padding: .5rem .9rem;
+  background: none;
+  color: inherit;
+  border: 1px solid currentColor;
+  font: 600 .68rem var(--race-mono);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.race-passport-reset:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }

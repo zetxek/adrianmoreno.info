@@ -3,8 +3,9 @@
    of its own; assets/js/race/index.js's scheduler calls render() only when
    dirty. One WebGLRenderer, one orthographic camera, one scene, seven
    visibility-switched chapter groups sharing a single light rig. */
-import { Box3, Color, DirectionalLight, HemisphereLight, Matrix4, OrthographicCamera, Raycaster, SRGBColorSpace, Scene, Vector2, Vector3, WebGLRenderer } from 'three';
+import { Box3, Color, DirectionalLight, Euler, HemisphereLight, Matrix4, OrthographicCamera, Quaternion, Raycaster, SRGBColorSpace, Scene, Vector2, Vector3, WebGLRenderer } from 'three';
 import { buildZones, ZONE_PALETTES } from './zones.js';
+import { deriveAtlasMotion } from './atlas-motion.js';
 
 // Static per-zone base camera zoom (item 5/3): framing decisions only, never
 // a runtime auto-fit loop. Inspection multiplies this base.
@@ -77,6 +78,33 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
   zones.forEach((zone, i) => {
     zone.group.traverse((object) => { if (object.isInstancedMesh) meshZoneIndex.set(object, i); });
   });
+
+  /* Item 2 (route wake): cache the atlas route-dash batch and its authored
+     placements once; applyAtlasMotion() below writes absolute per-instance
+     matrices from deriveAtlasMotion(atlasProgress) every frame -- reused
+     scratch objects, no per-frame allocation, no geometry added. */
+  const atlasDashMesh = zones[0].group.getObjectByName('atlas-route-dashes');
+  const atlasDashPlacements = atlasDashMesh ? atlasDashMesh.userData.dashPlacements : null;
+  const atlasDashMatrix = new Matrix4();
+  const atlasDashPosition = new Vector3();
+  const atlasDashQuaternion = new Quaternion();
+  const atlasDashEuler = new Euler();
+  const atlasDashScale = new Vector3();
+
+  function applyAtlasMotion(atlasProgress) {
+    if (!atlasDashMesh || !atlasDashPlacements) return;
+    const motion = deriveAtlasMotion(atlasProgress);
+    motion.dashes.forEach((dash, j) => {
+      const placement = atlasDashPlacements[j];
+      atlasDashPosition.set(placement.position[0], dash.y, placement.position[2]);
+      atlasDashEuler.set(0, placement.rotationY, 0);
+      atlasDashQuaternion.setFromEuler(atlasDashEuler);
+      atlasDashScale.set(dash.lengthScale, placement.scale[1], placement.scale[2]);
+      atlasDashMatrix.compose(atlasDashPosition, atlasDashQuaternion, atlasDashScale);
+      atlasDashMesh.setMatrixAt(j, atlasDashMatrix);
+    });
+    atlasDashMesh.instanceMatrix.needsUpdate = true;
+  }
 
   const inspectionMatrix = new Matrix4();
   const yawMatrix = new Matrix4();
@@ -170,13 +198,16 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
     camera.lookAt(look[0], look[1], look[2]);
   }
 
-  function update({ zoneIndex, localProgress, boundaries, scrollY, inspection }) {
+  function update({ zoneIndex, localProgress, boundaries, scrollY, inspection, atlasProgress }) {
     if (disposed) return;
     activeZoneIndex = zoneIndex;
     const resolvedInspection = inspection || { yawOffset: 0, zoomFactor: 1 };
     camera.zoom = BASE_ZOOM[zoneIndex] * (resolvedInspection.zoomFactor || 1);
     camera.updateProjectionMatrix();
     applyInspection(zoneIndex, resolvedInspection);
+    // Existing callers without atlasProgress mean the fully-settled itinerary
+    // (never a half-completed opening).
+    applyAtlasMotion(atlasProgress === undefined ? 1 : atlasProgress);
 
     /* Scroll-driven micro-interaction (no idle loop): the Amsterdam
        windmill's sails turn with chapter progress. Rotation is set

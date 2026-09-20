@@ -84,6 +84,22 @@ principles:
     body: "I want the team to be able to explain an architecture decision without me in the room."
   - title: "Trust compounds faster than velocity."
     body: "The trust that sustains delivery matters more than speed at the expense of the team."
+# Course passport (Item 3): one owner-authored takeaway per destination, reusing
+# the exact sentences already shown elsewhere on the page (hero originNote,
+# chapter lessons) rather than inventing new career claims.
+passport:
+  madrid:
+    label: "Madrid"
+    takeaway: "Born in Madrid. Engineering roots in Galicia."
+  galicia:
+    label: "Galicia"
+    takeaway: "Ownership extends past the code I write."
+  amsterdam:
+    label: "Amsterdam"
+    takeaway: "Management is a discipline alongside engineering, not a promotion out of it."
+  copenhagen:
+    label: "Copenhagen"
+    takeaway: "Direction should help teams make decisions without depending on one person."
 finish:
   title: "The next leg starts with a conversation."
   body: "Engineering leadership, building teams, or comparing notes on marathon training. There is always more to learn."

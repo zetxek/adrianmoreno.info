@@ -215,13 +215,15 @@ export function buildZones() {
    triangle count is read from the geometry's own topology instead of the
    authored kind table. */
 function addBatch(group, geometry, material, placements, kind, tally) {
-  if (!placements.length) return;
-  group.add(buildInstancedMesh(geometry, material, placements));
+  if (!placements.length) return undefined;
+  const mesh = buildInstancedMesh(geometry, material, placements);
+  group.add(mesh);
   const perPlacement = kind === null
     ? (geometry.index ? geometry.index.count : geometry.getAttribute('position').count) / 3
     : TRIANGLES_PER_KIND[kind];
   tally.instances += placements.length;
   tally.triangles += placements.length * perPlacement;
+  return mesh;
 }
 
 // -----------------------------------------------------------------------------
@@ -265,7 +267,12 @@ function createEuropeLandPrimitives() {
 
 /* Twelve oriented route-dash boxes across four A->B segments, evenly spaced
    and yawed to face each segment's own direction. The underlying polyline
-   passes exactly through every destination anchor. */
+   passes exactly through every destination anchor.
+
+   Item 2 (route wake): the batch is named and its authored placements are
+   cached on the mesh's userData so main.js can write purely scroll-derived
+   per-instance matrices (assets/js/race-world/atlas-motion.js) every frame
+   without recomputing the static yaw/position here. */
 function buildAtlasRoute(unit, mat, tally, segments) {
   const group = new Group();
   const dashes = [];
@@ -284,7 +291,11 @@ function buildAtlasRoute(unit, mat, tally, segments) {
       });
     }
   });
-  addBatch(group, unit.box, mat.secondary, dashes, 'box', tally);
+  const mesh = addBatch(group, unit.box, mat.secondary, dashes, 'box', tally);
+  if (mesh) {
+    mesh.name = 'atlas-route-dashes';
+    mesh.userData.dashPlacements = dashes;
+  }
   return group;
 }
 

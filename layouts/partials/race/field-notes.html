@@ -1,0 +1,42 @@
+{{/* Course passport (Item 3): a small collection mechanic, not a score. All
+     content -- the takeaway itself, the save control's label, the summary
+     and reset text -- is server-rendered here; assets/js/race/index.js only
+     toggles aria-pressed/text and writes the "N of 4 saved" status, never
+     content of its own. Saving requires this explicit click: passing a
+     scroll threshold never marks a takeaway collected.
+
+     mode="item" renders one owner-authored takeaway (called once beside
+     each of the four destinations: hero/Madrid, and the swim/bike/run
+     chapters for Galicia/Amsterdam/Copenhagen). mode="summary" renders the
+     "N of 4 saved" status, links back to saved notes, and reset -- called
+     once, near the finish section. Both start inert (hidden save control /
+     hidden summary): assets/js/race/index.js reveals them unconditionally
+     at init, since the passport needs no world/WebGL/viewport eligibility. */}}
+{{ if eq .mode "item" }}
+<div class="race-passport-item" data-passport-item="{{ .id }}" data-passport-label="{{ .item.label }}">
+  <p class="race-passport-takeaway" id="race-passport-takeaway-{{ .id }}">{{ .item.takeaway }}</p>
+  <button type="button" class="race-passport-save" data-passport-save="{{ .id }}"
+    aria-pressed="false" aria-describedby="race-passport-takeaway-{{ .id }}" hidden
+  >{{ i18n "race_passport_save" }}</button>
+</div>
+{{ else }}
+{{ $order := slice "madrid" "galicia" "amsterdam" "copenhagen" }}
+{{ $anchors := dict "madrid" "start" "galicia" "swim" "amsterdam" "bike" "copenhagen" "run" }}
+<div class="race-passport-summary" aria-label="{{ i18n "race_passport_heading" }}" hidden>
+  <p class="race-passport-count" data-passport-count
+    data-passport-save-text="{{ i18n "race_passport_save" }}"
+    data-passport-saved-text="{{ i18n "race_passport_saved" }}"
+    data-passport-count-template="{{ i18n "race_passport_count_template" }}"
+    data-passport-announce-saved-template="{{ i18n "race_passport_announce_saved" }}"
+    data-passport-announce-removed-template="{{ i18n "race_passport_announce_removed" }}"
+    data-passport-announce-reset="{{ i18n "race_passport_announce_reset" }}"
+  ></p>
+  <ul class="race-passport-links" data-passport-links>
+    {{ range $order }}
+    {{ $entry := index $.passport . }}
+    <li data-passport-link-item="{{ . }}" hidden><a href="#{{ index $anchors . }}" data-passport-link="{{ . }}">{{ $entry.label }}</a></li>
+    {{ end }}
+  </ul>
+  <button type="button" class="race-passport-reset" data-passport-reset>{{ i18n "race_passport_reset" }}</button>
+</div>
+{{ end }}

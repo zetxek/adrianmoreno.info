@@ -205,3 +205,20 @@ export function splitFor(chipIndex, chapterIndex, localProgress) {
   const pct = Math.round(clamp01(localProgress) * 100);
   return { state: 'current', text: `${pct}%` };
 }
+
+/* Course passport (item 3): a small collection mechanic keyed on the four
+   stable destination IDs, not inferred "time spent reading". Saving
+   requires the explicit toggle below -- nothing here derives a saved state
+   from scroll position. */
+export const PASSPORT_IDS = ['madrid', 'galicia', 'amsterdam', 'copenhagen'];
+
+export function toggleSavedTakeaway(saved, id) {
+  const next = { ...saved };
+  next[id] = !next[id];
+  return next;
+}
+
+export function derivePassportSummary(saved) {
+  const savedIds = PASSPORT_IDS.filter((id) => saved && saved[id] === true);
+  return { count: savedIds.length, total: PASSPORT_IDS.length, savedIds };
+}

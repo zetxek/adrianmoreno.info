@@ -34,6 +34,14 @@ import * as S from './state.js';
   const exploreButton = gameControlsEl && gameControlsEl.querySelector('.race-explore');
   const navEl = document.querySelector('.race-nav');
 
+  // Item 3 course passport: independent of world/mobile-dock eligibility --
+  // these controls work below 64rem, under reduced motion, and with no WebGL.
+  const passportSaveButtons = [...root.querySelectorAll('.race-passport-save')];
+  const passportSummaryEl = root.querySelector('.race-passport-summary');
+  const passportCountEl = passportSummaryEl && passportSummaryEl.querySelector('.race-passport-count');
+  const passportLinksEl = passportSummaryEl && passportSummaryEl.querySelector('.race-passport-links');
+  const passportResetButton = passportSummaryEl && passportSummaryEl.querySelector('.race-passport-reset');
+
   if (!athleteWrap || !athleteSvg || !goalEl || !worldWrap) return;
   const joints = cacheJoints(athleteSvg);
 
@@ -50,6 +58,7 @@ import * as S from './state.js';
     inspection: { byChapter: Object.create(null) },
     goal: { complete: false, announced: false },
     hint: { dismissed: false },
+    passport: { saved: Object.create(null) },
     world: { status: 'off', generation: 0, instance: null, signature: '', intersecting: false, activeChapterId: null },
     scheduler: { raf: 0, dirty: 0 },
   };
@@ -343,6 +352,66 @@ import * as S from './state.js';
     invalidate(DIRTY.WORLD);
   }
 
+  // ---- course passport (item 3, gamification) ----------------------------
+  // A collection mechanic, not a score: saving requires this explicit click
+  // -- deriveCourseState/localProgress never feed into `state.passport`, so
+  // passing a scroll threshold can never mark a takeaway collected.
+  function writePassportButton(button) {
+    if (!passportCountEl) return;
+    const id = button.dataset.passportSave;
+    const saved = state.passport.saved[id] === true;
+    const next = String(saved);
+    if (button.getAttribute('aria-pressed') !== next) button.setAttribute('aria-pressed', next);
+    const label = saved ? passportCountEl.dataset.passportSavedText : passportCountEl.dataset.passportSaveText;
+    if (label && button.textContent !== label) button.textContent = label;
+  }
+
+  function writePassportSummary() {
+    if (!passportSummaryEl || !passportCountEl) return;
+    const summary = S.derivePassportSummary(state.passport.saved);
+    const template = passportCountEl.dataset.passportCountTemplate || '';
+    const countText = template.replace('{count}', String(summary.count));
+    if (passportCountEl.textContent !== countText) passportCountEl.textContent = countText;
+    if (passportLinksEl) {
+      passportLinksEl.querySelectorAll('[data-passport-link-item]').forEach((li) => {
+        const shouldShow = state.passport.saved[li.dataset.passportLinkItem] === true;
+        if (li.hidden === shouldShow) li.hidden = !shouldShow;
+      });
+    }
+    return countText;
+  }
+
+  // Announce a short status only after an explicit save/remove/reset action
+  // -- never a scroll-driven percentage.
+  function announcePassport(template, itemEl, countText) {
+    if (!statusEl || !template) return;
+    const label = itemEl ? itemEl.dataset.passportLabel || '' : '';
+    statusEl.textContent = template.replace('{label}', label).replace('{count}', countText || '');
+  }
+
+  function onPassportSaveClick(event) {
+    const button = event.currentTarget;
+    const id = button.dataset.passportSave;
+    if (!id || !passportCountEl) return;
+    const wasSaved = state.passport.saved[id] === true;
+    state.passport.saved = S.toggleSavedTakeaway(state.passport.saved, id);
+    writePassportButton(button);
+    const countText = writePassportSummary();
+    const templateKey = wasSaved ? 'passportAnnounceRemovedTemplate' : 'passportAnnounceSavedTemplate';
+    announcePassport(passportCountEl.dataset[templateKey], button.closest('[data-passport-item]'), countText);
+  }
+
+  function onPassportReset() {
+    const summary = S.derivePassportSummary(state.passport.saved);
+    if (summary.count === 0) return;
+    state.passport.saved = Object.create(null);
+    passportSaveButtons.forEach(writePassportButton);
+    writePassportSummary();
+    if (statusEl && passportCountEl) {
+      statusEl.textContent = passportCountEl.dataset.passportAnnounceReset || '';
+    }
+  }
+
   // ---- world (lazy Three.js) --------------------------------------------
   function webglCapable() {
     try {
@@ -483,7 +552,16 @@ import * as S from './state.js';
     state.world.activeChapterId = S.DISCIPLINE_ORDER[worldDerived.chapterIndex] || null;
     updateExploreButton();
     const inspection = S.deriveInspectionTransform(state.world.activeChapterId, worldDerived.localProgress, state.inspection.byChapter);
-    const signature = `${worldDerived.chapterIndex}:${worldDerived.localProgress.toFixed(4)}:${anticipatedY.toFixed(0)}:${inspection.yawOffset.toFixed(6)}:${inspection.zoomFactor.toFixed(6)}`;
+    // Item 2: the atlas itinerary is a pure function of the *unanticipated*
+    // (marker) scroll state, not the 0.45-viewport-height anticipated line
+    // used for zone/camera selection above -- otherwise the opening would
+    // already read as partway-lifted at the very top of the page. Landing
+    // mid-page (a direct hash entry, or a slow connection where the world
+    // finishes loading after the reader has scrolled on) resolves chapterIndex
+    // !== 0 immediately, so atlasProgress is 1 (fully settled) on the very
+    // first frame -- never a half-completed opening.
+    const atlasProgress = state.scroll.chapterIndex === 0 ? state.scroll.localProgress : 1;
+    const signature = `${worldDerived.chapterIndex}:${worldDerived.localProgress.toFixed(4)}:${anticipatedY.toFixed(0)}:${inspection.yawOffset.toFixed(6)}:${inspection.zoomFactor.toFixed(6)}:${atlasProgress.toFixed(4)}`;
     const changed = signature !== state.world.signature;
     if (changed || bits & DIRTY.WORLD) {
       state.world.signature = signature;
@@ -493,6 +571,7 @@ import * as S from './state.js';
         boundaries: state.layout.boundaries,
         scrollY: anticipatedY,
         inspection,
+        atlasProgress,
       });
       state.world.instance.render();
     }
@@ -575,6 +654,11 @@ import * as S from './state.js';
       if (!chapterId || chapterId !== state.world.activeChapterId) return;
       toggleSceneInspection(chapterId);
     });
+
+    // Item 3 course passport: real DOM buttons, native click semantics.
+    // Entirely independent of world init/teardown -- no canvas listeners.
+    passportSaveButtons.forEach((button) => button.addEventListener('click', onPassportSaveClick));
+    if (passportResetButton) passportResetButton.addEventListener('click', onPassportReset);
   }
 
   // ---- init ----------------------------------------------------------
@@ -583,6 +667,13 @@ import * as S from './state.js';
   evaluateMobileDock();
   measureLayout();
   registerEvents();
+
+  // Item 3 course passport: reveal unconditionally -- no world/viewport/
+  // motion eligibility gate applies to this DOM-only mechanic.
+  passportSaveButtons.forEach((button) => { button.hidden = false; });
+  if (passportSummaryEl) passportSummaryEl.hidden = false;
+  writePassportSummary();
+
   invalidate(DIRTY.SCROLL | DIRTY.LAYOUT);
   evaluateWorldEligibility();
 })();
