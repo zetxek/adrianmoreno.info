@@ -36,7 +36,7 @@ import * as S from './state.js';
 
   const state = {
     layout: { boundaries: [0, 0], maxScroll: 0, rail: null, railReady: false, athleteSize: 40 },
-    scroll: { fraction: 0, previousFraction: 0, chapterIndex: 0, localProgress: 0, lastChangeAt: 0, everChanged: false },
+    scroll: { fraction: 0, previousFraction: 0, chapterIndex: 0, localProgress: 0, lastChangeAt: 0, everChanged: false, hashChapterIndex: -1, hashNavAt: 0 },
     athlete: { discipline: null, phase: 0, velocity: 0, boundaryReset: false },
     goal: { complete: false, announced: false },
     hint: { armed: false, dismissed: false, timer: 0 },
@@ -60,6 +60,17 @@ import * as S from './state.js';
       discipline === 't1' || discipline === 't2' || discipline === 'finish-approach';
   }
 
+  function chapterIndexForHash() {
+    const id = window.location.hash.slice(1);
+    if (!id) return -1;
+    return refs.stages.findIndex((stage) => stage.id === id);
+  }
+
+  const SCROLL_KEYS = new Set(['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' ']);
+  // A real scroll gesture from the reader always wins over a pending
+  // hash-navigation correction -- see the resync block in frame().
+  function cancelHashTracking() { state.scroll.hashChapterIndex = -1; }
+
   function frame(now) {
     state.scheduler.raf = 0;
     if (!canRun()) return;
@@ -78,6 +89,22 @@ import * as S from './state.js';
 
     const deltaFraction = derived.fraction - state.scroll.fraction;
     const positionChanged = deltaFraction !== 0 || bits & DIRTY.LAYOUT;
+
+    // A chapter link's native anchor scroll targets a pixel offset computed
+    // from the layout at click time. If the Three.js world becomes ready
+    // (or any other async change reflows the stages) while that scroll is
+    // still animating -- or even after it has already (coincidentally)
+    // settled on the right chapter under the stale geometry -- the browser's
+    // target goes stale and the page can end up in the wrong chapter once the
+    // reflow lands. So arrival at the right chapterIndex is deliberately NOT
+    // treated as "done": tracking only ends when the reader scrolls under
+    // their own power (see cancelHashTracking) or the 10s fail-safe expires,
+    // so a later reflow can still be corrected for.
+    if (state.scroll.hashChapterIndex >= 0 && derived.chapterIndex !== state.scroll.hashChapterIndex &&
+      bits & DIRTY.LAYOUT && now - state.scroll.hashNavAt < 10000) {
+      const target = state.layout.boundaries[state.scroll.hashChapterIndex];
+      if (target != null) window.scrollTo({ top: target, left: window.scrollX });
+    }
 
     if (deltaFraction !== 0) {
       state.scroll.lastChangeAt = now;
@@ -452,11 +479,18 @@ import * as S from './state.js';
     // once scrolling is quiet), which can leave no chapter marked current even
     // though the URL says otherwise. Re-measure on the hash change itself so the
     // nav always agrees with the chapter the reader actually asked for.
-    window.addEventListener('hashchange', () => invalidate(DIRTY.SCROLL | DIRTY.LAYOUT));
+    window.addEventListener('hashchange', () => {
+      state.scroll.hashChapterIndex = chapterIndexForHash();
+      state.scroll.hashNavAt = performance.now();
+      invalidate(DIRTY.SCROLL | DIRTY.LAYOUT);
+    });
     window.addEventListener('pagehide', () => {
       if (state.scheduler.raf) cancelAnimationFrame(state.scheduler.raf);
       clearTimeout(state.hint.timer);
     });
+    window.addEventListener('wheel', cancelHashTracking, { passive: true });
+    window.addEventListener('touchstart', cancelHashTracking, { passive: true });
+    window.addEventListener('keydown', (event) => { if (SCROLL_KEYS.has(event.key)) cancelHashTracking(); });
     document.addEventListener('visibilitychange', onVisibility);
     reducedMotionMQ.addEventListener('change', onMotionChange);
     wideMQ.addEventListener('change', onWideChange);
@@ -477,6 +511,8 @@ import * as S from './state.js';
 
   // ---- init ----------------------------------------------------------
   root.classList.add('race--enhanced');
+  state.scroll.hashChapterIndex = chapterIndexForHash();
+  state.scroll.hashNavAt = performance.now();
   measureLayout();
   registerEvents();
   invalidate(DIRTY.SCROLL | DIRTY.LAYOUT);
