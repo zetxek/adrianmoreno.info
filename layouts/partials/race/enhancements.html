@@ -21,10 +21,12 @@
         <g data-race-joint="bike-frame">
           <circle cx="5" cy="17.5" r="3.5"/>
           <circle cx="19" cy="17.5" r="3.5"/>
-          <g data-race-joint="bike-wheel-rear"><circle cx="5" cy="15" r=".8"/></g>
-          <g data-race-joint="bike-wheel-front"><circle cx="19" cy="15" r=".8"/></g>
+          <g data-race-joint="bike-wheel-rear"><path d="M5 17.5V15"/></g>
+          <g data-race-joint="bike-wheel-front"><path d="M19 17.5V15"/></g>
           <path d="M5 17.5 9.4 10.1 11 16.5Z"/>
           <path d="M9.4 10.1 16 10.5 19 17.5"/>
+          <path d="M8 10.2H10.6 M16 10.5 15.5 8.8H17.2Q18.3 8.8 18.3 9.9L17.9 10.5"/>
+          <g data-race-joint="bike-crank"><path d="M11 15V18"/></g>
         </g>
         <g data-race-joint="bike-torso">
           <circle class="race-athlete__head" cx="15.1" cy="3.4" r="2"/>
@@ -52,8 +54,8 @@
           <path d="M12 17 14.4 13.4 19 17"/>
           <circle cx="12" cy="17" r="3"/>
           <circle cx="19" cy="17" r="3"/>
-          <g data-race-joint="transition-bike-wheel-rear"><circle cx="12" cy="15" r=".7"/></g>
-          <g data-race-joint="transition-bike-wheel-front"><circle cx="19" cy="15" r=".7"/></g>
+          <g data-race-joint="transition-bike-wheel-rear"><path d="M12 17V14.6"/></g>
+          <g data-race-joint="transition-bike-wheel-front"><path d="M19 17V14.6"/></g>
         </g>
         <g data-race-joint="transition-leg-rear"><path d="M7 14 4.5 17.2 3 18.4"/></g>
         <g data-race-joint="transition-leg-front"><path d="M7 14 7.2 17.6 8.2 20.2"/></g>
