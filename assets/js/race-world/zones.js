@@ -350,11 +350,21 @@ function horreoRow(unit, mat, specs) {
     }
   });
 
-  addBatch(group, unit.box, mat.main, bodies, 'box', tally);
-  addBatch(group, unit.box, mat.secondary, pillars, 'box', tally);
-  addBatch(group, unit.box, mat.secondary, caps, 'box', tally);
-  addBatch(group, unit.box, mat.tertiary, roofPanels, 'box', tally);
-  addBatch(group, unit.box, mat.secondary, crossParts, 'box', tally);
+  /* The Galicia palette is four mid-to-dark tones, and Lambert shading renders
+     them at roughly half value: measured, the hórreo came out at 1.18:1 against
+     the shore and was effectively invisible even though it was modelled in full.
+     No tone in the palette reaches 3:1 here, so give the hórreo's own materials
+     a self-lit component to lift the silhouette clear of the ground. Cloned, so
+     the shared zone materials every other object uses are untouched. */
+  const lit = (m) => { const c = m.clone(); c.emissive.copy(c.color).multiplyScalar(0.72); return c; };
+  const bodyMat = lit(mat.tertiary);
+  const trimMat = lit(mat.main);
+
+  addBatch(group, unit.box, bodyMat, bodies, 'box', tally);
+  addBatch(group, unit.box, trimMat, pillars, 'box', tally);
+  addBatch(group, unit.box, trimMat, caps, 'box', tally);
+  addBatch(group, unit.box, bodyMat, roofPanels, 'box', tally);
+  addBatch(group, unit.box, trimMat, crossParts, 'box', tally);
   return { group, ...tally };
 }
 
