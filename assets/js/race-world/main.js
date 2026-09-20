@@ -3,8 +3,12 @@
    of its own; assets/js/race/index.js's scheduler calls render() only when
    dirty. One WebGLRenderer, one orthographic camera, one scene, seven
    visibility-switched chapter groups sharing a single light rig. */
-import { Color, DirectionalLight, HemisphereLight, OrthographicCamera, SRGBColorSpace, Scene, WebGLRenderer } from 'three';
+import { Box3, Color, DirectionalLight, HemisphereLight, Matrix4, OrthographicCamera, Raycaster, SRGBColorSpace, Scene, Vector2, Vector3, WebGLRenderer } from 'three';
 import { buildZones, ZONE_PALETTES } from './zones.js';
+
+// Static per-zone base camera zoom (item 5/3): framing decisions only, never
+// a runtime auto-fit loop. Inspection multiplies this base.
+const BASE_ZOOM = [1.15, 1.06, 1, 1, 1, 1, 1];
 
 // entrance -> exit, per zone, in the shared local coordinate system
 // (x: -14..14, z: -10..10, y: 0..11). Interpolated with smoothstep(local progress).
@@ -57,6 +61,42 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
   zones.forEach((zone) => { zone.group.visible = false; scene.add(zone.group); });
   zones[0].group.visible = true;
 
+  /* Item 3 ownership/inspection registry: each root's authored base matrix
+     and its uninspected bounds-center pivot, captured once in the scene
+     (parent) coordinate system, plus a private mesh -> zoneIndex map so
+     picking can validate a hit against the current active zone. Every zone
+     root is henceforth manually driven (matrixAutoUpdate = false) so the
+     inspection transform -- derived fresh from the cached base every frame
+     -- is never clobbered by an automatic position/quaternion recompute. */
+  const zoneBaseMatrix = zones.map((zone) => {
+    zone.group.matrixAutoUpdate = false;
+    return zone.group.matrix.clone();
+  });
+  const zonePivot = zones.map((zone) => new Box3().setFromObject(zone.group).getCenter(new Vector3()));
+  const meshZoneIndex = new WeakMap();
+  zones.forEach((zone, i) => {
+    zone.group.traverse((object) => { if (object.isInstancedMesh) meshZoneIndex.set(object, i); });
+  });
+
+  const inspectionMatrix = new Matrix4();
+  const yawMatrix = new Matrix4();
+  const pivotIn = new Matrix4();
+  const pivotOut = new Matrix4();
+  function applyInspection(zoneIndex, inspection) {
+    const base = zoneBaseMatrix[zoneIndex];
+    const zoneGroup = zones[zoneIndex].group;
+    if (!inspection || !inspection.yawOffset) {
+      zoneGroup.matrix.copy(base);
+    } else {
+      const pivot = zonePivot[zoneIndex];
+      pivotIn.makeTranslation(pivot.x, pivot.y, pivot.z);
+      pivotOut.makeTranslation(-pivot.x, -pivot.y, -pivot.z);
+      yawMatrix.makeRotationY(inspection.yawOffset);
+      inspectionMatrix.copy(pivotIn).multiply(yawMatrix).multiply(pivotOut).multiply(base);
+      zoneGroup.matrix.copy(inspectionMatrix);
+    }
+  }
+
   const clearColor = new Color(ZONE_PALETTES[0].ground);
   renderer.setClearColor(clearColor, 1);
   scene.background = clearColor;
@@ -66,6 +106,58 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
     if (onContextLost) onContextLost();
   }
   canvas.addEventListener('webglcontextlost', handleContextLost, false);
+
+  /* Private scene-interaction controller (item 3): native pointer targeting
+     only -- no pointer capture, no preventDefault, so page scrolling and
+     poster links are never touched. A qualifying click/tap dispatches a
+     bubbling `race-scene-toggle` CustomEvent from the canvas; index.js owns
+     the actual inspectByChapter boolean and validates it against the
+     latest world-active chapter before toggling. */
+  let activeZoneIndex = 0;
+  const raycaster = new Raycaster();
+  const ndc = new Vector2();
+  let pointerDownAt = null;
+  let pointerMaxDisplacement = 0;
+
+  function pickRaceZone(clientX, clientY) {
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return null;
+    ndc.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+    ndc.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+    raycaster.setFromCamera(ndc, camera);
+    const hits = raycaster.intersectObject(zones[activeZoneIndex].group, true);
+    for (const hit of hits) {
+      const object = hit.object;
+      if (!object.isInstancedMesh) continue;
+      if (meshZoneIndex.get(object) !== activeZoneIndex) continue;
+      if (!Number.isInteger(hit.instanceId) || hit.instanceId < 0 || hit.instanceId >= object.count) continue;
+      return activeZoneIndex;
+    }
+    return null;
+  }
+
+  function onPointerDown(event) {
+    pointerDownAt = { x: event.clientX, y: event.clientY };
+    pointerMaxDisplacement = 0;
+  }
+  function onPointerMove(event) {
+    if (!pointerDownAt) return;
+    const dx = event.clientX - pointerDownAt.x;
+    const dy = event.clientY - pointerDownAt.y;
+    pointerMaxDisplacement = Math.max(pointerMaxDisplacement, Math.hypot(dx, dy));
+  }
+  function onPointerUp(event) {
+    if (!pointerDownAt) return;
+    const displaced = pointerMaxDisplacement > 6;
+    pointerDownAt = null;
+    if (displaced) return;
+    const zoneIndex = pickRaceZone(event.clientX, event.clientY);
+    if (zoneIndex === null) return;
+    canvas.dispatchEvent(new CustomEvent('race-scene-toggle', { bubbles: true, detail: { zoneIndex } }));
+  }
+  canvas.addEventListener('pointerdown', onPointerDown, { passive: true });
+  canvas.addEventListener('pointermove', onPointerMove, { passive: true });
+  canvas.addEventListener('pointerup', onPointerUp, { passive: true });
 
   let disposed = false;
 
@@ -78,8 +170,14 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
     camera.lookAt(look[0], look[1], look[2]);
   }
 
-  function update({ zoneIndex, localProgress, boundaries, scrollY }) {
+  function update({ zoneIndex, localProgress, boundaries, scrollY, inspection }) {
     if (disposed) return;
+    activeZoneIndex = zoneIndex;
+    const resolvedInspection = inspection || { yawOffset: 0, zoomFactor: 1 };
+    camera.zoom = BASE_ZOOM[zoneIndex] * (resolvedInspection.zoomFactor || 1);
+    camera.updateProjectionMatrix();
+    applyInspection(zoneIndex, resolvedInspection);
+
     /* Scroll-driven micro-interaction (no idle loop): the Amsterdam
        windmill's sails turn with chapter progress. Rotation is set
        absolutely from localProgress — never accumulated per frame. */
@@ -163,6 +261,9 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
     if (disposed) return;
     disposed = true;
     canvas.removeEventListener('webglcontextlost', handleContextLost, false);
+    canvas.removeEventListener('pointerdown', onPointerDown, { passive: true });
+    canvas.removeEventListener('pointermove', onPointerMove, { passive: true });
+    canvas.removeEventListener('pointerup', onPointerUp, { passive: true });
     zones.forEach((zone) => zone.group.traverse((object) => {
       if (!object.isMesh) return;
       object.geometry.dispose();

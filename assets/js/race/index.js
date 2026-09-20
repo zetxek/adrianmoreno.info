@@ -2,7 +2,7 @@
    initialization/teardown. Owns all state; measure/athlete/state modules are
    pure or DOM-read-only helpers with no state of their own. */
 import { findRefs, measureBoundaries, measureRail, screenPointForFraction } from './measure.js';
-import { cacheJoints, setDiscipline, writeJointTransforms, positionWrap, setGroundInk, positionGoal } from './athlete.js';
+import { cacheJoints, setDiscipline, positionWrap, setGroundInk, positionGoal } from './athlete.js';
 import * as S from './state.js';
 
 (() => {
@@ -25,6 +25,15 @@ import * as S from './state.js';
   const hintEl = root.querySelector('.race-scroll-hint');
   const statusEl = root.querySelector('.race-status');
 
+  // Item 2/3 controls: always present in the DOM (progressive enhancement),
+  // hidden until eligibility/layout says otherwise.
+  const mobileDockEl = root.querySelector('.race-mobile-dock');
+  const mobileDockMarkerEl = mobileDockEl && mobileDockEl.querySelector('.race-mobile-dock__marker');
+  const mobileDockLabelEl = mobileDockEl && mobileDockEl.querySelector('.race-mobile-dock__label');
+  const gameControlsEl = root.querySelector('.race-game-controls');
+  const exploreButton = gameControlsEl && gameControlsEl.querySelector('.race-explore');
+  const navEl = document.querySelector('.race-nav');
+
   if (!athleteWrap || !athleteSvg || !goalEl || !worldWrap) return;
   const joints = cacheJoints(athleteSvg);
 
@@ -36,13 +45,16 @@ import * as S from './state.js';
 
   const state = {
     layout: { boundaries: [0, 0], maxScroll: 0, rail: null, railReady: false, athleteSize: 40 },
-    scroll: { fraction: 0, previousFraction: 0, chapterIndex: 0, localProgress: 0, lastChangeAt: 0, everChanged: false, hashChapterIndex: -1, hashTargetY: null, hashNavAt: 0 },
-    athlete: { discipline: null, phase: 0, velocity: 0, boundaryReset: false },
+    scroll: { fraction: 0, chapterIndex: 0, localProgress: 0, everChanged: false, hashChapterIndex: -1, hashTargetY: null },
+    athlete: { discipline: null },
+    inspection: { byChapter: Object.create(null) },
     goal: { complete: false, announced: false },
-    hint: { armed: false, dismissed: false, timer: 0 },
-    world: { status: 'off', generation: 0, instance: null, signature: '', settleFrames: 0, intersecting: false },
-    scheduler: { raf: 0, lastFrameAt: 0, dirty: 0 },
+    hint: { dismissed: false },
+    world: { status: 'off', generation: 0, instance: null, signature: '', intersecting: false, activeChapterId: null },
+    scheduler: { raf: 0, dirty: 0 },
   };
+
+  const mobile = { mounted: false, athleteParent: null, athleteNext: null };
 
   // ---- scheduler -----------------------------------------------------
   function canRun() {
@@ -55,11 +67,6 @@ import * as S from './state.js';
     state.scheduler.raf = requestAnimationFrame(frame);
   }
 
-  function isLocomotingState(discipline) {
-    return discipline === 'swim' || discipline === 'bike' || discipline === 'run' ||
-      discipline === 't1' || discipline === 't2' || discipline === 'finish-approach';
-  }
-
   function chapterIndexForHash() {
     const id = window.location.hash.slice(1);
     if (!id) return -1;
@@ -69,28 +76,34 @@ import * as S from './state.js';
   // Arms tracking for the chapter the current hash names: its boundary
   // pixel offset is captured as of *now* (the same layout the browser's own
   // anchor scroll just targeted), so a later remeasure can tell whether that
-  // offset has actually moved -- see the resync block in frame().
+  // offset has actually moved -- see the resync block in frame(). This
+  // tracking is layout-change-driven only: it ends on a genuine reader
+  // scroll/keypress, another hash, or teardown -- never a timestamp.
   function armHashTracking() {
     state.scroll.hashChapterIndex = chapterIndexForHash();
     state.scroll.hashTargetY = state.scroll.hashChapterIndex >= 0
       ? state.layout.boundaries[state.scroll.hashChapterIndex]
       : null;
-    state.scroll.hashNavAt = performance.now();
   }
 
   const SCROLL_KEYS = new Set(['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' ']);
-  // A real scroll gesture from the reader always wins over a pending
-  // hash-navigation correction -- see the resync block in frame().
   function cancelHashTracking() { state.scroll.hashChapterIndex = -1; }
 
-  function frame(now) {
+  function applyAthletePose(transforms) {
+    for (const name in transforms) {
+      const el = joints.get(name);
+      if (!el) continue;
+      const value = transforms[name];
+      if (el.getAttribute('transform') === value) continue;
+      el.setAttribute('transform', value);
+    }
+  }
+
+  function frame() {
     state.scheduler.raf = 0;
     if (!canRun()) return;
     const bits = state.scheduler.dirty;
     state.scheduler.dirty = 0;
-
-    const dt = state.scheduler.lastFrameAt ? Math.min(0.05, Math.max(0, (now - state.scheduler.lastFrameAt) / 1000)) : 0;
-    state.scheduler.lastFrameAt = now;
 
     if (bits & DIRTY.LAYOUT) measureLayout();
 
@@ -100,7 +113,7 @@ import * as S from './state.js';
       : { fraction: 0, chapterIndex: 0, localProgress: 0 };
 
     const deltaFraction = derived.fraction - state.scroll.fraction;
-    const positionChanged = deltaFraction !== 0 || bits & DIRTY.LAYOUT;
+    const positionChanged = deltaFraction !== 0 || Boolean(bits & DIRTY.LAYOUT);
 
     // A chapter link's native anchor scroll targets a pixel offset computed
     // from the layout at click time. If the Three.js world becomes ready (or
@@ -108,11 +121,8 @@ import * as S from './state.js';
     // animating -- or even after it has already settled -- the browser's
     // target goes stale and the page can end up in the wrong chapter once the
     // reflow lands. Only correct for an *actual* shift of the tracked
-    // chapter's boundary (never merely "haven't arrived yet", which is true
-    // of every normal in-flight navigation and would fight the browser's own,
-    // still-correct, scroll). Tracking ends on a genuine reader-driven scroll
-    // (see cancelHashTracking) or the 10s fail-safe expires.
-    if (state.scroll.hashChapterIndex >= 0 && bits & DIRTY.LAYOUT && now - state.scroll.hashNavAt < 10000) {
+    // chapter's boundary (never merely "haven't arrived yet").
+    if (state.scroll.hashChapterIndex >= 0 && bits & DIRTY.LAYOUT) {
       const target = state.layout.boundaries[state.scroll.hashChapterIndex];
       if (target != null) {
         if (state.scroll.hashTargetY != null && Math.round(target) !== Math.round(state.scroll.hashTargetY)) {
@@ -122,52 +132,35 @@ import * as S from './state.js';
       }
     }
 
-    if (deltaFraction !== 0) {
-      state.scroll.lastChangeAt = now;
-      if (!state.scroll.everChanged) {
-        state.scroll.everChanged = true;
-        dismissHint();
-      }
+    if (deltaFraction !== 0 && !state.scroll.everChanged) {
+      state.scroll.everChanged = true;
+      dismissHint();
     }
 
-    state.scroll.previousFraction = state.scroll.fraction;
     state.scroll.fraction = derived.fraction;
     state.scroll.chapterIndex = derived.chapterIndex;
     state.scroll.localProgress = derived.localProgress;
 
-    if (!state.hint.armed) {
-      state.hint.armed = true;
-      armHint();
+    // Hint display is immediate/state-driven: no arming timer.
+    if (hintEl) {
+      const shouldHide = state.hint.dismissed || state.scroll.chapterIndex !== 0;
+      if (hintEl.hidden !== shouldHide) hintEl.hidden = shouldHide;
     }
 
     const reducedMotion = reducedMotionMQ.matches;
-    state.athlete.velocity = reducedMotion ? 0 : S.updateVelocity(state.athlete.velocity, deltaFraction, dt || 1 / 60);
-
-    const discipline = S.deriveDiscipline(derived.chapterIndex, derived.fraction);
-    const disciplineChanged = discipline !== state.athlete.discipline;
-    if (disciplineChanged) {
-      state.athlete.discipline = discipline;
-      state.athlete.boundaryReset = true;
-    }
-
-    const age = now - state.scroll.lastChangeAt;
-    const speedFactor = S.clamp(state.athlete.velocity / 0.18, 0, 1);
-    const hz = reducedMotion ? 0 : S.cadenceHz(discipline, speedFactor);
-    state.athlete.phase = reducedMotion ? state.athlete.phase : (state.athlete.phase + dt * hz) % 1;
-    const theta = 2 * Math.PI * state.athlete.phase;
-
-    let amplitude = reducedMotion ? 0 : S.gaitAmplitude(state.athlete.velocity, age);
-    if (state.athlete.boundaryReset) {
-      amplitude = 0;
-      state.athlete.boundaryReset = false;
-    }
-    if (discipline === 'finish-approach') {
+    const motionAllowed = !reducedMotion && !forcedColorsMQ.matches;
+    const chapterId = S.DISCIPLINE_ORDER[derived.chapterIndex] || null;
+    const pose = S.deriveAthletePose(chapterId, derived.localProgress, motionAllowed);
+    let amplitude = pose.amplitude;
+    if (pose.discipline === 'finish-approach') {
       amplitude *= 1 - S.smoothstep(0.9, 1, derived.localProgress);
     }
+    const disciplineChanged = pose.discipline !== state.athlete.discipline;
+    state.athlete.discipline = pose.discipline;
 
     // WRITE PHASE
     writeReadout(derived, reducedMotion);
-    writeAthlete(discipline, theta, amplitude, derived, disciplineChanged);
+    writeAthlete(pose.discipline, pose.theta, amplitude, derived, disciplineChanged, motionAllowed);
     writeGoalPosition();
     if (positionChanged) {
       writeSplitsAndNav(derived.chapterIndex, derived.localProgress);
@@ -176,8 +169,10 @@ import * as S from './state.js';
 
     updateWorldFrame(bits);
 
-    const cadenceNeeded = !reducedMotion && isLocomotingState(discipline) && age < 300;
-    if (state.scheduler.dirty || cadenceNeeded || state.world.settleFrames > 0) {
+    // Never self-reschedule: another frame only runs if new dirty bits were
+    // set while this one ran (e.g. a resize triggered by this frame's DOM
+    // writes).
+    if (state.scheduler.dirty) {
       state.scheduler.raf = requestAnimationFrame(frame);
     }
   }
@@ -190,13 +185,15 @@ import * as S from './state.js';
     /* Legibility bump (adversarial audit): 24-unit pose detail needs more
        pixels — 44px mobile / 56px on the desktop world viewports. */
     state.layout.athleteSize = wideMQ.matches ? 56 : 44;
-    athleteWrap.style.width = `${state.layout.athleteSize}px`;
-    athleteWrap.style.height = `${state.layout.athleteSize}px`;
+    if (!mobile.mounted) {
+      athleteWrap.style.width = `${state.layout.athleteSize}px`;
+      athleteWrap.style.height = `${state.layout.athleteSize}px`;
+    }
 
     const rail = measureRail(refs.pathEl, refs.svgEl);
     state.layout.rail = rail;
     state.layout.railReady = Boolean(rail && rail.length > 0);
-    if (!state.layout.railReady) {
+    if (!state.layout.railReady && !mobile.mounted) {
       athleteWrap.hidden = true;
       goalEl.hidden = true;
     }
@@ -230,10 +227,12 @@ import * as S from './state.js';
   }
 
   // ---- athlete -----------------------------------------------------------
-  function writeAthlete(discipline, theta, amplitude, derived, disciplineChanged) {
-    if (!state.layout.railReady) return;
-    const point = screenPointForFraction(refs.pathEl, state.layout.rail, derived.fraction);
-    positionWrap(athleteWrap, point.x, point.y, state.layout.athleteSize);
+  function writeAthlete(discipline, theta, amplitude, derived, disciplineChanged, motionAllowed) {
+    if (!mobile.mounted && !state.layout.railReady) return;
+    if (!mobile.mounted && state.layout.railReady) {
+      const point = screenPointForFraction(refs.pathEl, state.layout.rail, derived.fraction);
+      positionWrap(athleteWrap, point.x, point.y, state.layout.athleteSize);
+    }
     if (athleteWrap.hidden) athleteWrap.hidden = false;
 
     if (disciplineChanged) {
@@ -244,7 +243,16 @@ import * as S from './state.js';
         setGroundInk(athleteWrap, cs.getPropertyValue('--race-ground').trim(), cs.getPropertyValue('--race-ink').trim());
       }
     }
-    writeJointTransforms(joints, S.jointTransforms(discipline, theta, amplitude, derived.fraction));
+    applyAthletePose(S.jointTransforms(discipline, theta, amplitude, derived.fraction, motionAllowed, derived.localProgress));
+    writeMobileDockLabel(derived.chapterIndex);
+  }
+
+  function writeMobileDockLabel(chapterIndex) {
+    if (!mobile.mounted || !mobileDockLabelEl) return;
+    const link = refs.navLinks[chapterIndex];
+    const labelEl = link && link.querySelector('.race-nav-label');
+    const label = labelEl ? labelEl.textContent : '';
+    if (mobileDockLabelEl.textContent !== label) mobileDockLabelEl.textContent = label;
   }
 
   function writeGoalPosition() {
@@ -279,25 +287,58 @@ import * as S from './state.js';
   }
 
   // ---- idle scroll hint ------------------------------------------------
-  function armHint() {
-    if (state.hint.dismissed || !hintEl) return;
-    if (reducedMotionMQ.matches) {
-      if (state.scroll.chapterIndex === 0) showHint();
-      return;
-    }
-    state.hint.timer = window.setTimeout(() => {
-      if (!state.hint.dismissed && state.scroll.chapterIndex === 0) showHint();
-    }, 1800);
-  }
-  function showHint() {
-    if (state.hint.dismissed || !hintEl) return;
-    hintEl.hidden = false;
-  }
   function dismissHint() {
     if (state.hint.dismissed) return;
     state.hint.dismissed = true;
-    clearTimeout(state.hint.timer);
     if (hintEl) hintEl.hidden = true;
+  }
+
+  // ---- mobile progress dock (item 2) ------------------------------------
+  function mountMobileRaceDock() {
+    if (mobile.mounted || !mobileDockEl || !mobileDockMarkerEl) return;
+    mobile.athleteParent = athleteWrap.parentNode;
+    mobile.athleteNext = athleteWrap.nextSibling;
+    mobileDockMarkerEl.appendChild(athleteWrap);
+    athleteWrap.classList.add('race-athlete-wrap--docked');
+    athleteWrap.style.transform = '';
+    root.classList.add('race--mobile-docked');
+    if (navEl) navEl.classList.add('race-nav--docked');
+    mobileDockEl.hidden = false;
+    mobile.mounted = true;
+  }
+
+  function unmountMobileRaceDock() {
+    if (!mobile.mounted) return;
+    if (mobile.athleteParent) {
+      mobile.athleteParent.insertBefore(athleteWrap, mobile.athleteNext);
+    }
+    athleteWrap.classList.remove('race-athlete-wrap--docked');
+    root.classList.remove('race--mobile-docked');
+    if (navEl) navEl.classList.remove('race-nav--docked');
+    if (mobileDockEl) mobileDockEl.hidden = true;
+    mobile.mounted = false;
+  }
+
+  function evaluateMobileDock() {
+    if (!wideMQ.matches) mountMobileRaceDock();
+    else unmountMobileRaceDock();
+    invalidate(DIRTY.LAYOUT);
+  }
+
+  // ---- scene inspection toggle (item 3) ---------------------------------
+  function updateExploreButton() {
+    if (!exploreButton) return;
+    const active = state.world.activeChapterId;
+    const pressed = active ? state.inspection.byChapter[active] === true : false;
+    const next = String(pressed);
+    if (exploreButton.getAttribute('aria-pressed') !== next) exploreButton.setAttribute('aria-pressed', next);
+  }
+
+  function toggleSceneInspection(chapterId) {
+    if (!chapterId) return;
+    state.inspection.byChapter[chapterId] = !state.inspection.byChapter[chapterId];
+    updateExploreButton();
+    invalidate(DIRTY.WORLD);
   }
 
   // ---- world (lazy Three.js) --------------------------------------------
@@ -389,9 +430,9 @@ import * as S from './state.js';
 
     state.world.instance = instance;
     state.world.status = 'ready';
-    state.world.settleFrames = 2;
     worldWrap.hidden = false;
     root.classList.add('race--world-ready');
+    if (gameControlsEl) gameControlsEl.hidden = false;
     /* The wrap is display:none until now (rect 0x0 -> 1x1 drawing buffer).
        Size the buffer explicitly: the wrap is position:fixed, so the
        ResizeObserver on root cannot be relied on to fire here (it only
@@ -413,9 +454,10 @@ import * as S from './state.js';
     worldWrap.innerHTML = '';
     worldWrap.hidden = true;
     root.classList.remove('race--world-ready');
+    if (gameControlsEl) gameControlsEl.hidden = true;
     state.world.generation++;
     state.world.status = markFailed ? 'failed' : 'off';
-    state.world.settleFrames = 0;
+    state.world.activeChapterId = null;
     invalidate(DIRTY.LAYOUT);
   }
 
@@ -436,7 +478,10 @@ import * as S from './state.js';
     const worldDerived = state.layout.boundaries.length > 1
       ? S.deriveCourseState(state.layout.boundaries, anticipatedY, state.layout.maxScroll)
       : { fraction: 0, chapterIndex: 0, localProgress: 0 };
-    const signature = `${worldDerived.chapterIndex}:${worldDerived.localProgress.toFixed(4)}:${anticipatedY.toFixed(0)}`;
+    state.world.activeChapterId = S.DISCIPLINE_ORDER[worldDerived.chapterIndex] || null;
+    updateExploreButton();
+    const inspection = S.deriveInspectionTransform(state.world.activeChapterId, worldDerived.localProgress, state.inspection.byChapter);
+    const signature = `${worldDerived.chapterIndex}:${worldDerived.localProgress.toFixed(4)}:${anticipatedY.toFixed(0)}:${inspection.yawOffset.toFixed(6)}:${inspection.zoomFactor.toFixed(6)}`;
     const changed = signature !== state.world.signature;
     if (changed || bits & DIRTY.WORLD) {
       state.world.signature = signature;
@@ -445,10 +490,8 @@ import * as S from './state.js';
         localProgress: worldDerived.localProgress,
         boundaries: state.layout.boundaries,
         scrollY: anticipatedY,
+        inspection,
       });
-      state.world.instance.render();
-    } else if (state.world.settleFrames > 0) {
-      state.world.settleFrames--;
       state.world.instance.render();
     }
   }
@@ -459,7 +502,6 @@ import * as S from './state.js';
     const width = rect.width || 1;
     const height = rect.height || 1;
     state.world.instance.resize(width, height, clampPixelRatio(width, height));
-    state.world.settleFrames = 2;
     invalidate(DIRTY.WORLD);
   }
 
@@ -467,24 +509,18 @@ import * as S from './state.js';
   function onScroll() { invalidate(DIRTY.SCROLL); }
   function onLayoutChange() { invalidate(DIRTY.LAYOUT); onWorldResize(); }
   function onVisibility() {
-    if (document.hidden) {
-      state.scheduler.lastFrameAt = 0;
-      state.athlete.velocity = 0;
-    } else {
-      invalidate(DIRTY.SCROLL | DIRTY.LAYOUT);
-    }
+    if (!document.hidden) invalidate(DIRTY.SCROLL | DIRTY.LAYOUT);
     evaluateWorldEligibility();
   }
   function onMotionChange() {
     if (reducedMotionMQ.matches) {
       teardownWorld(false);
-      state.athlete.velocity = 0;
     } else {
       evaluateWorldEligibility();
     }
     invalidate(DIRTY.SCROLL | DIRTY.LAYOUT);
   }
-  function onWideChange() { evaluateWorldEligibility(); invalidate(DIRTY.LAYOUT); }
+  function onWideChange() { evaluateWorldEligibility(); evaluateMobileDock(); }
 
   function registerEvents() {
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -501,7 +537,6 @@ import * as S from './state.js';
     });
     window.addEventListener('pagehide', () => {
       if (state.scheduler.raf) cancelAnimationFrame(state.scheduler.raf);
-      clearTimeout(state.hint.timer);
     });
     window.addEventListener('wheel', cancelHashTracking, { passive: true });
     window.addEventListener('touchstart', cancelHashTracking, { passive: true });
@@ -522,12 +557,28 @@ import * as S from './state.js';
     }
     if (document.fonts) document.fonts.ready.then(onLayoutChange);
     refs.navLinks.forEach((link) => link.addEventListener('click', dismissHint));
+
+    // Item 3: a real DOM button, and the canvas's bubbling scene-toggle
+    // event. Both funnel through the same toggle function; the button uses
+    // native <button> semantics for Enter/Space parity with a pointer click.
+    if (exploreButton) {
+      exploreButton.addEventListener('click', () => toggleSceneInspection(state.world.activeChapterId));
+    }
+    worldWrap.addEventListener('race-scene-toggle', (event) => {
+      const zoneIndex = event.detail && event.detail.zoneIndex;
+      if (typeof zoneIndex !== 'number') return;
+      const chapterId = S.DISCIPLINE_ORDER[zoneIndex];
+      // Validate against the latest world-active chapter from the shared
+      // flush -- a stale click following a chapter change toggles nothing.
+      if (!chapterId || chapterId !== state.world.activeChapterId) return;
+      toggleSceneInspection(chapterId);
+    });
   }
 
   // ---- init ----------------------------------------------------------
   root.classList.add('race--enhanced');
   state.scroll.hashChapterIndex = chapterIndexForHash();
-  state.scroll.hashNavAt = performance.now();
+  evaluateMobileDock();
   measureLayout();
   registerEvents();
   invalidate(DIRTY.SCROLL | DIRTY.LAYOUT);

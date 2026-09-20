@@ -174,4 +174,10 @@
   translation: "SCROLL"
 - id: race_complete
   translation: "Course complete"
+- id: race_explore
+  translation: "Explore current scene"
+- id: race_explore_instruction
+  translation: "Select the model to turn it. Scroll to explore."
+- id: race_atlas_description
+  translation: "A tilted toy map of the journey: Madrid to Galicia, across the Atlantic to Amsterdam, then Copenhagen."
 

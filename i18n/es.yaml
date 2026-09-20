@@ -139,6 +139,12 @@
   translation: "SCROLL"
 - id: race_complete
   translation: "Recorrido completado"
+- id: race_explore
+  translation: "Explorar la escena actual"
+- id: race_explore_instruction
+  translation: "Selecciona el modelo para girarlo. Desplázate para explorar."
+- id: race_atlas_description
+  translation: "Un mapa de juguete inclinado del recorrido: de Madrid a Galicia, cruzando el Atlántico hasta Ámsterdam y luego Copenhague."
 
 
 - id: "newsletter_placeholder"
