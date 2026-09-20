@@ -36,7 +36,7 @@ import * as S from './state.js';
 
   const state = {
     layout: { boundaries: [0, 0], maxScroll: 0, rail: null, railReady: false, athleteSize: 40 },
-    scroll: { fraction: 0, previousFraction: 0, chapterIndex: 0, localProgress: 0, lastChangeAt: 0, everChanged: false, hashChapterIndex: -1, hashNavAt: 0 },
+    scroll: { fraction: 0, previousFraction: 0, chapterIndex: 0, localProgress: 0, lastChangeAt: 0, everChanged: false, hashChapterIndex: -1, hashTargetY: null, hashNavAt: 0 },
     athlete: { discipline: null, phase: 0, velocity: 0, boundaryReset: false },
     goal: { complete: false, announced: false },
     hint: { armed: false, dismissed: false, timer: 0 },
