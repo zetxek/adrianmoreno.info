@@ -228,13 +228,15 @@ import * as S from './state.js';
 
   // ---- athlete -----------------------------------------------------------
   function writeAthlete(discipline, theta, amplitude, derived, disciplineChanged, motionAllowed) {
+    /* Un-hide BEFORE the railReady guard: a failed rail measurement must only
+       skip repositioning, never leave the figure stuck hidden for the rest of
+       the page (the guard returns early, so the un-hide below was unreachable). */
+    if (athleteWrap.hidden) athleteWrap.hidden = false;
     if (!mobile.mounted && !state.layout.railReady) return;
     if (!mobile.mounted && state.layout.railReady) {
       const point = screenPointForFraction(refs.pathEl, state.layout.rail, derived.fraction);
       positionWrap(athleteWrap, point.x, point.y, state.layout.athleteSize);
     }
-    if (athleteWrap.hidden) athleteWrap.hidden = false;
-
     if (disciplineChanged) {
       setDiscipline(athleteSvg, discipline);
       const stage = refs.stages[derived.chapterIndex];
