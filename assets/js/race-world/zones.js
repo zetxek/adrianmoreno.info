@@ -540,14 +540,14 @@ function swimBasin(unit, mat) {
     { position: [12.05, waterY - 0.3, -8.35], scale: [1.55, 0.58, 1.45], rotationY: 0.2 },
   ], 'hex', tally);
 
-  const horreo = horreoRow(unit, mat, [{
-    x: 8.4, z: 10.3, length: 3.3, width: 1.45,
-    wallHeight: 1.65, pillarCount: 4, hasCross: true, rotationY: 0,
-  }]);
-  horreo.group.position.y = shoreY;
-  group.add(horreo.group);
-  tally.triangles += horreo.triangles;
-  tally.instances += horreo.instances;
+  const horreos = horreoRow(unit, mat, [
+    { x: 0.5, z: 10.4, length: 6.6, width: 2.3, wallHeight: 2.6, pillarCount: 8, hasCross: true, rotationY: 0 },
+    { x: 9.0, z: 10.2, length: 5.0, width: 2.0, wallHeight: 2.35, pillarCount: 6, hasCross: false, rotationY: 0 },
+  ]);
+  horreos.group.position.y = shoreY;
+  group.add(horreos.group);
+  tally.triangles += horreos.triangles;
+  tally.instances += horreos.instances;
 
   const boats = moored(unit, mat, [
     { x: 2.45, z: 8.0, length: 2.1, sail: false },

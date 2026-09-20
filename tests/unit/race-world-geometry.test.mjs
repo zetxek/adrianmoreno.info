@@ -5,7 +5,7 @@ import { buildZones, buildUnitGeometries, TRIANGLES_PER_KIND } from '../../asset
 
 const EXPECTED_PER_ZONE = [
   { name: 'start-plateau', triangles: 600, instances: 50 },
-  { name: 'swim-basin', triangles: 696, instances: 56 },
+  { name: 'swim-basin', triangles: 972, instances: 79 },
   { name: 't1-tunnel', triangles: 264, instances: 20 },
   { name: 'amsterdam-bike', triangles: 1030, instances: 144 },
   { name: 't2-tunnel', triangles: 428, instances: 33 },
@@ -46,12 +46,12 @@ test('each zone matches its authored per-zone triangle/instance budget', () => {
   });
 });
 
-test('the full course totals exactly 4,658 triangles across 507 instances, under the 25,000 ceiling', () => {
+test('the full course totals exactly 4,934 triangles across 530 instances, under the 25,000 ceiling', () => {
   const zones = buildZones();
   const triangles = zones.reduce((sum, z) => sum + z.triangles, 0);
   const instances = zones.reduce((sum, z) => sum + z.instances, 0);
-  assert.equal(triangles, 4658);
-  assert.equal(instances, 507);
+  assert.equal(triangles, 4934);
+  assert.equal(instances, 530);
   assert.ok(triangles <= 25000);
   assert.ok(triangles <= 16000, 'stays within the disciplined target ceiling');
 });
