@@ -66,6 +66,18 @@ import * as S from './state.js';
     return refs.stages.findIndex((stage) => stage.id === id);
   }
 
+  // Arms tracking for the chapter the current hash names: its boundary
+  // pixel offset is captured as of *now* (the same layout the browser's own
+  // anchor scroll just targeted), so a later remeasure can tell whether that
+  // offset has actually moved -- see the resync block in frame().
+  function armHashTracking() {
+    state.scroll.hashChapterIndex = chapterIndexForHash();
+    state.scroll.hashTargetY = state.scroll.hashChapterIndex >= 0
+      ? state.layout.boundaries[state.scroll.hashChapterIndex]
+      : null;
+    state.scroll.hashNavAt = performance.now();
+  }
+
   const SCROLL_KEYS = new Set(['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' ']);
   // A real scroll gesture from the reader always wins over a pending
   // hash-navigation correction -- see the resync block in frame().
@@ -91,19 +103,23 @@ import * as S from './state.js';
     const positionChanged = deltaFraction !== 0 || bits & DIRTY.LAYOUT;
 
     // A chapter link's native anchor scroll targets a pixel offset computed
-    // from the layout at click time. If the Three.js world becomes ready
-    // (or any other async change reflows the stages) while that scroll is
-    // still animating -- or even after it has already (coincidentally)
-    // settled on the right chapter under the stale geometry -- the browser's
+    // from the layout at click time. If the Three.js world becomes ready (or
+    // any other async change reflows the stages) while that scroll is still
+    // animating -- or even after it has already settled -- the browser's
     // target goes stale and the page can end up in the wrong chapter once the
-    // reflow lands. So arrival at the right chapterIndex is deliberately NOT
-    // treated as "done": tracking only ends when the reader scrolls under
-    // their own power (see cancelHashTracking) or the 10s fail-safe expires,
-    // so a later reflow can still be corrected for.
-    if (state.scroll.hashChapterIndex >= 0 && derived.chapterIndex !== state.scroll.hashChapterIndex &&
-      bits & DIRTY.LAYOUT && now - state.scroll.hashNavAt < 10000) {
+    // reflow lands. Only correct for an *actual* shift of the tracked
+    // chapter's boundary (never merely "haven't arrived yet", which is true
+    // of every normal in-flight navigation and would fight the browser's own,
+    // still-correct, scroll). Tracking ends on a genuine reader-driven scroll
+    // (see cancelHashTracking) or the 10s fail-safe expires.
+    if (state.scroll.hashChapterIndex >= 0 && bits & DIRTY.LAYOUT && now - state.scroll.hashNavAt < 10000) {
       const target = state.layout.boundaries[state.scroll.hashChapterIndex];
-      if (target != null) window.scrollTo({ top: target, left: window.scrollX });
+      if (target != null) {
+        if (state.scroll.hashTargetY != null && Math.round(target) !== Math.round(state.scroll.hashTargetY)) {
+          window.scrollTo({ top: target, left: window.scrollX });
+        }
+        state.scroll.hashTargetY = target;
+      }
     }
 
     if (deltaFraction !== 0) {
@@ -480,8 +496,7 @@ import * as S from './state.js';
     // though the URL says otherwise. Re-measure on the hash change itself so the
     // nav always agrees with the chapter the reader actually asked for.
     window.addEventListener('hashchange', () => {
-      state.scroll.hashChapterIndex = chapterIndexForHash();
-      state.scroll.hashNavAt = performance.now();
+      armHashTracking();
       invalidate(DIRTY.SCROLL | DIRTY.LAYOUT);
     });
     window.addEventListener('pagehide', () => {
