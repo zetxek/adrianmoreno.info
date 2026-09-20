@@ -82,10 +82,11 @@ test('native chapter navigation and optional measured progress', async ({ page }
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(raceURL);
   await expect(page.locator('.race-progress')).not.toHaveCSS('stroke-dasharray', 'none');
-  await page.locator('.race-nav a[href="#run"]').click();
+  await goToChapter(page, 'run');
   await expect(page).toHaveURL(/#run$/);
   await expect(page.locator('.race-nav a[href="#run"]')).toHaveAttribute('aria-current', 'location');
   await page.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }));
+  await waitForScrollSettle(page);
   await expect(page.locator('[data-race-progress]')).toHaveText('100%');
   expect(errors).toEqual([]);
 });
