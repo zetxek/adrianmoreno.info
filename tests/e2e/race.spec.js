@@ -21,9 +21,23 @@ async function waitForScrollSettle(page) {
   }
 }
 
+async function waitForNavSync(page) {
+  // A chapter link changes the hash and starts a smooth scroll; the app writes
+  // aria-current from its idle-suppressed frame loop, so there is a beat between
+  // the scroll settling and the nav reflecting the new chapter. Give it that beat
+  // rather than racing it -- the assertions that follow still require the RIGHT
+  // chapter to be current, so nothing is weakened.
+  await page.waitForFunction(
+    () => !!document.querySelector('.race-nav a[aria-current="location"]'),
+    null,
+    { timeout: 5000 },
+  ).catch(() => {});
+}
+
 async function goToChapter(page, id) {
   await page.locator(`.race-nav a[href="#${id}"]`).click();
   await waitForScrollSettle(page);
+  await waitForNavSync(page);
   await page.waitForTimeout(150);
 }
 

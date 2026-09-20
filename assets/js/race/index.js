@@ -447,6 +447,12 @@ import * as S from './state.js';
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onLayoutChange, { passive: true });
     window.addEventListener('pageshow', onLayoutChange);
+    // Clicking a chapter link changes the hash and starts a smooth scroll. The
+    // scroll events that follow can be dropped by the idle scheduler (it stops
+    // once scrolling is quiet), which can leave no chapter marked current even
+    // though the URL says otherwise. Re-measure on the hash change itself so the
+    // nav always agrees with the chapter the reader actually asked for.
+    window.addEventListener('hashchange', () => invalidate(DIRTY.SCROLL | DIRTY.LAYOUT));
     window.addEventListener('pagehide', () => {
       if (state.scheduler.raf) cancelAnimationFrame(state.scheduler.raf);
       clearTimeout(state.hint.timer);
