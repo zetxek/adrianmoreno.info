@@ -1623,86 +1623,61 @@ function borsenLandmark(unit, mat, { x, z, baseY }) {
     rotationY: 0,
   }], tally);
 
+  // A round Rundetårn-style drum replaces the old thin spire: at 20px/unit
+  // a slender twisting tower cannot read at all, but a fat cylindrical
+  // shaft with a BOLD stepped external ramp bulges the silhouette itself,
+  // so the spiral is visible as a staircase profile rather than fine
+  // detail that dissolves into a blob.
   const towerBottom = wallTop + roofRise * 0.48;
-  const towerH = 0.82;
-  const collarH = 0.12;
-  addBatch(group, unit.box, stone, row(1, {
-    x0: x, x1: x, y: towerBottom, z,
-    size: [0.98, towerH, 0.98],
-  }), 'box', tally);
-  addBatch(group, unit.box, trim, row(1, {
-    x0: x, x1: x, y: towerBottom + towerH, z,
-    size: [1.10, collarH, 1.10],
-  }), 'box', tally);
+  const shaftW = 2.0;
+  const shaftH = 2.6;
+  const shaftRadius = shaftW / 2;
+  const shaftTop = towerBottom + shaftH;
+  addBatch(group, unit.hex, stone, [{
+    position: [x, towerBottom, z], scale: [shaftW, shaftH, shaftW], rotationY: 0,
+  }], 'hex', tally);
 
-  // Interior rotation alone is invisible at this render scale (flat-lit
-  // boxes rotating in place move their silhouette by 1-6px on a 60px-tall
-  // spire). The Dragon Spire twist has to displace the SILHOUETTE instead:
-  // a slim twisting core carries the close-range detail, and four helical
-  // strands (the dragon tails) are held OUT from that core by a radial
-  // protrusion that stays wide through most of the climb, so their spiral
-  // reads as corner movement of several render-px at many heights, not a
-  // rotation the eye can't resolve.
-  const spireY = towerBottom + towerH + collarH;
-  const spireH = 3.10;
-  const twistStepDeg = 27;
-  const twistStep = twistStepDeg * Math.PI / 180;
-  const coreBaseWidth = 0.62;
-  const coreTipWidth = 0.12;
-  const coreEnvelopeRadius = (t) => (coreBaseWidth * Math.pow(coreTipWidth / coreBaseWidth, t)) / 2;
-
-  const coreTierCount = 5;
-  const coreTierH = spireH / coreTierCount;
-  const coreTiers = [];
-  for (let i = 0; i < coreTierCount; i++) {
-    const t = i / (coreTierCount - 1);
-    const width = coreEnvelopeRadius(t) * 2;
-    coreTiers.push({
-      position: [x, spireY + coreTierH * (i + 0.5), z],
-      scale: [width, coreTierH, width * 0.72],
-      rotationY: i * twistStep,
+  // The external spiral ramp: few, big stepped boxes (not many small ones --
+  // that was the old spire's mistake) rising steadily through ~1.25 turns,
+  // each held proud of the drum's surface so the outer silhouette bulges
+  // outward in a wrapping staircase.
+  const rampSegs = 11;
+  const rampTurns = 1.25;
+  const rampProtrusion = 0.35;
+  const rampRadius = shaftRadius + rampProtrusion / 2;
+  const rampBottom = towerBottom + 0.25;
+  const rampTop = shaftTop - 0.25;
+  const ramp = [];
+  for (let i = 0; i < rampSegs; i++) {
+    const t = i / (rampSegs - 1);
+    const theta = t * rampTurns * Math.PI * 2;
+    ramp.push({
+      position: [x + Math.sin(theta) * rampRadius, lerp(rampBottom, rampTop, t), z + Math.cos(theta) * rampRadius],
+      scale: [0.9, 0.32, rampProtrusion],
+      rotationY: theta,
     });
   }
-  addBatch(group, unit.box, spireMaterial, coreTiers, 'box', tally);
+  addBatch(group, unit.box, trim, ramp, 'box', tally);
 
-  const capWidth = coreTipWidth * 0.9;
+  // A small observatory cap on a collar, so the top reads as a cap rather
+  // than a spike.
+  const collarH = 0.14;
+  addBatch(group, unit.box, trim, row(1, {
+    x0: x, x1: x, y: shaftTop, z,
+    size: [shaftW + 0.35, collarH, shaftW + 0.35],
+  }), 'box', tally);
+
+  const observatoryY = shaftTop + collarH;
+  addBatch(group, unit.box, stone, row(1, {
+    x0: x, x1: x, y: observatoryY, z,
+    size: [1.0, 0.56, 1.0],
+  }), 'box', tally);
+
   addBatch(group, unit.cone, spireMaterial, [{
-    position: [x, spireY + spireH, z],
-    scale: [capWidth, 0.55, capWidth],
-    rotationY: coreTierCount * twistStep,
+    position: [x, observatoryY + 0.56, z],
+    scale: [0.55, 0.6, 0.55],
+    rotationY: 0,
   }], 'cone', tally);
-
-  // Four dragon tails: chains of segments spiraling ~1.3 turns up the
-  // spire, offset from the core envelope by a protrusion that decays
-  // slowly (pow 0.35) so it stays large until the tails converge into the
-  // last stretch below the cap.
-  const strandCount = 4;
-  const segCount = 5;
-  const turnsPerStrand = 1.3;
-  const protrusionMax = 0.48;
-  const segWidth = 0.17;
-  const segTipWidth = 0.05;
-  const wTaperStart = 5 / 7;
-  const strandSegs = [];
-  for (let s = 0; s < strandCount; s++) {
-    const phase = s * (Math.PI * 2 / strandCount);
-    for (let j = 0; j < segCount; j++) {
-      const t = j / (segCount - 1);
-      const theta = phase + t * turnsPerStrand * Math.PI * 2;
-      const protrusion = protrusionMax * Math.pow(1 - t, 0.35);
-      const r = coreEnvelopeRadius(t) + protrusion;
-      const w = t <= wTaperStart
-        ? segWidth
-        : lerp(segWidth, segTipWidth, (t - wTaperStart) / (1 - wTaperStart));
-      const y = spireY + t * spireH;
-      strandSegs.push({
-        position: [x + Math.sin(theta) * r, y, z + Math.cos(theta) * r],
-        scale: [w, (spireH / segCount) * 1.3, w],
-        rotationY: theta,
-      });
-    }
-  }
-  addBatch(group, unit.box, spireMaterial, strandSegs, 'box', tally);
 
   return { group, ...tally };
 }
