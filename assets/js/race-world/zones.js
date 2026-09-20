@@ -1371,9 +1371,22 @@ function amsterdamBike(unit, mat) {
   }
   addBatch(group, unit.box, mat.main, coping, 'box', tally);
 
-  attachCityPart(group, tally, amsterdamMerchantHouses(unit, mat, {
-    baseY: bankY, z: -4.3, centerX: bridgeX,
-  }));
+  // The row is approved as composed; just scale it up in place -- grown from
+  // its own footprint (ground line, canal-facing wall, row centre) so the
+  // houses read bigger without moving, reshaping, or adding a single
+  // triangle. Group scale/position are free: they don't touch the tally.
+  const houseZ = -4.3;
+  const houseScale = 1.3;
+  const merchantHouses = amsterdamMerchantHouses(unit, mat, {
+    baseY: bankY, z: houseZ, centerX: bridgeX,
+  });
+  merchantHouses.group.scale.set(houseScale, houseScale, houseScale);
+  merchantHouses.group.position.set(
+    bridgeX * (1 - houseScale),
+    bankY * (1 - houseScale),
+    houseZ * (1 - houseScale),
+  );
+  attachCityPart(group, tally, merchantHouses);
   attachCityPart(group, tally, amsterdamTulipRows(unit, mat, { baseY: bankY }));
   attachCityPart(group, tally, amsterdamCanalBridge(unit, mat, {
     x: bridgeX, z0: 2, z1: 8, bankY,
@@ -1559,7 +1572,6 @@ function borsenLandmark(unit, mat, { x, z, baseY }) {
   const stone = cityColorMaterial(mat.main, 0x969b9c);
   const trim = cityColorMaterial(mat.main, 0xb6bbb9);
   const roof = cityColorMaterial(mat.secondary, 0x343a3e);
-  const spireMaterial = cityColorMaterial(mat.secondary, 0x4b5357);
   const glass = cityColorMaterial(mat.secondary, 0x263039, { doubleSided: true });
   const quad = cityQuadGeometry();
 
@@ -1633,61 +1645,52 @@ function borsenLandmark(unit, mat, { x, z, baseY }) {
     rotationY: 0,
   }], tally);
 
-  // A round Rundetårn-style drum replaces the old thin spire: at 20px/unit
-  // a slender twisting tower cannot read at all, but a fat cylindrical
-  // shaft with a BOLD stepped external ramp bulges the silhouette itself,
-  // so the spiral is visible as a staircase profile rather than fine
-  // detail that dissolves into a blob.
+  // Frederiks Kirke (the Marble Church): a broad masonry drum carries a
+  // stepped, unpointed copper dome and a small lidded lantern. Both earlier
+  // landmarks tried here -- a twisting spire, then a tapered observatory
+  // cap -- read as a thin point at this scale; a bold, solid dome silhouette
+  // does not depend on that kind of fine detail to read.
   const towerBottom = wallTop + roofRise * 0.48;
-  const shaftW = 2.0;
-  const shaftH = 2.6;
-  const shaftRadius = shaftW / 2;
-  const shaftTop = towerBottom + shaftH;
+  const drumW = 2.6;
+  const drumH = 1.0;
   addBatch(group, unit.hex, stone, [{
-    position: [x, towerBottom, z], scale: [shaftW, shaftH, shaftW], rotationY: 0,
+    position: [x, towerBottom, z], scale: [drumW, drumH, drumW], rotationY: 0,
   }], 'hex', tally);
 
-  // The external spiral ramp: few, big stepped boxes (not many small ones --
-  // that was the old spire's mistake) rising steadily through ~1.25 turns,
-  // each held proud of the drum's surface so the outer silhouette bulges
-  // outward in a wrapping staircase.
-  const rampSegs = 11;
-  const rampTurns = 1.25;
-  const rampProtrusion = 0.35;
-  const rampRadius = shaftRadius + rampProtrusion / 2;
-  const rampBottom = towerBottom + 0.25;
-  const rampTop = shaftTop - 0.25;
-  const ramp = [];
-  for (let i = 0; i < rampSegs; i++) {
-    const t = i / (rampSegs - 1);
-    const theta = t * rampTurns * Math.PI * 2;
-    ramp.push({
-      position: [x + Math.sin(theta) * rampRadius, lerp(rampBottom, rampTop, t), z + Math.cos(theta) * rampRadius],
-      scale: [0.9, 0.32, rampProtrusion],
-      rotationY: theta,
-    });
-  }
-  addBatch(group, unit.box, trim, ramp, 'box', tally);
+  const corniceH = 0.14;
+  const corniceY = towerBottom + drumH;
+  addBatch(group, unit.box, trim, [{
+    position: [x, corniceY, z], scale: [drumW + 0.22, corniceH, drumW + 0.22], rotationY: 0,
+  }], 'box', tally);
 
-  // A small observatory cap on a collar, so the top reads as a cap rather
-  // than a spike.
-  const collarH = 0.14;
-  addBatch(group, unit.box, trim, row(1, {
-    x0: x, x1: x, y: shaftTop, z,
-    size: [shaftW + 0.35, collarH, shaftW + 0.35],
-  }), 'box', tally);
+  // Three decreasing hex drums, stacked with a slight overlap so there is
+  // no visible seam, approximate the dome's rounded, segmented profile --
+  // "unit.hex for round-ish masses" rather than a tapered/pointed form.
+  const domeBandSpecs = [
+    { w: 2.5, h: 0.42 },
+    { w: 1.85, h: 0.38 },
+    { w: 1.15, h: 0.34 },
+  ];
+  let domeY = corniceY - 0.03;
+  const domeBands = domeBandSpecs.map(({ w, h }) => {
+    const band = { position: [x, domeY, z], scale: [w, h, w], rotationY: 0 };
+    domeY += h - 0.02;
+    return band;
+  });
+  addBatch(group, unit.hex, mat.secondary, domeBands, 'hex', tally);
 
-  const observatoryY = shaftTop + collarH;
-  addBatch(group, unit.box, stone, row(1, {
-    x0: x, x1: x, y: observatoryY, z,
-    size: [1.0, 0.56, 1.0],
-  }), 'box', tally);
+  // A small lantern drum with a shallow lidded cap -- not a spire.
+  const lanternW = 0.55;
+  const lanternH = 0.40;
+  const lanternY = domeY - 0.04;
+  addBatch(group, unit.hex, stone, [{
+    position: [x, lanternY, z], scale: [lanternW, lanternH, lanternW], rotationY: 0,
+  }], 'hex', tally);
 
-  addBatch(group, unit.cone, spireMaterial, [{
-    position: [x, observatoryY + 0.56, z],
-    scale: [0.55, 0.6, 0.55],
-    rotationY: 0,
-  }], 'cone', tally);
+  const capH = 0.16;
+  addBatch(group, unit.hex, mat.secondary, [{
+    position: [x, lanternY + lanternH - 0.03, z], scale: [lanternW * 0.85, capH, lanternW * 0.85], rotationY: 0,
+  }], 'hex', tally);
 
   return { group, ...tally };
 }
