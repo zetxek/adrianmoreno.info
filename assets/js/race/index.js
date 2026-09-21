@@ -15,6 +15,7 @@ import * as S from './state.js';
 
   const progress = document.querySelector('.race-progress');
   const readoutEl = document.querySelector('.race-readout');
+  const captionEl = readoutEl && readoutEl.querySelector('[data-race-caption]');
   const percentEl = readoutEl && readoutEl.querySelector('[data-race-progress]');
   const coordsEl = readoutEl && readoutEl.querySelector('[data-race-coordinates]');
 
@@ -40,6 +41,18 @@ import * as S from './state.js';
   const passportCountEl = passportSummaryEl && passportSummaryEl.querySelector('.race-passport-count');
   const passportLinksEl = passportSummaryEl && passportSummaryEl.querySelector('.race-passport-links');
   const passportResetButton = passportSummaryEl && passportSummaryEl.querySelector('.race-passport-reset');
+  // Lead ("starting point") selector (gamify spec section 3.4) and the
+  // persistent chrome indicator (section 4.3): both independent of
+  // world/mobile-dock eligibility, same as the rest of the passport.
+  const passportLeadWrapEl = passportSummaryEl && passportSummaryEl.querySelector('.race-passport-lead');
+  const passportLeadSelectEl = passportSummaryEl && passportSummaryEl.querySelector('[data-passport-lead]');
+  const passportIndicatorEl = document.querySelector('.race-passport-indicator');
+  // Finish brief (gamify spec section 3.5): "What you're carrying forward".
+  const passportBriefEl = root.querySelector('.race-passport-brief');
+  const passportBriefCountEl = passportBriefEl && passportBriefEl.querySelector('[data-passport-brief-count]');
+  const passportBriefLeadEl = passportBriefEl && passportBriefEl.querySelector('[data-passport-brief-lead]');
+  const passportBriefStatusEls = passportBriefEl ? [...passportBriefEl.querySelectorAll('[data-passport-brief-status]')] : [];
+  const passportDiscussEl = passportBriefEl && passportBriefEl.querySelector('[data-passport-discuss]');
   // Quiet T1/T2 carry-status lines (gamify spec section 5.1): independent of
   // the summary above -- driven directly off state.passport.saved.
   const passageStatusEls = [...root.querySelectorAll('[data-passport-passage]')];
@@ -60,7 +73,7 @@ import * as S from './state.js';
     athlete: { discipline: null },
     goal: { complete: false, announced: false },
     hint: { dismissed: false },
-    passport: { saved: Object.create(null) },
+    passport: { saved: Object.create(null), lead: null },
     world: { status: 'off', generation: 0, instance: null, signature: '', intersecting: false },
     scheduler: { raf: 0, dirty: 0 },
   };
@@ -230,10 +243,9 @@ import * as S from './state.js';
     progress.style.strokeDasharray = '1';
     progress.style.strokeDashoffset = String(1 - derived.fraction);
     if (percentEl) percentEl.textContent = `${Math.round(derived.fraction * 100).toString().padStart(2, '0')}%`;
-    if (coordsEl) {
-      const stage = refs.stages[derived.chapterIndex];
-      coordsEl.textContent = (stage && stage.dataset.coordinates) || '';
-    }
+    const stage = refs.stages[derived.chapterIndex];
+    if (captionEl) captionEl.textContent = (stage && stage.dataset.caption) || '';
+    if (coordsEl) coordsEl.textContent = (stage && stage.dataset.coordinates) || '';
     readoutEl.classList.add('race-readout--live');
     readoutEl.hidden = false;
   }
@@ -258,15 +270,21 @@ import * as S from './state.js';
       }
     }
     applyAthletePose(S.jointTransforms(discipline, theta, amplitude, derived.fraction, motionAllowed, derived.localProgress));
-    writeMobileDockLabel(derived.chapterIndex);
+    writeMobileDockLabel(derived);
   }
 
-  function writeMobileDockLabel(chapterIndex) {
+  /* The mobile dock's only journey-continuity cue (binding continuity spec
+     section 6.2): "dock text shows the current scene caption and integer
+     chapter percentage" -- the same per-chapter data-caption the desktop
+     .race-readout shows, not the short SWIM/BIKE/RUN nav label. This is
+     information, not motion, so it keeps updating under reduced motion. */
+  function writeMobileDockLabel(derived) {
     if (!mobile.mounted || !mobileDockLabelEl) return;
-    const link = refs.navLinks[chapterIndex];
-    const labelEl = link && link.querySelector('.race-nav-label');
-    const label = labelEl ? labelEl.textContent : '';
-    if (mobileDockLabelEl.textContent !== label) mobileDockLabelEl.textContent = label;
+    const stage = refs.stages[derived.chapterIndex];
+    const caption = (stage && stage.dataset.caption) || '';
+    const percent = Math.round(derived.fraction * 100);
+    const text = `${caption} · ${percent}%`;
+    if (mobileDockLabelEl.textContent !== text) mobileDockLabelEl.textContent = text;
   }
 
   function writeGoalPosition() {
@@ -353,15 +371,15 @@ import * as S from './state.js';
   function readStoredPassport() {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
-      return S.parsePassportRecord(raw).saved;
+      return S.parsePassportRecord(raw);
     } catch (e) {
-      return Object.create(null);
+      return { saved: Object.create(null), lead: null };
     }
   }
 
   function persistPassport() {
     try {
-      window.localStorage.setItem(STORAGE_KEY, S.serializePassportRecord(state.passport.saved, null));
+      window.localStorage.setItem(STORAGE_KEY, S.serializePassportRecord(state.passport.saved, state.passport.lead));
     } catch (e) {
       // Storage unavailable (private mode, quota, disabled): the passport
       // still works for the remainder of this page's session.
@@ -379,7 +397,7 @@ import * as S from './state.js';
   }
 
   function writePassportSummary() {
-    if (!passportSummaryEl || !passportCountEl) return;
+    if (!passportSummaryEl || !passportCountEl) return undefined;
     const summary = S.derivePassportSummary(state.passport.saved);
     const template = passportCountEl.dataset.passportCountTemplate || '';
     const countText = template.replace('{count}', String(summary.count));
@@ -390,7 +408,96 @@ import * as S from './state.js';
         if (li.hidden === shouldShow) li.hidden = !shouldShow;
       });
     }
+    writePassportLead();
+    writePassportIndicator(summary.count);
+    writePassportBrief();
     return countText;
+  }
+
+  // Lead ("starting point", gamify spec 3.4): optional, must belong to the
+  // saved subset, never implied by saving alone -- S.resolveLead is the
+  // single source of truth, so a stale state.passport.lead (e.g. its
+  // takeaway was just removed) always renders as cleared.
+  function writePassportLead() {
+    if (!passportLeadSelectEl) return;
+    passportLeadSelectEl.querySelectorAll('option[value]').forEach((option) => {
+      if (!option.value) return;
+      option.disabled = state.passport.saved[option.value] !== true;
+    });
+    const resolved = S.resolveLead(state.passport.saved, state.passport.lead) || '';
+    if (passportLeadSelectEl.value !== resolved) passportLeadSelectEl.value = resolved;
+  }
+
+  function writePassportIndicator(count) {
+    if (!passportIndicatorEl) return;
+    const template = passportIndicatorEl.dataset.passportIndicatorTemplate || '';
+    const accessibleTemplate = passportIndicatorEl.dataset.passportIndicatorAccessibleTemplate || '';
+    const text = template.replace('{count}', String(count));
+    const accessible = accessibleTemplate.replace('{count}', String(count));
+    if (passportIndicatorEl.textContent !== text) passportIndicatorEl.textContent = text;
+    if (accessible && passportIndicatorEl.getAttribute('aria-label') !== accessible) {
+      passportIndicatorEl.setAttribute('aria-label', accessible);
+    }
+  }
+
+  // Finish brief (gamify spec 3.5): "What you're carrying forward" -- the
+  // selected takeaways as a conversation brief, plus a mailto draft that
+  // never sends anything itself.
+  function writePassportBrief() {
+    if (!passportBriefEl) return;
+    const lead = S.resolveLead(state.passport.saved, state.passport.lead);
+    if (passportBriefCountEl) {
+      const template = passportBriefCountEl.dataset.passportBriefCountTemplate || '';
+      const summary = S.derivePassportSummary(state.passport.saved);
+      const text = template.replace('{count}', String(summary.count));
+      if (passportBriefCountEl.textContent !== text) passportBriefCountEl.textContent = text;
+    }
+    if (passportBriefLeadEl) {
+      const label = lead && passportBriefEl.querySelector(`[data-passport-brief-status="${lead}"]`);
+      const leadLabel = lead ? (label && label.dataset.passportLabel) || lead : '';
+      const text = lead
+        ? (passportBriefLeadEl.dataset.passportBriefLeadTemplate || '').replace('{label}', leadLabel)
+        : passportBriefLeadEl.dataset.passportBriefLeadNone || '';
+      if (passportBriefLeadEl.textContent !== text) passportBriefLeadEl.textContent = text;
+    }
+    passportBriefStatusEls.forEach((el) => {
+      const id = el.dataset.passportBriefStatus;
+      const saved = state.passport.saved[id] === true;
+      const template = saved ? el.dataset.passportRowSavedText : el.dataset.passportRowNotSavedText;
+      if (template && el.textContent !== template) el.textContent = template;
+    });
+    writePassportDiscussLink(lead);
+  }
+
+  // Builds the mailto draft: subject fixed, body opens with the lead
+  // takeaway (if any) then the remaining saved takeaways in fixed
+  // Madrid -> Galicia -> Amsterdam -> Copenhagen order (gamify spec 3.5).
+  // Selection data leaves the page only once the visitor activates this
+  // link and decides what to do in their own mail app.
+  const PASSPORT_ANCHORS = { madrid: 'start', galicia: 'swim', amsterdam: 'bike', copenhagen: 'run' };
+
+  function writePassportDiscussLink(lead) {
+    if (!passportDiscussEl) return;
+    const summary = S.derivePassportSummary(state.passport.saved);
+    const address = passportDiscussEl.dataset.passportMailtoAddress || '';
+    const label = summary.count > 0
+      ? passportDiscussEl.dataset.passportDiscussSelectedText
+      : passportDiscussEl.dataset.passportDiscussStartText;
+    if (label && passportDiscussEl.firstChild && passportDiscussEl.firstChild.nodeType === Node.TEXT_NODE) {
+      passportDiscussEl.firstChild.textContent = label;
+    }
+    const ordered = lead ? [lead, ...summary.savedIds.filter((id) => id !== lead)] : summary.savedIds;
+    const body = ordered.map((id) => {
+      const takeawayEl = document.getElementById(`race-passport-takeaway-${id}`);
+      const statusEl2 = passportBriefEl && passportBriefEl.querySelector(`[data-passport-brief-status="${id}"]`);
+      const rowLabel = (statusEl2 && statusEl2.dataset.passportLabel) || id;
+      const takeaway = takeawayEl ? takeawayEl.textContent : '';
+      const href = new URL(`#${PASSPORT_ANCHORS[id] || id}`, window.location.href).href;
+      return `${rowLabel}: ${takeaway}\n${href}`;
+    }).join('\n\n');
+    const subject = encodeURIComponent(passportDiscussEl.dataset.passportSubject || '');
+    const mailto = `mailto:${address}${body ? `?subject=${subject}&body=${encodeURIComponent(body)}` : (subject ? `?subject=${subject}` : '')}`;
+    if (passportDiscussEl.getAttribute('href') !== mailto) passportDiscussEl.setAttribute('href', mailto);
   }
 
   // Announce a short status only after an explicit save/remove/reset action
@@ -414,10 +521,29 @@ import * as S from './state.js';
     announcePassport(passportCountEl.dataset[templateKey], button.closest('[data-passport-item]'), countText);
   }
 
+  // Selecting a lead never saves anything implicitly; it only changes which
+  // saved destination opens the discussion brief first (gamify spec 3.4).
+  function onPassportLeadChange(event) {
+    if (!passportLeadSelectEl) return;
+    const value = event.target.value || null;
+    const resolved = S.resolveLead(state.passport.saved, value);
+    state.passport.lead = resolved;
+    persistPassport();
+    writePassportSummary();
+    const template = resolved
+      ? passportLeadSelectEl.dataset.passportAnnounceLeadTemplate
+      : passportLeadSelectEl.dataset.passportAnnounceLeadCleared;
+    if (statusEl && template) {
+      const option = resolved && passportLeadSelectEl.querySelector(`option[value="${resolved}"]`);
+      statusEl.textContent = template.replace('{label}', option ? option.textContent : '');
+    }
+  }
+
   function onPassportReset() {
     const summary = S.derivePassportSummary(state.passport.saved);
-    if (summary.count === 0) return;
+    if (summary.count === 0 && !state.passport.lead) return;
     state.passport.saved = Object.create(null);
+    state.passport.lead = null;
     persistPassport();
     passportSaveButtons.forEach(writePassportButton);
     writePassportSummary();
@@ -638,13 +764,16 @@ import * as S from './state.js';
     if (document.fonts) document.fonts.ready.then(onLayoutChange);
     refs.navLinks.forEach((link) => link.addEventListener('click', dismissHint));
 
-    // Course passport: real DOM buttons, native click semantics. Entirely
+    // Course passport: real DOM buttons/select, native semantics. Entirely
     // independent of world init/teardown -- no canvas listeners.
     passportSaveButtons.forEach((button) => button.addEventListener('click', onPassportSaveClick));
     if (passportResetButton) passportResetButton.addEventListener('click', onPassportReset);
+    if (passportLeadSelectEl) passportLeadSelectEl.addEventListener('change', onPassportLeadChange);
     window.addEventListener('storage', (event) => {
       if (event.key !== STORAGE_KEY) return;
-      state.passport.saved = readStoredPassport();
+      const stored = readStoredPassport();
+      state.passport.saved = stored.saved;
+      state.passport.lead = stored.lead;
       passportSaveButtons.forEach(writePassportButton);
       writePassportSummary();
       writePassageStatus();
@@ -653,8 +782,15 @@ import * as S from './state.js';
 
   // ---- init ----------------------------------------------------------
   root.classList.add('race--enhanced');
+  // The persistent passport indicator lives in the fixed chrome bar
+  // (a sibling of [data-race], not a descendant), so the existing
+  // `.race--enhanced .foo` PurgeCSS-safe reveal pattern needs the class on
+  // body too, or that selector never matches.
+  document.body.classList.add('race--enhanced');
   state.scroll.hashChapterIndex = chapterIndexForHash();
-  state.passport.saved = readStoredPassport();
+  const storedPassport = readStoredPassport();
+  state.passport.saved = storedPassport.saved;
+  state.passport.lead = storedPassport.lead;
   evaluateMobileDock();
   measureLayout();
   registerEvents();
@@ -663,6 +799,9 @@ import * as S from './state.js';
   // eligibility gate applies to this DOM-only mechanic.
   passportSaveButtons.forEach((button) => { button.hidden = false; });
   if (passportSummaryEl) passportSummaryEl.hidden = false;
+  if (passportLeadWrapEl) passportLeadWrapEl.hidden = false;
+  if (passportIndicatorEl) passportIndicatorEl.hidden = false;
+  if (passportBriefEl) passportBriefEl.hidden = false;
   writePassportSummary();
   writePassageStatus();
 
