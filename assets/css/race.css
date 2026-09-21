@@ -149,12 +149,15 @@ p { text-wrap: pretty; }
   /* JS-gated: PurgeCSS strips attribute selectors (hugo_stats has tags/classes/ids
      only), so visibility cannot hinge on the [hidden] attribute in production. */
   .race-readout.race-readout--live { position: fixed; z-index: 10; inset: auto 2.5rem 2rem auto; display: flex; flex-direction: column; text-align: right; padding: .5rem .75rem; font: .6rem/1.8 var(--race-mono); color: #e2e4e6; background: #151719; }
+  /* The persistent scene caption (binding continuity spec section 2.1/gamify
+     4.3): a pure function of the current chapter, updated in writeReadout()
+     alongside the existing percent/coordinates lines. */
+  .race-readout__caption { display: block; max-width: 16rem; margin-bottom: .35rem; font: 600 .68rem/1.5 var(--race-mono); letter-spacing: .01em; white-space: normal; }
 }
-@media (prefers-reduced-motion: no-preference) {
-  html { scroll-behavior: smooth; }
-}
+/* All anchor navigation is immediate (gamify spec section 2.2/8.5), even
+   when motion is otherwise allowed -- smooth-scrolling is not applied. */
+html { scroll-behavior: auto; }
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   .race-progress { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; }
 }
 @media (forced-colors: active) {
@@ -318,11 +321,18 @@ p { text-wrap: pretty; }
    instead of riding the rail marker, and the world never loads (no WebGL
    context, no Three.js request) -- the dock supplies the only motion. */
 @media screen and (width < 64rem) {
+  /* Two rows: the marker + full scene caption (item 6.2 -- the only journey-
+     continuity cue below 64rem, where the 3D world never loads) on top, the
+     existing chapter nav strip beneath it. Fixed, generous height rather
+     than intrinsic sizing: the longest of the seven captions ("Through
+     Amsterdam, with the same craft and a wider purpose.") wraps to at most
+     two lines at this width, so 120px comfortably fits caption + nav row
+     for every chapter without the label ever needing to clip or ellipsize. */
   .race-mobile-dock {
     position: fixed;
     inset: auto 0 0;
     z-index: 15;
-    height: calc(60px + env(safe-area-inset-bottom, 0px));
+    height: calc(120px + env(safe-area-inset-bottom, 0px));
     background: var(--race-ground);
     border-top: 1px solid #42464a;
   }
@@ -336,17 +346,13 @@ p { text-wrap: pretty; }
   .race-mobile-dock__label {
     position: absolute;
     left: 68px;
+    right: 12px;
     top: 8px;
-    height: 44px;
-    width: min(25vw, 100px);
     margin: 0;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    font: .64rem/1.3 var(--race-mono);
-    letter-spacing: .04em;
-    text-transform: uppercase;
+    font: .64rem/1.35 var(--race-mono);
+    letter-spacing: .02em;
     color: var(--race-ink);
+    overflow-wrap: break-word;
   }
   .race-athlete-wrap--docked {
     position: absolute !important;
@@ -357,7 +363,7 @@ p { text-wrap: pretty; }
   }
   .race-nav--docked {
     position: fixed;
-    inset: auto 12px calc(env(safe-area-inset-bottom, 0px) + 8px) calc(68px + min(25vw, 100px) + 8px);
+    inset: auto 12px calc(env(safe-area-inset-bottom, 0px) + 8px) 12px;
     width: auto;
     max-width: none;
     transform: none;
@@ -366,7 +372,7 @@ p { text-wrap: pretty; }
     min-height: 44px;
   }
   .race-nav--docked ol { max-width: none; }
-  #race-main.race--mobile-docked { padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px)); }
+  #race-main.race--mobile-docked { padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px)); }
 }
 
 @media (forced-colors: active) {
@@ -383,8 +389,13 @@ p { text-wrap: pretty; }
    color alone; the border/color change below is a secondary reinforcement. */
 .race-passport-item { margin-top: 1.5rem; }
 .race-passport-takeaway { font-size: 1rem; color: var(--race-muted); }
+/* display:none by default, only shown via the race--enhanced compound below
+   (same JS-gated pattern as .race-readout): PurgeCSS strips the bare
+   [hidden] attribute selector in production (hugo_stats has tags/classes/ids
+   only), so an unconditional `display` here would leave the [hidden] button
+   visible in the no-JS baseline once that safety-net rule is gone. */
 .race-passport-save {
-  display: inline-flex;
+  display: none;
   align-items: center;
   justify-content: center;
   min-height: 44px;
@@ -399,10 +410,13 @@ p { text-wrap: pretty; }
   text-transform: uppercase;
   cursor: pointer;
 }
+.race--enhanced .race-passport-save:not([hidden]) { display: inline-flex; }
 .race-passport-save[aria-pressed="true"] { border-color: var(--race-red); color: var(--race-red); }
 .race-passport-save:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 
-.race-passport-summary { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid #a0a5a4; }
+/* Same JS-gated display pattern as .race-passport-save above. */
+.race-passport-summary { display: none; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid #a0a5a4; }
+.race--enhanced .race-passport-summary:not([hidden]) { display: block; }
 .race-passport-count { font: .8rem var(--race-mono); }
 .race-passport-links { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; padding: 0; margin: 1rem 0 0; }
 .race-passport-links a { display: inline-flex; align-items: center; min-height: 44px; font: .8rem var(--race-mono); }
@@ -422,3 +436,79 @@ p { text-wrap: pretty; }
   cursor: pointer;
 }
 .race-passport-reset:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+/* First-viewport passport entry card (gamify spec section 4.1): an opaque
+   panel, not a muted telemetry line -- unconditional display, since it is
+   plain server-rendered markup that already works without JavaScript. */
+.race-passport-hero {
+  margin-top: 1.5rem;
+  max-width: 26rem;
+  padding: 1rem;
+  background: #1d2023;
+  border: 1px solid #42464a;
+}
+.race-passport-hero__heading { font-size: 1.125rem; font-weight: 600; margin: 0 0 .4rem; }
+.race-passport-hero__body { font-size: 1rem; color: var(--race-muted); margin: 0 0 .7rem; }
+.race-passport-hero__link { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; font: 600 .85rem var(--race-mono); color: var(--race-red); text-decoration: none; }
+.race-passport-hero__link:hover { text-decoration: underline; }
+
+/* Persistent passport indicator (gamify spec section 4.3): lives in the
+   fixed chrome bar, so it is reachable at every scroll position. Same
+   JS-gated display pattern as .race-passport-save (PurgeCSS strips the bare
+   [hidden] selector in production). Hidden below 48rem: the chrome bar's
+   exit link and edition label already run close to the viewport edge at
+   narrower widths, and the passport stays reachable there via the mobile
+   dock's caption/percentage and the hero entry card. */
+.race-passport-indicator {
+  display: none;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 .6rem;
+  font: .62rem var(--race-mono);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #e2e4e6;
+  text-decoration: none;
+}
+@media (min-width: 48rem) {
+  .race--enhanced .race-passport-indicator:not([hidden]) { display: inline-flex; }
+}
+.race-passport-indicator:hover { text-decoration: underline; }
+.race-passport-indicator:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+.race-passport-summary__heading { font-size: 1.05rem; margin: 0 0 .75rem; }
+
+/* Lead ("starting point") selector (gamify spec section 3.4). Same JS-gated
+   display pattern as .race-passport-save above. */
+.race-passport-lead { display: none; margin-top: 1.25rem; }
+.race--enhanced .race-passport-lead:not([hidden]) { display: block; }
+.race-passport-lead label { display: block; font: .68rem var(--race-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--race-muted); margin-bottom: .4rem; }
+.race-passport-lead-select { min-height: 44px; min-width: 44px; padding: .4rem .6rem; background: #151719; color: inherit; border: 1px solid currentColor; font: .8rem var(--race-mono); }
+.race-passport-lead-select:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+.race-passport-storage { margin-top: 1rem; font-size: .78rem; color: var(--race-muted); }
+
+/* Finish brief (gamify spec section 3.5): "What you're carrying forward".
+   Same JS-gated display pattern as .race-passport-summary above. */
+.race-passport-brief { display: none; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid #a0a5a4; }
+.race--enhanced .race-passport-brief:not([hidden]) { display: block; }
+.race-passport-brief__heading { font-size: 1.05rem; margin: 0 0 .75rem; }
+.race-passport-brief-count, .race-passport-brief-lead { font: .8rem var(--race-mono); margin: 0 0 .3rem; }
+.race-passport-brief-links { list-style: none; display: flex; flex-direction: column; gap: .3rem; padding: 0; margin: 1rem 0 0; }
+.race-passport-brief-links li { display: flex; align-items: center; gap: .6rem; min-height: 44px; font: .8rem var(--race-mono); }
+.race-passport-brief-status { color: var(--race-muted); }
+.race-passport-discuss {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  min-height: 44px;
+  margin-top: 1rem;
+  padding: .5rem .9rem;
+  background: var(--race-red);
+  color: #151719;
+  font: 600 .78rem var(--race-mono);
+  letter-spacing: .04em;
+  text-decoration: none;
+}
+.race-passport-discuss:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.race-passport-discuss-explanation { margin-top: .6rem; font-size: .78rem; color: var(--race-muted); }

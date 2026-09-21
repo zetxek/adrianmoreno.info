@@ -674,34 +674,28 @@ function checkedCityResult(group, tally) {
 function buildGaliciaHill(unit, mat, tally) {
   const group = new Group();
   const baseY = -0.16;
-  /* All nine terrace/embankment pieces are land mass (binding spec section
-     3.8: "Land/quay masses and rocks: secondary") -- none of them are water.
-     They previously split across 'ground'/'secondary' roles; the 'ground'
-     ones rendered in the water/background's exact colour, so the hillside
-     the hórreos sit on visually merged into the water beneath it (the
-     measured "no explicit depiction of water" defect). One role, matching
-     the spec table, restores the land/water contrast without touching a
-     single triangle count. */
   const pieces = [
-    { x: 0, z: 10.8, w: 24, d: 7.2, top: 0.8, rotY: 0 },
-    { x: 0, z: 11.6, w: 21.6, d: 5.4, top: 2.0, rotY: 0 },
-    { x: 0, z: 12, w: 19.8, d: 4.8, top: 3.4, rotY: 0 },
-    { x: -11, z: 10, w: 4, d: 5, top: 0.65, rotY: 12 },
-    { x: 11, z: 10, w: 4, d: 5, top: 0.65, rotY: -12 },
-    { x: -10, z: 11.6, w: 3.6, d: 4.6, top: 1.5, rotY: 12 },
-    { x: 10, z: 11.6, w: 3.6, d: 4.6, top: 1.5, rotY: -12 },
-    { x: -6.5, z: 7.9, w: 12.8, d: 1.8, top: 0.24, rotY: 0 },
-    { x: 6.5, z: 7.9, w: 12.8, d: 1.8, top: 0.24, rotY: 0 },
+    { x: 0, z: 10.8, w: 24, d: 7.2, top: 0.8, rotY: 0, role: 'ground' },
+    { x: 0, z: 11.6, w: 21.6, d: 5.4, top: 2.0, rotY: 0, role: 'ground' },
+    { x: 0, z: 12, w: 19.8, d: 4.8, top: 3.4, rotY: 0, role: 'ground' },
+    { x: -11, z: 10, w: 4, d: 5, top: 0.65, rotY: 12, role: 'secondary' },
+    { x: 11, z: 10, w: 4, d: 5, top: 0.65, rotY: -12, role: 'secondary' },
+    { x: -10, z: 11.6, w: 3.6, d: 4.6, top: 1.5, rotY: 12, role: 'ground' },
+    { x: 10, z: 11.6, w: 3.6, d: 4.6, top: 1.5, rotY: -12, role: 'ground' },
+    { x: -6.5, z: 7.9, w: 12.8, d: 1.8, top: 0.24, rotY: 0, role: 'secondary' },
+    { x: 6.5, z: 7.9, w: 12.8, d: 1.8, top: 0.24, rotY: 0, role: 'secondary' },
   ];
-  const placements = pieces.map(({ x, z, w, d, top, rotY }) => {
+  const byRole = { ground: [], secondary: [] };
+  pieces.forEach(({ x, z, w, d, top, rotY, role }) => {
     const height = top + 0.16;
-    return {
+    byRole[role].push({
       position: [x, baseY + height / 2, z],
       scale: [w, height, d],
       rotationY: rotY * Math.PI / 180,
-    };
+    });
   });
-  addBatch(group, unit.box, mat.secondary, placements, 'box', tally);
+  addBatch(group, unit.box, mat.ground, byRole.ground, 'box', tally);
+  addBatch(group, unit.box, mat.secondary, byRole.secondary, 'box', tally);
   return group;
 }
 
@@ -1579,10 +1573,8 @@ function amsterdamBike(unit, mat) {
   const bankY = 0.16;
   const bridgeX = 0.65;
 
-  // Preserve the two land/quay slabs and the single canal crossing. Land/
-  // quay mass is the secondary role (binding spec section 3.8), not ground
-  // -- ground is water/background's own colour, and these banks are land.
-  addBatch(group, unit.box, mat.secondary, [
+  // Preserve the two land/quay slabs and the single canal crossing.
+  addBatch(group, unit.box, mat.ground, [
     ...row(1, {
       x0: 0, x1: 0, y: -0.20, z: -2,
       size: [26.4, bankY + 0.20, 8],
@@ -1953,9 +1945,7 @@ function copenhagenRun(unit, mat) {
   const waterY = -0.08;
 
   // One inhabited waterfront, with enough dry promenade to read as a run.
-  // Land/quay mass is the secondary role (binding spec section 3.8), not
-  // ground -- this slab is land, and ground is water/background's colour.
-  addBatch(group, unit.box, mat.secondary, row(1, {
+  addBatch(group, unit.box, mat.ground, row(1, {
     x0: 0, x1: 0, y: -0.20, z: -2.5,
     size: [26.4, bankY + 0.20, 8],
   }), 'box', tally);

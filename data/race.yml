@@ -84,6 +84,18 @@ principles:
     body: "I want the team to be able to explain an architecture decision without me in the room."
   - title: "Trust compounds faster than velocity."
     body: "The trust that sustains delivery matters more than speed at the expense of the team."
+# Continuity spec section 1.2: one short scene caption per chapter, describing
+# the single persistent vessel's progress through the fixed spatial assembly.
+# Reused verbatim as the reduced-motion/mobile fallback text, the mobile dock
+# label, and the persistent "Journey and Course passport" readout.
+captions:
+  start: "One craft. A journey beginning on Galicia’s water."
+  swim: "Leaving Galicia, carrying the foundations forward."
+  t1: "Across open water, towards Amsterdam’s canals."
+  bike: "Through Amsterdam, with the same craft and a wider purpose."
+  t2: "Leaving the canals for Copenhagen’s harbour."
+  run: "Copenhagen comes alongside."
+  finish: "Alongside in Copenhagen. Ready for the next conversation."
 # Course passport (Item 3): one owner-authored takeaway per destination, reusing
 # the exact sentences already shown elsewhere on the page (hero originNote,
 # chapter lessons) rather than inventing new career claims.

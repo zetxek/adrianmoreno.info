@@ -171,32 +171,6 @@ export function jointTransforms(discipline, theta, amplitude, courseFraction, mo
   return t;
 }
 
-/* Yaw/zoom offsets for the per-chapter "Explore current scene" inspection
-   toggle. `c` is 1 only while the given chapter's inspection boolean is
-   set; the small sinusoidal wobble keeps an already-turned scene reading as
-   scroll-scrubbed rather than frozen. */
-export function deriveInspectionTransform(chapterId, progress, inspectByChapter) {
-  const c = inspectByChapter && inspectByChapter[chapterId] === true ? 1 : 0;
-  const p = clamp01(progress);
-  const yawOffset = c * (8 + 3 * Math.sin(2 * Math.PI * p)) * Math.PI / 180;
-  const zoomFactor = 1 + 0.06 * c;
-  return { yawOffset, zoomFactor };
-}
-
-/* Combines pose, motion permission, and inspection into the one shared
-   presentation record the scheduler derives once per flush. */
-export function deriveRacePresentation({ chapterId, chapterProgress, inspectByChapter, eligibility }) {
-  const p = clamp01(chapterProgress);
-  const motionAllowed = Boolean(eligibility && eligibility.motionAllowed);
-  return {
-    localProgress: p,
-    zoneIndex: DISCIPLINE_ORDER.indexOf(chapterId),
-    motionAllowed,
-    athlete: deriveAthletePose(chapterId, p, motionAllowed),
-    inspection: deriveInspectionTransform(chapterId, p, inspectByChapter),
-  };
-}
-
 /* Positional splits, not a stopwatch: ahead/current/behind relative to the
    reader's measured chapter. Chip order matches DISCIPLINE_ORDER exactly. */
 export function splitFor(chipIndex, chapterIndex, localProgress) {
@@ -221,4 +195,48 @@ export function toggleSavedTakeaway(saved, id) {
 export function derivePassportSummary(saved) {
   const savedIds = PASSPORT_IDS.filter((id) => saved && saved[id] === true);
   return { count: savedIds.length, total: PASSPORT_IDS.length, savedIds };
+}
+
+/* The lead ("starting point") is optional and must always belong to the
+   saved subset (gamify spec section 3.4): saving never nominates a lead,
+   and removing the lead takeaway clears it. A lead is never preferred by
+   default. */
+export function resolveLead(saved, lead) {
+  return lead && saved && saved[lead] === true ? lead : null;
+}
+
+export const PASSPORT_STORAGE_VERSION = 1;
+
+/* One versioned local-storage record, <=256 UTF-8 bytes (gamify spec
+   section 7 storage-unavailable rules). Pure serialization only -- index.js
+   owns the actual localStorage read/write and its try/catch. */
+export function serializePassportRecord(saved, lead) {
+  const summary = derivePassportSummary(saved);
+  return JSON.stringify({
+    v: PASSPORT_STORAGE_VERSION,
+    saved: summary.savedIds,
+    lead: resolveLead(saved, lead),
+  });
+}
+
+/* Validates a stored record: saved destinations must belong to the four
+   permitted IDs, the lead must be absent or within the saved subset, and the
+   version must be supported. Invalid or unreadable input is ignored --
+   never used to infer a guessed selection. */
+export function parsePassportRecord(raw) {
+  const empty = { saved: Object.create(null), lead: null };
+  if (typeof raw !== 'string' || !raw) return empty;
+  let record;
+  try {
+    record = JSON.parse(raw);
+  } catch (e) {
+    return empty;
+  }
+  if (!record || record.v !== PASSPORT_STORAGE_VERSION || !Array.isArray(record.saved)) return empty;
+  const saved = Object.create(null);
+  record.saved.forEach((id) => {
+    if (PASSPORT_IDS.includes(id)) saved[id] = true;
+  });
+  const lead = typeof record.lead === 'string' ? resolveLead(saved, record.lead) : null;
+  return { saved, lead };
 }
