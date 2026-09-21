@@ -47,7 +47,7 @@
     </ol>
   </nav>
   <div class="race-readout" hidden aria-hidden="true"><span data-race-progress></span><span data-race-coordinates></span></div>
-  <main id="race-main" data-race data-race-world-src="{{ $raceWorldJS.RelPermalink }}" data-race-world-integrity="{{ $raceWorldJS.Data.Integrity }}" tabindex="-1">
+  <main id="race-main" data-race data-race-world-src="{{ $raceWorldJS.RelPermalink }}" data-race-world-integrity="{{ $raceWorldJS.Data.Integrity }}" data-race-chapter-template="{{ i18n "race_passport_chapter_template" }}" tabindex="-1">
     <div class="race-course" aria-hidden="true">
       <svg viewBox="0 0 120 1000" preserveAspectRatio="none" focusable="false">
         {{/* One continuous path, reused for the illuminated overlay. */}}
@@ -56,7 +56,7 @@
         <use href="#race-path" class="race-progress"/>
       </svg>
     </div>
-    <section class="race-stage race-hero" id="start" aria-labelledby="race-title" data-coordinates="{{ $race.hero.coordinates }}" tabindex="-1">
+    <section class="race-stage race-hero" id="start" aria-labelledby="race-title" data-coordinates="{{ $race.hero.coordinates }}" data-caption="{{ $race.captions.start }}" tabindex="-1">
       <div class="race-scenery race-contours" aria-hidden="true"></div>
       <div class="race-content">
         <p class="race-telemetry">{{ $race.hero.eyebrow }} <span class="race-status-dot" aria-hidden="true"></span></p>
@@ -64,6 +64,7 @@
         <p class="race-hero-role">{{ index (last 1 (split $current.Params.jobTitle " → ")) 0 }}<br><span>{{ $current.Params.company }} · {{ $current.Params.location }}</span></p>
         <p class="race-tagline">{{ $race.hero.tagline }}</p>
         <p class="race-intro">{{ $race.hero.body }}</p>
+        <p class="race-caption">{{ $race.captions.start }}</p>
         <a class="race-button" href="#{{ (index $race.chapters 0).id }}">{{ $race.hero.start }} <span aria-hidden="true">↓</span></a>
         <p class="race-origin race-telemetry">{{ $race.hero.originNote }}<br>{{ $race.hero.origin }} // {{ $race.hero.coordinates }}</p>
         {{ with (index $race.passport "madrid") }}{{ partial "race/field-notes.html" (dict "mode" "item" "id" "madrid" "item" .) }}{{ end }}
@@ -73,7 +74,7 @@
     {{ range $race.chapters }}
     {{ $city := index (dict "swim" "galicia" "bike" "amsterdam" "run" "copenhagen") .id }}
     {{ $cid := .id }}
-    <section class="race-stage race-{{ .terrain }}{{ with $city }} race-stage--city race-stage--{{ $cid }}{{ end }}" id="{{ .id }}" aria-labelledby="{{ .id }}-heading" data-coordinates="{{ .coordinates }}" tabindex="-1">
+    <section class="race-stage race-{{ .terrain }}{{ with $city }} race-stage--city race-stage--{{ $cid }}{{ end }}" id="{{ .id }}" aria-labelledby="{{ .id }}-heading" data-coordinates="{{ .coordinates }}" data-caption="{{ index $race.captions .id }}" tabindex="-1">
       <div class="race-scenery race-landscape" aria-hidden="true"></div>
       {{ with $city }}{{ partial (printf "race/city-%s.html" .) $ }}{{ end }}
       <span class="race-numeral" aria-hidden="true">{{ .number }}</span>
@@ -82,6 +83,7 @@
         <p class="race-discipline">{{ .number }} / {{ .discipline }} <span>· {{ .place }}</span></p>
         <h2 id="{{ .id }}-heading">{{ .title }}</h2>
         <p class="race-lede">{{ .lede }}</p>
+        <p class="race-caption">{{ index $race.captions .id }}</p>
         <p class="race-briefing race-telemetry">{{ .briefing }}</p>
         <ol class="race-roles">
           {{ range .roles }}
@@ -93,7 +95,9 @@
           </li>
           {{ end }}
         </ol>
-        <blockquote class="race-lesson"><p>{{ .lesson }}</p></blockquote>
+        {{/* The .lesson sentence is carried once, by the takeaway card below
+             (gamify spec section 5.2) -- the former separate blockquote
+             duplicated its exact words and is removed. */}}
         {{ with (index $race.passport $city) }}{{ partial "race/field-notes.html" (dict "mode" "item" "id" $city "item" .) }}{{ end }}
         {{ if eq .id "run" }}
         <h3 class="race-telemetry race-section-label">{{ i18n "race_principles" }}</h3>
@@ -102,7 +106,8 @@
       </div>
     </section>
     {{ with .transition }}
-    <section class="race-stage race-transition" id="{{ .id }}" aria-labelledby="{{ .id }}-heading" data-coordinates="{{ .coordinates }}" tabindex="-1">
+    {{ $passageId := index (dict "t1" "galicia" "t2" "amsterdam") .id }}
+    <section class="race-stage race-transition" id="{{ .id }}" aria-labelledby="{{ .id }}-heading" data-coordinates="{{ .coordinates }}" data-caption="{{ index $race.captions .id }}" tabindex="-1">
       <div class="race-scenery race-tunnel" aria-hidden="true"></div>
       <span class="race-numeral" aria-hidden="true">{{ .number }}</span>
       <div class="race-content">
@@ -110,15 +115,25 @@
         <p class="race-discipline">{{ .number }} / {{ i18n "race_transition" }}</p>
         <h2 id="{{ .id }}-heading">{{ .title }}</h2>
         <p class="race-lede">{{ .body }}</p>
+        <p class="race-caption">{{ index $race.captions .id }}</p>
+        {{/* Quiet carry-status line (gamify spec section 5.1): reports the
+             actual saved state of the takeaway just passed, without a second
+             caption or fictional cargo event. No-JS baseline names the
+             passport rather than asserting a saved/not-saved state. */}}
+        <p class="race-passage-status" data-passport-passage="{{ $passageId }}"
+          data-passport-saved-template="{{ i18n (printf "race_passport_%s_status_saved" $passageId) }}"
+          data-passport-not-saved-template="{{ i18n (printf "race_passport_%s_status_not_saved" $passageId) }}"
+        >{{ i18n (printf "race_passport_%s_status_nojs" $passageId) }}</p>
       </div>
     </section>
     {{ end }}
     {{ end }}
-    <section class="race-stage race-chalk race-finish" id="finish" aria-labelledby="finish-heading" tabindex="-1">
+    <section class="race-stage race-chalk race-finish" id="finish" aria-labelledby="finish-heading" data-caption="{{ $race.captions.finish }}" tabindex="-1">
       <div class="race-content">
         <p class="race-telemetry">{{ i18n "race_finish" }} // {{ i18n "race_next" }}</p>
         <h2 id="finish-heading">{{ $race.finish.title }}</h2>
         <p class="race-lede">{{ $race.finish.body }}</p>
+        <p class="race-caption">{{ $race.captions.finish }}</p>
         <a class="race-button" href="mailto:{{ hugo.Data.cv.information.email }}">{{ i18n "race_email" }} <span aria-hidden="true">↗</span></a>
         <p class="race-contact"><a href="mailto:{{ hugo.Data.cv.information.email }}">{{ hugo.Data.cv.information.email }}</a></p>
         <ul class="race-links">

@@ -25,22 +25,24 @@ import * as S from './state.js';
   const hintEl = root.querySelector('.race-scroll-hint');
   const statusEl = root.querySelector('.race-status');
 
-  // Item 2/3 controls: always present in the DOM (progressive enhancement),
-  // hidden until eligibility/layout says otherwise.
+  // Below-64rem progress dock: always present in the DOM (progressive
+  // enhancement), hidden until eligibility/layout says otherwise.
   const mobileDockEl = root.querySelector('.race-mobile-dock');
   const mobileDockMarkerEl = mobileDockEl && mobileDockEl.querySelector('.race-mobile-dock__marker');
   const mobileDockLabelEl = mobileDockEl && mobileDockEl.querySelector('.race-mobile-dock__label');
-  const gameControlsEl = root.querySelector('.race-game-controls');
-  const exploreButton = gameControlsEl && gameControlsEl.querySelector('.race-explore');
   const navEl = document.querySelector('.race-nav');
 
-  // Item 3 course passport: independent of world/mobile-dock eligibility --
-  // these controls work below 64rem, under reduced motion, and with no WebGL.
+  // Course passport (gamify spec section 3): independent of world/mobile-dock
+  // eligibility -- these controls work below 64rem, under reduced motion,
+  // and with no WebGL.
   const passportSaveButtons = [...root.querySelectorAll('.race-passport-save')];
   const passportSummaryEl = root.querySelector('.race-passport-summary');
   const passportCountEl = passportSummaryEl && passportSummaryEl.querySelector('.race-passport-count');
   const passportLinksEl = passportSummaryEl && passportSummaryEl.querySelector('.race-passport-links');
   const passportResetButton = passportSummaryEl && passportSummaryEl.querySelector('.race-passport-reset');
+  // Quiet T1/T2 carry-status lines (gamify spec section 5.1): independent of
+  // the summary above -- driven directly off state.passport.saved.
+  const passageStatusEls = [...root.querySelectorAll('[data-passport-passage]')];
 
   if (!athleteWrap || !athleteSvg || !goalEl || !worldWrap) return;
   const joints = cacheJoints(athleteSvg);
@@ -50,16 +52,16 @@ import * as S from './state.js';
   const forcedColorsMQ = window.matchMedia('(forced-colors: active)');
 
   const DIRTY = { SCROLL: 1, LAYOUT: 2, WORLD: 4 };
+  const STORAGE_KEY = 'race-passport-v1';
 
   const state = {
     layout: { boundaries: [0, 0], maxScroll: 0, rail: null, railReady: false, athleteSize: 40 },
     scroll: { fraction: 0, chapterIndex: 0, localProgress: 0, everChanged: false, hashChapterIndex: -1, hashTargetY: null },
     athlete: { discipline: null },
-    inspection: { byChapter: Object.create(null) },
     goal: { complete: false, announced: false },
     hint: { dismissed: false },
     passport: { saved: Object.create(null) },
-    world: { status: 'off', generation: 0, instance: null, signature: '', intersecting: false, activeChapterId: null },
+    world: { status: 'off', generation: 0, instance: null, signature: '', intersecting: false },
     scheduler: { raf: 0, dirty: 0 },
   };
 
@@ -174,9 +176,10 @@ import * as S from './state.js';
     if (positionChanged) {
       writeSplitsAndNav(derived.chapterIndex, derived.localProgress);
       writeGoalState(derived.chapterIndex, derived.fraction);
+      writePassageStatus();
     }
 
-    updateWorldFrame(bits);
+    updateWorldFrame(bits, y);
 
     // Never self-reschedule: another frame only runs if new dirty bits were
     // set while this one ran (e.g. a resize triggered by this frame's DOM
@@ -273,6 +276,11 @@ import * as S from './state.js';
     if (goalEl.hasAttribute('hidden')) goalEl.removeAttribute('hidden');
   }
 
+  // Gamify spec 4.4: 0 live-region announcements from scrolling, including
+  // reaching the finish -- an automatic "Course complete" announcement would
+  // reward passive passage... except the one explicit announcement fired
+  // here is itself gated on `everChanged` (a real reader scroll happened),
+  // matching the goal square's own visual-only default.
   function writeGoalState(chapterIndex, fraction) {
     const complete = chapterIndex === refs.stages.length - 1 && fraction >= 0.995;
     if (complete === state.goal.complete) return;
@@ -304,7 +312,9 @@ import * as S from './state.js';
     if (hintEl) hintEl.hidden = true;
   }
 
-  // ---- mobile progress dock (item 2) ------------------------------------
+  // ---- mobile progress dock ---------------------------------------------
+  // No reparenting into a second, independent copy: the mobile dock hosts
+  // the very same athlete marker, just repositioned by CSS.
   function mountMobileRaceDock() {
     if (mobile.mounted || !mobileDockEl || !mobileDockMarkerEl) return;
     mobile.athleteParent = athleteWrap.parentNode;
@@ -336,26 +346,28 @@ import * as S from './state.js';
     invalidate(DIRTY.LAYOUT);
   }
 
-  // ---- scene inspection toggle (item 3) ---------------------------------
-  function updateExploreButton() {
-    if (!exploreButton) return;
-    const active = state.world.activeChapterId;
-    const pressed = active ? state.inspection.byChapter[active] === true : false;
-    const next = String(pressed);
-    if (exploreButton.getAttribute('aria-pressed') !== next) exploreButton.setAttribute('aria-pressed', next);
-  }
-
-  function toggleSceneInspection(chapterId) {
-    if (!chapterId) return;
-    state.inspection.byChapter[chapterId] = !state.inspection.byChapter[chapterId];
-    updateExploreButton();
-    invalidate(DIRTY.WORLD);
-  }
-
-  // ---- course passport (item 3, gamification) ----------------------------
+  // ---- course passport (gamify spec section 3) ----------------------------
   // A collection mechanic, not a score: saving requires this explicit click
   // -- deriveCourseState/localProgress never feed into `state.passport`, so
   // passing a scroll threshold can never mark a takeaway collected.
+  function readStoredPassport() {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      return S.parsePassportRecord(raw).saved;
+    } catch (e) {
+      return Object.create(null);
+    }
+  }
+
+  function persistPassport() {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, S.serializePassportRecord(state.passport.saved, null));
+    } catch (e) {
+      // Storage unavailable (private mode, quota, disabled): the passport
+      // still works for the remainder of this page's session.
+    }
+  }
+
   function writePassportButton(button) {
     if (!passportCountEl) return;
     const id = button.dataset.passportSave;
@@ -395,6 +407,7 @@ import * as S from './state.js';
     if (!id || !passportCountEl) return;
     const wasSaved = state.passport.saved[id] === true;
     state.passport.saved = S.toggleSavedTakeaway(state.passport.saved, id);
+    persistPassport();
     writePassportButton(button);
     const countText = writePassportSummary();
     const templateKey = wasSaved ? 'passportAnnounceRemovedTemplate' : 'passportAnnounceSavedTemplate';
@@ -405,11 +418,22 @@ import * as S from './state.js';
     const summary = S.derivePassportSummary(state.passport.saved);
     if (summary.count === 0) return;
     state.passport.saved = Object.create(null);
+    persistPassport();
     passportSaveButtons.forEach(writePassportButton);
     writePassportSummary();
     if (statusEl && passportCountEl) {
       statusEl.textContent = passportCountEl.dataset.passportAnnounceReset || '';
     }
+  }
+
+  // ---- passage status lines (T1/T2 quiet carry-status, gamify 5.1) -------
+  function writePassageStatus() {
+    passageStatusEls.forEach((el) => {
+      const id = el.dataset.passportPassage;
+      const saved = state.passport.saved[id] === true;
+      const template = saved ? el.dataset.passportSavedTemplate : el.dataset.passportNotSavedTemplate;
+      if (template && el.textContent !== template) el.textContent = template;
+    });
   }
 
   // ---- world (lazy Three.js) --------------------------------------------
@@ -503,7 +527,6 @@ import * as S from './state.js';
     state.world.status = 'ready';
     worldWrap.hidden = false;
     root.classList.add('race--world-ready');
-    if (gameControlsEl) gameControlsEl.hidden = false;
     /* The wrap is display:none until now (rect 0x0 -> 1x1 drawing buffer).
        Size the buffer explicitly: the wrap is position:fixed, so the
        ResizeObserver on root cannot be relied on to fire here (it only
@@ -525,10 +548,8 @@ import * as S from './state.js';
     worldWrap.innerHTML = '';
     worldWrap.hidden = true;
     root.classList.remove('race--world-ready');
-    if (gameControlsEl) gameControlsEl.hidden = true;
     state.world.generation++;
     state.world.status = markFailed ? 'failed' : 'off';
-    state.world.activeChapterId = null;
     invalidate(DIRTY.LAYOUT);
   }
 
@@ -538,41 +559,19 @@ import * as S from './state.js';
     else if (!eligible && (state.world.status === 'ready' || state.world.status === 'loading')) teardownWorld(false);
   }
 
-  function updateWorldFrame(bits) {
+  function updateWorldFrame(bits, y) {
     if (state.world.status !== 'ready' || !state.world.instance) return;
-    /* Zone anticipation: the athlete/splits follow the 40% reading probe,
-       but the world should become the next city as its chapter scrolls IN
-       (its title is visible well before the probe arrives). Derive the
-       world's own course state from an anticipated line at ~85% viewport
-       height so zone, camera and dissolve band stay mutually consistent. */
-    const anticipatedY = Math.min(window.scrollY + window.innerHeight * 0.45, state.layout.maxScroll);
-    const worldDerived = state.layout.boundaries.length > 1
-      ? S.deriveCourseState(state.layout.boundaries, anticipatedY, state.layout.maxScroll)
-      : { fraction: 0, chapterIndex: 0, localProgress: 0 };
-    state.world.activeChapterId = S.DISCIPLINE_ORDER[worldDerived.chapterIndex] || null;
-    updateExploreButton();
-    const inspection = S.deriveInspectionTransform(state.world.activeChapterId, worldDerived.localProgress, state.inspection.byChapter);
-    // Item 2: the atlas itinerary is a pure function of the *unanticipated*
-    // (marker) scroll state, not the 0.45-viewport-height anticipated line
-    // used for zone/camera selection above -- otherwise the opening would
-    // already read as partway-lifted at the very top of the page. Landing
-    // mid-page (a direct hash entry, or a slow connection where the world
-    // finishes loading after the reader has scrolled on) resolves chapterIndex
-    // !== 0 immediately, so atlasProgress is 1 (fully settled) on the very
-    // first frame -- never a half-completed opening.
-    const atlasProgress = state.scroll.chapterIndex === 0 ? state.scroll.localProgress : 1;
-    const signature = `${worldDerived.chapterIndex}:${worldDerived.localProgress.toFixed(4)}:${anticipatedY.toFixed(0)}:${inspection.yawOffset.toFixed(6)}:${inspection.zoomFactor.toFixed(6)}:${atlasProgress.toFixed(4)}`;
+    /* The world uses the same measured scroll position as the reading state
+       (binding continuity spec 3.1/5.1): no anticipation line, no derived
+       zone index, no per-chapter inspection. The vessel's journey coordinate
+       is a pure function of the measured chapter boundaries and window.scrollY
+       alone -- main.js derives everything else (position, heading, heel,
+       camera, wake) from that single value. */
+    const signature = `${state.layout.boundaries.join(',')}:${y.toFixed(0)}`;
     const changed = signature !== state.world.signature;
     if (changed || bits & DIRTY.WORLD) {
       state.world.signature = signature;
-      state.world.instance.update({
-        zoneIndex: worldDerived.chapterIndex,
-        localProgress: worldDerived.localProgress,
-        boundaries: state.layout.boundaries,
-        scrollY: anticipatedY,
-        inspection,
-        atlasProgress,
-      });
+      state.world.instance.update({ boundaries: state.layout.boundaries, scrollY: y });
       state.world.instance.render();
     }
   }
@@ -639,40 +638,33 @@ import * as S from './state.js';
     if (document.fonts) document.fonts.ready.then(onLayoutChange);
     refs.navLinks.forEach((link) => link.addEventListener('click', dismissHint));
 
-    // Item 3: a real DOM button, and the canvas's bubbling scene-toggle
-    // event. Both funnel through the same toggle function; the button uses
-    // native <button> semantics for Enter/Space parity with a pointer click.
-    if (exploreButton) {
-      exploreButton.addEventListener('click', () => toggleSceneInspection(state.world.activeChapterId));
-    }
-    worldWrap.addEventListener('race-scene-toggle', (event) => {
-      const zoneIndex = event.detail && event.detail.zoneIndex;
-      if (typeof zoneIndex !== 'number') return;
-      const chapterId = S.DISCIPLINE_ORDER[zoneIndex];
-      // Validate against the latest world-active chapter from the shared
-      // flush -- a stale click following a chapter change toggles nothing.
-      if (!chapterId || chapterId !== state.world.activeChapterId) return;
-      toggleSceneInspection(chapterId);
-    });
-
-    // Item 3 course passport: real DOM buttons, native click semantics.
-    // Entirely independent of world init/teardown -- no canvas listeners.
+    // Course passport: real DOM buttons, native click semantics. Entirely
+    // independent of world init/teardown -- no canvas listeners.
     passportSaveButtons.forEach((button) => button.addEventListener('click', onPassportSaveClick));
     if (passportResetButton) passportResetButton.addEventListener('click', onPassportReset);
+    window.addEventListener('storage', (event) => {
+      if (event.key !== STORAGE_KEY) return;
+      state.passport.saved = readStoredPassport();
+      passportSaveButtons.forEach(writePassportButton);
+      writePassportSummary();
+      writePassageStatus();
+    });
   }
 
   // ---- init ----------------------------------------------------------
   root.classList.add('race--enhanced');
   state.scroll.hashChapterIndex = chapterIndexForHash();
+  state.passport.saved = readStoredPassport();
   evaluateMobileDock();
   measureLayout();
   registerEvents();
 
-  // Item 3 course passport: reveal unconditionally -- no world/viewport/
-  // motion eligibility gate applies to this DOM-only mechanic.
+  // Course passport: reveal unconditionally -- no world/viewport/motion
+  // eligibility gate applies to this DOM-only mechanic.
   passportSaveButtons.forEach((button) => { button.hidden = false; });
   if (passportSummaryEl) passportSummaryEl.hidden = false;
   writePassportSummary();
+  writePassageStatus();
 
   invalidate(DIRTY.SCROLL | DIRTY.LAYOUT);
   evaluateWorldEligibility();

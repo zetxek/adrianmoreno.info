@@ -150,11 +150,10 @@ p { text-wrap: pretty; }
      only), so visibility cannot hinge on the [hidden] attribute in production. */
   .race-readout.race-readout--live { position: fixed; z-index: 10; inset: auto 2.5rem 2rem auto; display: flex; flex-direction: column; text-align: right; padding: .5rem .75rem; font: .6rem/1.8 var(--race-mono); color: #e2e4e6; background: #151719; }
 }
-@media (prefers-reduced-motion: no-preference) {
-  html { scroll-behavior: smooth; }
-}
+/* All anchor navigation is immediate (gamify spec section 2.2/8.5), even
+   when motion is otherwise allowed -- smooth-scrolling is not applied. */
+html { scroll-behavior: auto; }
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   .race-progress { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; }
 }
 @media (forced-colors: active) {
@@ -383,8 +382,13 @@ p { text-wrap: pretty; }
    color alone; the border/color change below is a secondary reinforcement. */
 .race-passport-item { margin-top: 1.5rem; }
 .race-passport-takeaway { font-size: 1rem; color: var(--race-muted); }
+/* display:none by default, only shown via the race--enhanced compound below
+   (same JS-gated pattern as .race-readout): PurgeCSS strips the bare
+   [hidden] attribute selector in production (hugo_stats has tags/classes/ids
+   only), so an unconditional `display` here would leave the [hidden] button
+   visible in the no-JS baseline once that safety-net rule is gone. */
 .race-passport-save {
-  display: inline-flex;
+  display: none;
   align-items: center;
   justify-content: center;
   min-height: 44px;
@@ -399,10 +403,13 @@ p { text-wrap: pretty; }
   text-transform: uppercase;
   cursor: pointer;
 }
+.race--enhanced .race-passport-save:not([hidden]) { display: inline-flex; }
 .race-passport-save[aria-pressed="true"] { border-color: var(--race-red); color: var(--race-red); }
 .race-passport-save:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 
-.race-passport-summary { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid #a0a5a4; }
+/* Same JS-gated display pattern as .race-passport-save above. */
+.race-passport-summary { display: none; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid #a0a5a4; }
+.race--enhanced .race-passport-summary:not([hidden]) { display: block; }
 .race-passport-count { font: .8rem var(--race-mono); }
 .race-passport-links { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; padding: 0; margin: 1rem 0 0; }
 .race-passport-links a { display: inline-flex; align-items: center; min-height: 44px; font: .8rem var(--race-mono); }

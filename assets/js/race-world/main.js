@@ -1,40 +1,40 @@
 /* Separate js.Build entry: the only file that imports 'three'. Exposes a
    factory returning { update, render, resize, dispose } -- it owns no loop
    of its own; assets/js/race/index.js's scheduler calls render() only when
-   dirty. One WebGLRenderer, one orthographic camera, one scene, seven
-   visibility-switched chapter groups sharing a single light rig. */
-import { Box3, Color, DirectionalLight, Euler, HemisphereLight, Matrix4, OrthographicCamera, Quaternion, Raycaster, SRGBColorSpace, Scene, Vector2, Vector3, WebGLRenderer } from 'three';
-import { buildZones, ZONE_PALETTES } from './zones.js';
-import { deriveAtlasMotion } from './atlas-motion.js';
+   dirty. One WebGLRenderer, one orthographic camera, one scene, one fixed
+   spatial assembly of the seven course zones (binding continuity spec
+   section 1.3): chapter boundaries drive progress through that assembly,
+   they never select a replacement world or blend between two of them. */
+import { Color, DirectionalLight, HemisphereLight, Matrix4, OrthographicCamera, Quaternion, Scene, SRGBColorSpace, Vector3, WebGLRenderer } from 'three';
+import { buildZones } from './zones.js';
+import {
+  cameraPosition, cameraTarget, journeyCoordinate, routeLateral, vesselHeading,
+  vesselHeelDegrees, wakeQuadPlacement,
+} from './journey.js';
 
-// Static per-zone base camera zoom (item 5/3): framing decisions only, never
-// a runtime auto-fit loop. Inspection multiplies this base.
-const BASE_ZOOM = [1.15, 1.06, 1, 1, 1, 1, 1];
+// One global four-role palette (spec 3.8): the clear colour/background is
+// the constant ground role -- there is no per-chapter background switch.
+const GROUND_ROLE = '#242729';
+const Y_AXIS = new Vector3(0, 1, 0);
 
-// entrance -> exit, per zone, in the shared local coordinate system
-// (x: -14..14, z: -10..10, y: 0..11). Interpolated with smoothstep(local progress).
-const CAMERA_RECIPES = [
-  { from: { pos: [28, 22, 28], look: [0, 3, 0] }, to: { pos: [24, 20, 30], look: [0, 3, 1] } },
-  { from: { pos: [24, 18, 30], look: [-3, 1, 0] }, to: { pos: [14, 14, 32], look: [3, 1, 0] } },
-  { from: { pos: [18, 12, 28], look: [-2, 2, 0] }, to: { pos: [10, 10, 30], look: [2, 2, 0] } },
-  { from: { pos: [28, 20, 26], look: [-3, 4, 0] }, to: { pos: [16, 18, 32], look: [3, 4, 1] } },
-  { from: { pos: [16, 11, 30], look: [-2, 2, 0] }, to: { pos: [8, 10, 32], look: [2, 2, 0] } },
-  { from: { pos: [26, 20, 28], look: [-3, 3, 0] }, to: { pos: [12, 17, 34], look: [3, 3, 1] } },
-  { from: { pos: [18, 18, 32], look: [0, 2, 0] }, to: { pos: [12, 21, 34], look: [0, 2, 2] } },
-];
-
-function clamp01(x) { return Math.min(1, Math.max(0, x)); }
-function smoothstep(e0, e1, x) {
-  if (e0 === e1) return x < e0 ? 0 : 1;
-  const t = clamp01((x - e0) / (e1 - e0));
-  return t * t * (3 - 2 * t);
-}
-function lerp3(a, b, t) { return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]; }
-
-function cameraStateFor(zoneIndex, localProgress) {
-  const recipe = CAMERA_RECIPES[zoneIndex];
-  const t = smoothstep(0, 1, clamp01(localProgress));
-  return { pos: lerp3(recipe.from.pos, recipe.to.pos, t), look: lerp3(recipe.from.look, recipe.to.look, t) };
+/* Fixed world transforms (spec 1.3 table), one per zone, in ZONE_FACTORIES
+   order [start, swim, t1, bike, t2, run, finish]. Start/T1/T2 own no
+   retained geometry of their own any more (T1/T2 are empty groups; start's
+   water/vessel/wake are authored directly in world coordinates), so they
+   get the identity transform. Galicia is explicitly T x R (translate, then
+   rotate the local geometry 180 degrees around Y) -- multiply() composes
+   this = this * m, i.e. translation composed with rotation, matching that
+   order exactly. */
+function fixedZoneMatrices() {
+  return [
+    new Matrix4(),
+    new Matrix4().makeTranslation(6, 0, 4).multiply(new Matrix4().makeRotationY(Math.PI)),
+    new Matrix4(),
+    new Matrix4().makeTranslation(58, 0, -5),
+    new Matrix4(),
+    new Matrix4().makeTranslation(109, 0, -5.5),
+    new Matrix4().makeTranslation(134.2, -0.08, -16),
+  ];
 }
 
 export default async function createWorld({ canvas, width, height, pixelRatio, onContextLost }) {
@@ -43,89 +43,64 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
   });
   renderer.outputColorSpace = SRGBColorSpace;
   renderer.shadowMap.enabled = false;
-  renderer.setPixelRatio(pixelRatio);
-  renderer.setSize(Math.max(1, width), Math.max(1, height), false);
 
-  const frustumSize = 24;
-  const camera = new OrthographicCamera(-frustumSize, frustumSize, frustumSize, -frustumSize, 0.1, 160);
+  /* Render viewport aspect 4:3, contained within the allocated world region
+     (spec 3.6); any unused surrounding area is left as the canvas's own
+     clear colour, which is the ground role. */
+  function sizeRenderer(nextWidth, nextHeight, nextPixelRatio) {
+    renderer.setPixelRatio(nextPixelRatio);
+    const safeWidth = Math.max(1, nextWidth);
+    const safeHeight = Math.max(1, nextHeight);
+    const aspect = 4 / 3;
+    let renderWidth = safeWidth;
+    let renderHeight = safeWidth / aspect;
+    if (renderHeight > safeHeight) {
+      renderHeight = safeHeight;
+      renderWidth = safeHeight * aspect;
+    }
+    renderer.setSize(Math.max(1, Math.round(renderWidth)), Math.max(1, Math.round(renderHeight)), false);
+  }
+  sizeRenderer(width, height, pixelRatio);
+
+  // Orthographic vertical span 24, horizontal span 32, zoom 1, near/far
+  // 0.1/220 (spec 3.6). Zoom and frustum never change with scroll or chapter.
+  const camera = new OrthographicCamera(-16, 16, 12, -12, 0.1, 220);
   camera.up.set(0, 1, 0);
   camera.zoom = 1;
   camera.updateProjectionMatrix();
 
   const scene = new Scene();
-  const hemi = new HemisphereLight(0xffffff, 0x22262b, 1.15);
+  // One constant light rig (spec 3.8): hemisphere 1.15, directional 0.75 at
+  // (10,18,8), no shadows. Nothing about it is scroll- or chapter-dependent.
+  const hemi = new HemisphereLight(0xffffff, 0x242729, 1.15);
   const sun = new DirectionalLight(0xffffff, 0.75);
   sun.position.set(10, 18, 8);
   scene.add(hemi, sun);
 
   const zones = buildZones();
-  zones.forEach((zone) => { zone.group.visible = false; scene.add(zone.group); });
-  zones[0].group.visible = true;
-
-  /* Item 3 ownership/inspection registry: each root's authored base matrix
-     and its uninspected bounds-center pivot, captured once in the scene
-     (parent) coordinate system, plus a private mesh -> zoneIndex map so
-     picking can validate a hit against the current active zone. Every zone
-     root is henceforth manually driven (matrixAutoUpdate = false) so the
-     inspection transform -- derived fresh from the cached base every frame
-     -- is never clobbered by an automatic position/quaternion recompute. */
-  const zoneBaseMatrix = zones.map((zone) => {
+  const zoneMatrices = fixedZoneMatrices();
+  zones.forEach((zone, zoneIndex) => {
+    zone.group.visible = true;
     zone.group.matrixAutoUpdate = false;
-    return zone.group.matrix.clone();
-  });
-  const zonePivot = zones.map((zone) => new Box3().setFromObject(zone.group).getCenter(new Vector3()));
-  const meshZoneIndex = new WeakMap();
-  zones.forEach((zone, i) => {
-    zone.group.traverse((object) => { if (object.isInstancedMesh) meshZoneIndex.set(object, i); });
+    zone.group.matrix.copy(zoneMatrices[zoneIndex] || new Matrix4());
+    scene.add(zone.group);
   });
 
-  /* Item 2 (route wake): cache the atlas route-dash batch and its authored
-     placements once; applyAtlasMotion() below writes absolute per-instance
-     matrices from deriveAtlasMotion(atlasProgress) every frame -- reused
-     scratch objects, no per-frame allocation, no geometry added. */
-  const atlasDashMesh = zones[0].group.getObjectByName('atlas-route-dashes');
-  const atlasDashPlacements = atlasDashMesh ? atlasDashMesh.userData.dashPlacements : null;
-  const atlasDashMatrix = new Matrix4();
-  const atlasDashPosition = new Vector3();
-  const atlasDashQuaternion = new Quaternion();
-  const atlasDashEuler = new Euler();
-  const atlasDashScale = new Vector3();
+  // The one persistent vessel, water surface and analytic wake -- all owned
+  // by start-plateau (spec 4.2/5.2) and authored directly in world space.
+  const vessel = scene.getObjectByName('journey-vessel');
+  const water = scene.getObjectByName('journey-water');
+  const wake = scene.getObjectByName('journey-wake');
+  if (vessel) vessel.rotation.order = 'YXZ';
+  if (water) water.frustumCulled = false;
+  if (wake) wake.frustumCulled = false;
 
-  function applyAtlasMotion(atlasProgress) {
-    if (!atlasDashMesh || !atlasDashPlacements) return;
-    const motion = deriveAtlasMotion(atlasProgress);
-    motion.dashes.forEach((dash, j) => {
-      const placement = atlasDashPlacements[j];
-      atlasDashPosition.set(placement.position[0], dash.y, placement.position[2]);
-      atlasDashEuler.set(0, placement.rotationY, 0);
-      atlasDashQuaternion.setFromEuler(atlasDashEuler);
-      atlasDashScale.set(dash.lengthScale, placement.scale[1], placement.scale[2]);
-      atlasDashMatrix.compose(atlasDashPosition, atlasDashQuaternion, atlasDashScale);
-      atlasDashMesh.setMatrixAt(j, atlasDashMatrix);
-    });
-    atlasDashMesh.instanceMatrix.needsUpdate = true;
-  }
+  const wakeMatrix = new Matrix4();
+  const wakePosition = new Vector3();
+  const wakeQuaternion = new Quaternion();
+  const wakeScale = new Vector3();
 
-  const inspectionMatrix = new Matrix4();
-  const yawMatrix = new Matrix4();
-  const pivotIn = new Matrix4();
-  const pivotOut = new Matrix4();
-  function applyInspection(zoneIndex, inspection) {
-    const base = zoneBaseMatrix[zoneIndex];
-    const zoneGroup = zones[zoneIndex].group;
-    if (!inspection || !inspection.yawOffset) {
-      zoneGroup.matrix.copy(base);
-    } else {
-      const pivot = zonePivot[zoneIndex];
-      pivotIn.makeTranslation(pivot.x, pivot.y, pivot.z);
-      pivotOut.makeTranslation(-pivot.x, -pivot.y, -pivot.z);
-      yawMatrix.makeRotationY(inspection.yawOffset);
-      inspectionMatrix.copy(pivotIn).multiply(yawMatrix).multiply(pivotOut).multiply(base);
-      zoneGroup.matrix.copy(inspectionMatrix);
-    }
-  }
-
-  const clearColor = new Color(ZONE_PALETTES[0].ground);
+  const clearColor = new Color(GROUND_ROLE);
   renderer.setClearColor(clearColor, 1);
   scene.background = clearColor;
 
@@ -135,146 +110,52 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
   }
   canvas.addEventListener('webglcontextlost', handleContextLost, false);
 
-  /* Private scene-interaction controller (item 3): native pointer targeting
-     only -- no pointer capture, no preventDefault, so page scrolling and
-     poster links are never touched. A qualifying click/tap dispatches a
-     bubbling `race-scene-toggle` CustomEvent from the canvas; index.js owns
-     the actual inspectByChapter boolean and validates it against the
-     latest world-active chapter before toggling. */
-  let activeZoneIndex = 0;
-  const raycaster = new Raycaster();
-  const ndc = new Vector2();
-  let pointerDownAt = null;
-  let pointerMaxDisplacement = 0;
-
-  function pickRaceZone(clientX, clientY) {
-    const rect = canvas.getBoundingClientRect();
-    if (!rect.width || !rect.height) return null;
-    ndc.x = ((clientX - rect.left) / rect.width) * 2 - 1;
-    ndc.y = -((clientY - rect.top) / rect.height) * 2 + 1;
-    raycaster.setFromCamera(ndc, camera);
-    const hits = raycaster.intersectObject(zones[activeZoneIndex].group, true);
-    for (const hit of hits) {
-      const object = hit.object;
-      if (!object.isInstancedMesh) continue;
-      if (meshZoneIndex.get(object) !== activeZoneIndex) continue;
-      if (!Number.isInteger(hit.instanceId) || hit.instanceId < 0 || hit.instanceId >= object.count) continue;
-      return activeZoneIndex;
-    }
-    return null;
-  }
-
-  function onPointerDown(event) {
-    pointerDownAt = { x: event.clientX, y: event.clientY };
-    pointerMaxDisplacement = 0;
-  }
-  function onPointerMove(event) {
-    if (!pointerDownAt) return;
-    const dx = event.clientX - pointerDownAt.x;
-    const dy = event.clientY - pointerDownAt.y;
-    pointerMaxDisplacement = Math.max(pointerMaxDisplacement, Math.hypot(dx, dy));
-  }
-  function onPointerUp(event) {
-    if (!pointerDownAt) return;
-    const displaced = pointerMaxDisplacement > 6;
-    pointerDownAt = null;
-    if (displaced) return;
-    const zoneIndex = pickRaceZone(event.clientX, event.clientY);
-    if (zoneIndex === null) return;
-    canvas.dispatchEvent(new CustomEvent('race-scene-toggle', { bubbles: true, detail: { zoneIndex } }));
-  }
-  canvas.addEventListener('pointerdown', onPointerDown, { passive: true });
-  canvas.addEventListener('pointermove', onPointerMove, { passive: true });
-  canvas.addEventListener('pointerup', onPointerUp, { passive: true });
-
   let disposed = false;
 
-  function showOnly(zoneIndex) {
-    zones.forEach((zone, i) => { zone.group.visible = i === zoneIndex; });
-  }
+  /* The entire visible world state -- vessel transform, camera, and all six
+     wake matrices -- as one pure function of the journey coordinate u (spec
+     2.1/2.3/3): every quantity here is derived fresh from u, never from a
+     previous frame's value, a previous chapter, or elapsed time. */
+  function applyJourneyState(u) {
+    const z = routeLateral(u);
+    const headingRad = vesselHeading(u);
+    const heelRad = (vesselHeelDegrees(u) * Math.PI) / 180;
 
-  function applyCamera(pos, look) {
-    camera.position.set(pos[0], pos[1], pos[2]);
+    if (vessel) {
+      vessel.position.set(u, -0.08, z);
+      vessel.rotation.set(heelRad, headingRad, 0);
+      vessel.scale.set(1, 1, 1);
+    }
+
+    if (wake) {
+      for (let pairIndex = 0; pairIndex < 3; pairIndex += 1) {
+        [-1, 1].forEach((sigma, sideIndex) => {
+          const placement = wakeQuadPlacement(u, pairIndex, sigma);
+          wakePosition.set(placement.position[0], placement.position[1], placement.position[2]);
+          wakeQuaternion.setFromAxisAngle(Y_AXIS, placement.rotationY);
+          wakeScale.set(placement.scaleX, 1, placement.scaleZ);
+          wakeMatrix.compose(wakePosition, wakeQuaternion, wakeScale);
+          wake.setMatrixAt(pairIndex * 2 + sideIndex, wakeMatrix);
+        });
+      }
+      wake.instanceMatrix.needsUpdate = true;
+    }
+
+    const cam = cameraPosition(u);
+    const look = cameraTarget(u);
+    camera.position.set(cam[0], cam[1], cam[2]);
     camera.lookAt(look[0], look[1], look[2]);
   }
 
-  function update({ zoneIndex, localProgress, boundaries, scrollY, inspection, atlasProgress }) {
+  /* update() receives only the measured chapter boundaries and the current
+     scroll position (spec 3.1) -- no zone index, no per-chapter inspection,
+     no atlas progress. Invalid boundaries render nothing new: the caller
+     must not derive a guessed position from them either. */
+  function update({ boundaries, scrollY }) {
     if (disposed) return;
-    activeZoneIndex = zoneIndex;
-    const resolvedInspection = inspection || { yawOffset: 0, zoomFactor: 1 };
-    camera.zoom = BASE_ZOOM[zoneIndex] * (resolvedInspection.zoomFactor || 1);
-    camera.updateProjectionMatrix();
-    applyInspection(zoneIndex, resolvedInspection);
-    // Existing callers without atlasProgress mean the fully-settled itinerary
-    // (never a half-completed opening).
-    applyAtlasMotion(atlasProgress === undefined ? 1 : atlasProgress);
-
-    /* Scroll-driven micro-interaction (no idle loop): the Amsterdam
-       windmill's sails turn with chapter progress. Rotation is set
-       absolutely from localProgress — never accumulated per frame. */
-    const sails = zones[zoneIndex].group.getObjectByName('windmill-sails');
-    if (sails) sails.rotation.z = localProgress * Math.PI * 2 * (sails.userData.scrollTurns || 1);
-
-    /* T1 "The Atlantic Packet": the whole vessel group is repositioned
-       absolutely from localProgress every frame -- a long, shallow steering
-       arc from the departure quay to the arrival quay. No accumulation. */
-    const t1Vessel = zones[zoneIndex].group.getObjectByName('t1-atlantic-packet');
-    if (t1Vessel) {
-      const p = clamp01(localProgress);
-      const s = smoothstep(0, 1, p);
-      const sinPiS = Math.sin(Math.PI * s);
-      const u = -5.1 + 10.2 * s;
-      const v = -1.6 * sinPiS * sinPiS;
-      const yaw = Math.atan((1.6 * Math.PI / 10.2) * Math.sin(2 * Math.PI * s));
-      t1Vessel.position.set(u, 0, v);
-      t1Vessel.rotation.set(0, yaw, 0);
-      t1Vessel.scale.set(1, 1, 1);
-    }
-
-    /* T2 "The Room That Moves": the van drives in over the first 60% of the
-       chapter, then its wheels stop and the camera-facing wall folds down
-       into a ramp over the remaining 40%. Wheel spin follows travelled
-       distance at a constant rolling radius (no independent spin). */
-    const t2Truck = zones[zoneIndex].group.getObjectByName('t2-moving-room');
-    if (t2Truck) {
-      const p = clamp01(localProgress);
-      const wheelRadius = 0.72;
-      const distance = 6.8 * smoothstep(0, 1, p / 0.6);
-      t2Truck.position.set(-3.4 + distance, 0, 0);
-      t2Truck.rotation.set(0, 0, 0);
-      t2Truck.scale.set(1, 1, 1);
-
-      const wheelAngle = -distance / wheelRadius;
-      ['t2-wheel-rear-near', 't2-wheel-rear-far', 't2-wheel-front-near', 't2-wheel-front-far'].forEach((name) => {
-        const wheel = t2Truck.getObjectByName(name);
-        if (wheel) wheel.rotation.z = wheelAngle;
-      });
-
-      const wallPivot = t2Truck.getObjectByName('t2-room-wall');
-      if (wallPivot) {
-        const openAmount = smoothstep(0, 1, (p - 0.6) / 0.4);
-        wallPivot.rotation.set((Math.PI / 2) * openAmount, 0, 0);
-      }
-    }
-
-    const dissolve = dissolveBand(zoneIndex, boundaries, scrollY, zones.length);
-    if (!dissolve) {
-      showOnly(zoneIndex);
-      const cam = cameraStateFor(zoneIndex, localProgress);
-      applyCamera(cam.pos, cam.look);
-      clearColor.set(ZONE_PALETTES[zoneIndex].ground);
-      renderer.setClearColor(clearColor, 1);
-      return;
-    }
-    const { a, b, q } = dissolve;
-    showOnly(q >= 0.5 ? b : a);
-    const camA = cameraStateFor(a, 1);
-    const camB = cameraStateFor(b, 0);
-    applyCamera(lerp3(camA.pos, camB.pos, q), lerp3(camA.look, camB.look, q));
-    const colorA = new Color(ZONE_PALETTES[a].ground);
-    const colorB = new Color(ZONE_PALETTES[b].ground);
-    clearColor.copy(colorA).lerp(colorB, q);
-    renderer.setClearColor(clearColor, 1);
+    const u = journeyCoordinate(boundaries, scrollY);
+    if (u === null) return;
+    applyJourneyState(u);
   }
 
   function render() {
@@ -282,21 +163,17 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
     renderer.render(scene, camera);
   }
 
-  function resize(width, height, pixelRatio) {
+  function resize(nextWidth, nextHeight, nextPixelRatio) {
     if (disposed) return;
-    renderer.setPixelRatio(pixelRatio);
-    renderer.setSize(Math.max(1, width), Math.max(1, height), false);
+    sizeRenderer(nextWidth, nextHeight, nextPixelRatio);
   }
 
   function dispose() {
     if (disposed) return;
     disposed = true;
     canvas.removeEventListener('webglcontextlost', handleContextLost, false);
-    canvas.removeEventListener('pointerdown', onPointerDown, { passive: true });
-    canvas.removeEventListener('pointermove', onPointerMove, { passive: true });
-    canvas.removeEventListener('pointerup', onPointerUp, { passive: true });
     zones.forEach((zone) => zone.group.traverse((object) => {
-      if (!object.isMesh) return;
+      if (!object.isMesh && !object.isInstancedMesh) return;
       object.geometry.dispose();
       if (Array.isArray(object.material)) object.material.forEach((m) => m.dispose());
       else object.material.dispose();
@@ -305,33 +182,4 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
   }
 
   return { update, render, resize, dispose };
-}
-
-/* Ground-mediated dissolve: within a band of w = 0.04*min(L0,L1) pixels
-   either side of a chapter boundary, blend the two adjacent zones' cameras
-   and only fully commit to one architectural group at a time (never both
-   visible at once -- that produces ghost buildings and sorting errors). */
-function dissolveBand(zoneIndex, boundaries, scrollY, zoneCount) {
-  if (!boundaries || boundaries.length < zoneCount + 1) return null;
-  const start = boundaries[zoneIndex];
-  const end = boundaries[zoneIndex + 1];
-  const currentLength = end - start;
-
-  if (zoneIndex > 0) {
-    const prevLength = boundaries[zoneIndex] - boundaries[zoneIndex - 1];
-    const w = 0.04 * Math.min(prevLength, currentLength);
-    if (w > 0 && scrollY < start + w) {
-      const q = smoothstep(start - w, start + w, scrollY);
-      return { a: zoneIndex - 1, b: zoneIndex, q };
-    }
-  }
-  if (zoneIndex < zoneCount - 1) {
-    const nextLength = boundaries[zoneIndex + 2] - boundaries[zoneIndex + 1];
-    const w = 0.04 * Math.min(currentLength, nextLength);
-    if (w > 0 && scrollY > end - w) {
-      const q = smoothstep(end - w, end + w, scrollY);
-      return { a: zoneIndex, b: zoneIndex + 1, q };
-    }
-  }
-  return null;
 }

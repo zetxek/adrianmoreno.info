@@ -1,0 +1,32 @@
+Everything is clean. Here's the summary of the fix.
+
+## What was broken
+
+The previous pass had added the vessel-journey/WebGL work (`assets/js/race-world/journey.js`, `zones.js` updates, `main.js`'s pure `update({boundaries, scrollY})` API) but, in the same sweep, **replaced** the athlete rail-marker, goal, and passport-summary UI with an unfinished "boat marker" + "gamified passport hub/brief" redesign that had **zero matching CSS** (`.race-boat-wrap`'s mobile-dock caption/readout rows, `.race-passport-hub`, `.race-passport-brief`, `.race-passport-hero`, `.race-journey-panel`, lead-selector — none of these classes exist anywhere in `race.css`) and dropped the pose/joint-transform system the athlete relies on.
+
+## What I restored (from the last known-good commit)
+
+- `assets/js/race/athlete.js` — recreated (pose classes, joint-transform writer)
+- `assets/js/race/state.js` — added back `deriveDiscipline`, `poseForDiscipline`, `isLocomotingDiscipline`, `deriveAthletePose`, `jointTransforms`
+- `layouts/partials/race/enhancements.html` — restored the athlete SVG rig + goal + `data-race-complete-text`
+- `layouts/partials/race/field-notes.html` — restored `item`/`summary` passport modes (`data-passport-link`, hidden-by-default links)
+- `layouts/race/single.html` — passport calls switched back to `summary` mode; dropped the unstyled hero teaser
+- `layouts/partials/race/controls.html` — mobile dock only (dropped the already-abandoned "Explore current scene" controls, consistent with the current design's own stated intent)
+- `assets/js/race/index.js` — merged: HEAD's athlete/goal/passport-summary/mobile-dock-reparenting logic **plus** the current tree's pure `updateWorldFrame({boundaries, scrollY})` vessel hookup, **plus** the new localStorage passport persistence and T1/T2 passage-status feature (both being real, independent improvements, kept)
+- `assets/css/race.css` — swapped the boat-marker CSS block back for the athlete-rig CSS
+
+## A bug I found and fixed along the way
+
+Restoring the passport summary exposed a latent CSS bug (present in HEAD too, just never triggered there): `.race-passport-save`/`.race-passport-summary` set an unconditional `display` in author CSS, which — per the codebase's own documented PurgeCSS constraint — beats the bare `[hidden]` safety-net rule once PurgeCSS strips it in production. Fixed using the same `.race--enhanced`-gated pattern already established for `.race-readout` elsewhere in the file.
+
+## Untouched (per hard constraints)
+
+`assets/js/race-world/zones.js` (still 2095 lines, all required declarations present), `main.js`, `journey.js` — the vessel/journey WebGL work is fully intact.
+
+## Measured results
+
+- `hugo --gc --minify`: clean
+- `node --test tests/unit/`: **85 passed / 0 failed**
+- `npx playwright test --workers=1`: **332 passed / 0 failed** (all 12 originally-failing tests now pass, no regressions)
+
+I did not commit anything — let me know if you'd like me to.
