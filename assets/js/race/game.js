@@ -10,8 +10,17 @@ import { writeJointTransforms, setDiscipline } from './athlete.js';
 import * as S from './state.js';
 import { journeyCoordinate, routeLateral, vesselHeading } from '../race-world/journey.js';
 
-const GAME_PIXEL_CAP = 262144;
-const GAME_PIXEL_CAP_DEGRADED = 131072;
+/* Backing-buffer pixel budgets (spec 8.4/8.5). Full tier: 1,920x1,920 =
+   3,686,400px gives a 390x844 phone (the reported case) full DPR-3 native
+   resolution (1170x2532 = 2,962,440px) with ~25% headroom to spare, and
+   holds 1:1 on desktop viewports up to ~1920x1920 CSS px before the ratio
+   has to give ground. Memory: worst case ~2.96Mpx * 8 bytes (RGBA + depth)
+   = ~24MB, well within a low-power mobile GPU's budget even with MSAA.
+   Degraded tier: 500,000px still covers any phone-class viewport at 1x
+   (390x844 = 329,160px fits with headroom) -- under load, DPR upscaling is
+   the first thing to give way, not the 1:1 floor. */
+const GAME_PIXEL_CAP = 3686400;
+const GAME_PIXEL_CAP_DEGRADED = 500000;
 const SAMPLE_WINDOW = 12;
 const P95_INDEX = Math.floor(SAMPLE_WINDOW * 0.95); // index 11 of 12 -> effectively the max
 const DEGRADE_MS = 33.4;
@@ -413,8 +422,14 @@ export function initGameController(deps) {
   }
 
   // ---- 3D world ownership (spec 8.2/8.4/8.5) ------------------------------
-  function gamePixelRatio(width, height, cap) {
-    return Math.min(1, Math.sqrt(cap / Math.max(1, width * height)));
+  function gamePixelRatio(width, height, cap, devicePixelRatio) {
+    // Largest ratio in [1, devicePixelRatio] whose backing buffer
+    // (width*ratio x height*ratio) fits the pixel budget. Only drops below
+    // 1x -- a genuine low-end/oversized-viewport fallback -- when even a 1x
+    // buffer would not fit the budget.
+    const dpr = Math.max(1, devicePixelRatio || 1);
+    const budgetRatio = Math.sqrt(cap / Math.max(1, width * height));
+    return Math.min(dpr, budgetRatio);
   }
 
   function sceneInsets() {
@@ -429,7 +444,7 @@ export function initGameController(deps) {
     const width = rect.width || 1;
     const height = rect.height || 1;
     const cap = game.perf.degraded ? GAME_PIXEL_CAP_DEGRADED : GAME_PIXEL_CAP;
-    const pixelRatio = gamePixelRatio(width, height, cap);
+    const pixelRatio = gamePixelRatio(width, height, cap, window.devicePixelRatio);
     game.world.instance.resize(width, height, pixelRatio, { game: true, insets: sceneInsets() });
     render();
   }
@@ -527,12 +542,12 @@ export function initGameController(deps) {
     const rect = sceneEl.getBoundingClientRect();
     const width = rect.width || 1;
     const height = rect.height || 1;
-    const pixelRatio = gamePixelRatio(width, height, GAME_PIXEL_CAP);
+    const pixelRatio = gamePixelRatio(width, height, GAME_PIXEL_CAP, window.devicePixelRatio);
 
     let instance;
     try {
       instance = await mod.default({
-        canvas, width, height, pixelRatio, antialias: false,
+        canvas, width, height, pixelRatio, antialias: true,
         onContextLost: () => switchToLite(true),
       });
     } catch (e) {
