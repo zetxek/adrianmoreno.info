@@ -33,6 +33,12 @@ import { initGameController } from './game.js';
   const mobileDockMarkerEl = mobileDockEl && mobileDockEl.querySelector('.race-mobile-dock__marker');
   const mobileDockLabelEl = mobileDockEl && mobileDockEl.querySelector('.race-mobile-dock__label');
   const navEl = document.querySelector('.race-nav');
+  // The full-screen game entry lives in the fixed chrome bar by default (a
+  // sibling of [data-race], not a descendant -- see the race--enhanced note
+  // below); below 64rem it is reparented into the mobile dock itself so it
+  // reads as one object with the journey controls, same as the athlete
+  // marker already does.
+  const gameEntryBtn = document.getElementById('race-game-entry');
 
   if (!athleteWrap || !athleteSvg || !goalEl || !worldWrap) return;
   const joints = cacheJoints(athleteSvg);
@@ -54,7 +60,7 @@ import { initGameController } from './game.js';
     game: { open: false },
   };
 
-  const mobile = { mounted: false, athleteParent: null, athleteNext: null };
+  const mobile = { mounted: false, athleteParent: null, athleteNext: null, entryParent: null, entryNext: null };
 
   // ---- scheduler -----------------------------------------------------
   function canRun() {
@@ -315,6 +321,12 @@ import { initGameController } from './game.js';
     mobileDockMarkerEl.appendChild(athleteWrap);
     athleteWrap.classList.add('race-athlete-wrap--docked');
     athleteWrap.style.transform = '';
+    if (gameEntryBtn) {
+      mobile.entryParent = gameEntryBtn.parentNode;
+      mobile.entryNext = gameEntryBtn.nextSibling;
+      mobileDockEl.appendChild(gameEntryBtn);
+      gameEntryBtn.classList.add('race-game-entry--docked');
+    }
     root.classList.add('race--mobile-docked');
     if (navEl) navEl.classList.add('race-nav--docked');
     mobileDockEl.hidden = false;
@@ -327,6 +339,10 @@ import { initGameController } from './game.js';
       mobile.athleteParent.insertBefore(athleteWrap, mobile.athleteNext);
     }
     athleteWrap.classList.remove('race-athlete-wrap--docked');
+    if (gameEntryBtn && mobile.entryParent) {
+      mobile.entryParent.insertBefore(gameEntryBtn, mobile.entryNext);
+      gameEntryBtn.classList.remove('race-game-entry--docked');
+    }
     root.classList.remove('race--mobile-docked');
     if (navEl) navEl.classList.remove('race-nav--docked');
     if (mobileDockEl) mobileDockEl.hidden = true;

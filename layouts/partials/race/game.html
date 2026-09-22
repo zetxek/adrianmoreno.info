@@ -26,6 +26,20 @@
   <div class="race-game__panel">
     <p class="race-game__chapter" data-chapter-template="{{ i18n "race_game_chapter_template" }}"></p>
     <p class="race-game__caption"></p>
+    {{/* Inspectable landmark (game-mode interactivity spec): reveals, on
+         request only, a line already authored in data/race.yml for the
+         current chapter (hero.originNote / chapter.lesson /
+         transition.body / finish.colophon -- see the data-landmark
+         attributes on each .race-stage in layouts/race/single.html) that the
+         panel does not otherwise show. Collapses again on every chapter
+         change (assets/js/race/game.js), so each of the seven chapters is
+         inspected on its own. Motion-free: a discrete text reveal, not an
+         animation. */}}
+    <button type="button" class="race-game__landmark" aria-expanded="false" aria-controls="race-game-landmark-text"
+      data-show-text="{{ i18n "race_game_landmark_show" }}" data-hide-text="{{ i18n "race_game_landmark_hide" }}"
+      hidden
+    >{{ i18n "race_game_landmark_show" }}</button>
+    <p class="race-game__landmark-text" id="race-game-landmark-text" hidden></p>
     <p class="race-game__help race-game__status" role="status" aria-live="polite" aria-atomic="true"
       data-help-text="{{ i18n "race_game_help" }}"
       data-status-unavailable="{{ i18n "race_game_status_unavailable" }}"

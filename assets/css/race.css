@@ -18,7 +18,7 @@ a:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
 h1, h2, h3, h4, p { margin: 0; }
 h1, h2, h3, h4 { text-wrap: balance; }
 p { text-wrap: pretty; }
-.race-sr, .race-nav-label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.race-sr, .race-nav-label, .race-game-entry--docked .race-game-entry__label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 .race-skip { position: fixed; inset: 1rem auto auto 1rem; z-index: 20; padding: .75rem 1rem; background: #fff; color: #151719; transform: translateY(-200%); }
 .race-skip:focus { transform: none; }
 .race-chrome { position: fixed; inset: 0 0 auto; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .6rem 1.25rem; min-height: 3.8rem; background: #151719; border-bottom: 1px solid #393c3f; color: #e2e4e6; font: .65rem/1.4 var(--race-mono); letter-spacing: .06em; text-transform: uppercase; }
@@ -356,7 +356,7 @@ html { scroll-behavior: auto; }
   .race-mobile-dock__label {
     position: absolute;
     left: 68px;
-    right: 12px;
+    right: 64px;
     top: 8px;
     margin: 0;
     font: .64rem/1.35 var(--race-mono);
@@ -391,8 +391,10 @@ html { scroll-behavior: auto; }
    shell and its handlers are ready -- same JS-gated display pattern as the
    rest of this file (PurgeCSS strips the bare [hidden] selector in
    production, so an unconditional `display` here would leave it visible with
-   JS disabled). A normal chrome flex item at >=64rem; fixed-positioned at the
-   exact mobile geometry the spec specifies below 64rem. */
+   JS disabled). A normal chrome flex item at >=64rem; below 64rem
+   assets/js/race/index.js reparents the same node into .race-mobile-dock
+   (see that media query above), where .race-game-entry--docked takes over
+   its geometry instead. */
 .race-game-entry {
   display: none;
   align-items: center;
@@ -410,23 +412,29 @@ html { scroll-behavior: auto; }
 }
 .race--enhanced .race-game-entry:not([hidden]) { display: inline-flex; }
 .race-game-entry:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.race-game-entry__icon { display: none; }
 
 @media screen and (width < 64rem) {
-  /* Width check (spec 3.1): 12 + 130 (existing .race-exit) + 12 + 224 + 12 = 390px. */
-  .race--enhanced .race-game-entry:not([hidden]) {
-    position: fixed;
-    z-index: 15;
-    inset: calc(env(safe-area-inset-top, 0px) + 8px) 12px auto auto;
-    width: 224px;
-    height: 48px;
+  /* The full-screen game entry, reparented into .race-mobile-dock by
+     assets/js/race/index.js (mountMobileRaceDock): same surface and border
+     language as the dock itself, same 44x44 thumb target as the marker
+     beside it -- one widget, not a floating orphan. Icon-only at this size;
+     the full accessible name (the label span) collapses to sr-only via the
+     shared .race-sr rule, so the computed name never changes. Declared after
+     the base .race-game-entry rule above so its padding/margin win the
+     cascade at equal specificity. */
+  .race-game-entry--docked {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
     margin: 0;
-    padding: 0 .7rem;
+    padding: 0;
     background: #1d2023;
     border: 1px solid #42464a;
   }
-  /* Omit the edition text on phones (spec 3.1) so it never collides with the
-     fixed entry button occupying the same top-right corner. */
-  .race-edition { display: none; }
+  .race-game-entry--docked .race-game-entry__icon { display: inline-block; font-size: 1.1rem; }
 }
 
 /* ---- Full-screen journey game overlay (game-mode spec) -------------------
@@ -548,6 +556,35 @@ html.race--gaming { overflow: hidden; }
   color: var(--race-game-tertiary);
 }
 .race-game__caption { margin: 4px 0 0; font-size: .95rem; line-height: 1.35; color: var(--race-game-main); }
+/* Inspectable landmark toggle (interactivity spec): a genuine action, not a
+   scrubber -- reveals a data/race.yml line the panel otherwise never shows,
+   one chapter at a time. Same bordered-mono-button language as previous/
+   next/read below. */
+.race-game__landmark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin: 8px 0 0;
+  padding: 0 .6rem;
+  background: none;
+  color: var(--race-game-main);
+  border: 1px solid var(--race-game-secondary);
+  font: 600 .64rem var(--race-mono);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.race-game__landmark:focus-visible { outline: 2px solid var(--race-game-tertiary); outline-offset: 2px; }
+.race-game__landmark-text {
+  margin: 8px 0 0;
+  padding: 0 0 0 .75rem;
+  border-left: 2px solid var(--race-game-tertiary);
+  font-size: .85rem;
+  line-height: 1.4;
+  font-style: italic;
+  color: var(--race-game-main);
+}
 .race-game__help.race-game__status { margin: 4px 0 0; font: .72rem/1.4 var(--race-mono); color: var(--race-game-secondary); }
 .race-game__progress { display: block; width: 100%; margin: 8px 0 0; height: 44px; accent-color: var(--race-game-tertiary); }
 .race-game__progress:focus-visible { outline: 2px solid var(--race-game-tertiary); outline-offset: 2px; }

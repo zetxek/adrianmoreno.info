@@ -53,6 +53,8 @@ export function initGameController(deps) {
   const panelEl = overlay.querySelector('.race-game__panel');
   const chapterEl = overlay.querySelector('.race-game__chapter');
   const captionEl = overlay.querySelector('.race-game__caption');
+  const landmarkBtn = overlay.querySelector('.race-game__landmark');
+  const landmarkTextEl = overlay.querySelector('.race-game__landmark-text');
   const statusEl = overlay.querySelector('.race-game__status');
   const progressEl = overlay.querySelector('.race-game__progress');
   const prevBtn = overlay.querySelector('.race-game__previous');
@@ -87,6 +89,7 @@ export function initGameController(deps) {
     world: { instance: null, owned: false, transferred: false, canvas: null, generation: 0 },
     rig: { parent: null, next: null },
     dirty: true,
+    landmarkOpen: false,
     entryAnnounced: false,
     perf: { samples: [], degraded: false },
     staticPresentation: null,
@@ -241,7 +244,28 @@ export function initGameController(deps) {
     liteBtn.textContent = game.mode === '3d' ? liteBtn.dataset.useLiteText : liteBtn.dataset.try3dText;
   }
 
-  function writeHUD() {
+  // ---- inspectable landmark (interactivity spec): reveals, on request only,
+  // the current chapter's data-landmark line (already authored in
+  // data/race.yml -- see single.html) -- never shown automatically, and
+  // collapsed again the instant the chapter changes so each of the seven is
+  // inspected on its own. A discrete text toggle, not motion. --------------
+  function writeLandmark(stage, chapterChanged) {
+    if (!landmarkBtn || !landmarkTextEl) return;
+    if (chapterChanged) game.landmarkOpen = false;
+    const fact = (stage && stage.dataset.landmark) || '';
+    landmarkBtn.hidden = !fact;
+    landmarkBtn.setAttribute('aria-expanded', String(game.landmarkOpen));
+    landmarkBtn.textContent = game.landmarkOpen ? landmarkBtn.dataset.hideText : landmarkBtn.dataset.showText;
+    landmarkTextEl.hidden = !game.landmarkOpen;
+    landmarkTextEl.textContent = game.landmarkOpen ? fact : '';
+  }
+
+  function onLandmarkToggle() {
+    game.landmarkOpen = !game.landmarkOpen;
+    writeLandmark(refs.stages[game.chapterIndex], false);
+  }
+
+  function writeHUD(chapterChanged) {
     const chapterId = S.DISCIPLINE_ORDER[game.chapterIndex] || 'start';
     const stage = refs.stages[game.chapterIndex];
     const caption = (stage && stage.dataset.caption) || '';
@@ -250,6 +274,7 @@ export function initGameController(deps) {
       chapterEl.textContent = template.replace('{number}', String(game.chapterIndex + 1)).replace('{name}', chapterLabel(game.chapterIndex));
     }
     if (captionEl && captionEl.textContent !== caption) captionEl.textContent = caption;
+    writeLandmark(stage, chapterChanged);
     if (progressEl) {
       const pct = game.fraction * 100;
       if (Math.abs(parseFloat(progressEl.value) - pct) > 0.01) progressEl.value = String(pct);
@@ -282,6 +307,7 @@ export function initGameController(deps) {
   function render() {
     if (!game.open) return;
     const derived = S.deriveCourseState(GAME_BOUNDARIES, game.scrollTop, S.GAME_SCROLL_MAX);
+    const chapterChanged = derived.chapterIndex !== game.chapterIndex;
     game.chapterIndex = derived.chapterIndex;
     game.localProgress = derived.localProgress;
     game.fraction = derived.fraction;
@@ -294,7 +320,7 @@ export function initGameController(deps) {
     } else {
       writeRigPose(chapterId, derived.localProgress, true);
     }
-    writeHUD();
+    writeHUD(chapterChanged);
 
     if (reducedMotion) {
       // No WebGL, no moving SVG panorama, no camera or vessel motion: chapter
@@ -696,6 +722,7 @@ export function initGameController(deps) {
     document.documentElement.classList.add('race--gaming');
     setInert(true);
     game.staticPresentation = null;
+    game.landmarkOpen = false;
     sizeScrollSurface();
 
     history.pushState({ [HISTORY_MARKER]: true }, '');
@@ -813,6 +840,7 @@ export function initGameController(deps) {
   entryBtn.addEventListener('click', () => openGame(entryBtn));
   exitBtn.addEventListener('click', () => closeGame('exit'));
   if (liteBtn) liteBtn.addEventListener('click', onLiteToggle);
+  if (landmarkBtn) landmarkBtn.addEventListener('click', onLandmarkToggle);
   if (progressEl) progressEl.addEventListener('input', onProgressInput);
   if (prevBtn) prevBtn.addEventListener('click', onPrevious);
   if (nextBtn) nextBtn.addEventListener('click', onNext);

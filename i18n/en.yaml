@@ -199,6 +199,10 @@
   translation: "Chapter {number} of 7 · {name}"
 - id: race_game_help
   translation: "Drag up to travel; down to retrace."
+- id: race_game_landmark_show
+  translation: "Reveal field note"
+- id: race_game_landmark_hide
+  translation: "Hide field note"
 - id: race_game_status_unavailable
   translation: "3D unavailable. Continue in Lite mode."
 - id: race_game_status_lost
