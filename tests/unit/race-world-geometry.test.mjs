@@ -15,10 +15,14 @@ import { buildZones, buildUnitGeometries, TRIANGLES_PER_KIND } from '../../asset
      t2:         428/33  -> 0/0      (-428/-33: moving-room diorama out)
      run:        848/135 -> 748/126  (-100/-9: local water box + three boats out)
      finish:     732/61  -> 744/62   (+12/+1: one berth platform in)
-   New total: 3,500 triangles / 419 placements (spec section 7.1 #1). */
+   Continuity total: 3,500 triangles / 419 placements (spec section 7.1 #1).
+
+   Owner follow-up (game-scenes-controls brief): Galicia keeps one hórreo
+   and gains a lighthouse. swim: 900/75 -> 672/54 (-336/-28 smaller hórreo
+   out, +108/+7 lighthouse in). New total: 3,272 triangles / 398 placements. */
 const EXPECTED_PER_ZONE = [
   { name: 'start-plateau', triangles: 90, instances: 13 },
-  { name: 'swim-basin', triangles: 900, instances: 75 },
+  { name: 'swim-basin', triangles: 672, instances: 54 },
   { name: 't1-tunnel', triangles: 0, instances: 0 },
   { name: 'amsterdam-bike', triangles: 1018, instances: 143 },
   { name: 't2-tunnel', triangles: 0, instances: 0 },
@@ -59,12 +63,12 @@ test('each zone matches its authored per-zone triangle/instance budget', () => {
   });
 });
 
-test('the full course totals exactly 3,500 triangles across 419 instances, under the 25,000 ceiling', () => {
+test('the full course totals exactly 3,272 triangles across 398 instances, under the 25,000 ceiling', () => {
   const zones = buildZones();
   const triangles = zones.reduce((sum, z) => sum + z.triangles, 0);
   const instances = zones.reduce((sum, z) => sum + z.instances, 0);
-  assert.equal(triangles, 3500);
-  assert.equal(instances, 419);
+  assert.equal(triangles, 3272);
+  assert.equal(instances, 398);
   assert.ok(triangles <= 25000);
   assert.ok(instances <= 16000, 'stays within the disciplined instance ceiling');
 });

@@ -407,14 +407,28 @@ export function initGameController(deps) {
     setScrollTop(game.scrollTop + delta);
   }
 
+  // A press must be a felt jump, not a crawl (measured bug: the old fixed
+  // 50px step against the 7,000px game surface was 0.71% of the journey,
+  // ~140 presses end to end -- the mouse/wheel scrubs continuously, so
+  // arrows read as dead by comparison). 5% of GAME_SCROLL_MAX is 350px:
+  // ~20 presses end to end, and still lands inside a single 1,000px
+  // chapter three times over, so it reads as a deliberate step, not a
+  // teleport. Holding the key repeats at the platform's own key-repeat
+  // rate -- event.repeat is no longer swallowed for Arrow keys -- rather
+  // than this file owning a timer.
+  const ARROW_STEP = S.GAME_SCROLL_MAX * 0.05;
+
   function onKeydown(event) {
-    if (event.repeat) return;
     switch (event.key) {
-      case 'ArrowUp': setScrollTop(game.scrollTop - 50); event.preventDefault(); break;
-      case 'ArrowDown': setScrollTop(game.scrollTop + 50); event.preventDefault(); break;
-      case 'Home': setScrollTop(0); event.preventDefault(); break;
-      case 'End': setScrollTop(S.GAME_SCROLL_MAX); event.preventDefault(); break;
-      case 'Escape': closeGame('escape'); break;
+      case 'ArrowUp': setScrollTop(game.scrollTop - ARROW_STEP); event.preventDefault(); break;
+      case 'ArrowDown': setScrollTop(game.scrollTop + ARROW_STEP); event.preventDefault(); break;
+      // Chapter-to-chapter stepping, reusing the existing previous/next
+      // navigation (same targets as the on-screen chapter buttons).
+      case 'PageUp': if (!event.repeat) onPrevious(); event.preventDefault(); break;
+      case 'PageDown': if (!event.repeat) onNext(); event.preventDefault(); break;
+      case 'Home': if (!event.repeat) setScrollTop(0); event.preventDefault(); break;
+      case 'End': if (!event.repeat) setScrollTop(S.GAME_SCROLL_MAX); event.preventDefault(); break;
+      case 'Escape': if (!event.repeat) closeGame('escape'); break;
       default: break;
     }
   }

@@ -131,9 +131,16 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
   const vessel = scene.getObjectByName('journey-vessel');
   const water = scene.getObjectByName('journey-water');
   const wake = scene.getObjectByName('journey-wake');
+  const windmillSails = scene.getObjectByName('windmill-sails');
   if (vessel) vessel.rotation.order = 'YXZ';
   if (water) water.frustumCulled = false;
   if (wake) wake.frustumCulled = false;
+
+  // One full turn every 8 units of journey coordinate u (spec 3.1's own
+  // unit, not elapsed time or scroll pixels): across the ~26-unit-wide bike
+  // chapter that is ~3 visible rotations, enough to read as turning between
+  // any two scroll positions without spinning so fast it strobes.
+  const WINDMILL_ROTOR_RATE = Math.PI / 4;
 
   const wakeMatrix = new Matrix4();
   const wakePosition = new Vector3();
@@ -185,6 +192,11 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
     const look = cameraTarget(u);
     camera.position.set(cam[0], cam[1], cam[2]);
     camera.lookAt(look[0], look[1], look[2]);
+
+    // Sail rotation, like the vessel's own transform above, is a pure
+    // function of u -- never accumulated, never read back from the
+    // previous frame -- so it is exactly reproducible from scroll alone.
+    if (windmillSails) windmillSails.rotation.z = u * WINDMILL_ROTOR_RATE;
   }
 
   /* update() receives only the measured chapter boundaries and the current

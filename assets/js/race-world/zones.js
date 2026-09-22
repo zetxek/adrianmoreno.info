@@ -660,12 +660,20 @@ function checkedCityResult(group, tally) {
 
 
 // -----------------------------------------------------------------------------
-// GALICIA — a three-level terraced coastal hillside carrying two enlarged
-// stone hórreos, six placed rocks, and two three-box moored boats. Complete
-// rebuild per the binding interface contract (section 3); the old flat shore,
-// boulder field, and small hórreos are gone. horreoRow()/moored() above are
-// preserved byte-identical per the ownership contract but are no longer
-// called from this zone.
+// GALICIA — a three-level terraced coastal hillside carrying one enlarged
+// stone hórreo, a lighthouse on its own knoll, six placed rocks, and two
+// three-box moored boats. Complete rebuild per the binding interface
+// contract (section 3); the old flat shore, boulder field, and small
+// hórreos are gone. horreoRow()/moored() above are preserved byte-identical
+// per the ownership contract but are no longer called from this zone.
+//
+// Owner request: keep ONE hórreo, add a lighthouse. Of the two enlarged
+// hórreos this zone used to carry, the larger one (8 pillars vs. 6) stays --
+// more visible stilts is the feature that actually reads as "elevated
+// granary" at small size, and it sits nearer the hill's more prominent left
+// terrace. The smaller hórreo is dropped entirely rather than shrunk in
+// place, freeing triangle budget the new lighthouse spends (see the
+// per-zone tally in the swimBasin() comment below).
 // -----------------------------------------------------------------------------
 
 /* Nine-box terraced hillside: three rising terrace masses plus paired
@@ -769,6 +777,75 @@ function buildStoneHorreo(unit, mat, tally, { centerX, centerZ, length, pillarXO
   return group;
 }
 
+/* A lighthouse, standing on its own rock knoll clear of the hill and the
+   hórreo (owner request: one hórreo, one lighthouse). Bold, stacked round
+   masses throughout -- the same lesson already learned at Børsen's
+   Frederiks Kirke dome (see borsenLandmark below): a thin spire or a
+   pointed cap reads as a stray pixel at ~20 CSS px tall, but a tapered
+   drum, a wide gallery break, and a squat dome hold their silhouette. */
+function buildLighthouse(unit, mat, tally, { x, z }) {
+  const group = new Group();
+  const baseY = -0.16;
+
+  const knollH = 0.9;
+  addBatch(group, unit.box, mat.main, [
+    { position: [x, baseY + knollH / 2, z], scale: [2.6, knollH, 2.2], rotationY: 8 * Math.PI / 180 },
+  ], 'box', tally);
+
+  const plinthY = baseY + knollH;
+  const plinthH = 0.3;
+  addBatch(group, unit.box, mat.secondary, [
+    { position: [x, plinthY + plinthH / 2, z], scale: [1.7, plinthH, 1.7], rotationY: 0 },
+  ], 'box', tally);
+
+  // Tapered tower: the windmill body's tapered-hex technique (see
+  // amsterdamWindmill below) -- a round, gently narrowing drum rather than
+  // a box, at no extra triangle cost over a straight hex.
+  const towerY = plinthY + plinthH;
+  const towerH = 4.4;
+  const towerGeometry = unit.hex.clone();
+  const towerPositions = towerGeometry.getAttribute('position');
+  for (let i = 0; i < towerPositions.count; i++) {
+    const taper = lerp(1, 0.68, Math.max(0, Math.min(1, towerPositions.getY(i))));
+    towerPositions.setX(i, towerPositions.getX(i) * taper);
+    towerPositions.setZ(i, towerPositions.getZ(i) * taper);
+  }
+  towerPositions.needsUpdate = true;
+  towerGeometry.computeVertexNormals();
+  towerGeometry.computeBoundingBox();
+  towerGeometry.computeBoundingSphere();
+  addBatch(group, towerGeometry, mat.main, [
+    { position: [x, towerY, z], scale: [1.55, towerH, 1.55], rotationY: 0 },
+  ], 'hex', tally);
+
+  // Gallery: a dark ring flared past the tower and the lamp room on both
+  // sides -- the silhouette break that reads as "lighthouse" rather than
+  // "tower" at a glance.
+  const galleryY = towerY + towerH;
+  addBatch(group, unit.box, mat.secondary, [
+    { position: [x, galleryY + 0.09, z], scale: [1.95, 0.18, 1.95], rotationY: Math.PI / 6 },
+  ], 'box', tally);
+
+  // Lamp room: the tertiary accent role doubles as the light itself.
+  const lampY = galleryY + 0.18;
+  const lampH = 0.75;
+  addBatch(group, unit.hex, mat.tertiary, [
+    { position: [x, lampY + lampH / 2, z], scale: [1.15, lampH, 1.15], rotationY: 0 },
+  ], 'hex', tally);
+
+  // Cap: one shallow solid dome band, not a pointed spire.
+  const capY = lampY + lampH;
+  addBatch(group, unit.hex, mat.secondary, [
+    { position: [x, capY + 0.22, z], scale: [1.3, 0.44, 1.3], rotationY: 0 },
+  ], 'hex', tally);
+
+  addBatch(group, unit.box, mat.main, [
+    { position: [x, capY + 0.5, z], scale: [0.22, 0.22, 0.22], rotationY: Math.PI / 4 },
+  ], 'box', tally);
+
+  return group;
+}
+
 /* Six fixed shoreline rocks, replacing the old randomized boulder field. */
 function buildGaliciaRocks(unit, mat, tally) {
   const group = new Group();
@@ -812,7 +889,10 @@ function swimBasin(unit, mat) {
 
   // The bounded local water slab and the two local moored boats are removed:
   // the persistent world water and the one journey vessel take their place
-  // (binding spec section 5.2: Galicia 900 triangles / 75 instances).
+  // (binding spec section 5.2). Original two-hórreo total was 900 triangles /
+  // 75 instances; dropping the smaller hórreo (-336 tri / -28 instances) and
+  // adding the lighthouse (+108 tri / +7 instances) nets 672 triangles / 54
+  // instances -- comfortably under the 1,100-triangle zone cap.
   // buildMooredBoat()/riaWaterMaterial() above are preserved per the
   // ownership contract but are no longer called from this zone.
 
@@ -821,9 +901,8 @@ function swimBasin(unit, mat) {
   group.add(buildStoneHorreo(unit, mat, tally, {
     centerX: -5.2, centerZ: 10.7, length: 8.8, pillarXOffsets: [-3.6, -1.2, 1.2, 3.6],
   }));
-  group.add(buildStoneHorreo(unit, mat, tally, {
-    centerX: 4.7, centerZ: 11.5, length: 7.6, pillarXOffsets: [-2.9, 0, 2.9],
-  }));
+
+  group.add(buildLighthouse(unit, mat, tally, { x: 15.4, z: 8.6 }));
 
   group.add(buildGaliciaRocks(unit, mat, tally));
 
@@ -1518,10 +1597,14 @@ function amsterdamWindmill(unit, mat, { x, z, baseY }) {
     rotationY: Math.PI / 8,
   }], 'cone', tally);
 
-  // Faces the canal / -Z. All blade coordinates below are HUB-LOCAL.
-  // The rotor stays at its authored rest rotation of 0 deg for the entire
-  // journey (binding spec section 2.4): there is no idle or scroll-driven
-  // rotation, deliberately.
+  // Faces the canal / -Z. All blade coordinates below are HUB-LOCAL. The
+  // rotor's baked rest rotation is 0 deg, matching the poster/no-JS
+  // baseline (u = 0) exactly. main.js's applyJourneyState() turns this
+  // group about its own +Z axis as a pure function of the journey
+  // coordinate u -- owner request: "the windmill moving" -- so it is
+  // visibly spinning while the reader advances through Amsterdam and
+  // exactly as still as everything else when they stop; there is still no
+  // idle loop or elapsed-time driver of any kind.
   const sails = new Group();
   sails.name = 'windmill-sails';
   sails.position.set(x, baseY + 3.15, z - 0.94);
