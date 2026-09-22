@@ -301,76 +301,134 @@ test('idle: no recurring animation frame once scrolling and gait cadence settle'
   expect(rafCalls).toBe(0);
 });
 
-test('course passport: save is an explicit choice, the summary/links/reset reflect it, and it is keyboard-operable', async ({ page }) => {
+// The Course Passport was deleted (game-mode spec section 9): replaced
+// entirely by the full-screen journey game below. Its former editorial
+// content (the owner-authored chapter lessons) now renders as ordinary
+// chapter prose -- see "chapter lessons render as ordinary prose" below.
+
+test('chapter lessons render as ordinary prose; no passport markup remains', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(raceURL);
-  await page.waitForTimeout(300);
-
-  const galiciaSave = page.locator('.race-passport-save[data-passport-save="galicia"]');
-  const amsterdamSave = page.locator('.race-passport-save[data-passport-save="amsterdam"]');
-  const count = page.locator('.race-passport-count');
-  const galiciaLink = page.locator('.race-passport-links a[data-passport-link="galicia"]');
-  const resetButton = page.locator('.race-passport-reset');
-  const status = page.locator('.race-status');
-
-  await expect(galiciaSave).toBeVisible();
-  await expect(galiciaSave).toHaveAttribute('aria-pressed', 'false');
-  await expect(count).toHaveText('0 of 4 saved');
-  await expect(galiciaLink).toBeHidden();
-
-  // Merely scrolling past the takeaway must never count as "saving" it --
-  // only the explicit click below does.
-  await page.evaluate(() => document.querySelector('#swim')?.scrollIntoView());
-  await page.waitForTimeout(300);
-  await expect(galiciaSave).toHaveAttribute('aria-pressed', 'false');
-  await expect(count).toHaveText('0 of 4 saved');
-
-  await galiciaSave.click();
-  await expect(galiciaSave).toHaveAttribute('aria-pressed', 'true');
-  await expect(galiciaSave).toHaveText('Saved — select to remove');
-  await expect(count).toHaveText('1 of 4 saved');
-  await expect(galiciaLink).toBeVisible();
-  await expect(galiciaLink).toHaveAttribute('href', '#swim');
-  await expect(status).toHaveText(/Galicia takeaway saved\. 1 of 4 saved\./);
-  // The click neither moves focus away from the control it acted on...
-  await expect(galiciaSave).toBeFocused();
-
-  // ...and a second, independent takeaway saves alongside the first (this is
-  // a collection, not a single-slot toggle).
-  await amsterdamSave.focus();
-  await page.keyboard.press('Enter');
-  await expect(amsterdamSave).toHaveAttribute('aria-pressed', 'true');
-  await expect(count).toHaveText('2 of 4 saved');
-
-  // Session persistence: state survives navigating away and back.
-  await goToChapter(page, 'run');
-  await goToChapter(page, 'swim');
-  await expect(galiciaSave).toHaveAttribute('aria-pressed', 'true');
-  await expect(count).toHaveText('2 of 4 saved');
-
-  // Un-saving is the same explicit toggle, in reverse.
-  await galiciaSave.click();
-  await expect(galiciaSave).toHaveAttribute('aria-pressed', 'false');
-  await expect(galiciaSave).toHaveText('Save this takeaway');
-  await expect(count).toHaveText('1 of 4 saved');
-  await expect(galiciaLink).toBeHidden();
-  await expect(status).toHaveText(/Galicia takeaway removed\. 1 of 4 saved\./);
-
-  await resetButton.click();
-  await expect(amsterdamSave).toHaveAttribute('aria-pressed', 'false');
-  await expect(count).toHaveText('0 of 4 saved');
-  await expect(page.locator('.race-passport-links a:visible')).toHaveCount(0);
-  await expect(status).toHaveText('All saved takeaways cleared.');
+  await expect(page.locator('.race-lesson')).toHaveCount(3);
+  await expect(page.locator('#swim .race-lesson')).toHaveText('Ownership extends past the code I write.');
+  await expect(page.locator('[class*="race-passport"]')).toHaveCount(0);
 });
 
-test('course passport: notes remain readable without JS; controls stay hidden rather than inert', async ({ browser }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 1440, height: 900 } });
-  const page = await context.newPage();
+test('full-screen game entry: exact accessible name, visible with no scroll at 390x844, zero baseline canvases/world requests', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const worldRequests = [];
+  page.on('request', (req) => { if (req.url().includes('race-world')) worldRequests.push(req.url()); });
   await page.goto(raceURL);
-  await expect(page.locator('.race-passport-takeaway')).toHaveCount(4);
-  await expect(page.locator('.race-passport-save').first()).toBeHidden();
-  await expect(page.locator('.race-passport-summary')).toBeHidden();
-  await context.close();
+  await page.waitForTimeout(400);
+
+  const entry = page.getByRole('button', { name: 'Enter full-screen game mode', exact: true });
+  await expect(entry).toBeVisible();
+  const box = await entry.boundingBox();
+  expect(box).not.toBeNull();
+  expect(box.width).toBeGreaterThan(0);
+  expect(box.height).toBeGreaterThan(0);
+  expect(box.y).toBeGreaterThanOrEqual(0);
+  expect(box.y).toBeLessThan(844);
+
+  // Baseline: reading this page at 390px must never create a canvas or fetch
+  // the world bundle, with or without scrolling.
+  await page.evaluate(() => document.querySelector('#run')?.scrollIntoView());
+  await page.waitForTimeout(300);
+  expect(await page.locator('canvas').count()).toBe(0);
+  expect(worldRequests).toEqual([]);
+});
+
+test('full-screen game: opens as a modal dialog, Escape exits and restores the entry reading position, history nets to zero extra entries', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(raceURL);
+  await page.waitForTimeout(400);
+
+  const entry = page.locator('#race-game-entry');
+  const overlay = page.locator('#race-game');
+  await expect(overlay).toBeHidden();
+
+  const historyLengthBefore = await page.evaluate(() => history.length);
+  await entry.click();
+  await expect(overlay).toBeVisible();
+  await expect(overlay).toHaveAttribute('role', 'dialog');
+  await expect(overlay).toHaveAttribute('aria-modal', 'true');
+  await expect(overlay).toHaveAccessibleName('Journey game');
+  await expect(page.locator('.race-game__exit')).toBeFocused();
+  await expect(page.locator('.race-game__exit')).toHaveAccessibleName('Exit game mode');
+
+  // Background navigation must not remain keyboard-reachable behind the dialog.
+  await expect(page.locator('.race-nav')).toHaveAttribute('inert', '');
+
+  await page.keyboard.press('Escape');
+  await expect(overlay).toBeHidden();
+  await expect(entry).toBeFocused();
+  const historyLengthAfter = await page.evaluate(() => history.length);
+  expect(historyLengthAfter).toBe(historyLengthBefore + 1); // one entry pushed, one consumed by Escape's Back
+
+  // 10 entry/exit cycles must not accumulate history entries or DOM nodes.
+  const nodesBefore = await page.locator('#race-game *').count();
+  for (let i = 0; i < 10; i++) {
+    await entry.click();
+    await expect(overlay).toBeVisible();
+    await page.locator('.race-game__exit').click();
+    await expect(overlay).toBeHidden();
+  }
+  const historyLengthFinal = await page.evaluate(() => history.length);
+  expect(historyLengthFinal).toBe(historyLengthBefore + 1);
+  const nodesAfter = await page.locator('#race-game *').count();
+  expect(nodesAfter).toBe(nodesBefore);
+});
+
+test('full-screen game: Lite is a complete journey with reduced motion (zero WebGL contexts) and Read this chapter exits to the article', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const worldRequests = [];
+  page.on('request', (req) => { if (req.url().includes('race-world')) worldRequests.push(req.url()); });
+  await page.goto(raceURL);
+  await page.waitForTimeout(400);
+
+  await page.locator('#race-game-entry').click();
+  await expect(page.locator('#race-game')).toBeVisible();
+  expect(await page.locator('canvas').count()).toBe(0);
+  expect(worldRequests).toEqual([]);
+
+  // Previous/Next traverse all seven chapters.
+  const next = page.locator('.race-game__next');
+  for (let i = 0; i < 6; i++) await next.click();
+  await expect(page.locator('.race-game__chapter')).toContainText('7');
+
+  await page.locator('.race-game__read').click();
+  await expect(page.locator('#race-game')).toBeHidden();
+  await expect(page).toHaveURL(/#finish$/);
+});
+
+test('full-screen game: 3D loads at 1440px when WebGL is available, full-viewport with no letterbox, and stays within the DOM element cap', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(raceURL);
+  const hasWebGL = await page.evaluate(() => {
+    try {
+      const canvas = document.createElement('canvas');
+      return !!(canvas.getContext('webgl2') || canvas.getContext('webgl'));
+    } catch (e) {
+      return false;
+    }
+  });
+  test.skip(!hasWebGL, 'headless browser has no WebGL support in this environment');
+
+  const nodesBefore = await page.locator('*').count();
+  await page.locator('#race-game-entry').click();
+  await expect(page.locator('#race-game')).toBeVisible();
+  await page.waitForTimeout(1500);
+  expect(await page.locator('canvas').count()).toBe(1);
+  const canvasBox = await page.locator('.race-game__scene canvas').boundingBox();
+  const overlayBox = await page.locator('#race-game').boundingBox();
+  expect(Math.abs(canvasBox.width - overlayBox.width)).toBeLessThanOrEqual(1);
+  expect(Math.abs(canvasBox.height - overlayBox.height)).toBeLessThanOrEqual(1);
+
+  await page.locator('.race-game__exit').click();
+  await expect(page.locator('#race-game')).toBeHidden();
+  const nodesAfter = await page.locator('*').count();
+  expect(nodesAfter - nodesBefore).toBeLessThanOrEqual(92);
 });
 
 test('atlas route wake: dash motion is a pure function of scroll position, not elapsed time', async ({ page }) => {

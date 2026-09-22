@@ -180,63 +180,22 @@ export function splitFor(chipIndex, chapterIndex, localProgress) {
   return { state: 'current', text: `${pct}%` };
 }
 
-/* Course passport (item 3): a small collection mechanic keyed on the four
-   stable destination IDs, not inferred "time spent reading". Saving
-   requires the explicit toggle below -- nothing here derives a saved state
-   from scroll position. */
-export const PASSPORT_IDS = ['madrid', 'galicia', 'amsterdam', 'copenhagen'];
+/* Full-screen journey game (spec section 6.1): the game owns its own
+   7,000 CSS px scroll surface, split into 7 equal 1,000px chapter spans --
+   8 boundaries, [0, 1000, ..., 7000]. A pure constant, not measured layout:
+   deriveCourseState() above already accepts arbitrary boundaries/scrollY, so
+   the same function serves both the document scroll and this fixed surface. */
+export const GAME_SCROLL_MAX = 7000;
+export const GAME_CHAPTER_SPAN = 1000;
 
-export function toggleSavedTakeaway(saved, id) {
-  const next = { ...saved };
-  next[id] = !next[id];
-  return next;
+export function gameBoundaries() {
+  const boundaries = [];
+  for (let i = 0; i <= 7; i += 1) boundaries.push(i * GAME_CHAPTER_SPAN);
+  return boundaries;
 }
 
-export function derivePassportSummary(saved) {
-  const savedIds = PASSPORT_IDS.filter((id) => saved && saved[id] === true);
-  return { count: savedIds.length, total: PASSPORT_IDS.length, savedIds };
-}
-
-/* The lead ("starting point") is optional and must always belong to the
-   saved subset (gamify spec section 3.4): saving never nominates a lead,
-   and removing the lead takeaway clears it. A lead is never preferred by
-   default. */
-export function resolveLead(saved, lead) {
-  return lead && saved && saved[lead] === true ? lead : null;
-}
-
-export const PASSPORT_STORAGE_VERSION = 1;
-
-/* One versioned local-storage record, <=256 UTF-8 bytes (gamify spec
-   section 7 storage-unavailable rules). Pure serialization only -- index.js
-   owns the actual localStorage read/write and its try/catch. */
-export function serializePassportRecord(saved, lead) {
-  const summary = derivePassportSummary(saved);
-  return JSON.stringify({
-    v: PASSPORT_STORAGE_VERSION,
-    saved: summary.savedIds,
-    lead: resolveLead(saved, lead),
-  });
-}
-
-/* Validates a stored record: saved destinations must belong to the four
-   permitted IDs, the lead must be absent or within the saved subset, and the
-   version must be supported. Invalid or unreadable input is ignored --
-   never used to infer a guessed selection. */
-export function parsePassportRecord(raw) {
-  const empty = { saved: Object.create(null), lead: null };
-  if (typeof raw !== 'string' || !raw) return empty;
-  let record;
-  try {
-    record = JSON.parse(raw);
-  } catch (e) {
-    return empty;
-  }
-  if (!record || record.v !== PASSPORT_STORAGE_VERSION || !Array.isArray(record.saved)) return empty;
-  const saved = Object.create(null);
-  record.saved.forEach((id) => {
-    if (PASSPORT_IDS.includes(id)) saved[id] = true;
-  });
-  const lead = typeof record.lead === 'string' ? resolveLead(saved, record.lead) : null;
-  return { saved, lead };
+/* Chapter index i (0-based) and local progress q map onto the game surface
+   as s = 1000(i+q), clamped to [0, 7000] (spec 6.2). */
+export function gameScrollForChapter(chapterIndex, localProgress) {
+  return clamp(GAME_CHAPTER_SPAN * (chapterIndex + clamp01(localProgress)), 0, GAME_SCROLL_MAX);
 }

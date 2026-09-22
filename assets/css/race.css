@@ -174,6 +174,16 @@ html { scroll-behavior: auto; }
 .race-nav-split--passed { color: inherit; }
 
 .race-athlete-wrap { position: fixed; top: 0; left: 0; z-index: 16; width: 40px; height: 40px; pointer-events: none; will-change: transform; }
+/* Forces the rig to fill a fixed-size parent slot, at any viewport width:
+   the mobile progress dock's marker (below 64rem) and the full-screen game's
+   scene slot (game-mode spec 5.2) both reparent the same athlete node here. */
+.race-athlete-wrap--docked {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 44px !important;
+  height: 44px !important;
+  transform: none !important;
+}
 .race-athlete { display: block; width: 100%; height: 100%; overflow: visible; }
 .race-athlete__backplate { fill: var(--race-athlete-ground, var(--race-ground)); }
 .race-athlete__glyph { fill: none; stroke: var(--race-athlete-ink, var(--race-ink)); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
@@ -354,16 +364,9 @@ html { scroll-behavior: auto; }
     color: var(--race-ink);
     overflow-wrap: break-word;
   }
-  .race-athlete-wrap--docked {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 44px !important;
-    height: 44px !important;
-    transform: none !important;
-  }
   .race-nav--docked {
     position: fixed;
-    inset: auto 12px calc(env(safe-area-inset-bottom, 0px) + 8px) 12px;
+    inset: auto 12px calc(env(safe-area-inset-bottom, 0px) + 8px) 164px;
     width: auto;
     max-width: none;
     transform: none;
@@ -380,135 +383,218 @@ html { scroll-behavior: auto; }
 }
 
 @media print {
-  .race-mobile-dock, .race-game-controls { display: none !important; }
+  .race-mobile-dock, .race-game-controls, .race-game-entry { display: none !important; }
 }
 
-/* Course passport (item 3): a collection mechanic, not a score. Static
-   saved/selected state only -- no transitions, no animation. Completion is
-   expressed in the button's own text (writePassportButton() swaps it), not
-   color alone; the border/color change below is a secondary reinforcement. */
-.race-passport-item { margin-top: 1.5rem; }
-.race-passport-takeaway { font-size: 1rem; color: var(--race-muted); }
-/* display:none by default, only shown via the race--enhanced compound below
-   (same JS-gated pattern as .race-readout): PurgeCSS strips the bare
-   [hidden] attribute selector in production (hugo_stats has tags/classes/ids
-   only), so an unconditional `display` here would leave the [hidden] button
-   visible in the no-JS baseline once that safety-net rule is gone. */
-.race-passport-save {
+/* Full-screen journey game entry control (game-mode spec 3.1). Server-
+   rendered hidden; assets/js/race/game.js reveals it once the DOM-only game
+   shell and its handlers are ready -- same JS-gated display pattern as the
+   rest of this file (PurgeCSS strips the bare [hidden] selector in
+   production, so an unconditional `display` here would leave it visible with
+   JS disabled). A normal chrome flex item at >=64rem; fixed-positioned at the
+   exact mobile geometry the spec specifies below 64rem. */
+.race-game-entry {
   display: none;
   align-items: center;
   justify-content: center;
+  text-align: center;
   min-height: 44px;
-  min-width: 44px;
-  margin-top: .7rem;
   padding: .5rem .9rem;
   background: none;
   color: inherit;
   border: 1px solid currentColor;
-  font: 600 .68rem var(--race-mono);
-  letter-spacing: .04em;
+  font: 600 .62rem/1.3 var(--race-mono);
+  letter-spacing: .03em;
   text-transform: uppercase;
   cursor: pointer;
 }
-.race--enhanced .race-passport-save:not([hidden]) { display: inline-flex; }
-.race-passport-save[aria-pressed="true"] { border-color: var(--race-red); color: var(--race-red); }
-.race-passport-save:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.race--enhanced .race-game-entry:not([hidden]) { display: inline-flex; }
+.race-game-entry:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 
-/* Same JS-gated display pattern as .race-passport-save above. */
-.race-passport-summary { display: none; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid #a0a5a4; }
-.race--enhanced .race-passport-summary:not([hidden]) { display: block; }
-.race-passport-count { font: .8rem var(--race-mono); }
-.race-passport-links { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; padding: 0; margin: 1rem 0 0; }
-.race-passport-links a { display: inline-flex; align-items: center; min-height: 44px; font: .8rem var(--race-mono); }
-.race-passport-reset {
-  display: inline-flex;
+@media screen and (width < 64rem) {
+  /* Width check (spec 3.1): 12 + 130 (existing .race-exit) + 12 + 224 + 12 = 390px. */
+  .race--enhanced .race-game-entry:not([hidden]) {
+    position: fixed;
+    z-index: 15;
+    inset: calc(env(safe-area-inset-top, 0px) + 8px) 12px auto auto;
+    width: 224px;
+    height: 48px;
+    margin: 0;
+    padding: 0 .7rem;
+    background: #1d2023;
+    border: 1px solid #42464a;
+  }
+  /* Omit the edition text on phones (spec 3.1) so it never collides with the
+     fixed entry button occupying the same top-right corner. */
+  .race-edition { display: none; }
+}
+
+/* ---- Full-screen journey game overlay (game-mode spec) -------------------
+   Material roles are restricted to the four permitted values throughout
+   (spec 5.1/11): ground #242729, main #b8bfc3, secondary #62676a,
+   tertiary #ff331f. Same JS-gated display pattern as the rest of this file:
+   .race-game itself, and any sub-control server-rendered [hidden], only
+   becomes visible once `.race--enhanced` is present AND [hidden] is removed. */
+/* Set on <html> while the game is open (spec 10.1): locks the reading
+   document's own scroll without changing its measured position -- belt to
+   the overlay's own full-viewport coverage/pointer capture (suspenders). */
+html.race--gaming { overflow: hidden; }
+
+.race-game {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: #242729;
+  color: #b8bfc3;
+  --race-game-ground: #242729;
+  --race-game-main: #b8bfc3;
+  --race-game-secondary: #62676a;
+  --race-game-tertiary: #ff331f;
+}
+.race--enhanced .race-game:not([hidden]) { display: block; }
+.race-game:fullscreen { width: 100%; height: 100%; }
+
+/* Scroll surface + spacer (spec 6.1/10.1): a real, measurable, scrollable
+   element -- never display:none/hidden -- but visually clipped away and
+   never the pointer target (drag/wheel/keys are handled on .race-game__scene
+   and write scrollTop programmatically). */
+.race-game__scroll { position: absolute; inset: 0; overflow: hidden; opacity: 0; pointer-events: none; }
+.race-game__spacer { width: 1px; }
+
+.race-game__scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  touch-action: none;
+  background: var(--race-game-ground);
+}
+.race-game__scene canvas { display: block; width: 100%; height: 100%; }
+.race-game__map { position: absolute; inset: 0; }
+.race-game__map-svg { display: block; width: 100%; height: 100%; }
+.race-game__map-water { fill: var(--race-game-ground); }
+.race-game__map-land, .race-game__map-bank { fill: var(--race-game-secondary); }
+.race-game__map-bridge { fill: var(--race-game-main); }
+.race-game__map-berth { fill: var(--race-game-tertiary); }
+.race-game__map-route { fill: none; stroke: var(--race-game-main); stroke-width: .3; vector-effect: non-scaling-stroke; }
+.race-game__map-vessel { pointer-events: none; }
+.race-game__map-vessel-glyph { fill: var(--race-game-tertiary); }
+
+/* Athlete rig's fixed 44x44 scene slot (spec 5.2), clear of the header. */
+.race-game__rig {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 8px + 48px + 16px);
+  left: 12px;
+  width: 44px;
+  height: 44px;
+  z-index: 2;
+}
+
+.race-game__header {
+  position: absolute;
+  z-index: 3;
+  inset: calc(env(safe-area-inset-top, 0px) + 8px) calc(env(safe-area-inset-right, 0px) + 12px) auto calc(env(safe-area-inset-left, 0px) + 12px);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.race-game__title {
+  flex: 1 1 136px;
+  min-width: 0;
+  margin: 0;
+  font: 600 .68rem/1.3 var(--race-mono);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--race-game-main);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.race-game__lite, .race-game__exit {
+  flex: 0 0 auto;
+  display: none;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
-  margin-top: 1rem;
-  padding: .5rem .9rem;
-  background: none;
-  color: inherit;
-  border: 1px solid currentColor;
-  font: 600 .68rem var(--race-mono);
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.race-passport-reset:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
-
-/* First-viewport passport entry card (gamify spec section 4.1): an opaque
-   panel, not a muted telemetry line -- unconditional display, since it is
-   plain server-rendered markup that already works without JavaScript. */
-.race-passport-hero {
-  margin-top: 1.5rem;
-  max-width: 26rem;
-  padding: 1rem;
+  height: 44px;
+  padding: 0 .7rem;
   background: #1d2023;
-  border: 1px solid #42464a;
-}
-.race-passport-hero__heading { font-size: 1.125rem; font-weight: 600; margin: 0 0 .4rem; }
-.race-passport-hero__body { font-size: 1rem; color: var(--race-muted); margin: 0 0 .7rem; }
-.race-passport-hero__link { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; font: 600 .85rem var(--race-mono); color: var(--race-red); text-decoration: none; }
-.race-passport-hero__link:hover { text-decoration: underline; }
-
-/* Persistent passport indicator (gamify spec section 4.3): lives in the
-   fixed chrome bar, so it is reachable at every scroll position. Same
-   JS-gated display pattern as .race-passport-save (PurgeCSS strips the bare
-   [hidden] selector in production). Hidden below 48rem: the chrome bar's
-   exit link and edition label already run close to the viewport edge at
-   narrower widths, and the passport stays reachable there via the mobile
-   dock's caption/percentage and the hero entry card. */
-.race-passport-indicator {
-  display: none;
-  align-items: center;
-  min-height: 44px;
-  padding: 0 .6rem;
-  font: .62rem var(--race-mono);
-  letter-spacing: .04em;
+  color: var(--race-game-main);
+  border: 1px solid var(--race-game-secondary);
+  font: 600 .64rem var(--race-mono);
+  letter-spacing: .03em;
   text-transform: uppercase;
-  color: #e2e4e6;
-  text-decoration: none;
+  cursor: pointer;
 }
-@media (min-width: 48rem) {
-  .race--enhanced .race-passport-indicator:not([hidden]) { display: inline-flex; }
+.race-game__lite:not([hidden]) { display: inline-flex; min-width: 114px; }
+.race-game__exit { display: inline-flex; min-width: 100px; }
+.race-game__lite:focus-visible, .race-game__exit:focus-visible { outline: 2px solid var(--race-game-tertiary); outline-offset: 2px; }
+
+.race-game__panel {
+  position: absolute;
+  z-index: 3;
+  inset: auto calc(env(safe-area-inset-right, 0px) + 12px) calc(env(safe-area-inset-bottom, 0px) + 8px) calc(env(safe-area-inset-left, 0px) + 12px);
+  padding: 12px;
+  background: #1d2023;
+  border: 1px solid var(--race-game-secondary);
+  overflow-y: auto;
+  max-height: calc(100% - 200px);
 }
-.race-passport-indicator:hover { text-decoration: underline; }
-.race-passport-indicator:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.race-game__chapter {
+  margin: 0;
+  font: 600 .72rem var(--race-mono);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--race-game-tertiary);
+}
+.race-game__caption { margin: 4px 0 0; font-size: .95rem; line-height: 1.35; color: var(--race-game-main); }
+.race-game__help.race-game__status { margin: 4px 0 0; font: .72rem/1.4 var(--race-mono); color: var(--race-game-secondary); }
+.race-game__progress { display: block; width: 100%; margin: 8px 0 0; height: 44px; accent-color: var(--race-game-tertiary); }
+.race-game__progress:focus-visible { outline: 2px solid var(--race-game-tertiary); outline-offset: 2px; }
 
-.race-passport-summary__heading { font-size: 1.05rem; margin: 0 0 .75rem; }
-
-/* Lead ("starting point") selector (gamify spec section 3.4). Same JS-gated
-   display pattern as .race-passport-save above. */
-.race-passport-lead { display: none; margin-top: 1.25rem; }
-.race--enhanced .race-passport-lead:not([hidden]) { display: block; }
-.race-passport-lead label { display: block; font: .68rem var(--race-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--race-muted); margin-bottom: .4rem; }
-.race-passport-lead-select { min-height: 44px; min-width: 44px; padding: .4rem .6rem; background: #151719; color: inherit; border: 1px solid currentColor; font: .8rem var(--race-mono); }
-.race-passport-lead-select:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
-
-.race-passport-storage { margin-top: 1rem; font-size: .78rem; color: var(--race-muted); }
-
-/* Finish brief (gamify spec section 3.5): "What you're carrying forward".
-   Same JS-gated display pattern as .race-passport-summary above. */
-.race-passport-brief { display: none; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid #a0a5a4; }
-.race--enhanced .race-passport-brief:not([hidden]) { display: block; }
-.race-passport-brief__heading { font-size: 1.05rem; margin: 0 0 .75rem; }
-.race-passport-brief-count, .race-passport-brief-lead { font: .8rem var(--race-mono); margin: 0 0 .3rem; }
-.race-passport-brief-links { list-style: none; display: flex; flex-direction: column; gap: .3rem; padding: 0; margin: 1rem 0 0; }
-.race-passport-brief-links li { display: flex; align-items: center; gap: .6rem; min-height: 44px; font: .8rem var(--race-mono); }
-.race-passport-brief-status { color: var(--race-muted); }
-.race-passport-discuss {
+.race-game__actions { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; }
+.race-game__previous, .race-game__next {
+  flex: 0 0 88px;
+  min-height: 44px;
+  padding: 0 .5rem;
+  background: none;
+  color: var(--race-game-main);
+  border: 1px solid var(--race-game-secondary);
+  font: 600 .66rem var(--race-mono);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.race-game__previous:disabled, .race-game__next:disabled { opacity: .4; cursor: default; }
+.race-game__read {
+  flex: 1 1 150px;
   display: inline-flex;
   align-items: center;
-  gap: .4rem;
+  justify-content: center;
   min-height: 44px;
-  margin-top: 1rem;
-  padding: .5rem .9rem;
-  background: var(--race-red);
+  padding: 0 .5rem;
+  background: var(--race-game-tertiary);
   color: #151719;
-  font: 600 .78rem var(--race-mono);
-  letter-spacing: .04em;
+  font: 600 .66rem var(--race-mono);
+  letter-spacing: .03em;
+  text-transform: uppercase;
   text-decoration: none;
+  text-align: center;
 }
-.race-passport-discuss:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
-.race-passport-discuss-explanation { margin-top: .6rem; font-size: .78rem; color: var(--race-muted); }
+.race-game__previous:focus-visible, .race-game__next:focus-visible, .race-game__read:focus-visible { outline: 2px solid var(--race-game-tertiary); outline-offset: 2px; }
+
+.race-game__disclaimer { margin: 8px 0 0; font: .66rem/1.4 var(--race-mono); color: var(--race-game-secondary); }
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .race-game__lite { display: none !important; }
+}
+
+/* Landscape (spec 5.3): briefing panel moves to the right, header stays
+   pinned across the top. */
+@media screen and (width < 64rem) and (orientation: landscape) {
+  .race-game__panel { inset: calc(env(safe-area-inset-top, 0px) + 64px) calc(env(safe-area-inset-right, 0px) + 12px) calc(env(safe-area-inset-bottom, 0px) + 12px) auto; width: min(320px, 42vw); max-height: none; }
+}
+
+@media print {
+  .race-game { display: none !important; }
+}

@@ -145,22 +145,13 @@
   translation: "Selecciona el modelo para girarlo. Desplázate para explorar."
 - id: race_atlas_description
   translation: "Un mapa de juguete inclinado del recorrido: de Madrid a Galicia, cruzando el Atlántico hasta Ámsterdam y luego Copenhague."
-- id: race_passport_heading
-  translation: "Pasaporte del recorrido"
-- id: race_passport_save
-  translation: "Guardar este apunte"
-- id: race_passport_saved
-  translation: "Guardado — selecciona para quitarlo"
-- id: race_passport_reset
-  translation: "Borrar apuntes guardados"
-- id: race_passport_count_template
-  translation: "{count} de 4 guardados"
-- id: race_passport_announce_saved
-  translation: "Apunte de {label} guardado. {count}."
-- id: race_passport_announce_removed
-  translation: "Apunte de {label} eliminado. {count}."
-- id: race_passport_announce_reset
-  translation: "Se han borrado todos los apuntes guardados."
+## Juego de trayecto a pantalla completa (sustituye al Pasaporte del recorrido)
+- id: race_game_entry
+  translation: "Entrar en el modo juego a pantalla completa"
+- id: race_game_exit
+  translation: "Salir del modo juego"
+- id: race_game_exit_visible
+  translation: "Salir del juego"
 
 
 - id: "newsletter_placeholder"

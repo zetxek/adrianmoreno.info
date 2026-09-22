@@ -37,20 +37,26 @@ function fixedZoneMatrices() {
   ];
 }
 
-export default async function createWorld({ canvas, width, height, pixelRatio, onContextLost }) {
+export default async function createWorld({ canvas, width, height, pixelRatio, onContextLost, antialias = true }) {
   const renderer = new WebGLRenderer({
-    canvas, alpha: false, antialias: true, powerPreference: 'low-power', preserveDrawingBuffer: false,
+    canvas, alpha: false, antialias, powerPreference: 'low-power', preserveDrawingBuffer: false,
   });
   renderer.outputColorSpace = SRGBColorSpace;
   renderer.shadowMap.enabled = false;
 
-  /* Render viewport aspect 4:3, contained within the allocated world region
-     (spec 3.6); any unused surrounding area is left as the canvas's own
-     clear colour, which is the ground role. */
-  function sizeRenderer(nextWidth, nextHeight, nextPixelRatio) {
+  /* Reading presentation: render viewport aspect 4:3, contained within the
+     allocated world region (spec 3.6); any unused surrounding area is left
+     as the canvas's own clear colour, which is the ground role.
+     Game-mode presentation (game-mode spec 4.4): the canvas fills the
+     entire overlay, no contain, no letterbox/pillarbox. */
+  function sizeRenderer(nextWidth, nextHeight, nextPixelRatio, gameMode) {
     renderer.setPixelRatio(nextPixelRatio);
     const safeWidth = Math.max(1, nextWidth);
     const safeHeight = Math.max(1, nextHeight);
+    if (gameMode) {
+      renderer.setSize(Math.max(1, Math.round(safeWidth)), Math.max(1, Math.round(safeHeight)), false);
+      return;
+    }
     const aspect = 4 / 3;
     let renderWidth = safeWidth;
     let renderHeight = safeWidth / aspect;
@@ -60,14 +66,48 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
     }
     renderer.setSize(Math.max(1, Math.round(renderWidth)), Math.max(1, Math.round(renderHeight)), false);
   }
-  sizeRenderer(width, height, pixelRatio);
+  sizeRenderer(width, height, pixelRatio, false);
 
   // Orthographic vertical span 24, horizontal span 32, zoom 1, near/far
-  // 0.1/220 (spec 3.6). Zoom and frustum never change with scroll or chapter.
-  const camera = new OrthographicCamera(-16, 16, 12, -12, 0.1, 220);
+  // 0.1/220 (spec 3.6). Zoom and frustum never change with scroll or chapter
+  // in the reading presentation.
+  const READING_FRUSTUM = { left: -16, right: 16, top: 12, bottom: -12 };
+  const camera = new OrthographicCamera(READING_FRUSTUM.left, READING_FRUSTUM.right, READING_FRUSTUM.top, READING_FRUSTUM.bottom, 0.1, 220);
   camera.up.set(0, 1, 0);
   camera.zoom = 1;
   camera.updateProjectionMatrix();
+
+  /* Game-mode projection (game-mode spec 4.4): the shorter viewport axis
+     spans 24 world units, the longer axis scales with aspect ratio; an
+     off-axis (asymmetric) frustum keeps the vessel pivot centred in the
+     unobstructed scene area (the overlay minus the HUD header/panel), never
+     the raw viewport centre. Projection depends only on current scroll and
+     viewport geometry -- never on elapsed time. */
+  function setProjection(gameMode, nextWidth, nextHeight, insets) {
+    if (!gameMode) {
+      camera.left = READING_FRUSTUM.left;
+      camera.right = READING_FRUSTUM.right;
+      camera.top = READING_FRUSTUM.top;
+      camera.bottom = READING_FRUSTUM.bottom;
+      camera.updateProjectionMatrix();
+      return;
+    }
+    const w = Math.max(1, nextWidth);
+    const h = Math.max(1, nextHeight);
+    let horizontal;
+    let vertical;
+    if (w <= h) { horizontal = 24; vertical = (24 * h) / w; } else { vertical = 24; horizontal = (24 * w) / h; }
+    const topInset = (insets && insets.top) || 0;
+    const bottomInset = (insets && insets.bottom) || 0;
+    // Shift the frustum, in world units, by the same fraction the HUD shifts
+    // the unobstructed area's centre away from the raw viewport centre.
+    const shift = ((topInset - bottomInset) / h) * vertical;
+    camera.left = -horizontal / 2;
+    camera.right = horizontal / 2;
+    camera.top = vertical / 2 + shift / 2;
+    camera.bottom = -vertical / 2 + shift / 2;
+    camera.updateProjectionMatrix();
+  }
 
   const scene = new Scene();
   // One constant light rig (spec 3.8): hemisphere 1.15, directional 0.75 at
@@ -163,9 +203,11 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
     renderer.render(scene, camera);
   }
 
-  function resize(nextWidth, nextHeight, nextPixelRatio) {
+  function resize(nextWidth, nextHeight, nextPixelRatio, gameOpts) {
     if (disposed) return;
-    sizeRenderer(nextWidth, nextHeight, nextPixelRatio);
+    const gameMode = Boolean(gameOpts && gameOpts.game);
+    sizeRenderer(nextWidth, nextHeight, nextPixelRatio, gameMode);
+    setProjection(gameMode, nextWidth, nextHeight, gameOpts && gameOpts.insets);
   }
 
   function dispose() {
@@ -181,5 +223,5 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
     renderer.dispose();
   }
 
-  return { update, render, resize, dispose };
+  return { update, render, resize, dispose, canvas };
 }
