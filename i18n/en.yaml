@@ -174,86 +174,61 @@
   translation: "SCROLL"
 - id: race_complete
   translation: "Course complete"
-- id: race_passport_heading
-  translation: "Course passport"
-- id: race_passport_save
-  translation: "Save this takeaway"
-- id: race_passport_saved
-  translation: "Saved — select to remove"
-- id: race_passport_reset
-  translation: "Reset saved takeaways"
-- id: race_passport_count_template
-  translation: "{count} of 4 saved"
-- id: race_passport_count_nojs
-  translation: "Four takeaways"
-- id: race_passport_announce_saved
-  translation: "{label} takeaway saved. {count}."
-- id: race_passport_announce_removed
-  translation: "{label} takeaway removed. {count}."
-- id: race_passport_announce_reset
-  translation: "All saved takeaways cleared."
-- id: race_passport_announce_lead
-  translation: "Starting point: {label}."
-- id: race_passport_announce_lead_cleared
-  translation: "Starting point cleared."
-- id: race_passport_hero_heading
-  translation: "Course passport"
-- id: race_passport_hero_body
-  translation: "Save the ideas you want to carry forward. Build a brief for our next conversation."
-- id: race_passport_hero_link
-  translation: "Review your Course passport"
-- id: race_passport_indicator_template
-  translation: "Course passport · {count} of 4 saved"
-- id: race_passport_indicator_accessible_template
-  translation: "Course passport, {count} of 4 takeaways saved. Review passport."
-- id: race_passport_journey_group_label
-  translation: "Journey and Course passport"
-- id: race_passport_chapter_template
-  translation: "Chapter {chapter} of 7 · {percent}%"
-- id: race_passport_status_label
-  translation: "Start our conversation with"
-- id: race_passport_lead_none
-  translation: "No preferred starting point"
-- id: race_passport_row_saved
-  translation: "Saved"
-- id: race_passport_row_not_saved
-  translation: "Not saved"
-- id: race_passport_row_available
-  translation: "Available"
-- id: race_passport_next_unsaved_template
-  translation: "Read the {label} takeaway"
-- id: race_passport_review_brief
-  translation: "Review your conversation brief"
-- id: race_passport_storage_explanation
-  translation: "Your saved takeaways are kept on this device only, so this brief is ready the next time you visit."
-- id: race_passport_storage_session_only
-  translation: "Saved for this visit only — your browser isn’t keeping this between visits."
-- id: race_passport_galicia_status_saved
-  translation: "Galicia takeaway: saved."
-- id: race_passport_galicia_status_not_saved
-  translation: "Galicia takeaway: not saved."
-- id: race_passport_galicia_status_nojs
-  translation: "Galicia takeaway available in your Course passport."
-- id: race_passport_amsterdam_status_saved
-  translation: "Amsterdam takeaway: saved."
-- id: race_passport_amsterdam_status_not_saved
-  translation: "Amsterdam takeaway: not saved."
-- id: race_passport_amsterdam_status_nojs
-  translation: "Amsterdam takeaway available in your Course passport."
-- id: race_passport_brief_heading
-  translation: "What you’re carrying forward"
-- id: race_passport_brief_count_template
-  translation: "{count} of 4 takeaways selected"
-- id: race_passport_brief_lead_template
-  translation: "Starting point: {label}"
-- id: race_passport_brief_lead_none
-  translation: "Starting point: not chosen"
-- id: race_passport_discuss_start
-  translation: "Start a conversation"
-- id: race_passport_discuss_selected
-  translation: "Discuss saved takeaways"
-- id: race_passport_discuss_explanation
-  translation: "Opens an email draft in your own mail app. It does not send anything."
-- id: race_passport_discuss_subject
-  translation: "A conversation about your engineering journey"
+## Full-screen journey game (replaces the deleted Course Passport)
+- id: race_game_entry
+  translation: "Enter full-screen game mode"
+- id: race_game_entry_description
+  translation: "Optional interactive journey. May download up to 240 KiB of 3D assets. Exit at any time."
+- id: race_game_dialog_label
+  translation: "Journey game"
+- id: race_game_exit
+  translation: "Exit game mode"
+- id: race_game_exit_visible
+  translation: "Exit game"
+- id: race_game_title_template
+  translation: "Journey game · {mode}"
+- id: race_game_mode_3d
+  translation: "3D"
+- id: race_game_mode_lite
+  translation: "Lite"
+- id: race_game_switch_use_lite
+  translation: "Use Lite mode"
+- id: race_game_switch_try_3d
+  translation: "Try 3D"
+- id: race_game_chapter_template
+  translation: "Chapter {number} of 7 · {name}"
+- id: race_game_help
+  translation: "Drag up to travel; down to retrace."
+- id: race_game_landmark_show
+  translation: "Reveal field note"
+- id: race_game_landmark_hide
+  translation: "Hide field note"
+- id: race_game_status_unavailable
+  translation: "3D unavailable. Continue in Lite mode."
+- id: race_game_status_lost
+  translation: "3D lost the rendering context. Continue in Lite mode."
+- id: race_game_progress
+  translation: "Journey progress"
+- id: race_game_progress_value_template
+  translation: "{chapter}, {percent}% of the illustrative route"
+- id: race_game_previous
+  translation: "Previous"
+- id: race_game_previous_accessible
+  translation: "Previous chapter"
+- id: race_game_next
+  translation: "Next"
+- id: race_game_next_accessible
+  translation: "Next chapter"
+- id: race_game_berth
+  translation: "Berth"
+- id: race_game_berth_accessible
+  translation: "Berth in Copenhagen"
+- id: race_game_read
+  translation: "Read this chapter"
+- id: race_game_disclaimer
+  translation: "Illustrative route — not a literal account of travel."
+- id: race_game_announce_entry
+  translation: "Journey game open. Drag the scene, use the arrow keys, or the progress control to travel. Escape or Exit game closes it."
+- id: race_game_announce_chapter_template
+  translation: "{chapter} selected."
 

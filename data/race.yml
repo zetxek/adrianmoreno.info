@@ -87,7 +87,7 @@ principles:
 # Continuity spec section 1.2: one short scene caption per chapter, describing
 # the single persistent vessel's progress through the fixed spatial assembly.
 # Reused verbatim as the reduced-motion/mobile fallback text, the mobile dock
-# label, and the persistent "Journey and Course passport" readout.
+# label, and the full-screen journey game's chapter caption row.
 captions:
   start: "One craft. A journey beginning on Galicia’s water."
   swim: "Leaving Galicia, carrying the foundations forward."
@@ -96,22 +96,6 @@ captions:
   t2: "Leaving the canals for Copenhagen’s harbour."
   run: "Copenhagen comes alongside."
   finish: "Alongside in Copenhagen. Ready for the next conversation."
-# Course passport (Item 3): one owner-authored takeaway per destination, reusing
-# the exact sentences already shown elsewhere on the page (hero originNote,
-# chapter lessons) rather than inventing new career claims.
-passport:
-  madrid:
-    label: "Madrid"
-    takeaway: "Born in Madrid. Engineering roots in Galicia."
-  galicia:
-    label: "Galicia"
-    takeaway: "Ownership extends past the code I write."
-  amsterdam:
-    label: "Amsterdam"
-    takeaway: "Management is a discipline alongside engineering, not a promotion out of it."
-  copenhagen:
-    label: "Copenhagen"
-    takeaway: "Direction should help teams make decisions without depending on one person."
 finish:
   title: "The next leg starts with a conversation."
   body: "Engineering leadership, building teams, or comparing notes on marathon training. There is always more to learn."

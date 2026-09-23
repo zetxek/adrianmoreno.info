@@ -34,14 +34,21 @@
   <div class="race-frame" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
   <header class="race-chrome">
     <a class="race-exit" href="{{ .Site.Home.RelPermalink }}"><span aria-hidden="true">↖</span> {{ i18n "race_exit" }}</a>
-    {{/* Persistent passport indicator (gamify spec section 4.3): reachable
-         from every scroll position via the fixed chrome bar, independent of
-         world/viewport/motion eligibility -- assets/js/race/index.js reveals
-         it unconditionally at init, same as the hub/save controls. */}}
-    <a class="race-passport-indicator" href="#course-passport" hidden
-      data-passport-indicator-template="{{ i18n "race_passport_indicator_template" }}"
-      data-passport-indicator-accessible-template="{{ i18n "race_passport_indicator_accessible_template" }}"
-    >{{ i18n "race_passport_heading" }}</a>
+    {{/* Full-screen journey game entry (game-mode spec section 3.1): a native
+         button, not an anchor -- it opens the modal game overlay, never
+         navigates. Server-rendered hidden; assets/js/race/game.js reveals it
+         once the DOM-only game shell and its input/exit handlers are ready,
+         independent of athlete/rail/WebGL initialization succeeding. Below
+         64rem, assets/js/race/index.js reparents this same node into the
+         mobile progress dock (.race-mobile-dock) so it reads as one object
+         with the journey controls the reader is already looking at, instead
+         of floating alone in the chrome bar -- the icon span becomes the
+         only visible content there while the label collapses to sr-only, but
+         the accessible name (the label text) never changes. */}}
+    <button type="button" class="race-game-entry" id="race-game-entry" hidden
+      aria-haspopup="dialog" aria-controls="race-game" aria-describedby="race-game-entry-desc"
+    ><span class="race-game-entry__icon" aria-hidden="true">&#10530;</span><span class="race-game-entry__label">{{ i18n "race_game_entry" }}</span></button>
+    <span id="race-game-entry-desc" class="race-sr">{{ i18n "race_game_entry_description" }}</span>
     <span class="race-edition">{{ $race.hero.eyebrow }} <span aria-hidden="true">/</span> {{ $race.edition }}</span>
   </header>
   <nav class="race-nav" aria-label="{{ i18n "race_chapters" }}">
@@ -55,7 +62,7 @@
     </ol>
   </nav>
   <div class="race-readout" hidden aria-hidden="true"><span class="race-readout__caption" data-race-caption></span><span data-race-progress></span><span data-race-coordinates></span></div>
-  <main id="race-main" data-race data-race-world-src="{{ $raceWorldJS.RelPermalink }}" data-race-world-integrity="{{ $raceWorldJS.Data.Integrity }}" data-race-chapter-template="{{ i18n "race_passport_chapter_template" }}" tabindex="-1">
+  <main id="race-main" data-race data-race-world-src="{{ $raceWorldJS.RelPermalink }}" data-race-world-integrity="{{ $raceWorldJS.Data.Integrity }}" tabindex="-1">
     <div class="race-course" aria-hidden="true">
       <svg viewBox="0 0 120 1000" preserveAspectRatio="none" focusable="false">
         {{/* One continuous path, reused for the illuminated overlay. */}}
@@ -64,19 +71,10 @@
         <use href="#race-path" class="race-progress"/>
       </svg>
     </div>
-    <section class="race-stage race-hero" id="start" aria-labelledby="race-title" data-coordinates="{{ $race.hero.coordinates }}" data-caption="{{ $race.captions.start }}" tabindex="-1">
+    <section class="race-stage race-hero" id="start" aria-labelledby="race-title" data-coordinates="{{ $race.hero.coordinates }}" data-caption="{{ $race.captions.start }}" data-landmark="{{ $race.hero.originNote }}" tabindex="-1">
       <div class="race-scenery race-contours" aria-hidden="true"></div>
       <div class="race-content">
         <p class="race-telemetry">{{ $race.hero.eyebrow }} <span class="race-status-dot" aria-hidden="true"></span></p>
-        {{/* First-viewport passport entry (gamify spec section 4.1): between
-             the eyebrow and the large name, so discovering the feature costs
-             0px of scroll. Server-rendered and always visible -- unlike the
-             save/summary controls below, this plain anchor needs no JS. */}}
-        <div class="race-passport-hero">
-          <p class="race-passport-hero__heading">{{ i18n "race_passport_hero_heading" }}</p>
-          <p class="race-passport-hero__body">{{ i18n "race_passport_hero_body" }}</p>
-          <a class="race-passport-hero__link" href="#course-passport">{{ i18n "race_passport_hero_link" }} <span aria-hidden="true">↓</span></a>
-        </div>
         <h1 id="race-title">{{ .Site.Params.logo_text1 }}<br>{{ .Site.Params.logo_text2 }}<span class="race-period">.</span></h1>
         <p class="race-hero-role">{{ index (last 1 (split $current.Params.jobTitle " → ")) 0 }}<br><span>{{ $current.Params.company }} · {{ $current.Params.location }}</span></p>
         <p class="race-tagline">{{ $race.hero.tagline }}</p>
@@ -84,19 +82,13 @@
         <p class="race-caption">{{ $race.captions.start }}</p>
         <a class="race-button" href="#{{ (index $race.chapters 0).id }}">{{ $race.hero.start }} <span aria-hidden="true">↓</span></a>
         <p class="race-origin race-telemetry">{{ $race.hero.originNote }}<br>{{ $race.hero.origin }} // {{ $race.hero.coordinates }}</p>
-        {{ with (index $race.passport "madrid") }}{{ partial "race/field-notes.html" (dict "mode" "item" "id" "madrid" "item" .) }}{{ end }}
-        {{/* Course passport hub (gamify spec section 3.3): moved here from
-             the former bottom-only position, reachable in one activation
-             from the hero entry card and the persistent chrome indicator
-             above. */}}
-        {{ partial "race/field-notes.html" (dict "mode" "summary" "passport" $race.passport) }}
       </div>
       <span class="race-hero-stamp" aria-hidden="true">{{ partial "race/icon.html" . }}</span>
     </section>
     {{ range $race.chapters }}
     {{ $city := index (dict "swim" "galicia" "bike" "amsterdam" "run" "copenhagen") .id }}
     {{ $cid := .id }}
-    <section class="race-stage race-{{ .terrain }}{{ with $city }} race-stage--city race-stage--{{ $cid }}{{ end }}" id="{{ .id }}" aria-labelledby="{{ .id }}-heading" data-coordinates="{{ .coordinates }}" data-caption="{{ index $race.captions .id }}" tabindex="-1">
+    <section class="race-stage race-{{ .terrain }}{{ with $city }} race-stage--city race-stage--{{ $cid }}{{ end }}" id="{{ .id }}" aria-labelledby="{{ .id }}-heading" data-coordinates="{{ .coordinates }}" data-caption="{{ index $race.captions .id }}" data-landmark="{{ .lesson }}" tabindex="-1">
       <div class="race-scenery race-landscape" aria-hidden="true"></div>
       {{ with $city }}{{ partial (printf "race/city-%s.html" .) $ }}{{ end }}
       <span class="race-numeral" aria-hidden="true">{{ .number }}</span>
@@ -117,10 +109,10 @@
           </li>
           {{ end }}
         </ol>
-        {{/* The .lesson sentence is carried once, by the takeaway card below
-             (gamify spec section 5.2) -- the former separate blockquote
-             duplicated its exact words and is removed. */}}
-        {{ with (index $race.passport $city) }}{{ partial "race/field-notes.html" (dict "mode" "item" "id" $city "item" .) }}{{ end }}
+        {{/* The owner-authored chapter lesson (game-mode spec section 9.2):
+             the only editorial content worth keeping from the deleted Course
+             Passport, rendered once as ordinary chapter prose. */}}
+        <blockquote class="race-lesson"><p>{{ .lesson }}</p></blockquote>
         {{ if eq .id "run" }}
         <h3 class="race-telemetry race-section-label">{{ i18n "race_principles" }}</h3>
         <ol class="race-principles">{{ range $race.principles }}<li><h4>{{ .title }}</h4><p>{{ .body }}</p></li>{{ end }}</ol>
@@ -128,8 +120,7 @@
       </div>
     </section>
     {{ with .transition }}
-    {{ $passageId := index (dict "t1" "galicia" "t2" "amsterdam") .id }}
-    <section class="race-stage race-transition" id="{{ .id }}" aria-labelledby="{{ .id }}-heading" data-coordinates="{{ .coordinates }}" data-caption="{{ index $race.captions .id }}" tabindex="-1">
+    <section class="race-stage race-transition" id="{{ .id }}" aria-labelledby="{{ .id }}-heading" data-coordinates="{{ .coordinates }}" data-caption="{{ index $race.captions .id }}" data-landmark="{{ .body }}" tabindex="-1">
       <div class="race-scenery race-tunnel" aria-hidden="true"></div>
       <span class="race-numeral" aria-hidden="true">{{ .number }}</span>
       <div class="race-content">
@@ -138,19 +129,11 @@
         <h2 id="{{ .id }}-heading">{{ .title }}</h2>
         <p class="race-lede">{{ .body }}</p>
         <p class="race-caption">{{ index $race.captions .id }}</p>
-        {{/* Quiet carry-status line (gamify spec section 5.1): reports the
-             actual saved state of the takeaway just passed, without a second
-             caption or fictional cargo event. No-JS baseline names the
-             passport rather than asserting a saved/not-saved state. */}}
-        <p class="race-passage-status" data-passport-passage="{{ $passageId }}"
-          data-passport-saved-template="{{ i18n (printf "race_passport_%s_status_saved" $passageId) }}"
-          data-passport-not-saved-template="{{ i18n (printf "race_passport_%s_status_not_saved" $passageId) }}"
-        >{{ i18n (printf "race_passport_%s_status_nojs" $passageId) }}</p>
       </div>
     </section>
     {{ end }}
     {{ end }}
-    <section class="race-stage race-chalk race-finish" id="finish" aria-labelledby="finish-heading" data-caption="{{ $race.captions.finish }}" tabindex="-1">
+    <section class="race-stage race-chalk race-finish" id="finish" aria-labelledby="finish-heading" data-caption="{{ $race.captions.finish }}" data-landmark="{{ $race.finish.colophon }}" tabindex="-1">
       <div class="race-content">
         <p class="race-telemetry">{{ i18n "race_finish" }} // {{ i18n "race_next" }}</p>
         <h2 id="finish-heading">{{ $race.finish.title }}</h2>
@@ -162,12 +145,12 @@
           {{ range $race.finish.links }}{{ $page := partial "race/page.html" (dict "site" $.Site "path" .page) }}<li><a href="{{ $page.RelPermalink }}">{{ .label }} <span aria-hidden="true">↗</span></a></li>{{ end }}
         </ul>
         <p class="race-colophon">{{ $race.finish.colophon }}</p>
-        {{ partial "race/field-notes.html" (dict "mode" "brief" "passport" $race.passport) }}
         <a class="race-back" href="#start">↑ {{ i18n "race_back" }}</a>
       </div>
     </section>
     {{ partial "race/enhancements.html" . }}
     {{ partial "race/controls.html" . }}
   </main>
+  {{ partial "race/game.html" . }}
 </body>
 </html>

@@ -7,7 +7,7 @@ module.exports = defineConfig({
     timeout: 5000
   },
   use: {
-    baseURL: 'http://localhost:1313',
+    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:1313',
     screenshot: 'on',
     video: 'on',
   },
