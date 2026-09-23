@@ -9,26 +9,15 @@
 import { writeJointTransforms, setDiscipline } from './athlete.js';
 import * as S from './state.js';
 import { journeyCoordinate, routeLateral, vesselHeading } from '../race-world/journey.js';
+import {
+  TIER_STORAGE_KEY, LITE_TIER, classifyLoss, framebufferBytes, nextTier, parseStoredTier, ratioCap, tierConfig,
+} from './quality.js';
 
-/* Backing-buffer pixel budgets (spec 8.4/8.5). Full tier: 1,920x1,920 =
-   3,686,400px gives a 390x844 phone (the reported case) full DPR-3 native
-   resolution (1170x2532 = 2,962,440px) with ~25% headroom to spare, and
-   holds 1:1 on desktop viewports up to ~1920x1920 CSS px before the ratio
-   has to give ground. Memory, no antialiasing: worst case ~2.96Mpx * 8
-   bytes (RGBA8 colour + packed depth24_stencil8) = ~23.7MB, comfortably
-   inside a low-power mobile GPU's budget. Memory, WITH antialias:true:
-   MSAA is a *separate* multisampled colour renderbuffer plus a separate
-   multisampled depth/stencil renderbuffer, each ~4x the resolve target's
-   footprint at the browser's typical 4-sample default, on top of the
-   single-sample resolve target itself -- ~2.96Mpx * (16 + 16 + 4) bytes =
-   ~101.7MB. That is the gap between "fine on the Intel Iris this was
-   measured on" and an allocation failure/context loss on a phone-class
-   GPU, so antialias is only requested at all above the wideMQ threshold
-   (see tryEnable3D) -- phones get the full-resolution buffer, not AA on
-   top of it. Degraded tier: 500,000px still covers any phone-class
-   viewport at 1x (390x844 = 329,160px fits with headroom) -- under load,
-   DPR upscaling is the first thing to give way, not the 1:1 floor. */
-const GAME_PIXEL_CAP = 3686400;
+/* Backing-buffer sizing is a quality ladder (quality.js): tier 0 asks for MSAA
+   at a device-derived ratio, and each failure steps down one tier on a fresh
+   canvas. Degraded perf tier (frame-time driven, separate from the memory
+   ladder): 500,000px still covers any phone-class viewport at 1x (390x844 =
+   329,160px) -- under load, DPR upscaling is the first thing to give way. */
 const GAME_PIXEL_CAP_DEGRADED = 500000;
 const SAMPLE_WINDOW = 12;
 const P95_INDEX = Math.floor(SAMPLE_WINDOW * 0.95); // index 11 of 12 -> effectively the max
@@ -40,10 +29,10 @@ function clamp(v, min, max) { return Math.min(max, Math.max(min, v)); }
 export function initGameController(deps) {
   const {
     root, refs, athleteWrap, athleteSvg, joints,
-    reducedMotionMQ, wideMQ, forcedColorsMQ,
-    worldWrap, getWorldState, teardownWorld, invalidateWorldGeneration,
+    reducedMotionMQ, forcedColorsMQ,
+    getWorldState, invalidateWorldGeneration,
     evaluateWorldEligibility, invalidateReading, getReadingProgress, setGameOpen,
-    getDocumentYForChapter,
+    getDocumentYForChapter, devLog = () => {},
   } = deps;
 
   const entryBtn = document.getElementById('race-game-entry');
@@ -95,7 +84,7 @@ export function initGameController(deps) {
     fullscreenActive: false,
     mode: 'lite', // 'lite' | '3d' | 'loading'
     liteBuilt: false,
-    world: { instance: null, owned: false, transferred: false, canvas: null, generation: 0 },
+    world: { instance: null, canvas: null, generation: 0, mod: null, parked: null },
     rig: { parent: null, next: null },
     dirty: true,
     landmarkOpen: false,
@@ -388,6 +377,7 @@ export function initGameController(deps) {
     game.scrollTop = clamped;
     if (scrollEl) scrollEl.scrollTop = clamped;
     render();
+    noteUserFrame();
   }
 
   let dragging = false;
@@ -470,21 +460,73 @@ export function initGameController(deps) {
     closeGame('read', targetId);
   }
 
-  // ---- 3D world ownership (spec 8.2/8.4/8.5) ------------------------------
-  function gamePixelRatio(width, height, cap, devicePixelRatio) {
-    // Largest ratio in [1, devicePixelRatio] whose backing buffer
-    // (width*ratio x height*ratio) fits the pixel budget. Only drops below
-    // 1x -- a genuine low-end/oversized-viewport fallback -- when even a 1x
-    // buffer would not fit the budget.
-    const dpr = Math.max(1, devicePixelRatio || 1);
-    const budgetRatio = Math.sqrt(cap / Math.max(1, width * height));
-    return Math.min(dpr, budgetRatio);
+  // ---- 3D world ownership + quality ladder (spec 8.2/8.4/8.5) ---------------
+  // Every attempt owns one fresh canvas and one renderer. Nothing here polls:
+  // each step is driven by a construction result, a synchronous
+  // isContextLost() check, or a webglcontextlost/-restored event.
+  const quality = {
+    caps: null,              // limits reported by the first renderer that built
+    tier: null,              // tier of the current/last attempt; LITE_TIER once Lite
+    attempts: 0,             // per entry, bounded by MAX_ATTEMPTS in quality.js
+    ledger: [],
+    current: null,          // { tier, instance, canvas, entry, userFrames }
+    postRenderLosses: {},    // tier -> count, per entry
+  };
+
+  function readStoredTier() {
+    try { return parseStoredTier(window.localStorage.getItem(TIER_STORAGE_KEY)); } catch (e) { return null; }
   }
 
-  function sceneInsets() {
-    const headerRect = headerEl.getBoundingClientRect();
-    const panelRect = panelEl.getBoundingClientRect();
-    return { top: headerRect.bottom, bottom: overlay.clientHeight - panelRect.top, left: 0, right: 0 };
+  function rememberTier(tier) {
+    if (tier === null || tier === undefined) return;
+    try { window.localStorage.setItem(TIER_STORAGE_KEY, String(tier)); } catch (e) { /* private mode */ }
+  }
+
+  function deviceHints() {
+    return { deviceMemory: navigator.deviceMemory, hardwareConcurrency: navigator.hardwareConcurrency };
+  }
+
+  function tierRatio(width, height) {
+    const cap = ratioCap({ cssWidth: width, cssHeight: height, dpr: window.devicePixelRatio, limits: quality.caps });
+    const config = tierConfig(quality.tier, cap);
+    let ratio = config ? config.ratio : 1;
+    if (game.perf.degraded) ratio = Math.min(ratio, Math.sqrt(GAME_PIXEL_CAP_DEGRADED / Math.max(1, width * height)));
+    return ratio;
+  }
+
+  function refreshEntry(attempt) {
+    const entry = attempt.entry;
+    const d = attempt.instance.diagnostics();
+    entry.ratio = d.pixelRatio;
+    if (d.contextLost) return;
+    entry.grantedAntialias = d.grantedAntialias;
+    entry.samples = d.samples;
+    entry.drawingBuffer = d.drawingBuffer;
+    entry.aaOutcome = !entry.requestedAntialias ? 'not-requested' : (d.grantedAntialias ? 'granted' : 'refused');
+    entry.framebufferBytes = framebufferBytes(d.drawingBuffer.width, d.drawingBuffer.height, Boolean(d.grantedAntialias));
+  }
+
+  function publishDiagnostics() {
+    const cur = quality.current;
+    if (cur && cur.instance) refreshEntry(cur);
+    const entry = cur ? cur.entry : null;
+    const set = (key, value) => { overlay.dataset[key] = value === null || value === undefined ? '' : String(value); };
+    set('gameTier', quality.tier);
+    set('gameParked', Boolean(game.world.parked));
+    set('gameAaRequested', entry && entry.requestedAntialias);
+    set('gameAaGranted', entry && entry.grantedAntialias);
+    set('gameAaOutcome', entry && entry.aaOutcome);
+    set('gameRatio', entry && entry.ratio !== null ? Number(entry.ratio).toFixed(3) : '');
+    set('gameBuffer', entry && entry.drawingBuffer ? `${entry.drawingBuffer.width}x${entry.drawingBuffer.height}` : '');
+    set('gameCaps', quality.caps ? JSON.stringify(quality.caps) : '');
+    set('gameLedger', JSON.stringify(quality.ledger));
+  }
+
+  function abandonAttempt(canvas, instance) {
+    // A lost canvas is never re-granted a context, so every abandoned attempt
+    // frees its renderer (dispose() + forceContextLoss()) and leaves the DOM.
+    if (instance) { try { instance.dispose(); } catch (e) { /* noop */ } }
+    if (canvas && canvas.parentNode) canvas.parentNode.removeChild(canvas);
   }
 
   function resizeWorld() {
@@ -492,10 +534,15 @@ export function initGameController(deps) {
     const rect = sceneEl.getBoundingClientRect();
     const width = rect.width || 1;
     const height = rect.height || 1;
-    const cap = game.perf.degraded ? GAME_PIXEL_CAP_DEGRADED : GAME_PIXEL_CAP;
-    const pixelRatio = gamePixelRatio(width, height, cap, window.devicePixelRatio);
-    game.world.instance.resize(width, height, pixelRatio, { game: true, insets: sceneInsets() });
+    game.world.instance.resize(width, height, tierRatio(width, height), { game: true, insets: sceneInsets() });
     render();
+    publishDiagnostics();
+  }
+
+  function sceneInsets() {
+    const headerRect = headerEl.getBoundingClientRect();
+    const panelRect = panelEl.getBoundingClientRect();
+    return { top: headerRect.bottom, bottom: overlay.clientHeight - panelRect.top, left: 0, right: 0 };
   }
 
   async function loadWorldModule() {
@@ -513,22 +560,25 @@ export function initGameController(deps) {
     }
   }
 
+  function disposeParked() {
+    const parked = game.world.parked;
+    if (!parked) return;
+    game.world.parked = null;
+    abandonAttempt(parked.canvas, parked.instance);
+  }
+
   function disposeWorld(markLite) {
-    if (game.world.instance && game.world.owned) {
+    disposeParked();
+    if (game.world.instance) {
       try { game.world.instance.dispose(); } catch (e) { /* noop */ }
     }
     if (game.world.canvas && game.world.canvas.parentNode === sceneEl) {
       sceneEl.removeChild(game.world.canvas);
     }
-    if (game.world.transferred) {
-      // Hand the desktop renderer back to the reading world, undamaged.
-      worldWrap.appendChild(game.world.canvas);
-      invalidateReading && invalidateReading();
-    }
     game.world.instance = null;
-    game.world.owned = false;
-    game.world.transferred = false;
     game.world.canvas = null;
+    game.world.mod = null;
+    quality.current = null;
     game.perf.samples = [];
     game.perf.degraded = false;
     if (markLite) game.mode = 'lite';
@@ -540,7 +590,178 @@ export function initGameController(deps) {
     if (game.mode !== '3d') return;
     disposeWorld(true);
     if (announce) announceOnce(statusEl.dataset.statusLost || statusEl.dataset.statusUnavailable);
+    publishDiagnostics();
     render();
+  }
+
+  function settleLite(statusKey) {
+    quality.tier = LITE_TIER;
+    quality.current = null;
+    game.mode = 'lite';
+    updateTitle();
+    updateLiteButton(true);
+    announceOnce(statusKey === 'lost'
+      ? (statusEl.dataset.statusLost || statusEl.dataset.statusUnavailable)
+      : statusEl.dataset.statusUnavailable);
+    publishDiagnostics();
+    render();
+  }
+
+  // One attempt at one tier: fresh canvas, MSAA requested only if the tier
+  // asks for it. Construction is always at ratio 1 (a small, safe allocation);
+  // the tier's real ratio needs the limits this very renderer reports, so it
+  // is applied by installAttempt() right after -- no throwaway probe context.
+  async function buildAtTier(mod, tier) {
+    quality.attempts += 1;
+    quality.tier = tier;
+    const entry = {
+      attempt: quality.attempts, tier,
+      requestedAntialias: tierConfig(tier, 1).antialias, grantedAntialias: null, aaOutcome: 'unknown',
+      samples: null, ratio: null, drawingBuffer: null, framebufferBytes: null,
+      outcome: 'pending', events: [], creationError: null, error: null,
+    };
+    quality.ledger.push(entry);
+
+    const canvas = document.createElement('canvas');
+    // Reporting only: the browser's own statement of why it refused a context.
+    canvas.addEventListener('webglcontextcreationerror', (event) => {
+      entry.creationError = event.statusMessage || 'unspecified';
+    }, false);
+    sceneEl.insertBefore(canvas, sceneEl.firstChild);
+    const rect = sceneEl.getBoundingClientRect();
+    const attempt = { tier, instance: null, canvas, entry, userFrames: 0 };
+    try {
+      attempt.instance = await mod.default({
+        canvas, width: rect.width || 1, height: rect.height || 1, pixelRatio: 1,
+        antialias: entry.requestedAntialias,
+        onContextLost: () => onWorldLost(attempt),
+        onContextRestored: () => onWorldRestored(attempt),
+      });
+    } catch (e) {
+      entry.error = String((e && e.message) || e);
+      abandonAttempt(canvas, null);
+      return { attempt, outcome: 'threw' };
+    }
+    quality.caps = attempt.instance.capabilities;
+    if (attempt.instance.isContextLost()) {
+      refreshEntry(attempt);
+      abandonAttempt(canvas, attempt.instance);
+      return { attempt, outcome: 'lost-on-create' };
+    }
+    return { attempt, outcome: 'ok' };
+  }
+
+  function installAttempt(attempt) {
+    game.world.instance = attempt.instance;
+    game.world.canvas = attempt.canvas;
+    quality.current = attempt;
+    game.mode = '3d';
+    updateTitle();
+    updateLiteButton(true);
+    let outcome = 'ok';
+    try {
+      resizeWorld();
+      if (attempt.instance.isContextLost()) outcome = 'lost-on-create';
+    } catch (e) {
+      attempt.entry.error = String((e && e.message) || e);
+      outcome = 'threw';
+    }
+    if (outcome !== 'ok') {
+      refreshEntry(attempt);
+      game.mode = 'loading';
+      const mod = game.world.mod;
+      disposeWorld(false);
+      game.world.mod = mod;
+    }
+    return outcome;
+  }
+
+  async function runLadder(mod, firstTier, generation) {
+    let tier = firstTier;
+    for (;;) {
+      const built = await buildAtTier(mod, tier);
+      if (generation !== game.world.generation || !game.open) {
+        if (built.outcome === 'ok') abandonAttempt(built.attempt.canvas, built.attempt.instance);
+        return;
+      }
+      let outcome = built.outcome;
+      if (outcome === 'ok') outcome = installAttempt(built.attempt);
+      built.attempt.entry.outcome = outcome;
+      if (outcome === 'ok') { publishDiagnostics(); return; }
+      devLog('quality: attempt failed', { tier, outcome, creationError: built.attempt.entry.creationError });
+      const step = nextTier({ tier, outcome, attempts: quality.attempts });
+      rememberTier(step.persist);
+      if (step.action === 'lite') { settleLite(outcome.startsWith('lost') ? 'lost' : 'unavailable'); return; }
+      tier = step.tier;
+    }
+  }
+
+  // webglcontextlost. Before the user has travelled in 3D it is an allocation
+  // failure: step down on a fresh canvas at once. After they have, it is
+  // treated as possibly transient: the lost canvas leaves the DOM, Lite takes
+  // over with the loss sentence, and the context is left to be restored (same
+  // tier, same coordinate); a second loss at that tier steps down.
+  function onWorldLost(attempt) {
+    if (!game.open || quality.current !== attempt || game.world.parked) return;
+    const outcome = classifyLoss(attempt.userFrames);
+    attempt.entry.outcome = outcome;
+    attempt.entry.events.push(outcome);
+    const losses = quality.postRenderLosses[attempt.tier] || 0;
+    const step = nextTier({ tier: attempt.tier, outcome, attempts: quality.attempts, postRenderLosses: losses });
+    rememberTier(step.persist);
+    devLog('quality: context lost', { tier: attempt.tier, outcome, next: step.action });
+    if (step.action === 'park') {
+      quality.postRenderLosses[attempt.tier] = losses + 1;
+      if (attempt.canvas.parentNode === sceneEl) sceneEl.removeChild(attempt.canvas);
+      game.world.instance = null;
+      game.world.canvas = null;
+      game.world.parked = attempt;
+      game.mode = 'lite';
+      game.perf.samples = [];
+      updateTitle();
+      updateLiteButton(true);
+      announceOnce(statusEl.dataset.statusLost || statusEl.dataset.statusUnavailable);
+      publishDiagnostics();
+      render();
+      return;
+    }
+    const mod = game.world.mod;
+    const generation = game.world.generation;
+    game.mode = 'loading';
+    disposeWorld(false);
+    if (step.action === 'lite' || !mod) { settleLite('lost'); return; }
+    game.world.mod = mod;
+    runLadder(mod, step.tier, generation).catch((e) => { devLog('quality: rebuild failed', e); settleLite('unavailable'); });
+  }
+
+  function onWorldRestored(attempt) {
+    if (!game.open || game.world.parked !== attempt) return;
+    game.world.parked = null;
+    sceneEl.insertBefore(attempt.canvas, sceneEl.firstChild);
+    game.world.instance = attempt.instance;
+    game.world.canvas = attempt.canvas;
+    quality.tier = attempt.tier;
+    attempt.entry.outcome = 'restored';
+    attempt.entry.events.push('restored');
+    game.mode = '3d';
+    updateTitle();
+    updateLiteButton(true);
+    rememberTier(nextTier({ tier: attempt.tier, outcome: 'restored' }).persist);
+    if (statusEl) statusEl.textContent = '';
+    resizeWorld();
+  }
+
+  // Called after every user-driven travel render. The first one at a tier
+  // counts as "survived": it is what turns a loss event from an allocation
+  // failure into a post-render loss, and what earns the tier its persistence.
+  function noteUserFrame() {
+    const cur = quality.current;
+    if (!cur || game.world.instance !== cur.instance || cur.instance.isContextLost()) return;
+    cur.userFrames += 1;
+    if (cur.userFrames === 1) {
+      rememberTier(nextTier({ tier: cur.tier, outcome: 'survived' }).persist);
+      publishDiagnostics();
+    }
   }
 
   async function tryEnable3D(explicit) {
@@ -548,32 +769,14 @@ export function initGameController(deps) {
     // Save-Data (spec 8.5): skip the *automatic* entry attempt, but an
     // explicit "Try 3D" activation still works.
     if (!explicit && navigator.connection && navigator.connection.saveData) { updateLiteButton(true); return; }
+    disposeParked();
     game.mode = 'loading';
     updateTitle();
     const generation = ++game.world.generation;
-    const desktop = getWorldState();
+    if (getWorldState().status === 'loading') invalidateWorldGeneration && invalidateWorldGeneration();
 
-    // Ownership transfer: reuse the desktop reading renderer if it is
-    // already up, rather than construct a second one (spec 8.2).
-    if (wideMQ.matches && desktop.status === 'ready' && desktop.instance && desktop.instance.canvas) {
-      const instance = desktop.instance;
-      game.world.instance = instance;
-      game.world.owned = false;
-      game.world.transferred = true;
-      game.world.canvas = instance.canvas;
-      sceneEl.insertBefore(instance.canvas, sceneEl.firstChild);
-      game.mode = '3d';
-      updateTitle();
-      updateLiteButton(true);
-      resizeWorld();
-      return;
-    }
-
-    // No usable desktop renderer: one optional world-bundle request, one
-    // renderer, one canvas -- attempted directly through the real canvas,
-    // never a throwaway capability probe (spec 8.2).
-    if (desktop.status === 'loading') invalidateWorldGeneration && invalidateWorldGeneration();
-
+    // One optional world-bundle request per entry; each ladder attempt then
+    // builds through its own real canvas, never a capability probe (spec 8.2).
     let mod;
     try {
       mod = await loadWorldModule();
@@ -586,51 +789,13 @@ export function initGameController(deps) {
     }
     if (!mod || generation !== game.world.generation || !game.open) return;
 
-    const canvas = document.createElement('canvas');
-    sceneEl.insertBefore(canvas, sceneEl.firstChild);
-    const rect = sceneEl.getBoundingClientRect();
-    const width = rect.width || 1;
-    const height = rect.height || 1;
-    const pixelRatio = gamePixelRatio(width, height, GAME_PIXEL_CAP, window.devicePixelRatio);
-
-    // MSAA roughly quadruples the backing buffer's framebuffer memory (a
-    // multisampled colour renderbuffer plus a multisampled depth/stencil
-    // renderbuffer, each at 4x the resolve target's footprint, on top of the
-    // resolve target itself) -- at DPR-3 phone resolutions that turns a
-    // ~23MB allocation into ~100MB, which is what pushes tight mobile GPU
-    // budgets into an allocation failure/context loss rather than desktop
-    // GPUs, which have far more headroom. wideMQ (same >=64rem threshold the
-    // rest of this feature already uses to mean "not a phone") is reused
-    // here to drop antialiasing below it, trading AA smoothing for the
-    // buffer actually allocating.
-    let instance;
-    try {
-      instance = await mod.default({
-        canvas, width, height, pixelRatio, antialias: wideMQ.matches,
-        onContextLost: () => switchToLite(true),
-      });
-    } catch (e) {
-      if (generation === game.world.generation) {
-        sceneEl.removeChild(canvas);
-        game.mode = 'lite';
-        updateTitle();
-        announceOnce(statusEl.dataset.statusUnavailable);
-      }
-      return;
-    }
-    if (generation !== game.world.generation || !game.open) {
-      try { instance.dispose(); } catch (e) { /* noop */ }
-      if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
-      return;
-    }
-    game.world.instance = instance;
-    game.world.owned = true;
-    game.world.transferred = false;
-    game.world.canvas = canvas;
-    game.mode = '3d';
-    updateTitle();
-    updateLiteButton(true);
-    resizeWorld();
+    game.world.mod = mod;
+    quality.attempts = 0;
+    quality.ledger = [];
+    quality.postRenderLosses = {};
+    quality.current = null;
+    const start = nextTier({ stored: readStoredTier(), hints: deviceHints(), outcome: 'start' });
+    await runLadder(mod, start.tier, generation);
   }
 
   function onLiteToggle() {

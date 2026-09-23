@@ -579,9 +579,8 @@ import { initGameController } from './game.js';
   initGameController({
     root, refs, athleteWrap, athleteSvg, joints,
     reducedMotionMQ, wideMQ, forcedColorsMQ,
-    worldWrap,
+    devLog,
     getWorldState: () => state.world,
-    teardownWorld,
     invalidateWorldGeneration: () => { state.world.generation++; state.world.status = 'off'; },
     evaluateWorldEligibility,
     setGameOpen: (open) => { state.game.open = open; },

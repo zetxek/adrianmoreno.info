@@ -37,10 +37,39 @@ function fixedZoneMatrices() {
   ];
 }
 
-export default async function createWorld({ canvas, width, height, pixelRatio, onContextLost, antialias = true }) {
+export default async function createWorld({ canvas, width, height, pixelRatio, onContextLost, onContextRestored, antialias = true }) {
   const renderer = new WebGLRenderer({
     canvas, alpha: false, antialias, powerPreference: 'low-power', preserveDrawingBuffer: false,
   });
+  const gl = renderer.getContext();
+  const requestedAntialias = Boolean(antialias);
+
+  /* What the device reports, read once while the context is alive (a lost
+     context answers getParameter with null). The unmasked renderer string is
+     withheld or generic on some browsers (iOS reports "Apple GPU"); null and
+     generic both mean "unknown", never "weak". */
+  const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+  const viewportDims = gl.getParameter(gl.MAX_VIEWPORT_DIMS);
+  const capabilities = {
+    maxRenderbufferSize: gl.getParameter(gl.MAX_RENDERBUFFER_SIZE),
+    maxTextureSize: gl.getParameter(gl.MAX_TEXTURE_SIZE),
+    maxViewportDims: viewportDims ? [viewportDims[0], viewportDims[1]] : null,
+    renderer: debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : null,
+  };
+
+  function diagnostics() {
+    const lost = gl.isContextLost();
+    const attributes = lost ? null : gl.getContextAttributes();
+    return {
+      requestedAntialias,
+      grantedAntialias: attributes ? attributes.antialias : null,
+      samples: lost ? null : gl.getParameter(gl.SAMPLES),
+      pixelRatio: renderer.getPixelRatio(),
+      drawingBuffer: { width: gl.drawingBufferWidth, height: gl.drawingBufferHeight },
+      contextLost: lost,
+      memory: { geometries: renderer.info.memory.geometries, textures: renderer.info.memory.textures },
+    };
+  }
   renderer.outputColorSpace = SRGBColorSpace;
   renderer.shadowMap.enabled = false;
 
@@ -155,7 +184,11 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
     event.preventDefault();
     if (onContextLost) onContextLost();
   }
+  function handleContextRestored() {
+    if (onContextRestored) onContextRestored();
+  }
   canvas.addEventListener('webglcontextlost', handleContextLost, false);
+  canvas.addEventListener('webglcontextrestored', handleContextRestored, false);
 
   let disposed = false;
 
@@ -226,6 +259,7 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
     if (disposed) return;
     disposed = true;
     canvas.removeEventListener('webglcontextlost', handleContextLost, false);
+    canvas.removeEventListener('webglcontextrestored', handleContextRestored, false);
     zones.forEach((zone) => zone.group.traverse((object) => {
       if (!object.isMesh && !object.isInstancedMesh) return;
       object.geometry.dispose();
@@ -247,5 +281,8 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
     renderer.forceContextLoss();
   }
 
-  return { update, render, resize, dispose, canvas };
+  return {
+    update, render, resize, dispose, canvas, capabilities, diagnostics,
+    isContextLost: () => gl.isContextLost(),
+  };
 }
