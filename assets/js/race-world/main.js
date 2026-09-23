@@ -233,6 +233,18 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
       else object.material.dispose();
     }));
     renderer.dispose();
+    // dispose() alone leaves GPU-side buffers/textures/framebuffers that
+    // three.js itself allocated (not just ours) to be reclaimed whenever the
+    // GC eventually collects the now-unreferenced context -- unbounded and
+    // untimed. On the game overlay's own repeated enter/exit cycling this
+    // was measured to accumulate live GL objects across cycles (buffers,
+    // textures, framebuffers all growing, never hitting zero) rather than
+    // settling back to the pre-open baseline. forceContextLoss() makes the
+    // browser release that context's GPU memory synchronously, the same
+    // mechanism a real context-loss event uses, rather than waiting on GC
+    // timing a memory-constrained mobile GPU may not grant in time before
+    // the next context is created.
+    renderer.forceContextLoss();
   }
 
   return { update, render, resize, dispose, canvas };

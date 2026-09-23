@@ -661,11 +661,12 @@ function checkedCityResult(group, tally) {
 
 // -----------------------------------------------------------------------------
 // GALICIA — a three-level terraced coastal hillside carrying one enlarged
-// stone hórreo, a lighthouse on its own knoll, six placed rocks, and two
-// three-box moored boats. Complete rebuild per the binding interface
-// contract (section 3); the old flat shore, boulder field, and small
-// hórreos are gone. horreoRow()/moored() above are preserved byte-identical
-// per the ownership contract but are no longer called from this zone.
+// stone hórreo and a lighthouse grouped on the same hillside, six placed
+// rocks, and two three-box moored boats. Complete rebuild per the binding
+// interface contract (section 3); the old flat shore, boulder field, and
+// small hórreos are gone. horreoRow()/moored() above are preserved
+// byte-identical per the ownership contract but are no longer called from
+// this zone.
 //
 // Owner request: keep ONE hórreo, add a lighthouse. Of the two enlarged
 // hórreos this zone used to carry, the larger one (8 pillars vs. 6) stays --
@@ -674,6 +675,15 @@ function checkedCityResult(group, tally) {
 // terrace. The smaller hórreo is dropped entirely rather than shrunk in
 // place, freeing triangle budget the new lighthouse spends (see the
 // per-zone tally in the swimBasin() comment below).
+//
+// Owner follow-up: "put the lighthouse on the mountain, next to the
+// hórreo" -- the lighthouse originally stood on its own low shoreline
+// knoll, clear of the hill entirely, which read as two disconnected
+// landmarks rather than one place. It now stands on one of the hill's own
+// terraces, a few units clear of the hórreo's footprint (see
+// buildLighthouse's call in swimBasin() below) -- same hillside, same
+// settlement, no added geometry: this is a placement change, not a
+// rebuild.
 // -----------------------------------------------------------------------------
 
 /* Nine-box terraced hillside: three rising terrace masses plus paired
@@ -777,17 +787,30 @@ function buildStoneHorreo(unit, mat, tally, { centerX, centerZ, length, pillarXO
   return group;
 }
 
-/* A lighthouse, standing on its own rock knoll clear of the hill and the
-   hórreo (owner request: one hórreo, one lighthouse). Bold, stacked round
-   masses throughout -- the same lesson already learned at Børsen's
-   Frederiks Kirke dome (see borsenLandmark below): a thin spire or a
-   pointed cap reads as a stray pixel at ~20 CSS px tall, but a tapered
-   drum, a wide gallery break, and a squat dome hold their silhouette. */
-function buildLighthouse(unit, mat, tally, { x, z }) {
+/* A lighthouse, standing on one of the hill's own terraces alongside the
+   hórreo (owner request, second pass: "put the lighthouse on the mountain,
+   next to the hórreo" -- the first pass's separate shoreline knoll read as
+   two unrelated landmarks rather than one settlement). baseY defaults to
+   the original sea-level knoll height for backward compatibility, but the
+   call site below hands it the lowest terrace's own top surface (0.8, from
+   buildGaliciaHill's first `pieces` entry) rather than the tallest crest
+   the hórreo stands on (3.4): the full stack -- tower, gallery, lamp, dome
+   -- is tall enough that stacking it on the tallest terrace pushed its cap
+   past the establishing shot's camera frustum (verified by rendering it);
+   the lower terrace keeps the whole silhouette in frame while still
+   reading as "on the hillside", not on a separate low mound at the water's
+   edge. Bold, stacked round masses throughout -- the same lesson already
+   learned at Børsen's Frederiks Kirke dome (see borsenLandmark below): a
+   thin spire or a pointed cap reads as a stray pixel at ~20 CSS px tall,
+   but a tapered drum, a wide
+   gallery break, and a squat dome hold their silhouette. */
+function buildLighthouse(unit, mat, tally, { x, z, baseY = -0.16 }) {
   const group = new Group();
-  const baseY = -0.16;
 
-  const knollH = 0.9;
+  // A small rock outcrop, not a separate hill -- the structure is already
+  // standing on the terrace crest, so it only needs a modest pedestal to
+  // read as bedrock rather than floating on the terrace surface.
+  const knollH = 0.45;
   addBatch(group, unit.box, mat.main, [
     { position: [x, baseY + knollH / 2, z], scale: [2.6, knollH, 2.2], rotationY: 8 * Math.PI / 180 },
   ], 'box', tally);
@@ -902,7 +925,13 @@ function swimBasin(unit, mat) {
     centerX: -5.2, centerZ: 10.7, length: 8.8, pillarXOffsets: [-3.6, -1.2, 1.2, 3.6],
   }));
 
-  group.add(buildLighthouse(unit, mat, tally, { x: 15.4, z: 8.6 }));
+  // On the hill's lowest terrace (y=0.8, buildGaliciaHill's first `pieces`
+  // entry -- see buildLighthouse's own comment for why not the tallest
+  // crest the hórreo stands on), a few units clear of the hórreo's own
+  // footprint (local x -9.6..-0.8) so the two read as one grouped
+  // settlement on the mountain rather than overlapping or drifting back to
+  // two separate landmarks.
+  group.add(buildLighthouse(unit, mat, tally, { x: 3, z: 10.5, baseY: 0.8 }));
 
   group.add(buildGaliciaRocks(unit, mat, tally));
 

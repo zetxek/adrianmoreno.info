@@ -14,11 +14,20 @@ import { journeyCoordinate, routeLateral, vesselHeading } from '../race-world/jo
    3,686,400px gives a 390x844 phone (the reported case) full DPR-3 native
    resolution (1170x2532 = 2,962,440px) with ~25% headroom to spare, and
    holds 1:1 on desktop viewports up to ~1920x1920 CSS px before the ratio
-   has to give ground. Memory: worst case ~2.96Mpx * 8 bytes (RGBA + depth)
-   = ~24MB, well within a low-power mobile GPU's budget even with MSAA.
-   Degraded tier: 500,000px still covers any phone-class viewport at 1x
-   (390x844 = 329,160px fits with headroom) -- under load, DPR upscaling is
-   the first thing to give way, not the 1:1 floor. */
+   has to give ground. Memory, no antialiasing: worst case ~2.96Mpx * 8
+   bytes (RGBA8 colour + packed depth24_stencil8) = ~23.7MB, comfortably
+   inside a low-power mobile GPU's budget. Memory, WITH antialias:true:
+   MSAA is a *separate* multisampled colour renderbuffer plus a separate
+   multisampled depth/stencil renderbuffer, each ~4x the resolve target's
+   footprint at the browser's typical 4-sample default, on top of the
+   single-sample resolve target itself -- ~2.96Mpx * (16 + 16 + 4) bytes =
+   ~101.7MB. That is the gap between "fine on the Intel Iris this was
+   measured on" and an allocation failure/context loss on a phone-class
+   GPU, so antialias is only requested at all above the wideMQ threshold
+   (see tryEnable3D) -- phones get the full-resolution buffer, not AA on
+   top of it. Degraded tier: 500,000px still covers any phone-class
+   viewport at 1x (390x844 = 329,160px fits with headroom) -- under load,
+   DPR upscaling is the first thing to give way, not the 1:1 floor. */
 const GAME_PIXEL_CAP = 3686400;
 const GAME_PIXEL_CAP_DEGRADED = 500000;
 const SAMPLE_WINDOW = 12;
@@ -584,10 +593,20 @@ export function initGameController(deps) {
     const height = rect.height || 1;
     const pixelRatio = gamePixelRatio(width, height, GAME_PIXEL_CAP, window.devicePixelRatio);
 
+    // MSAA roughly quadruples the backing buffer's framebuffer memory (a
+    // multisampled colour renderbuffer plus a multisampled depth/stencil
+    // renderbuffer, each at 4x the resolve target's footprint, on top of the
+    // resolve target itself) -- at DPR-3 phone resolutions that turns a
+    // ~23MB allocation into ~100MB, which is what pushes tight mobile GPU
+    // budgets into an allocation failure/context loss rather than desktop
+    // GPUs, which have far more headroom. wideMQ (same >=64rem threshold the
+    // rest of this feature already uses to mean "not a phone") is reused
+    // here to drop antialiasing below it, trading AA smoothing for the
+    // buffer actually allocating.
     let instance;
     try {
       instance = await mod.default({
-        canvas, width, height, pixelRatio, antialias: true,
+        canvas, width, height, pixelRatio, antialias: wideMQ.matches,
         onContextLost: () => switchToLite(true),
       });
     } catch (e) {
