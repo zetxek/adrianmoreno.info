@@ -30,9 +30,12 @@
     spacer.className = 'book-nav-spacer';
     nav.parentNode.insertBefore(spacer, nav.nextSibling);
 
-    var pin = function () {
+    // `rect` is a pre-measured `nav.getBoundingClientRect()`, read up front
+    // by `update()` before any writes happen this frame — see the comment
+    // there. Falls back to measuring here so `pin()` still works standalone.
+    var pin = function (rect) {
       if (nav.classList.contains('is-pinned')) return;
-      var rect = nav.getBoundingClientRect();
+      rect = rect || nav.getBoundingClientRect();
       spacer.style.height = rect.height + 'px';
       spacer.classList.add('is-active');
       nav.style.left = rect.left + 'px';
@@ -53,25 +56,33 @@
     sentinel.className = 'book-nav-sentinel';
     nav.parentNode.insertBefore(sentinel, nav);
 
-    function measureAndTogglePin(headerRect) {
-      var sentinelTop = sentinel.getBoundingClientRect().top;
-      if (sentinelTop <= headerRect.bottom) {
-        pin();
-      } else {
-        unpin();
-      }
-    }
-
     // The header shrinks a bit after the page is scrolled (see the theme's
     // sticky-header.js), and its bottom edge is what actually determines
     // when the nav should pin — an IntersectionObserver on the sentinel only
     // fires when the sentinel crosses the viewport edge, not when it crosses
     // the (shrinking) fixed header's bottom, so pin state is driven directly
     // off scroll/resize instead.
+    //
+    // All `getBoundingClientRect()` reads happen up front, before any style
+    // write below (`syncHeaderOffset` writes a custom property that other
+    // rules size themselves off, so it invalidates layout). Reading after
+    // that write would force a synchronous layout recalculation on every
+    // scroll frame instead of using the next frame's already-scheduled one.
     function update() {
+      // ---- read phase ----
       var headerRect = getHeaderRect();
+      var sentinelTop = sentinel.getBoundingClientRect().top;
+      var shouldPin = sentinelTop <= headerRect.bottom;
+      var alreadyPinned = nav.classList.contains('is-pinned');
+      var navRect = shouldPin && !alreadyPinned ? nav.getBoundingClientRect() : null;
+
+      // ---- write phase ----
       syncHeaderOffset(headerRect);
-      measureAndTogglePin(headerRect);
+      if (shouldPin) {
+        pin(navRect);
+      } else {
+        unpin();
+      }
     }
 
     var updateTicking = false;
