@@ -199,7 +199,11 @@ func downloadImage(imageURL, title string) string {
 	fileName = regexp.MustCompile(`[^a-z0-9]+`).ReplaceAllString(fileName, "-")
 	fileName = strings.Trim(fileName, "-") + ".jpg"
 
-	absCoverImgDir, _ := filepath.Abs(coverImgDir)
+	absCoverImgDir, err := filepath.Abs(coverImgDir)
+	if err != nil {
+		fmt.Printf("Error resolving cover image directory: %v\n", err)
+		return ""
+	}
 	filePath := filepath.Join(absCoverImgDir, fileName)
 
 	fmt.Printf("Saving image to: %s\n", filePath)

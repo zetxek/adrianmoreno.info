@@ -3,6 +3,7 @@
 {{ if isset .Params "book_authors" }}{{ $authors = delimit .Params.book_authors ", " }}{{ end }}
 {{ $coverURL := "" }}
 {{ with .Params.cover }}
+  {{ $coverURL = . }}
   {{ with resources.Get (strings.TrimPrefix "/" .) }}
     {{ $coverURL = (.Resize "400x webp q78 Lanczos").RelPermalink }}
   {{ end }}
