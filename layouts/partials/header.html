@@ -1,0 +1,101 @@
+<!-- To enable Google Tag Manager, configure `.Site.Params.analytics.googleTagManager` in your site's configuration file (e.g., hugo.toml / config.toml) -->
+{{ if .Site.Params.analytics.googleTagManager.enabled }}
+<!-- Google Tag Manager (noscript) -->
+<noscript
+  ><iframe
+    src="https://www.googletagmanager.com/ns.html?id={{ .Site.Params.analytics.googleTagManager.code }}"
+    height="0"
+    width="0"
+    style="display: none; visibility: hidden"
+  ></iframe
+></noscript>
+<!-- End Google Tag Manager (noscript) -->
+{{ end }}
+
+{{ partial "skip-to-content.html" }}
+
+<header class="header fixed-top" id="header">
+  <div class="container">
+    <nav class="navbar bd-navbar navbar-expand-lg navbar-light p-0" aria-label='{{ i18n "primary_navigation" }}'>
+      <div class="container-fluid">
+        <a class="navbar-brand mx-auto" href="{{ .Site.BaseURL | relLangURL }}">
+            {{ $logoText1 := .Site.Params.logo_text1 | default .Site.Title }}
+            {{ if .Site.Params.logo }}
+            <img
+            src="{{ .Site.Params.logo | absURL }}"
+            alt="{{ $logoText1 }} logo"
+            class="logo"
+            />
+            {{ end }}
+          <span>{{ $logoText1 }}</span>
+          <span>{{ .Site.Params.logo_text2 | default "" }}</span>
+        </a>
+        <button
+          class="navbar-toggler collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent, #header"
+          aria-controls="navbarSupportedContent header"
+          aria-expanded="false"
+          aria-label='{{ i18n "toggle_navigation" }}'
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-lg-auto">
+            {{- range .Site.Menus.header }}
+            <li class="nav-item">
+              {{/* Site overlay of Adritian v1.10.4: only this race entry differs. */}}
+              {{- if eq .Identifier "race" }}
+              {{- $racePage := partial "race/page.html" (dict "site" $.Site "path" "/race") }}
+              <a class="nav-link race-nav-entry" href="{{ $racePage.RelPermalink }}" title="{{ i18n "race_mode" }}" aria-label="{{ i18n "race_mode" }}">
+                {{ partial "race/icon.html" $ }}
+                <span class="race-entry-label" aria-hidden="true">{{ i18n "race_mode" }}</span>
+              </a>
+              {{- else }}
+              <a data-scroll class="nav-link" href="{{ .URL | relURL }}">
+                {{- if .Pre -}}
+                  <i class="icon-{{ .Pre }}" aria-hidden="true"></i>
+                  <span class="visually-hidden">{{ .Name | default .Pre }}</span>
+                {{- else -}}
+                  {{ .Name | upper }}
+                {{- end -}}
+              </a>
+              {{- end }}
+            </li>
+            {{- end }}
+            
+            {{- if hugo.IsMultilingual }} 
+            {{- if not .Site.Params.languages.selector.disable.header }}
+            {{ .Scratch.Set "selectorPlacement" "header" }}
+            {{ .Scratch.Set "dropdownDirection" "down" }}         
+            <li class="dropdown language-selector nav-item">
+            {{ partial "selector-language.html" . }}
+            </li>
+            {{- end }}
+            {{- end }}
+            {{- if not .Site.Params.colorTheme.selector.disable.header }}
+            <li class="dropdown theme-selector nav-item">
+              {{ .Scratch.Set "selectorPlacement" "header" }}
+              {{ .Scratch.Set "dropdownDirection" "down" }}
+              {{ partial "selector-theme.html" . }}
+            </li>
+            {{- end }}
+            {{- if and .Site.Params.colorSchemeSwitcher.enable (not .Site.Params.colorSchemeSwitcher.selector.disable.header) }}
+            <li class="dropdown scheme-selector nav-item">
+              {{ .Scratch.Set "selectorPlacement" "header" }}
+              {{ .Scratch.Set "dropdownDirection" "down" }}
+              {{ partial "selector-scheme.html" . }}
+            </li>
+            {{- end }}
+          </ul>
+        </div>
+
+      </div>
+    </nav>
+  </div>
+</header>
+
+{{- if not .IsHome }} 
+  {{ partial "breadcrumb.html" . }} 
+{{- end }}

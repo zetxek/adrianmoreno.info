@@ -1,0 +1,65 @@
+{{/* Full-screen journey game (game-mode spec, replaces the deleted Course
+     Passport). Entirely server-rendered hidden: assets/js/race/game.js is
+     the only code that ever un-hides `.race-game`, and only in response to
+     an explicit activation of #race-game-entry -- never on load, hash,
+     restored session, resize or Forward navigation. The Lite SVG panorama
+     and its landmarks are built once by game.js on first init (not here):
+     their route/landmark shapes are derived from the same pure journey math
+     assets/js/race-world/journey.js uses for the 3D world, and Hugo has no
+     practical way to author that Hermite-spline path server-side. */}}
+<div class="race-game" id="race-game" role="dialog" aria-modal="true" aria-label="{{ i18n "race_game_dialog_label" }}" hidden>
+  {{/* The one real, programmatically scrollable, visually clipped scroll
+       surface (spec 6.1): 7,000 CSS px across 7 equal 1,000px chapter
+       spans. Never display:none/hidden -- it must stay measurable. Its
+       scrollTop is set only by game.js (drag/wheel/keys/controls), never by
+       native user touch-scroll, which is why it is not the pointer target. */}}
+  <div class="race-game__scroll" aria-hidden="true"><div class="race-game__spacer"></div></div>
+  <div class="race-game__scene">
+    <div class="race-game__map" aria-hidden="true"></div>
+    <div class="race-game__rig" aria-hidden="true"></div>
+  </div>
+  <header class="race-game__header">
+    <p class="race-game__title" id="race-game-title" data-title-template="{{ i18n "race_game_title_template" }}" data-mode3d="{{ i18n "race_game_mode_3d" }}" data-mode-lite="{{ i18n "race_game_mode_lite" }}"></p>
+    <button type="button" class="race-game__lite" data-use-lite-text="{{ i18n "race_game_switch_use_lite" }}" data-try3d-text="{{ i18n "race_game_switch_try_3d" }}" hidden></button>
+    <button type="button" class="race-game__exit" aria-label="{{ i18n "race_game_exit" }}">{{ i18n "race_game_exit_visible" }}</button>
+  </header>
+  <div class="race-game__panel">
+    <p class="race-game__chapter" data-chapter-template="{{ i18n "race_game_chapter_template" }}"></p>
+    <p class="race-game__caption"></p>
+    {{/* Inspectable landmark (game-mode interactivity spec): reveals, on
+         request only, a line already authored in data/race.yml for the
+         current chapter (hero.originNote / chapter.lesson /
+         transition.body / finish.colophon -- see the data-landmark
+         attributes on each .race-stage in layouts/race/single.html) that the
+         panel does not otherwise show. Collapses again on every chapter
+         change (assets/js/race/game.js), so each of the seven chapters is
+         inspected on its own. Motion-free: a discrete text reveal, not an
+         animation. */}}
+    <button type="button" class="race-game__landmark" aria-expanded="false" aria-controls="race-game-landmark-text"
+      data-show-text="{{ i18n "race_game_landmark_show" }}" data-hide-text="{{ i18n "race_game_landmark_hide" }}"
+      hidden
+    >{{ i18n "race_game_landmark_show" }}</button>
+    <p class="race-game__landmark-text" id="race-game-landmark-text" hidden></p>
+    <p class="race-game__help race-game__status" role="status" aria-live="polite" aria-atomic="true"
+      data-help-text="{{ i18n "race_game_help" }}"
+      data-status-unavailable="{{ i18n "race_game_status_unavailable" }}"
+      data-status-lost="{{ i18n "race_game_status_lost" }}"
+      data-announce-entry="{{ i18n "race_game_announce_entry" }}"
+      data-announce-chapter-template="{{ i18n "race_game_announce_chapter_template" }}"
+    >{{ i18n "race_game_help" }}</p>
+    <input type="range" class="race-game__progress" min="0" max="100" step="0.1" value="0"
+      aria-label="{{ i18n "race_game_progress" }}"
+      data-value-template="{{ i18n "race_game_progress_value_template" }}"
+    >
+    <div class="race-game__actions">
+      <button type="button" class="race-game__previous" aria-label="{{ i18n "race_game_previous_accessible" }}">{{ i18n "race_game_previous" }}</button>
+      <button type="button" class="race-game__next"
+        data-next-text="{{ i18n "race_game_next" }}" data-next-accessible="{{ i18n "race_game_next_accessible" }}"
+        data-berth-text="{{ i18n "race_game_berth" }}" data-berth-accessible="{{ i18n "race_game_berth_accessible" }}"
+        aria-label="{{ i18n "race_game_next_accessible" }}"
+      >{{ i18n "race_game_next" }}</button>
+      <a class="race-game__read" href="#start">{{ i18n "race_game_read" }}</a>
+    </div>
+    <p class="race-game__disclaimer">{{ i18n "race_game_disclaimer" }}</p>
+  </div>
+</div>

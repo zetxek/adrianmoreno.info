@@ -146,3 +146,89 @@
 
 - id: "continue_reading"
   translation: "Continue reading"
+
+## Engineered Race UI (biography lives in data/race.yml)
+- id: race_mode
+  translation: "Game mode · Swim, bike, run"
+- id: race_exit
+  translation: "Exit to portfolio"
+- id: race_chapters
+  translation: "Course chapters"
+- id: race_start
+  translation: "Start"
+- id: race_finish
+  translation: "Finish"
+- id: race_role
+  translation: "ROLE"
+- id: race_principles
+  translation: "Field notes / Principles"
+- id: race_transition
+  translation: "Transition"
+- id: race_next
+  translation: "Next: conversation"
+- id: race_email
+  translation: "Email me"
+- id: race_back
+  translation: "Back to the start"
+- id: race_scroll_hint
+  translation: "SCROLL"
+- id: race_complete
+  translation: "Course complete"
+## Full-screen journey game (replaces the deleted Course Passport)
+- id: race_game_entry
+  translation: "Enter full-screen game mode"
+- id: race_game_entry_description
+  translation: "Optional interactive journey. May download up to 240 KiB of 3D assets. Exit at any time."
+- id: race_game_dialog_label
+  translation: "Journey game"
+- id: race_game_exit
+  translation: "Exit game mode"
+- id: race_game_exit_visible
+  translation: "Exit game"
+- id: race_game_title_template
+  translation: "Journey game · {mode}"
+- id: race_game_mode_3d
+  translation: "3D"
+- id: race_game_mode_lite
+  translation: "Lite"
+- id: race_game_switch_use_lite
+  translation: "Use Lite mode"
+- id: race_game_switch_try_3d
+  translation: "Try 3D"
+- id: race_game_chapter_template
+  translation: "Chapter {number} of 7 · {name}"
+- id: race_game_help
+  translation: "Drag up to travel; down to retrace."
+- id: race_game_landmark_show
+  translation: "Reveal field note"
+- id: race_game_landmark_hide
+  translation: "Hide field note"
+- id: race_game_status_unavailable
+  translation: "3D unavailable. Continue in Lite mode."
+- id: race_game_status_lost
+  translation: "3D lost the rendering context. Continue in Lite mode."
+- id: race_game_progress
+  translation: "Journey progress"
+- id: race_game_progress_value_template
+  translation: "{chapter}, {percent}% of the illustrative route"
+- id: race_game_previous
+  translation: "Previous"
+- id: race_game_previous_accessible
+  translation: "Previous chapter"
+- id: race_game_next
+  translation: "Next"
+- id: race_game_next_accessible
+  translation: "Next chapter"
+- id: race_game_berth
+  translation: "Berth"
+- id: race_game_berth_accessible
+  translation: "Berth in Copenhagen"
+- id: race_game_read
+  translation: "Read this chapter"
+- id: race_game_disclaimer
+  translation: "Illustrative route — not a literal account of travel."
+- id: race_game_announce_entry
+  translation: "Journey game open. Drag the scene, use the arrow keys, or the progress control to travel. Escape or Exit game closes it."
+- id: race_game_announce_chapter_template
+  translation: "{chapter} selected."
+
