@@ -112,6 +112,57 @@
 - id: "newsletter_button"
   translation: "Suscribirme"
 
+## Engineered Race UI (biography lives in data/race.yml)
+- id: race_mode
+  translation: "Modo juego · Natación, ciclismo, carrera"
+- id: race_exit
+  translation: "Volver al portfolio"
+- id: race_chapters
+  translation: "Etapas del recorrido"
+- id: race_start
+  translation: "Inicio"
+- id: race_finish
+  translation: "Meta"
+- id: race_role
+  translation: "ROL"
+- id: race_principles
+  translation: "Notas / Principios"
+- id: race_transition
+  translation: "Transición"
+- id: race_next
+  translation: "Siguiente: conversación"
+- id: race_email
+  translation: "Escríbeme"
+- id: race_back
+  translation: "Volver al inicio"
+- id: race_scroll_hint
+  translation: "SCROLL"
+- id: race_complete
+  translation: "Recorrido completado"
+- id: race_explore
+  translation: "Explorar la escena actual"
+- id: race_explore_instruction
+  translation: "Selecciona el modelo para girarlo. Desplázate para explorar."
+- id: race_atlas_description
+  translation: "Un mapa de juguete inclinado del recorrido: de Madrid a Galicia, cruzando el Atlántico hasta Ámsterdam y luego Copenhague."
+- id: race_passport_heading
+  translation: "Pasaporte del recorrido"
+- id: race_passport_save
+  translation: "Guardar este apunte"
+- id: race_passport_saved
+  translation: "Guardado — selecciona para quitarlo"
+- id: race_passport_reset
+  translation: "Borrar apuntes guardados"
+- id: race_passport_count_template
+  translation: "{count} de 4 guardados"
+- id: race_passport_announce_saved
+  translation: "Apunte de {label} guardado. {count}."
+- id: race_passport_announce_removed
+  translation: "Apunte de {label} eliminado. {count}."
+- id: race_passport_announce_reset
+  translation: "Se han borrado todos los apuntes guardados."
+
+
 - id: "newsletter_placeholder"
   translation: "tu@email.com"
 

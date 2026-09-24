@@ -1,0 +1,185 @@
+/* Separate js.Build entry: the only file that imports 'three'. Exposes a
+   factory returning { update, render, resize, dispose } -- it owns no loop
+   of its own; assets/js/race/index.js's scheduler calls render() only when
+   dirty. One WebGLRenderer, one orthographic camera, one scene, one fixed
+   spatial assembly of the seven course zones (binding continuity spec
+   section 1.3): chapter boundaries drive progress through that assembly,
+   they never select a replacement world or blend between two of them. */
+import { Color, DirectionalLight, HemisphereLight, Matrix4, OrthographicCamera, Quaternion, Scene, SRGBColorSpace, Vector3, WebGLRenderer } from 'three';
+import { buildZones } from './zones.js';
+import {
+  cameraPosition, cameraTarget, journeyCoordinate, routeLateral, vesselHeading,
+  vesselHeelDegrees, wakeQuadPlacement,
+} from './journey.js';
+
+// One global four-role palette (spec 3.8): the clear colour/background is
+// the constant ground role -- there is no per-chapter background switch.
+const GROUND_ROLE = '#242729';
+const Y_AXIS = new Vector3(0, 1, 0);
+
+/* Fixed world transforms (spec 1.3 table), one per zone, in ZONE_FACTORIES
+   order [start, swim, t1, bike, t2, run, finish]. Start/T1/T2 own no
+   retained geometry of their own any more (T1/T2 are empty groups; start's
+   water/vessel/wake are authored directly in world coordinates), so they
+   get the identity transform. Galicia is explicitly T x R (translate, then
+   rotate the local geometry 180 degrees around Y) -- multiply() composes
+   this = this * m, i.e. translation composed with rotation, matching that
+   order exactly. */
+function fixedZoneMatrices() {
+  return [
+    new Matrix4(),
+    new Matrix4().makeTranslation(6, 0, 4).multiply(new Matrix4().makeRotationY(Math.PI)),
+    new Matrix4(),
+    new Matrix4().makeTranslation(58, 0, -5),
+    new Matrix4(),
+    new Matrix4().makeTranslation(109, 0, -5.5),
+    new Matrix4().makeTranslation(134.2, -0.08, -16),
+  ];
+}
+
+export default async function createWorld({ canvas, width, height, pixelRatio, onContextLost }) {
+  const renderer = new WebGLRenderer({
+    canvas, alpha: false, antialias: true, powerPreference: 'low-power', preserveDrawingBuffer: false,
+  });
+  renderer.outputColorSpace = SRGBColorSpace;
+  renderer.shadowMap.enabled = false;
+
+  /* Render viewport aspect 4:3, contained within the allocated world region
+     (spec 3.6); any unused surrounding area is left as the canvas's own
+     clear colour, which is the ground role. */
+  function sizeRenderer(nextWidth, nextHeight, nextPixelRatio) {
+    renderer.setPixelRatio(nextPixelRatio);
+    const safeWidth = Math.max(1, nextWidth);
+    const safeHeight = Math.max(1, nextHeight);
+    const aspect = 4 / 3;
+    let renderWidth = safeWidth;
+    let renderHeight = safeWidth / aspect;
+    if (renderHeight > safeHeight) {
+      renderHeight = safeHeight;
+      renderWidth = safeHeight * aspect;
+    }
+    renderer.setSize(Math.max(1, Math.round(renderWidth)), Math.max(1, Math.round(renderHeight)), false);
+  }
+  sizeRenderer(width, height, pixelRatio);
+
+  // Orthographic vertical span 24, horizontal span 32, zoom 1, near/far
+  // 0.1/220 (spec 3.6). Zoom and frustum never change with scroll or chapter.
+  const camera = new OrthographicCamera(-16, 16, 12, -12, 0.1, 220);
+  camera.up.set(0, 1, 0);
+  camera.zoom = 1;
+  camera.updateProjectionMatrix();
+
+  const scene = new Scene();
+  // One constant light rig (spec 3.8): hemisphere 1.15, directional 0.75 at
+  // (10,18,8), no shadows. Nothing about it is scroll- or chapter-dependent.
+  const hemi = new HemisphereLight(0xffffff, 0x242729, 1.15);
+  const sun = new DirectionalLight(0xffffff, 0.75);
+  sun.position.set(10, 18, 8);
+  scene.add(hemi, sun);
+
+  const zones = buildZones();
+  const zoneMatrices = fixedZoneMatrices();
+  zones.forEach((zone, zoneIndex) => {
+    zone.group.visible = true;
+    zone.group.matrixAutoUpdate = false;
+    zone.group.matrix.copy(zoneMatrices[zoneIndex] || new Matrix4());
+    scene.add(zone.group);
+  });
+
+  // The one persistent vessel, water surface and analytic wake -- all owned
+  // by start-plateau (spec 4.2/5.2) and authored directly in world space.
+  const vessel = scene.getObjectByName('journey-vessel');
+  const water = scene.getObjectByName('journey-water');
+  const wake = scene.getObjectByName('journey-wake');
+  if (vessel) vessel.rotation.order = 'YXZ';
+  if (water) water.frustumCulled = false;
+  if (wake) wake.frustumCulled = false;
+
+  const wakeMatrix = new Matrix4();
+  const wakePosition = new Vector3();
+  const wakeQuaternion = new Quaternion();
+  const wakeScale = new Vector3();
+
+  const clearColor = new Color(GROUND_ROLE);
+  renderer.setClearColor(clearColor, 1);
+  scene.background = clearColor;
+
+  function handleContextLost(event) {
+    event.preventDefault();
+    if (onContextLost) onContextLost();
+  }
+  canvas.addEventListener('webglcontextlost', handleContextLost, false);
+
+  let disposed = false;
+
+  /* The entire visible world state -- vessel transform, camera, and all six
+     wake matrices -- as one pure function of the journey coordinate u (spec
+     2.1/2.3/3): every quantity here is derived fresh from u, never from a
+     previous frame's value, a previous chapter, or elapsed time. */
+  function applyJourneyState(u) {
+    const z = routeLateral(u);
+    const headingRad = vesselHeading(u);
+    const heelRad = (vesselHeelDegrees(u) * Math.PI) / 180;
+
+    if (vessel) {
+      vessel.position.set(u, -0.08, z);
+      vessel.rotation.set(heelRad, headingRad, 0);
+      vessel.scale.set(1, 1, 1);
+    }
+
+    if (wake) {
+      for (let pairIndex = 0; pairIndex < 3; pairIndex += 1) {
+        [-1, 1].forEach((sigma, sideIndex) => {
+          const placement = wakeQuadPlacement(u, pairIndex, sigma);
+          wakePosition.set(placement.position[0], placement.position[1], placement.position[2]);
+          wakeQuaternion.setFromAxisAngle(Y_AXIS, placement.rotationY);
+          wakeScale.set(placement.scaleX, 1, placement.scaleZ);
+          wakeMatrix.compose(wakePosition, wakeQuaternion, wakeScale);
+          wake.setMatrixAt(pairIndex * 2 + sideIndex, wakeMatrix);
+        });
+      }
+      wake.instanceMatrix.needsUpdate = true;
+    }
+
+    const cam = cameraPosition(u);
+    const look = cameraTarget(u);
+    camera.position.set(cam[0], cam[1], cam[2]);
+    camera.lookAt(look[0], look[1], look[2]);
+  }
+
+  /* update() receives only the measured chapter boundaries and the current
+     scroll position (spec 3.1) -- no zone index, no per-chapter inspection,
+     no atlas progress. Invalid boundaries render nothing new: the caller
+     must not derive a guessed position from them either. */
+  function update({ boundaries, scrollY }) {
+    if (disposed) return;
+    const u = journeyCoordinate(boundaries, scrollY);
+    if (u === null) return;
+    applyJourneyState(u);
+  }
+
+  function render() {
+    if (disposed) return;
+    renderer.render(scene, camera);
+  }
+
+  function resize(nextWidth, nextHeight, nextPixelRatio) {
+    if (disposed) return;
+    sizeRenderer(nextWidth, nextHeight, nextPixelRatio);
+  }
+
+  function dispose() {
+    if (disposed) return;
+    disposed = true;
+    canvas.removeEventListener('webglcontextlost', handleContextLost, false);
+    zones.forEach((zone) => zone.group.traverse((object) => {
+      if (!object.isMesh && !object.isInstancedMesh) return;
+      object.geometry.dispose();
+      if (Array.isArray(object.material)) object.material.forEach((m) => m.dispose());
+      else object.material.dispose();
+    }));
+    renderer.dispose();
+  }
+
+  return { update, render, resize, dispose };
+}

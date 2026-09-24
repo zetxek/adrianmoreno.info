@@ -1,0 +1,127 @@
+# Editorial course, not a second CV. Roles resolve to existing experience pages.
+# Chapter ranges describe places; role tenures can overlap a transition.
+edition: "01"
+currentExperience: /experience/worksome
+hero:
+  eyebrow: "THE ENGINEERED RACE"
+  tagline: "Technology, people, and the long game."
+  body: "From building software on the Galician coast to leading engineering organizations across three countries. One continuous course; different ways of moving forward."
+  origin: "Madrid, ES"
+  coordinates: "40°24′N / 3°42′W"
+  originNote: "Born in Madrid. Engineering roots in Galicia."
+  start: "Explore the course"
+chapters:
+  - id: swim
+    number: "01"
+    discipline: SWIM
+    terrain: granite
+    place: Galicia
+    location: "Santiago de Compostela, ES"
+    period: "2007–2014"
+    coordinates: "42°52′N / 8°32′W"
+    title: "Learning to swim."
+    lede: "Galicia shaped my engineering before I moved abroad. From writing code to owning its consequences, then to co-founding a company."
+    lesson: "Ownership extends past the code I write."
+    briefing: "CRAFT → OWNERSHIP"
+    roles:
+      - /experience/bahia
+      - /experience/coremain
+      - /experience/zadiasoftware
+    transition:
+      id: t1
+      number: T1
+      period: "2014 → 2015"
+      route: "ES → NL"
+      destination: Amsterdam
+      coordinates: "52°22′N / 4°54′E"
+      title: "From immersion to intention."
+      body: "A new country. A new market. A chance to start afresh. I took the engineering discipline with me — and left room to reconsider the assumptions."
+  - id: bike
+    number: "02"
+    discipline: BIKE
+    terrain: slate
+    place: Amsterdam
+    location: "Amsterdam, NL"
+    period: "2015–2021"
+    coordinates: "52°22′N / 4°54′E"
+    title: "The long work."
+    lede: "From writing software to shaping the teams and decisions around it. The shift was not simply more responsibility; it was different work."
+    lesson: "Management is a discipline alongside engineering, not a promotion out of it."
+    briefing: "CRAFT → TEAM"
+    roles:
+      - /experience/themobilecompany
+      - /experience/pocketmedia
+      - /experience/emakinanl
+      - /experience/vanmoof
+    transition:
+      id: t2
+      number: T2
+      period: "2021"
+      route: "NL → DK"
+      destination: Copenhagen
+      coordinates: "55°40′N / 12°34′E"
+      title: "Change the measure."
+      body: "From Amsterdam to Copenhagen. The course widened from leading engineering work to thinking about how an organization supports it. Different responsibilities ask different questions."
+  - id: run
+    number: "03"
+    discipline: RUN
+    terrain: chalk
+    place: Copenhagen
+    location: "Copenhagen, DK"
+    period: "2021–"
+    coordinates: "55°40′N / 12°34′E"
+    title: "Ideas carried forward."
+    lede: "Teams, technical direction, and the organizational decisions around them. A wider remit — and a renewed focus on helping people do their best work."
+    lesson: "Direction should help teams make decisions without depending on one person."
+    briefing: "TEAM → ORGANIZATION"
+    roles:
+      - /experience/sumup
+      - /experience/worksome
+principles:
+  - title: "Ship the org chart you need, not the one you inherited."
+    body: "Structure is a tool that follows strategy, not something to preserve for its own sake."
+  - title: "Technical direction is a service to the team, not a trophy for the leader."
+    body: "I want the team to be able to explain an architecture decision without me in the room."
+  - title: "Trust compounds faster than velocity."
+    body: "The trust that sustains delivery matters more than speed at the expense of the team."
+# Continuity spec section 1.2: one short scene caption per chapter, describing
+# the single persistent vessel's progress through the fixed spatial assembly.
+# Reused verbatim as the reduced-motion/mobile fallback text, the mobile dock
+# label, and the persistent "Journey and Course passport" readout.
+captions:
+  start: "One craft. A journey beginning on Galicia’s water."
+  swim: "Leaving Galicia, carrying the foundations forward."
+  t1: "Across open water, towards Amsterdam’s canals."
+  bike: "Through Amsterdam, with the same craft and a wider purpose."
+  t2: "Leaving the canals for Copenhagen’s harbour."
+  run: "Copenhagen comes alongside."
+  finish: "Alongside in Copenhagen. Ready for the next conversation."
+# Course passport (Item 3): one owner-authored takeaway per destination, reusing
+# the exact sentences already shown elsewhere on the page (hero originNote,
+# chapter lessons) rather than inventing new career claims.
+passport:
+  madrid:
+    label: "Madrid"
+    takeaway: "Born in Madrid. Engineering roots in Galicia."
+  galicia:
+    label: "Galicia"
+    takeaway: "Ownership extends past the code I write."
+  amsterdam:
+    label: "Amsterdam"
+    takeaway: "Management is a discipline alongside engineering, not a promotion out of it."
+  copenhagen:
+    label: "Copenhagen"
+    takeaway: "Direction should help teams make decisions without depending on one person."
+finish:
+  title: "The next leg starts with a conversation."
+  body: "Engineering leadership, building teams, or comparing notes on marathon training. There is always more to learn."
+  links:
+    - page: /blog
+      label: "Writing"
+    - page: /book
+      label: "Reading"
+    - page: /public-speaking
+      label: "Speaking"
+    - page: /now
+      label: "Now"
+  colophon: "A career is a course, not a leaderboard. No timer. No score. Just the work, and what it teaches you."

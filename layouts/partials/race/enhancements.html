@@ -1,0 +1,90 @@
+{{/* Progressive-enhancement DOM for the athlete, goal, world stage, scroll hint,
+     and live status region. Hidden by default; assets/js/race reveals it only
+     after a valid first position is measured. No content lives here — the
+     poster above remains the complete, no-JS baseline. */}}
+<div class="race-world" aria-hidden="true" hidden></div>
+<div class="race-athlete-wrap" aria-hidden="true" hidden>
+  <svg class="race-athlete race-athlete--ready" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+    <circle class="race-athlete__backplate" cx="16" cy="16" r="14"/>
+    <g class="race-athlete__glyph" transform="translate(4 4)">
+      <g class="race-athlete__pose race-athlete__pose--swim">
+        <path d="M2 19q2.5-2.4 5 0t5 0 5 0 5 0"/>
+        <g data-race-joint="swim-body">
+          <circle class="race-athlete__head" cx="17" cy="7" r="2"/>
+          <path d="M16 9 12 13 10 14"/>
+          <g data-race-joint="swim-arm-front"><path d="M13 10 18 6"/></g>
+          <g data-race-joint="swim-arm-rear"><path d="M13 10 8 12"/></g>
+          <g transform="translate(10 14)"><g data-race-joint="swim-kick"><path d="M0 0 -4 2 M0 0 -4 -2"/></g></g>
+        </g>
+      </g>
+      <g class="race-athlete__pose race-athlete__pose--bike">
+        <g>
+          <circle class="race-athlete__rim" cx="5" cy="17.5" r="3.5"/>
+          <circle class="race-athlete__rim" cx="19" cy="17.5" r="3.5"/>
+          <g transform="translate(5 17.5)"><g data-race-joint="bike-wheel-rear"><path class="race-athlete__rim-arc" d="M0 -3.5 A3.5 3.5 0 0 1 3.447 0.608"/></g></g>
+          <g transform="translate(19 17.5)"><g data-race-joint="bike-wheel-front"><path class="race-athlete__rim-arc" d="M0 -3.5 A3.5 3.5 0 0 1 3.447 0.608"/></g></g>
+          <path d="M5 17.5 9.4 10.1 11 16.5Z"/>
+          <path d="M9.4 10.1 16 10.5 19 17.5"/>
+          <path d="M8 10.2H10.6 M16 10.5 15.5 8.8H17.2Q18.3 8.8 18.3 9.9L17.9 10.5"/>
+          <g data-race-joint="bike-crank"><path d="M11 15V18"/></g>
+        </g>
+        <g data-race-joint="bike-torso">
+          <circle class="race-athlete__head" cx="15.1" cy="3.4" r="2"/>
+          <path d="M9.4 10.1 13.4 6.2 16 10.5"/>
+        </g>
+        <g data-race-joint="bike-leg-near-upper" transform="translate(9.4 10.1) rotate(17.77)">
+          <path d="M0 0H4.4"/>
+          <g data-race-joint="bike-leg-near-lower" transform="translate(4.4 0) rotate(108.29)">
+            <path d="M0 0H4.4"/>
+          </g>
+        </g>
+      </g>
+      <g class="race-athlete__pose race-athlete__pose--run">
+        <g data-race-joint="run-body">
+          <circle class="race-athlete__head" cx="17" cy="6" r="2"/>
+          <path d="M16 8 13 12 12 14"/>
+          <g data-race-joint="run-arm-front"><path d="M13 9 17 7"/></g>
+          <g data-race-joint="run-arm-rear"><path d="M13 9 10 12"/></g>
+          <g data-race-joint="run-leg-front"><path d="M12 14 15 19 14 22"/></g>
+          <g data-race-joint="run-leg-rear"><path d="M12 14 9 18 6 19"/></g>
+        </g>
+      </g>
+      <g class="race-athlete__pose race-athlete__pose--transition">
+        <g data-race-joint="transition-bike">
+          <path d="M12 17 14.4 13.4 19 17"/>
+          <path data-race-part="transition-handlebar" d="M19 17 18.2 12.1 H20.7 Q21.7 12.1 21.7 13.2 L21.1 13.7"/>
+          <circle class="race-athlete__rim" cx="12" cy="17" r="3"/>
+          <circle class="race-athlete__rim" cx="19" cy="17" r="3"/>
+          <g transform="translate(12 17)"><g data-race-joint="transition-bike-wheel-rear"><path class="race-athlete__rim-arc" d="M0 -3 A3 3 0 0 1 2.954 0.521"/></g></g>
+          <g transform="translate(19 17)"><g data-race-joint="transition-bike-wheel-front"><path class="race-athlete__rim-arc" d="M0 -3 A3 3 0 0 1 2.954 0.521"/></g></g>
+        </g>
+        <g data-race-joint="transition-leg-rear"><path d="M7 14 4.5 17.2 3 18.4"/></g>
+        <g data-race-joint="transition-leg-front"><path d="M7 14 7.2 17.6 8.2 20.2"/></g>
+        <g data-race-joint="transition-body">
+          <circle class="race-athlete__head" cx="7" cy="5.5" r="2"/>
+          <path d="M7 7.5 V14"/>
+        </g>
+        <g><path d="M7 10 10 11.1 13 9.7"/></g>
+      </g>
+      <g class="race-athlete__pose race-athlete__pose--finish">
+        <g data-race-joint="finish-body">
+          <circle class="race-athlete__head" cx="16" cy="6" r="2"/>
+          <path d="M16 8 14 12 13 14"/>
+          <g data-race-joint="finish-arm-front"><path d="M13 9 16 8"/></g>
+          <g data-race-joint="finish-arm-rear"><path d="M13 9 11 12"/></g>
+          <g data-race-joint="finish-leg-front"><path d="M13 14 15 18 14 21"/></g>
+          <g data-race-joint="finish-leg-rear"><path d="M13 14 11 18 9 19"/></g>
+        </g>
+      </g>
+    </g>
+    <circle class="race-athlete__course-dot" cx="16" cy="29" r="1.5"/>
+  </svg>
+</div>
+<svg class="race-goal" viewBox="0 0 32 24" aria-hidden="true" focusable="false" hidden>
+  <line class="race-goal__post" x1="4" y1="3" x2="4" y2="21"/>
+  <line class="race-goal__post" x1="28" y1="3" x2="28" y2="21"/>
+  <line class="race-goal__crossbar" x1="4" y1="3" x2="28" y2="3"/>
+  <rect class="race-goal__square" x="13" y="9" width="6" height="6"/>
+</svg>
+<span class="race-scroll-hint" aria-hidden="true" hidden>&#8595; {{ i18n "race_scroll_hint" }}</span>
+<p class="race-status race-sr-only" role="status" aria-live="polite" aria-atomic="true" data-race-complete-text="{{ i18n "race_complete" }}"></p>
