@@ -65,6 +65,11 @@ jobs:
           echo "Waiting for Hugo server to be ready..."
           timeout 30 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:1313)" != "200" ]]; do sleep 2; done' || false
 
+      - name: Run unit tests
+        # Content/script guards (e.g. no H1 in imported blog bodies) — cheap,
+        # no browser needed, so failures surface before the Playwright run.
+        run: npm run test:unit
+
       - name: Run Playwright tests
         run: npm run test:e2e
 
