@@ -3,7 +3,7 @@ title: "Now"
 type: "blog"
 ---
 
-# What I'm up to now
+## What I'm up to now
 
 *Last updated: May 2026*
 

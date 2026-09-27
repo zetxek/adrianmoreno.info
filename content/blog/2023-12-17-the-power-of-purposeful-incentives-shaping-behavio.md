@@ -20,7 +20,7 @@ contentHash = "09c0aaa7377869d4f43447324c838f4dd350da8ea559e1c6b65525996b2c4f2d"
 
 ![](https://media.licdn.com/mediaD4D12AQEkgqjYgHd3XQ)
 
-# [The Power of Purposeful Incentives: Shaping Behaviors for Long-Term Success](https://www.linkedin.com/pulse/power-purposeful-incentives-shaping-behaviors-success-moreno-pe%C3%B1a-klgbf)
+## [The Power of Purposeful Incentives: Shaping Behaviors for Long-Term Success](https://www.linkedin.com/pulse/power-purposeful-incentives-shaping-behaviors-success-moreno-pe%C3%B1a-klgbf)
 
 When people look up to you, you need to consider the incentives you set. Incentives are not just about giving rewards or punishments, but also about making sure your team members share the same goals, values and behaviors as your organization.
 

@@ -20,7 +20,7 @@ contentHash = "3ffb14d383542df9e855220e0672dd404876fcce2d65168ce17d0c5f82df1a39"
 
 ![Generated with midjourney 5](https://media.licdn.com/mediaD4E12AQFOEy41G1LdDg)
 
-# [Developing our empathy to be better colleagues and leaders](https://www.linkedin.com/pulse/developing-our-empathy-better-colleagues-leaders-adri%C3%A1n-moreno-pe%C3%B1a)
+## [Developing our empathy to be better colleagues and leaders](https://www.linkedin.com/pulse/developing-our-empathy-better-colleagues-leaders-adri%C3%A1n-moreno-pe%C3%B1a)
 
 I often get asked what skills are most useful to develop to be a successful leader. I want to make a case for making **empathy** a top tool in our skillset.
 
