@@ -172,3 +172,27 @@ export function cameraTarget(u) {
 export function cameraPosition(u) {
   return [0.95 * u + 8, 20, routeLateral(u) + 32];
 }
+
+/* Game-mode camera (game-feel plan section 5): the same 95% follow law as
+   the reading camera, but lifted and pulled in so the view looks down more
+   steeply. The reading camera's shallow angle puts near-bank scenery
+   (Amsterdam's houses and windmill, the T2 quay) between the lens and the
+   vessel on tall portrait viewports; from higher up the vessel always reads
+   against water. Still a pure function of u. */
+export function gameCameraPosition(u) {
+  return [0.95 * u + 7, 26, routeLateral(u) + 22];
+}
+
+/* Per-place ambience weights (game-feel plan section 5): how much of each
+   of the three places -- Galicia, Amsterdam, Copenhagen -- the scene at u
+   belongs to. Pure in u, sums to 1, and crossfades only across the two
+   open-water transitions (T1 and T2), so each city reads as its own place
+   and the change of mood is something you sail through, never a cut. */
+export function placeWeights(u) {
+  const toAmsterdam = smoothstep01((u - 26) / 22);   // across T1 (u 22..46)
+  const toCopenhagen = smoothstep01((u - 76) / 22);  // across T2 (u 72..96)
+  const galicia = 1 - toAmsterdam;
+  const copenhagen = toCopenhagen;
+  const amsterdam = Math.max(0, 1 - galicia - copenhagen);
+  return { galicia, amsterdam, copenhagen };
+}

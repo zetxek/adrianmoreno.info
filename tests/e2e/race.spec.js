@@ -507,3 +507,131 @@ test('atlas route wake: a scroll that lands before the world finishes loading st
 
   expect(lateScroll).toBe(reference);
 });
+
+// ---- Game feel (game-feel plan sections 1-4, 7) ------------------------------
+// The travel loop publishes data-game-moving and data-game-lateral on the
+// overlay, like the quality ladder's data-game-* diagnostics.
+
+async function openGameAtStart(page, { width = 390, height = 844 } = {}) {
+  await page.setViewportSize({ width, height });
+  await page.goto(raceURL);
+  await page.evaluate(() => { try { localStorage.removeItem('race.game.notes'); localStorage.removeItem('race.game.best'); } catch (e) { /* noop */ } });
+  await page.waitForTimeout(400);
+  await page.locator('#race-game-entry').click();
+  await expect(page.locator('#race-game')).toBeVisible();
+}
+
+const gameProgress = (page) => page.evaluate(() => parseFloat(document.querySelector('.race-game__progress').value));
+const waitForGameIdle = (page) => page.waitForFunction(() => document.querySelector('#race-game').dataset.gameMoving === 'false', null, { timeout: 8000 });
+
+test('full-screen game: holding ArrowDown sails forward, then the travel loop goes fully idle', async ({ page }) => {
+  await openGameAtStart(page);
+  const before = await gameProgress(page);
+  await page.keyboard.down('ArrowDown');
+  await page.waitForTimeout(1200);
+  await expect(page.locator('#race-game')).toHaveAttribute('data-game-moving', 'true');
+  await page.keyboard.up('ArrowDown');
+  await waitForGameIdle(page);
+  expect(await gameProgress(page)).toBeGreaterThan(before);
+  // The first-run hint dismissed itself on the first input.
+  await expect(page.locator('.race-game__hint')).toBeHidden();
+
+  const rafCalls = await page.evaluate(() => new Promise((resolve) => {
+    let count = 0;
+    const original = window.requestAnimationFrame;
+    window.requestAnimationFrame = (cb) => { count++; return original(cb); };
+    setTimeout(() => { window.requestAnimationFrame = original; resolve(count); }, 800);
+  }));
+  expect(rafCalls).toBe(0);
+});
+
+test('full-screen game: steering moves the vessel off the route and it drifts back to centre', async ({ page }) => {
+  await openGameAtStart(page);
+  const overlay = page.locator('#race-game');
+  await page.keyboard.down('ArrowDown');
+  await page.keyboard.down('ArrowLeft');
+  await page.waitForTimeout(700);
+  const steered = parseFloat(await overlay.getAttribute('data-game-lateral'));
+  expect(steered).toBeLessThan(-0.3);
+  await page.keyboard.up('ArrowLeft');
+  await page.keyboard.up('ArrowDown');
+  await waitForGameIdle(page);
+  expect(parseFloat(await overlay.getAttribute('data-game-lateral'))).toBe(0);
+});
+
+test('full-screen game: sailing through a buoy collects its field note, updates the counter and announces it', async ({ page }) => {
+  await openGameAtStart(page);
+  const notes = page.locator('.race-game__notes');
+  await expect(notes).toHaveText('Notes 0/7');
+  // The start chapter's buoy floats to starboard: hold right and sail on.
+  await page.keyboard.down('ArrowRight');
+  await page.keyboard.down('ArrowDown');
+  await expect(notes).toHaveText('Notes 1/7', { timeout: 6000 });
+  await page.keyboard.up('ArrowDown');
+  await page.keyboard.up('ArrowRight');
+  await expect(page.locator('.race-game__status')).toContainText('Field note 1 of 7');
+  await expect(page.locator('.race-game__landmark-text')).toBeVisible();
+  expect(await page.evaluate(() => localStorage.getItem('race.game.notes'))).toBe('[0]');
+  await waitForGameIdle(page);
+});
+
+test('full-screen game: reaching the berth opens the finish card with an email link; Race again resets; Escape still exits', async ({ page }) => {
+  await openGameAtStart(page);
+  const finish = page.locator('.race-game__finish');
+  await expect(finish).toBeHidden();
+  await page.keyboard.press('End');
+  await expect(finish).toBeVisible();
+  await expect(page.locator('.race-game__finish-title')).toBeFocused();
+  await expect(page.locator('.race-game__finish-email')).toHaveAttribute('href', /^mailto:.+@.+/);
+  await expect(page.locator('.race-game__status')).toContainText('Course complete');
+
+  await page.locator('.race-game__finish-again').click();
+  await expect(finish).toBeHidden();
+  expect(await gameProgress(page)).toBe(0);
+
+  await page.keyboard.press('End');
+  await expect(finish).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#race-game')).toBeHidden();
+  await expect(page.locator('#race-game-entry')).toBeFocused();
+});
+
+test('full-screen game: reduced motion completes the course with discrete steps, zero WebGL contexts and no loop', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const worldRequests = [];
+  page.on('request', (req) => { if (req.url().includes('race-world')) worldRequests.push(req.url()); });
+  await openGameAtStart(page);
+
+  // The field note button is the reduced-motion path to collecting notes.
+  await page.locator('.race-game__landmark').click();
+  await expect(page.locator('.race-game__notes')).toHaveText('Notes 1/7');
+
+  const next = page.locator('.race-game__next');
+  for (let i = 0; i < 7; i++) await next.click();
+  await expect(page.locator('.race-game__finish')).toBeVisible();
+  await expect(page.locator('.race-game__finish-notes')).toContainText('1 of 7');
+  // No clock, no time: without motion the course is not a race.
+  await expect(page.locator('.race-game__clock')).toBeHidden();
+  await expect(page.locator('.race-game__finish-time')).toBeHidden();
+  await expect(page.locator('.race-game__status')).toContainText('Course complete');
+
+  const rafCalls = await page.evaluate(() => new Promise((resolve) => {
+    let count = 0;
+    const original = window.requestAnimationFrame;
+    window.requestAnimationFrame = (cb) => { count++; return original(cb); };
+    setTimeout(() => { window.requestAnimationFrame = original; resolve(count); }, 600);
+  }));
+  expect(rafCalls).toBe(0);
+  expect(await page.locator('canvas').count()).toBe(0);
+  expect(worldRequests).toEqual([]);
+  await expect(page.locator('#race-game')).not.toHaveAttribute('data-game-moving', 'true');
+});
+
+test('full-screen game: chapter changes are announced as "Chapter n of 7", from any input', async ({ page }) => {
+  await openGameAtStart(page);
+  await page.locator('.race-game__next').click();
+  await waitForGameIdle(page);
+  await expect(page.locator('.race-game__status')).toHaveText('Chapter 2 of 7: SWIM');
+  await page.keyboard.press('Home');
+  await expect(page.locator('.race-game__status')).toHaveText(/^Chapter 1 of 7: /);
+});

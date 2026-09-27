@@ -197,8 +197,6 @@
   translation: "Try 3D"
 - id: race_game_chapter_template
   translation: "Chapter {number} of 7 · {name}"
-- id: race_game_help
-  translation: "Drag up to travel; down to retrace."
 - id: race_game_landmark_show
   translation: "Reveal field note"
 - id: race_game_landmark_hide
@@ -228,7 +226,39 @@
 - id: race_game_disclaimer
   translation: "Illustrative route — not a literal account of travel."
 - id: race_game_announce_entry
-  translation: "Journey game open. Drag the scene, use the arrow keys, or the progress control to travel. Escape or Exit game closes it."
+  translation: "Journey game open. Hold the down arrow to sail on and the up arrow to go back, left and right to steer, or use Next, Previous and the progress control. Collect the field note in each of the seven chapters. Escape or Exit game closes it."
 - id: race_game_announce_chapter_template
-  translation: "{chapter} selected."
+  translation: "Chapter {number} of 7: {chapter}"
+- id: race_game_announce_note_template
+  translation: "Field note {count} of 7: {note}"
+- id: race_game_announce_finish_template
+  translation: "Course complete. {notes}"
+- id: race_game_notes_template
+  translation: "Notes {count}/7"
+- id: race_game_clock_template
+  translation: "Time under way {time}"
+- id: race_game_hint_toggle
+  translation: "Show controls"
+- id: race_game_hint
+  translation: "Hold ↓ to sail on, ↑ to go back · ← → to steer · Shift to boost · drag works too. Sail through the red buoy in each chapter to collect its field note."
+- id: race_game_hint_static
+  translation: "Use Next and Previous, or the progress control, to travel. Reveal each chapter's field note to collect it."
+- id: race_game_finish_title
+  translation: "Course complete"
+- id: race_game_finish_time_template
+  translation: "Time under way: {time}"
+- id: race_game_finish_notes_template
+  translation: "Field notes collected: {count} of 7"
+- id: race_game_finish_best_template
+  translation: "Personal best: {time}"
+- id: race_game_finish_new_best
+  translation: "New personal best."
+- id: race_game_finish_assisted
+  translation: "You skipped ahead on this run, so it doesn't count toward a personal best."
+- id: race_game_finish_email
+  translation: "Email Adrián"
+- id: race_game_finish_again
+  translation: "Race again"
+- id: race_game_finish_read
+  translation: "Read the full story"
 

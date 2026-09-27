@@ -5,17 +5,48 @@
    spatial assembly of the seven course zones (binding continuity spec
    section 1.3): chapter boundaries drive progress through that assembly,
    they never select a replacement world or blend between two of them. */
-import { Color, DirectionalLight, HemisphereLight, Matrix4, OrthographicCamera, Quaternion, Scene, SRGBColorSpace, Vector3, WebGLRenderer } from 'three';
+import {
+  Color, CylinderGeometry, DirectionalLight, HemisphereLight, InstancedMesh, Matrix4, MeshBasicMaterial,
+  OrthographicCamera, Quaternion, Scene, SRGBColorSpace, Vector3, WebGLRenderer,
+} from 'three';
 import { buildZones } from './zones.js';
 import {
-  cameraPosition, cameraTarget, journeyCoordinate, routeLateral, vesselHeading,
+  cameraPosition, cameraTarget, gameCameraPosition, journeyCoordinate, placeWeights, routeLateral, vesselHeading,
   vesselHeelDegrees, wakeQuadPlacement,
 } from './journey.js';
+import { BUOYS } from '../race/checkpoints.js';
 
 // One global four-role palette (spec 3.8): the clear colour/background is
 // the constant ground role -- there is no per-chapter background switch.
 const GROUND_ROLE = '#242729';
 const Y_AXIS = new Vector3(0, 1, 0);
+
+/* Game-mode ambience (game-feel plan section 5), used only when the caller
+   asks for it (`ambient: true` -- the full-screen game; the reading world
+   keeps the constant four-role palette above). The water is the one surface
+   that fills the whole frame, so it carries the sense of place: Atlantic
+   teal off Galicia, a warm dusk over the Amsterdam canals, a cold clear blue
+   in Copenhagen's harbour -- each clearly lighter and bluer than the grey
+   land, so the scene always reads as "boat on water past land". The sky
+   tint of the hemisphere light follows the same weights. The site's red
+   stays untouched on the vessel, the buoys and the finish. */
+const PLACE_MOODS = {
+  galicia: { water: new Color(0x2c6470), sky: new Color(0xe4f1f1) },
+  amsterdam: { water: new Color(0x55607e), sky: new Color(0xffe2c6) },
+  copenhagen: { water: new Color(0x2f6b8f), sky: new Color(0xe6efff) },
+};
+// The finish apron is authored in the ground role; lit, that reads as a
+// black slab once the water around it is blue. In game mode it becomes quay
+// stone instead.
+const FINISH_APRON_STONE = new Color(0x585f64);
+
+// Buoy colours: red/white while there is a field note to collect, then
+// greyed out -- still visible (a record of where you have been), no longer
+// asking for attention.
+const BUOY_BODY = new Color(0xff331f);
+const BUOY_BODY_DONE = new Color(0x62676a);
+const BUOY_CAP = new Color(0xf2f3f4);
+const BUOY_CAP_DONE = new Color(0x8a9094);
 
 /* Fixed world transforms (spec 1.3 table), one per zone, in ZONE_FACTORIES
    order [start, swim, t1, bike, t2, run, finish]. Start/T1/T2 own no
@@ -180,6 +211,95 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
   renderer.setClearColor(clearColor, 1);
   scene.background = clearColor;
 
+  const groundRole = new Color(GROUND_ROLE);
+  const hemiSkyRole = hemi.color.clone();
+  const waterMaterial = water ? water.material : null;
+  const waterRole = waterMaterial ? waterMaterial.emissive.clone() : null;
+  const finishApron = scene.getObjectByName('finish-apron');
+  if (finishApron) finishApron.material = finishApron.material.clone();
+  const apronRole = finishApron ? finishApron.material.color.clone() : null;
+  const moodWater = new Color();
+  const moodSky = new Color();
+  let ambientApplied = null;
+
+  /* Pure in (u, ambient): the same inputs always give the same colours. */
+  function applyAmbience(u, ambient) {
+    if (!ambient) {
+      if (ambientApplied === false) return;
+      ambientApplied = false;
+      if (waterMaterial) waterMaterial.emissive.copy(waterRole);
+      if (finishApron) finishApron.material.color.copy(apronRole);
+      hemi.color.copy(hemiSkyRole);
+      clearColor.copy(groundRole);
+      renderer.setClearColor(clearColor, 1);
+      return;
+    }
+    ambientApplied = true;
+    const w = placeWeights(u);
+    moodWater.setRGB(0, 0, 0);
+    moodSky.setRGB(0, 0, 0);
+    Object.keys(PLACE_MOODS).forEach((place) => {
+      moodWater.r += PLACE_MOODS[place].water.r * w[place];
+      moodWater.g += PLACE_MOODS[place].water.g * w[place];
+      moodWater.b += PLACE_MOODS[place].water.b * w[place];
+      moodSky.r += PLACE_MOODS[place].sky.r * w[place];
+      moodSky.g += PLACE_MOODS[place].sky.g * w[place];
+      moodSky.b += PLACE_MOODS[place].sky.b * w[place];
+    });
+    if (waterMaterial) waterMaterial.emissive.copy(moodWater);
+    if (finishApron) finishApron.material.color.copy(FINISH_APRON_STONE);
+    hemi.color.copy(moodSky);
+    clearColor.copy(moodWater);
+    renderer.setClearColor(clearColor, 1);
+  }
+
+  /* Field-note buoys (game-feel plan section 3): owned here rather than in
+     zones.js so the authored per-zone geometry budget stays exact. Two
+     instanced meshes of seven -- a red tapered body and a white cap -- at
+     the fixed placements in checkpoints.js. Hidden unless the caller passes
+     `collected` (only the game does), and recoloured, never rebuilt, when
+     one is collected. */
+  const buoyBodyGeometry = new CylinderGeometry(0.26, 0.4, 0.9, 8);
+  const buoyCapGeometry = new CylinderGeometry(0.2, 0.26, 0.28, 8);
+  const buoyBodyMaterial = new MeshBasicMaterial({ color: 0xffffff });
+  const buoyCapMaterial = new MeshBasicMaterial({ color: 0xffffff });
+  const buoyBodies = new InstancedMesh(buoyBodyGeometry, buoyBodyMaterial, BUOYS.length);
+  const buoyCaps = new InstancedMesh(buoyCapGeometry, buoyCapMaterial, BUOYS.length);
+  {
+    const m = new Matrix4();
+    BUOYS.forEach((buoy, i) => {
+      buoyBodies.setMatrixAt(i, m.makeTranslation(buoy.u, 0.3, buoy.z));
+      buoyCaps.setMatrixAt(i, m.makeTranslation(buoy.u, 0.89, buoy.z));
+      buoyBodies.setColorAt(i, BUOY_BODY);
+      buoyCaps.setColorAt(i, BUOY_CAP);
+    });
+  }
+  [buoyBodies, buoyCaps].forEach((mesh) => {
+    mesh.name = 'journey-buoys';
+    mesh.frustumCulled = false;
+    mesh.visible = false;
+    mesh.instanceMatrix.needsUpdate = true;
+    scene.add(mesh);
+  });
+  let buoyKey = null;
+
+  function applyBuoys(collected) {
+    const show = Boolean(collected);
+    buoyBodies.visible = show;
+    buoyCaps.visible = show;
+    if (!show) return;
+    const key = BUOYS.map((b) => (collected.has(b.chapterIndex) ? '1' : '0')).join('');
+    if (key === buoyKey) return;
+    buoyKey = key;
+    BUOYS.forEach((buoy, i) => {
+      const done = collected.has(buoy.chapterIndex);
+      buoyBodies.setColorAt(i, done ? BUOY_BODY_DONE : BUOY_BODY);
+      buoyCaps.setColorAt(i, done ? BUOY_CAP_DONE : BUOY_CAP);
+    });
+    buoyBodies.instanceColor.needsUpdate = true;
+    buoyCaps.instanceColor.needsUpdate = true;
+  }
+
   function handleContextLost(event) {
     event.preventDefault();
     if (onContextLost) onContextLost();
@@ -196,24 +316,33 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
      wake matrices -- as one pure function of the journey coordinate u (spec
      2.1/2.3/3): every quantity here is derived fresh from u, never from a
      previous frame's value, a previous chapter, or elapsed time. */
-  function applyJourneyState(u) {
+  /* Game-mode inputs (game-feel plan sections 1-2), all optional and all
+     supplied by the caller rather than derived from a clock: `lateralOffset`
+     (world units off the route, from steering), `yaw` (radians, the bow's
+     turn into that steer) and `speed` (0..1, which sizes the wake; the
+     reading world omits it and keeps the full wake). */
+  function applyJourneyState(u, lateralOffset, yaw, speed, gameCamera) {
     const z = routeLateral(u);
-    const headingRad = vesselHeading(u);
-    const heelRad = (vesselHeelDegrees(u) * Math.PI) / 180;
+    const headingRad = vesselHeading(u) + yaw;
+    const heelRad = (vesselHeelDegrees(u) * Math.PI) / 180 - yaw * 0.25;
 
     if (vessel) {
-      vessel.position.set(u, -0.08, z);
+      vessel.position.set(u, -0.08, z + lateralOffset);
       vessel.rotation.set(heelRad, headingRad, 0);
       vessel.scale.set(1, 1, 1);
     }
 
     if (wake) {
+      // At rest there is no wake; under way it grows longer and wider with
+      // speed, so acceleration and coasting are both visible on the water.
+      const wakeLength = speed === null ? 1 : Math.min(1.6, speed * 1.6);
+      const wakeWidth = speed === null ? 1 : Math.min(1.3, speed * 1.3);
       for (let pairIndex = 0; pairIndex < 3; pairIndex += 1) {
         [-1, 1].forEach((sigma, sideIndex) => {
           const placement = wakeQuadPlacement(u, pairIndex, sigma);
-          wakePosition.set(placement.position[0], placement.position[1], placement.position[2]);
-          wakeQuaternion.setFromAxisAngle(Y_AXIS, placement.rotationY);
-          wakeScale.set(placement.scaleX, 1, placement.scaleZ);
+          wakePosition.set(placement.position[0], placement.position[1], placement.position[2] + lateralOffset);
+          wakeQuaternion.setFromAxisAngle(Y_AXIS, placement.rotationY + yaw);
+          wakeScale.set(placement.scaleX * wakeLength, 1, placement.scaleZ * wakeWidth);
           wakeMatrix.compose(wakePosition, wakeQuaternion, wakeScale);
           wake.setMatrixAt(pairIndex * 2 + sideIndex, wakeMatrix);
         });
@@ -221,7 +350,7 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
       wake.instanceMatrix.needsUpdate = true;
     }
 
-    const cam = cameraPosition(u);
+    const cam = gameCamera ? gameCameraPosition(u) : cameraPosition(u);
     const look = cameraTarget(u);
     camera.position.set(cam[0], cam[1], cam[2]);
     camera.lookAt(look[0], look[1], look[2]);
@@ -236,11 +365,15 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
      scroll position (spec 3.1) -- no zone index, no per-chapter inspection,
      no atlas progress. Invalid boundaries render nothing new: the caller
      must not derive a guessed position from them either. */
-  function update({ boundaries, scrollY }) {
+  function update({
+    boundaries, scrollY, lateralOffset = 0, yaw = 0, speed = null, collected = null, ambient = false,
+  }) {
     if (disposed) return;
     const u = journeyCoordinate(boundaries, scrollY);
     if (u === null) return;
-    applyJourneyState(u);
+    applyJourneyState(u, lateralOffset, yaw, speed, ambient);
+    applyAmbience(u, ambient);
+    applyBuoys(collected);
   }
 
   function render() {
@@ -266,6 +399,11 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
       if (Array.isArray(object.material)) object.material.forEach((m) => m.dispose());
       else object.material.dispose();
     }));
+    [buoyBodies, buoyCaps].forEach((mesh) => mesh.dispose());
+    buoyBodyGeometry.dispose();
+    buoyCapGeometry.dispose();
+    buoyBodyMaterial.dispose();
+    buoyCapMaterial.dispose();
     renderer.dispose();
     // dispose() alone leaves GPU-side buffers/textures/framebuffers that
     // three.js itself allocated (not just ours) to be reclaimed whenever the

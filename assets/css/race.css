@@ -480,74 +480,51 @@ html.race--gaming { overflow: hidden; }
 .race-game__scene canvas { display: block; width: 100%; height: 100%; }
 .race-game__map { position: absolute; inset: 0; }
 .race-game__map-svg { display: block; width: 100%; height: 100%; }
-.race-game__map-water { fill: var(--race-game-ground); }
-.race-game__map-land, .race-game__map-bank { fill: var(--race-game-secondary); }
+/* Lite map (game-feel plan section 5): water is a clear blue-teal, land the
+   secondary grey, so it reads as a chart rather than a grey void. The water
+   tint is the one colour outside the four roles -- the same Atlantic teal
+   the 3D water uses off Galicia. */
+.race-game__map-water { fill: #2c6470; }
+.race-game__map-land { fill: #4a5155; }
 .race-game__map-bridge { fill: var(--race-game-main); }
 .race-game__map-berth { fill: var(--race-game-tertiary); }
-.race-game__map-route { fill: none; stroke: var(--race-game-main); stroke-width: .3; vector-effect: non-scaling-stroke; }
+.race-game__map-label { font: 600 1.1px var(--race-mono); letter-spacing: .08em; text-transform: uppercase; fill: var(--race-game-main); }
+.race-game__map-route { fill: none; stroke: #9cc3c9; stroke-width: 1.5; stroke-dasharray: 4 5; vector-effect: non-scaling-stroke; }
+.race-game__map-route-passed { fill: none; stroke: #e2e4e6; stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+.race-game__map-buoy { fill: var(--race-game-tertiary); stroke: #f2f3f4; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.race-game__map-buoy--collected { fill: var(--race-game-secondary); stroke: #8a9094; }
 .race-game__map-vessel { pointer-events: none; }
-.race-game__map-vessel-glyph { fill: var(--race-game-tertiary); }
+.race-game__map-vessel-glyph { fill: #f2f3f4; stroke: var(--race-game-tertiary); stroke-width: 2; vector-effect: non-scaling-stroke; }
 
-/* Athlete rig's fixed 44x44 scene slot (spec 5.2), clear of the header. */
-.race-game__rig {
-  position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 8px + 48px + 16px);
-  left: 12px;
-  width: 44px;
-  height: 44px;
-  z-index: 2;
-}
-
+/* ---- Compact HUD (game-feel plan section 6): a top bar -- where you are on
+   the left, race state and tools on the right -- and a slim bottom rail.
+   Budget: about 22% of a desktop viewport, 30% of 390x844. Both bars are
+   translucent over the scene rather than solid panels. */
 .race-game__header {
   position: absolute;
   z-index: 3;
   inset: calc(env(safe-area-inset-top, 0px) + 8px) calc(env(safe-area-inset-right, 0px) + 12px) auto calc(env(safe-area-inset-left, 0px) + 12px);
-  height: 48px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  pointer-events: none;
+}
+.race-game__header > * { pointer-events: auto; }
+.race-game__where {
   display: flex;
   align-items: center;
-  gap: 8px;
-}
-.race-game__title {
-  flex: 1 1 136px;
+  gap: 10px;
   min-width: 0;
-  margin: 0;
-  font: 600 .68rem/1.3 var(--race-mono);
-  letter-spacing: .03em;
-  text-transform: uppercase;
-  color: var(--race-game-main);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  padding: 6px 12px 6px 6px;
+  background: rgba(21, 23, 25, .78);
+  border: 1px solid rgba(98, 103, 106, .6);
 }
-.race-game__lite, .race-game__exit {
-  flex: 0 0 auto;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  height: 44px;
-  padding: 0 .7rem;
-  background: #1d2023;
-  color: var(--race-game-main);
-  border: 1px solid var(--race-game-secondary);
-  font: 600 .64rem var(--race-mono);
-  letter-spacing: .03em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.race-game__lite:not([hidden]) { display: inline-flex; min-width: 114px; }
-.race-game__exit { display: inline-flex; min-width: 100px; }
-.race-game__lite:focus-visible, .race-game__exit:focus-visible { outline: 2px solid var(--race-game-tertiary); outline-offset: 2px; }
-
-.race-game__panel {
-  position: absolute;
-  z-index: 3;
-  inset: auto calc(env(safe-area-inset-right, 0px) + 12px) calc(env(safe-area-inset-bottom, 0px) + 8px) calc(env(safe-area-inset-left, 0px) + 12px);
-  padding: 12px;
-  background: #1d2023;
-  border: 1px solid var(--race-game-secondary);
-  overflow-y: auto;
-  max-height: calc(100% - 200px);
-}
+/* Athlete rig slot (spec 5.2): now beside the chapter chip, at a size the
+   discipline pose can actually be read at. */
+.race-game__rig { position: relative; flex: 0 0 auto; width: 48px; height: 48px; }
+.race-game__rig .race-athlete-wrap--docked { width: 48px !important; height: 48px !important; }
+.race-game__where-text { min-width: 0; }
 .race-game__chapter {
   margin: 0;
   font: 600 .72rem var(--race-mono);
@@ -555,81 +532,241 @@ html.race--gaming { overflow: hidden; }
   text-transform: uppercase;
   color: var(--race-game-tertiary);
 }
-.race-game__caption { margin: 4px 0 0; font-size: .95rem; line-height: 1.35; color: var(--race-game-main); }
-/* Inspectable landmark toggle (interactivity spec): a genuine action, not a
-   scrubber -- reveals a data/race.yml line the panel otherwise never shows,
-   one chapter at a time. Same bordered-mono-button language as previous/
-   next/read below. */
-.race-game__landmark {
-  display: inline-flex;
+.race-game__caption { margin: 2px 0 0; font-size: .9rem; line-height: 1.3; color: #e2e4e6; }
+.race-game__tools { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 6px; flex: 0 1 auto; }
+.race-game__title {
+  flex: 1 0 100%;
+  margin: 0;
+  font: 600 .6rem/1.3 var(--race-mono);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--race-game-main);
+  text-align: right;
+  white-space: nowrap;
+}
+.race-game__stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+  margin: 0;
+  padding: 0 10px;
+  background: rgba(21, 23, 25, .78);
+  border: 1px solid rgba(98, 103, 106, .6);
+  font: 600 .7rem var(--race-mono);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: #e2e4e6;
+  white-space: nowrap;
+}
+.race-game__notes { color: var(--race-game-tertiary); }
+.race-game__clock-label { white-space: pre; }
+.race-game__lite, .race-game__exit, .race-game__hint-toggle {
+  flex: 0 0 auto;
+  display: none;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
-  margin: 8px 0 0;
+  height: 36px;
+  min-width: 44px;
   padding: 0 .6rem;
-  background: none;
+  background: rgba(21, 23, 25, .78);
   color: var(--race-game-main);
   border: 1px solid var(--race-game-secondary);
-  font: 600 .64rem var(--race-mono);
+  font: 600 .62rem var(--race-mono);
   letter-spacing: .03em;
   text-transform: uppercase;
   cursor: pointer;
 }
-.race-game__landmark:focus-visible { outline: 2px solid var(--race-game-tertiary); outline-offset: 2px; }
+.race-game__lite:not([hidden]), .race-game__exit, .race-game__hint-toggle { display: inline-flex; }
+.race-game__hint-toggle { font-size: .8rem; }
+.race-game__hint-toggle[aria-expanded="true"] { border-color: var(--race-game-main); color: #fff; }
+.race-game__lite:focus-visible, .race-game__exit:focus-visible, .race-game__hint-toggle:focus-visible { outline: 2px solid var(--race-game-tertiary); outline-offset: 2px; }
+
+/* First-run hint: a card in the middle of the lower scene, clear of the
+   vessel (which sits at the open area's centre). Never a live region. */
+.race-game__hint {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 150px);
+  transform: translateX(-50%);
+  width: min(440px, calc(100% - 24px));
+  padding: 10px 14px;
+  background: rgba(21, 23, 25, .88);
+  border: 1px solid var(--race-game-secondary);
+  border-left: 3px solid var(--race-game-tertiary);
+  pointer-events: none;
+}
+.race-game__hint-text { margin: 0; font: .78rem/1.5 var(--race-mono); color: #e2e4e6; }
+
+.race-game__panel {
+  position: absolute;
+  z-index: 3;
+  inset: auto calc(env(safe-area-inset-right, 0px) + 12px) calc(env(safe-area-inset-bottom, 0px) + 8px) calc(env(safe-area-inset-left, 0px) + 12px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "note note" "status actions" "rail rail";
+  align-items: center;
+  gap: 4px 12px;
+  padding: 6px 10px 8px;
+  background: rgba(21, 23, 25, .82);
+  border: 1px solid rgba(98, 103, 106, .6);
+}
+.race-game__status { grid-area: status; margin: 0; min-height: 1.2em; font: .7rem/1.4 var(--race-mono); color: var(--race-game-main); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .race-game__landmark-text {
-  margin: 8px 0 0;
+  grid-area: note;
+  margin: 2px 0;
   padding: 0 0 0 .75rem;
   border-left: 2px solid var(--race-game-tertiary);
   font-size: .85rem;
   line-height: 1.4;
   font-style: italic;
-  color: var(--race-game-main);
+  color: #e2e4e6;
 }
-.race-game__help.race-game__status { margin: 4px 0 0; font: .72rem/1.4 var(--race-mono); color: var(--race-game-secondary); }
-.race-game__progress { display: block; width: 100%; margin: 8px 0 0; height: 44px; accent-color: var(--race-game-tertiary); }
+.race-game__rail { grid-area: rail; display: flex; align-items: center; gap: 8px; }
+.race-game__track { position: relative; flex: 1 1 auto; min-width: 0; }
+.race-game__progress { display: block; width: 100%; margin: 0; height: 32px; accent-color: var(--race-game-tertiary); }
 .race-game__progress:focus-visible { outline: 2px solid var(--race-game-tertiary); outline-offset: 2px; }
-
-.race-game__actions { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; }
+/* Seven chapter ticks laid over the rail at their chapter starts (the
+   range thumb's centre travels 8px in from either end). Thin marks,
+   generous hit areas. */
+.race-game__ticks { position: absolute; inset: 0; pointer-events: none; }
+.race-game__tick {
+  position: absolute;
+  top: 0;
+  width: 24px;
+  height: 100%;
+  margin-left: -12px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.race-game__tick::after {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 7px;
+  width: 2px;
+  height: 7px;
+  background: var(--race-game-secondary);
+}
+.race-game__tick--passed::after, .race-game__tick--current::after { background: var(--race-game-main); }
+.race-game__tick--note::after { background: var(--race-game-tertiary); height: 9px; top: 5px; }
+.race-game__tick:nth-child(1) { left: calc(8px + (100% - 16px) * 0/7); }
+.race-game__tick:nth-child(2) { left: calc(8px + (100% - 16px) * 1/7); }
+.race-game__tick:nth-child(3) { left: calc(8px + (100% - 16px) * 2/7); }
+.race-game__tick:nth-child(4) { left: calc(8px + (100% - 16px) * 3/7); }
+.race-game__tick:nth-child(5) { left: calc(8px + (100% - 16px) * 4/7); }
+.race-game__tick:nth-child(6) { left: calc(8px + (100% - 16px) * 5/7); }
+.race-game__tick:nth-child(7) { left: calc(8px + (100% - 16px) * 6/7); }
+.race-game--static .race-game__ticks { display: none; }
 .race-game__previous, .race-game__next {
-  flex: 0 0 88px;
-  min-height: 44px;
-  padding: 0 .5rem;
+  flex: 0 0 auto;
+  min-width: 44px;
+  min-height: 36px;
+  padding: 0 .55rem;
   background: none;
   color: var(--race-game-main);
   border: 1px solid var(--race-game-secondary);
-  font: 600 .66rem var(--race-mono);
+  font: 600 .62rem var(--race-mono);
   letter-spacing: .03em;
   text-transform: uppercase;
   cursor: pointer;
 }
 .race-game__previous:disabled, .race-game__next:disabled { opacity: .4; cursor: default; }
-.race-game__read {
-  flex: 1 1 150px;
+.race-game__actions { grid-area: actions; display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 4px 8px; margin: 0; }
+/* "Reveal field note" and "Read this chapter": secondary, outline-weight
+   actions -- the loud red is kept for the vessel, buoys and the finish. */
+.race-game__landmark, .race-game__read {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 .6rem;
+  background: none;
+  color: var(--race-game-main);
+  border: 1px solid var(--race-game-secondary);
+  font: 600 .6rem var(--race-mono);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+.race-game__landmark:not([hidden]) { display: inline-flex; }
+.race-game__previous:focus-visible, .race-game__next:focus-visible, .race-game__read:focus-visible,
+.race-game__landmark:focus-visible { outline: 2px solid var(--race-game-tertiary); outline-offset: 2px; }
+.race-game__disclaimer { order: -1; margin: 0; font: .6rem/1.4 var(--race-mono); color: #8a9094; }
+
+/* Finish card (game-feel plan section 4): centred over the scene, above the
+   HUD. Primary action is the page's real goal -- the email. */
+.race-game__finish {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(420px, calc(100% - 24px));
+  max-height: calc(100% - 24px);
+  overflow-y: auto;
+  padding: 20px;
+  background: #151719;
+  border: 1px solid var(--race-game-secondary);
+  border-top: 4px solid var(--race-game-tertiary);
+  color: #e2e4e6;
+}
+.race-game__finish-title { margin: 0; font-size: 1.5rem; line-height: 1.2; }
+.race-game__finish-title:focus { outline: none; }
+.race-game__finish-title:focus-visible { outline: 2px solid var(--race-game-tertiary); outline-offset: 4px; }
+.race-game__finish-time { margin: 10px 0 0; font: 600 1.05rem var(--race-mono); font-variant-numeric: tabular-nums; }
+.race-game__splits { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin: 10px 0 0; padding: 0; list-style: none; }
+.race-game__split { padding: 6px 4px; border: 1px solid #33383b; font: .62rem/1.35 var(--race-mono); text-align: center; font-variant-numeric: tabular-nums; }
+.race-game__split-label { display: block; color: var(--race-game-tertiary); font-weight: 600; text-transform: uppercase; }
+.race-game__finish-notes, .race-game__finish-best { margin: 10px 0 0; font: .78rem/1.45 var(--race-mono); color: var(--race-game-main); }
+.race-game__finish-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+.race-game__finish-email, .race-game__finish-again, .race-game__finish-read {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  padding: 0 .5rem;
-  background: var(--race-game-tertiary);
-  color: #151719;
+  padding: 0 .9rem;
   font: 600 .66rem var(--race-mono);
   letter-spacing: .03em;
   text-transform: uppercase;
   text-decoration: none;
-  text-align: center;
+  cursor: pointer;
 }
-.race-game__previous:focus-visible, .race-game__next:focus-visible, .race-game__read:focus-visible { outline: 2px solid var(--race-game-tertiary); outline-offset: 2px; }
-
-.race-game__disclaimer { margin: 8px 0 0; font: .66rem/1.4 var(--race-mono); color: var(--race-game-secondary); }
+.race-game__finish-email { flex: 1 1 100%; background: var(--race-game-tertiary); color: #151719; border: 0; }
+.race-game__finish-again, .race-game__finish-read { flex: 1 1 0; background: none; color: var(--race-game-main); border: 1px solid var(--race-game-secondary); }
+.race-game__finish-email:focus-visible, .race-game__finish-again:focus-visible, .race-game__finish-read:focus-visible { outline: 2px solid #e2e4e6; outline-offset: 2px; }
 
 @media (prefers-reduced-motion: reduce), (forced-colors: active) {
   .race-game__lite { display: none !important; }
 }
 
-/* Landscape (spec 5.3): briefing panel moves to the right, header stays
-   pinned across the top. */
+/* Phones: the disclaimer and mode label drop to save height; the caption
+   stays but may wrap to two lines. */
+@media screen and (width < 40rem) {
+  .race-game__title { display: none; }
+  .race-game__header { flex-direction: column; align-items: stretch; gap: 6px; }
+  .race-game__tools { flex-wrap: nowrap; justify-content: flex-start; }
+  .race-game__stats { flex: 1 1 auto; min-width: 0; gap: 8px; padding: 0 8px; overflow: hidden; font-size: .64rem; }
+  .race-game__lite, .race-game__exit, .race-game__hint-toggle { padding: 0 .45rem; }
+  .race-game__clock-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .race-game__caption { font-size: .82rem; }
+  .race-game__panel { grid-template-columns: minmax(0, 1fr); grid-template-areas: "note" "status" "rail" "actions"; }
+  .race-game__actions { justify-content: flex-start; }
+  .race-game__disclaimer { order: 1; flex: 1 1 100%; }
+  .race-game__hint { bottom: calc(env(safe-area-inset-bottom, 0px) + 140px); }
+}
+
+/* Landscape phones (spec 5.3): keep the rail pinned to the bottom but let it
+   run under the header's width only. */
 @media screen and (width < 64rem) and (orientation: landscape) {
-  .race-game__panel { inset: calc(env(safe-area-inset-top, 0px) + 64px) calc(env(safe-area-inset-right, 0px) + 12px) calc(env(safe-area-inset-bottom, 0px) + 12px) auto; width: min(320px, 42vw); max-height: none; }
+  .race-game__header { flex-direction: row; }
+  .race-game__disclaimer { display: none; }
 }
 
 @media print {

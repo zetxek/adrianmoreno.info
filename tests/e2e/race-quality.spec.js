@@ -121,6 +121,9 @@ async function travel(page, delta = 400) {
   await page.mouse.move(200, 400);
   await page.mouse.wheel(0, delta);
   await page.waitForFunction((v) => document.querySelector('.race-game__progress').value !== v, before);
+  // A wheel impulse coasts (game-feel travel loop): wait for the vessel to
+  // come to rest so the coordinate read afterwards is the settled one.
+  await page.waitForFunction(() => document.querySelector('#race-game').dataset.gameMoving === 'false');
 }
 
 test.describe('game quality ladder (chromium, 390x844 @ DPR 3)', () => {

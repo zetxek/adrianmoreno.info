@@ -2137,7 +2137,9 @@ function finishPier(unit, mat) {
   const ribbonH = 0.055;
 
   // Pale, broad finish apron; no pier edges, end beams or mooring clutter.
-  addBatch(group, unit.box, mat.ground, row(1, { x0: 0, x1: 0, y: 0, z: 0, size: [24, surfaceY, 24] }), 'box', tally);
+  // Named so the game's ambience pass (main.js) can re-tint it as quay stone.
+  const apron = addBatch(group, unit.box, mat.ground, row(1, { x0: 0, x1: 0, y: 0, z: 0, size: [24, surfaceY, 24] }), 'box', tally);
+  apron.name = 'finish-apron';
   // Berth platform (binding spec section 2.4): after the caller's fixed
   // finish transform T(134.2, -0.08, -16), this box's world centre is
   // (126, 0.04, -4), dimensions (6, 0.24, 1), top Y = 0.16, water-facing

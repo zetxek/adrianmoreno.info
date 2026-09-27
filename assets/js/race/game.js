@@ -2,12 +2,20 @@
    index.js calls initGameController() once at page init and hands it a small
    bridge into the shared athlete rig and the desktop reading world's status
    object -- everything else (overlay lifecycle, history, the game's own
-   7,000px scroll surface, Lite SVG, WebGL ownership) lives here. Motion is a
-   pure function of the game scroll position: there is no rAF loop, no timer,
-   no elapsed-time animation. A frame is only ever produced in direct
-   response to one of the causes listed in `render()`'s callers below. */
+   7,000px scroll surface, Lite SVG, WebGL ownership) lives here. Every
+   rendered frame is still a pure function of its inputs -- game scroll
+   position, steering offset, speed, collected notes -- never of elapsed
+   time. The one rAF loop (the travel loop, game-feel plan section 1) exists
+   only while something is actually moving: a held key, a glide in flight, a
+   coast or a fling decaying, the steering drifting back to centre. It
+   cancels itself the frame everything settles, so an idle player costs no
+   frames at all. Reduced motion and forced colours never start it: every
+   input there is a discrete jump, exactly as before. */
 import { writeJointTransforms, setDiscipline } from './athlete.js';
 import * as S from './state.js';
+import {
+  BUOYS, NOTES_STORAGE_KEY, STEER_CORRIDOR, collectHits, parseCollected, serializeCollected, vesselZ,
+} from './checkpoints.js';
 import { journeyCoordinate, routeLateral, vesselHeading } from '../race-world/journey.js';
 import {
   TIER_STORAGE_KEY, LITE_TIER, classifyLoss, framebufferBytes, nextTier, parseStoredTier, ratioCap, tierConfig,
@@ -23,6 +31,29 @@ const SAMPLE_WINDOW = 12;
 const P95_INDEX = Math.floor(SAMPLE_WINDOW * 0.95); // index 11 of 12 -> effectively the max
 const DEGRADE_MS = 33.4;
 const HARD_FAIL_MS = 100;
+// Local personal best (ms of time under way), per browser, best effort.
+const BEST_STORAGE_KEY = 'race.game.best';
+// Pointer drag: game px travelled per px of vertical finger/mouse movement
+// (was 5 -- 150px of finger crossed 1.5 chapters), and finger px for the full
+// steering corridor from centre.
+const DRAG_GAIN = 2.5;
+const DRAG_STEER_PX = 120;
+// Fling: velocity is measured over the last ~80ms of the drag.
+const FLING_WINDOW_MS = 80;
+// Wheel: px/s of travel velocity added per px of wheel delta.
+const WHEEL_GAIN = 2.2;
+// Boost: one push of extra speed, up to TRAVEL.boostMax.
+const BOOST_IMPULSE = 300;
+// Keys by role. Letters are matched by physical key (event.code) so WASD
+// works on any keyboard layout. Down/S sails on, matching the page's own
+// scroll direction and "drag up to travel"; Left/Right steer to port
+// (up-screen) and starboard (down-screen).
+const KEY_ROLES = {
+  ArrowDown: 'ahead', KeyS: 'ahead',
+  ArrowUp: 'astern', KeyW: 'astern',
+  ArrowLeft: 'port', KeyA: 'port',
+  ArrowRight: 'starboard', KeyD: 'starboard',
+};
 
 function clamp(v, min, max) { return Math.min(max, Math.max(min, v)); }
 
@@ -58,6 +89,21 @@ export function initGameController(deps) {
   const prevBtn = overlay.querySelector('.race-game__previous');
   const nextBtn = overlay.querySelector('.race-game__next');
   const readLink = overlay.querySelector('.race-game__read');
+  const notesEl = overlay.querySelector('.race-game__notes');
+  const clockEl = overlay.querySelector('.race-game__clock');
+  const hintEl = overlay.querySelector('.race-game__hint');
+  const hintTextEl = overlay.querySelector('.race-game__hint-text');
+  const hintToggle = overlay.querySelector('.race-game__hint-toggle');
+  const tickEls = [...overlay.querySelectorAll('.race-game__tick')];
+  const finishEl = overlay.querySelector('.race-game__finish');
+  const finishTitleEl = overlay.querySelector('.race-game__finish-title');
+  const finishTimeEl = overlay.querySelector('.race-game__finish-time');
+  const finishSplitsEl = overlay.querySelector('.race-game__splits');
+  const finishNotesEl = overlay.querySelector('.race-game__finish-notes');
+  const finishBestEl = overlay.querySelector('.race-game__finish-best');
+  const finishAgainBtn = overlay.querySelector('.race-game__finish-again');
+  const finishReadLink = overlay.querySelector('.race-game__finish-read');
+  const placeLabels = (overlay.dataset.placeLabels || '').split('|').filter(Boolean);
 
   const GAME_BOUNDARIES = S.gameBoundaries();
   const STAGE_IDS = refs.stages.map((s) => s.id);
@@ -92,15 +138,60 @@ export function initGameController(deps) {
     perf: { samples: [], degraded: false },
     staticPresentation: null,
     session: 0,
+    announcedChapter: null,
+    opening: false,
+    collected: readCollected(),
+    finishShown: false,
+    race: freshRace(),
   };
+
+  // Travel physics state (state.js stepTravel): the position itself stays in
+  // game.scrollTop; this is everything else the travel loop integrates.
+  const travel = {
+    vel: 0, lateral: 0, lateralVel: 0, target: null,
+    raf: 0, lastT: 0, keys: new Set(),
+  };
+
+  function motionAllowed() { return !reducedMotionMQ.matches && !forcedColorsMQ.matches; }
+
+  function freshRace() {
+    return { running: false, finished: false, assisted: false, chapterMs: [0, 0, 0, 0, 0, 0, 0], result: null };
+  }
+
+  function readCollected() {
+    try { return parseCollected(window.localStorage.getItem(NOTES_STORAGE_KEY)); } catch (e) { return new Set(); }
+  }
+  function storeCollected() {
+    try { window.localStorage.setItem(NOTES_STORAGE_KEY, serializeCollected(game.collected)); } catch (e) { /* private mode */ }
+  }
+  function readBest() {
+    try {
+      const v = parseInt(window.localStorage.getItem(BEST_STORAGE_KEY), 10);
+      return Number.isFinite(v) && v > 0 ? v : null;
+    } catch (e) { return null; }
+  }
+  function storeBest(ms) {
+    try { window.localStorage.setItem(BEST_STORAGE_KEY, String(Math.round(ms))); } catch (e) { /* private mode */ }
+  }
 
   // ---- Lite SVG (spec 7.1): one full-viewport top-down schematic, built
   // once on first init and reused for the lifetime of the page. X is journey
-  // direction (u, 0..126), Z is lateral position -- the exact same pure
-  // route math the 3D world uses, so Lite and 3D always agree on position.
+  // direction (u, 0..126), Y is lateral position z -- the exact same pure
+  // route math the 3D world uses, so Lite and 3D always agree on position,
+  // steering and buoys.
   const SVG_NS = 'http://www.w3.org/2000/svg';
+  // Lite map scale (game-feel plan section 5): the window is sized from the
+  // scene's own aspect ratio at a constant ~16 screen px per world unit, so
+  // the vessel (3.2 units, same as the 3D hull) and the banks keep their
+  // proportions on a phone and a desktop alike -- the old fixed 40x24 window
+  // with `slice` blew them up into giant bars and a 60px triangle.
+  const LITE_PX_PER_UNIT = 16;
+  const HULL_PATH = 'M-1.6,-0.6 L0.8,-0.6 L1.6,0 L0.8,0.6 L-1.6,0.6 Z';
   let liteVesselEl = null;
-  let liteRouteEl = null;
+  let litePassedEl = null;
+  let liteBuoyEls = [];
+  let liteSvgEl = null;
+  const sceneBox = { width: 0, height: 0, top: 0, bottom: 0 };
 
   function svgEl(tag, cls, attrs) {
     const el = document.createElementNS(SVG_NS, tag);
@@ -109,46 +200,85 @@ export function initGameController(deps) {
     return el;
   }
 
-  function routePath() {
+  function routePath(toU = 126) {
     const pts = [];
-    for (let u = 0; u <= 126; u += 2) pts.push(`${u},${routeLateral(u).toFixed(3)}`);
+    for (let u = 0; u < toU; u += 1) pts.push(`${u},${routeLateral(u).toFixed(3)}`);
+    pts.push(`${toU.toFixed(3)},${routeLateral(toU).toFixed(3)}`);
     return `M${pts.join(' L')}`;
   }
 
   function buildLite() {
     if (game.liteBuilt) return;
-    const svg = svgEl('svg', 'race-game__map-svg', { viewBox: '-10 -12 146 24', preserveAspectRatio: 'xMidYMid slice', focusable: 'false' });
-    svg.appendChild(svgEl('rect', 'race-game__map-water', { x: '-10', y: '-12', width: '146', height: '24' }));
-    // Galicia shoreline (u ~ 0..8)
-    svg.appendChild(svgEl('path', 'race-game__map-land', { d: 'M-10,-3 L4,-3 L8,0 L4,3 L-10,3 Z' }));
-    // Amsterdam banks + bridge (u ~ 44..74, channel centered at Z=0)
-    svg.appendChild(svgEl('rect', 'race-game__map-bank', { x: '44', y: '-6', width: '30', height: '2' }));
-    svg.appendChild(svgEl('rect', 'race-game__map-bank', { x: '44', y: '4', width: '30', height: '2' }));
-    svg.appendChild(svgEl('rect', 'race-game__map-bridge', { x: '58', y: '-6', width: '2', height: '12' }));
-    // Copenhagen quay + berth (u ~ 96..126)
-    svg.appendChild(svgEl('rect', 'race-game__map-bank', { x: '100', y: '-5', width: '26', height: '1.6' }));
-    svg.appendChild(svgEl('circle', 'race-game__map-berth', { cx: '126', cy: routeLateral(126).toFixed(3), r: '1.4' }));
-    liteRouteEl = svgEl('path', 'race-game__map-route', { d: routePath() });
-    svg.appendChild(liteRouteEl);
+    const svg = svgEl('svg', 'race-game__map-svg', { viewBox: '-10 -12 40 24', preserveAspectRatio: 'xMidYMid meet', focusable: 'false' });
+    svg.appendChild(svgEl('rect', 'race-game__map-water', { x: '-80', y: '-80', width: '300', height: '160' }));
+    // Galicia: the ría's northern shore (u ~ -10..22), where the hórreo hill
+    // and the lighthouse stand in 3D, plus the low southern headland.
+    svg.appendChild(svgEl('path', 'race-game__map-land', { d: 'M-80,-80 L24,-80 L24,-8 L18,-5.6 L11,-4.4 L4,-3.8 L-3,-4.4 L-80,-4.4 Z' }));
+    svg.appendChild(svgEl('path', 'race-game__map-land', { d: 'M-80,80 L-80,5 L-4,5 L3,6.4 L9,80 Z' }));
+    // Amsterdam (u ~ 46..74): a canal between two city blocks, one bridge.
+    svg.appendChild(svgEl('rect', 'race-game__map-land', { x: '46', y: '-80', width: '28', height: '76.6' }));
+    svg.appendChild(svgEl('rect', 'race-game__map-land', { x: '46', y: '3.4', width: '28', height: '76.6' }));
+    svg.appendChild(svgEl('rect', 'race-game__map-bridge', { x: '58.2', y: '-3.4', width: '0.9', height: '6.8' }));
+    // Copenhagen (u ~ 98..126): the northern quay, the finish apron and berth.
+    svg.appendChild(svgEl('path', 'race-game__map-land', { d: 'M98,-80 L150,-80 L150,-4.2 L129,-4.2 L129,-3.5 L123,-3.5 L123,-4.2 L98,-4.2 Z' }));
+    svg.appendChild(svgEl('circle', 'race-game__map-berth', { cx: '126', cy: routeLateral(126).toFixed(3), r: '0.5' }));
+    placeLabels.slice(0, 3).forEach((label, i) => {
+      const at = [[4, -6.2], [60, -5.4], [110, -6]][i];
+      const text = svgEl('text', 'race-game__map-label', { x: String(at[0]), y: String(at[1]) });
+      text.textContent = label;
+      svg.appendChild(text);
+    });
+    // The whole course dashed; the part already sailed drawn solid on top.
+    const d = routePath();
+    svg.appendChild(svgEl('path', 'race-game__map-route', { d }));
+    // Its own geometry, rewritten per frame: a dash offset cannot be used,
+    // because non-scaling strokes measure dashes in screen px.
+    litePassedEl = svgEl('path', 'race-game__map-route-passed', { d: routePath(0) });
+    svg.appendChild(litePassedEl);
+    liteBuoyEls = BUOYS.map((buoy) => {
+      const circle = svgEl('circle', 'race-game__map-buoy', { cx: String(buoy.u), cy: buoy.z.toFixed(3), r: '0.5' });
+      svg.appendChild(circle);
+      return circle;
+    });
     liteVesselEl = svgEl('g', 'race-game__map-vessel');
-    liteVesselEl.appendChild(svgEl('path', 'race-game__map-vessel-glyph', { d: 'M-1.6,-0.9 L1.6,0 L-1.6,0.9 Z' }));
+    liteVesselEl.appendChild(svgEl('path', 'race-game__map-vessel-glyph', { d: HULL_PATH }));
     svg.appendChild(liteVesselEl);
     mapEl.appendChild(svg);
+    liteSvgEl = svg;
     game.liteBuilt = true;
   }
 
-  function writeLite(u) {
-    if (!liteVesselEl) return;
-    const z = routeLateral(u);
-    const headingDeg = (vesselHeading(u) * 180) / Math.PI;
+  // Measured once per resize (never per frame): the scene size and how much
+  // of it the HUD covers, so the map window can centre the vessel in the
+  // unobstructed area the same way the 3D frustum does.
+  function measureScene() {
+    if (!sceneEl) return;
+    sceneBox.width = sceneEl.clientWidth || window.innerWidth;
+    sceneBox.height = sceneEl.clientHeight || window.innerHeight;
+    const insets = sceneInsets();
+    sceneBox.top = insets.top;
+    sceneBox.bottom = insets.bottom;
+  }
+
+  function writeLite(u, lateral, yaw) {
+    if (!liteVesselEl || !liteSvgEl) return;
+    const z = vesselZ(u, lateral);
+    const headingDeg = ((vesselHeading(u) + yaw) * 180) / Math.PI;
     liteVesselEl.setAttribute('transform', `translate(${u.toFixed(3)} ${z.toFixed(3)}) rotate(${(-headingDeg).toFixed(2)})`);
-    const svg = mapEl.querySelector('svg');
-    if (!svg) return;
-    // Pan so the vessel stays in the focus area: a 40-unit-wide window
-    // centered on u, clamped to the route's own extent.
-    const half = 20;
-    const left = clamp(u - half, -10, 126 - (half * 2) + 10);
-    svg.setAttribute('viewBox', `${left} -12 40 24`);
+    litePassedEl.setAttribute('d', routePath(u));
+    liteBuoyEls.forEach((el, i) => {
+      el.classList.toggle('race-game__map-buoy--collected', game.collected.has(BUOYS[i].chapterIndex));
+    });
+    const width = Math.max(1, sceneBox.width);
+    const height = Math.max(1, sceneBox.height);
+    const spanU = clamp(width / LITE_PX_PER_UNIT, 24, 80);
+    const spanZ = (spanU * height) / width;
+    // Look ahead: the vessel sits 40% in from the left, so more of the
+    // course in front of it is on screen than behind.
+    const left = clamp(u - spanU * 0.4, -10, 136 - spanU);
+    const openMid = (sceneBox.top + (height - sceneBox.top - sceneBox.bottom) / 2) / height;
+    const top = routeLateral(u) - spanZ * openMid;
+    liteSvgEl.setAttribute('viewBox', `${left.toFixed(3)} ${top.toFixed(3)} ${spanU.toFixed(3)} ${spanZ.toFixed(3)}`);
   }
 
   // ---- rig reparenting (spec 5.2) --------------------------------------
@@ -181,7 +311,7 @@ export function initGameController(deps) {
   function buildStaticGlyph() {
     if (staticGlyphEl) return staticGlyphEl;
     staticGlyphEl = svgEl('svg', 'race-game__map-svg', { viewBox: '-2 -2 4 4', focusable: 'false' });
-    staticGlyphEl.appendChild(svgEl('path', 'race-game__map-vessel-glyph', { d: 'M-1.6,-0.9 L1.6,0 L-1.6,0.9 Z' }));
+    staticGlyphEl.appendChild(svgEl('path', 'race-game__map-vessel-glyph', { d: HULL_PATH }));
     return staticGlyphEl;
   }
 
@@ -201,6 +331,10 @@ export function initGameController(deps) {
       dockRig();
     }
     if (progressEl) progressEl.type = active ? 'number' : 'range';
+    // The chapter ticks overlay the range track; the number input that
+    // replaces it here has no track to sit on.
+    overlay.classList.toggle('race-game--static', active);
+    if (active) stopMotion();
   }
 
   // The "existing static poster" (spec 7.2) reused for the game's static
@@ -219,8 +353,7 @@ export function initGameController(deps) {
   function writeRigPose(chapterId, localProgress, motionAllowed) {
     const pose = S.deriveAthletePose(chapterId, localProgress, motionAllowed);
     if (motionAllowed) {
-      const disciplineChanged = setDiscipline(athleteSvg, pose.discipline);
-      void disciplineChanged;
+      setDiscipline(athleteSvg, pose.discipline);
       writeJointTransforms(joints, S.jointTransforms(pose.discipline, pose.theta, pose.amplitude, game.fraction, motionAllowed, localProgress));
     } else {
       setDiscipline(athleteSvg, 'ready');
@@ -242,11 +375,13 @@ export function initGameController(deps) {
     liteBtn.textContent = game.mode === '3d' ? liteBtn.dataset.useLiteText : liteBtn.dataset.try3dText;
   }
 
-  // ---- inspectable landmark (interactivity spec): reveals, on request only,
-  // the current chapter's data-landmark line (already authored in
-  // data/race.yml -- see single.html) -- never shown automatically, and
-  // collapsed again the instant the chapter changes so each of the seven is
-  // inspected on its own. A discrete text toggle, not motion. --------------
+  // ---- field notes (interactivity spec + game-feel plan section 3): the
+  // current chapter's data-landmark line (already authored in
+  // data/race.yml -- see single.html). Revealed by sailing through that
+  // chapter's buoy, or on request with the "Reveal field note" button (the
+  // accessible and reduced-motion path, which counts as collecting it too),
+  // and collapsed again the instant the chapter changes so each of the seven
+  // is read on its own. A discrete text toggle, not motion. ----------------
   function writeLandmark(stage, chapterChanged) {
     if (!landmarkBtn || !landmarkTextEl) return;
     if (chapterChanged) game.landmarkOpen = false;
@@ -260,11 +395,37 @@ export function initGameController(deps) {
 
   function onLandmarkToggle() {
     game.landmarkOpen = !game.landmarkOpen;
-    writeLandmark(refs.stages[game.chapterIndex], false);
+    if (game.landmarkOpen) collectNote(game.chapterIndex);
+    render();
+  }
+
+  function collectNote(chapterIndex) {
+    if (game.collected.has(chapterIndex)) return;
+    game.collected.add(chapterIndex);
+    storeCollected();
+    if (chapterIndex === game.chapterIndex) game.landmarkOpen = true;
+    const stage = refs.stages[chapterIndex];
+    const note = (stage && stage.dataset.landmark) || '';
+    announceOnce((statusEl.dataset.announceNoteTemplate || '')
+      .replace('{count}', String(game.collected.size))
+      .replace('{note}', note));
+  }
+
+  // Only travel the player actually made (the loop and pointer drags) can
+  // collect: a jump (slider, Home/End) never sweeps up buoys it skipped past.
+  function collectAlong(prevPos, prevLateral, pos, lateral) {
+    const u0 = journeyCoordinate(GAME_BOUNDARIES, prevPos);
+    const u1 = journeyCoordinate(GAME_BOUNDARIES, pos);
+    if (u0 === null || u1 === null) return;
+    collectHits(game.collected, u0, prevLateral, u1, lateral).forEach(collectNote);
+  }
+
+  function raceElapsedMs() {
+    const r = game.race;
+    return r.result ? r.result.total : S.raceSplits(r.chapterMs).total;
   }
 
   function writeHUD(chapterChanged) {
-    const chapterId = S.DISCIPLINE_ORDER[game.chapterIndex] || 'start';
     const stage = refs.stages[game.chapterIndex];
     const caption = (stage && stage.dataset.caption) || '';
     if (chapterEl) {
@@ -293,6 +454,37 @@ export function initGameController(deps) {
       }
     }
     if (prevBtn) prevBtn.disabled = game.scrollTop <= 0;
+    if (notesEl) {
+      const text = (notesEl.dataset.notesTemplate || '').replace('{count}', String(game.collected.size));
+      if (notesEl.textContent !== text) notesEl.textContent = text;
+    }
+    if (clockEl) {
+      // No clock without motion (reduced motion / forced colours): there
+      // the course is a sequence of discrete steps, not a race.
+      const show = motionAllowed() && (game.race.running || game.race.finished);
+      clockEl.hidden = !show;
+      if (show) {
+        // Label and value in separate spans, so phones can drop the label
+        // visually (CSS) and keep the header to two rows.
+        if (!clockEl.firstElementChild) {
+          const [label] = (clockEl.dataset.clockTemplate || '').split('{time}');
+          const labelEl = document.createElement('span');
+          labelEl.className = 'race-game__clock-label';
+          labelEl.textContent = label;
+          const valueEl = document.createElement('span');
+          valueEl.className = 'race-game__clock-value';
+          clockEl.replaceChildren(labelEl, valueEl);
+        }
+        const text = S.formatRaceTime(raceElapsedMs());
+        const valueEl = clockEl.lastElementChild;
+        if (valueEl.textContent !== text) valueEl.textContent = text;
+      }
+    }
+    tickEls.forEach((tick, i) => {
+      tick.classList.toggle('race-game__tick--passed', i < game.chapterIndex);
+      tick.classList.toggle('race-game__tick--current', i === game.chapterIndex);
+      tick.classList.toggle('race-game__tick--note', game.collected.has(i));
+    });
   }
 
   function announceOnce(text) {
@@ -300,8 +492,33 @@ export function initGameController(deps) {
     if (statusEl.textContent !== text) statusEl.textContent = text;
   }
 
-  // ---- render (event-driven only; called from setScrollTop/resize/mode
-  // changes -- never from a self-scheduled loop) --------------------------
+  // Chapter changes are announced once travel settles (or immediately for a
+  // discrete jump), never per frame -- and only when the chapter actually
+  // changed since the last announcement, whatever input moved it.
+  function announceChapter() {
+    if (!game.open || game.announcedChapter === game.chapterIndex) return;
+    game.announcedChapter = game.chapterIndex;
+    announceOnce((statusEl.dataset.announceChapterTemplate || '')
+      .replace('{number}', String(game.chapterIndex + 1))
+      .replace('{chapter}', chapterLabel(game.chapterIndex)));
+  }
+
+  // Speed (0..1) and yaw (radians) handed to the world: both are derived from
+  // the current travel velocities, never from a clock. Yaw turns the bow into
+  // the steer -- sideways speed against forward speed -- and is capped so a
+  // hard steer from rest reads as a turn, not a spin.
+  function travelSpeed() {
+    return clamp(Math.abs(travel.vel) / S.TRAVEL.maxSpeed, 0, 1);
+  }
+  function travelYaw() {
+    const forward = (Math.abs(travel.vel) * 126) / S.GAME_SCROLL_MAX; // u per second
+    const sideways = travel.lateralVel * STEER_CORRIDOR;               // world units per second
+    if (sideways === 0) return 0;
+    return clamp(-Math.atan2(sideways, Math.max(forward, 2)), -0.45, 0.45);
+  }
+
+  // ---- render (called from travel frames, discrete jumps, resize and mode
+  // changes -- always for a reason, never on a timer) ----------------------
   function render() {
     if (!game.open) return;
     const derived = S.deriveCourseState(GAME_BOUNDARIES, game.scrollTop, S.GAME_SCROLL_MAX);
@@ -310,7 +527,7 @@ export function initGameController(deps) {
     game.localProgress = derived.localProgress;
     game.fraction = derived.fraction;
 
-    const reducedMotion = reducedMotionMQ.matches || forcedColorsMQ.matches;
+    const reducedMotion = !motionAllowed();
     const chapterId = S.DISCIPLINE_ORDER[derived.chapterIndex] || null;
     setStaticPresentation(reducedMotion);
     if (reducedMotion) {
@@ -334,19 +551,28 @@ export function initGameController(deps) {
     // -- otherwise a frozen Lite panorama silently occludes a live renderer.
     const active3D = game.mode === '3d' && game.world.instance;
     if (mapEl) mapEl.hidden = active3D;
+    const yaw = travelYaw();
     if (active3D) {
-      game.world.instance.update({ boundaries: GAME_BOUNDARIES, scrollY: game.scrollTop });
+      game.world.instance.update({
+        boundaries: GAME_BOUNDARIES,
+        scrollY: game.scrollTop,
+        lateralOffset: travel.lateral * STEER_CORRIDOR,
+        yaw,
+        speed: travelSpeed(),
+        collected: game.collected,
+        ambient: true,
+      });
       const start = performance.now();
       game.world.instance.render();
       recordSample(performance.now() - start);
     } else {
       const u = journeyCoordinate(GAME_BOUNDARIES, game.scrollTop);
-      if (u !== null) writeLite(u);
+      if (u !== null) writeLite(u, travel.lateral, yaw);
     }
   }
 
-  // ---- degradation policy (spec 8.4): only sampled while continuous input
-  // is actively making the scene dirty -- never a monitoring loop. ---------
+  // ---- degradation policy (spec 8.4): only sampled while input is actively
+  // producing frames -- never a monitoring loop. ----------------------------
   function recordSample(ms) {
     if (game.mode !== '3d') return;
     game.perf.samples.push(ms);
@@ -368,96 +594,369 @@ export function initGameController(deps) {
     if (!scrollEl || !spacerEl) return;
     const height = scrollEl.clientHeight || window.innerHeight;
     spacerEl.style.height = `${height + S.GAME_SCROLL_MAX}px`;
+    measureScene();
+  }
+
+  // ---- race clock + finish (game-feel plan section 4) ----------------------
+  // The clock starts on the first frame that moves the vessel forward and
+  // only counts frames in which it actually moved. A run that jumps ahead
+  // (slider, End) or starts part-way along the course still finishes and
+  // still shows its time, but is flagged as assisted and never becomes the
+  // personal best.
+  function accrueClock(prevPos, pos, dtSeconds) {
+    const r = game.race;
+    if (r.finished || !motionAllowed()) return;
+    if (!r.running) {
+      if (pos <= prevPos) return;
+      r.running = true;
+      if (prevPos > 0) r.assisted = true;
+    }
+    const chapterIndex = S.deriveCourseState(GAME_BOUNDARIES, prevPos, S.GAME_SCROLL_MAX).chapterIndex;
+    r.chapterMs[chapterIndex] += dtSeconds * 1000;
+  }
+
+  function checkFinish() {
+    if (game.opening) return;
+    const atEnd = game.scrollTop >= S.GAME_SCROLL_MAX;
+    if (atEnd && !game.finishShown) showFinish();
+    else if (!atEnd && game.finishShown) hideFinish();
+  }
+
+  function showFinish() {
+    if (!finishEl) return;
+    const r = game.race;
+    if (r.running && !r.finished) {
+      r.running = false;
+      r.finished = true;
+      const { total, splits } = S.raceSplits(r.chapterMs);
+      const best = readBest();
+      const newBest = !r.assisted && (best === null || total < best);
+      if (newBest) storeBest(total);
+      r.result = { total, splits, best: newBest ? total : best, newBest, assisted: r.assisted };
+    }
+    const result = r.result;
+    game.finishShown = true;
+    if (finishTimeEl) {
+      finishTimeEl.hidden = !result;
+      finishTimeEl.textContent = result ? (finishTimeEl.dataset.timeTemplate || '').replace('{time}', S.formatRaceTime(result.total)) : '';
+    }
+    if (finishSplitsEl) {
+      finishSplitsEl.hidden = !result;
+      if (result) {
+        finishSplitsEl.querySelectorAll('[data-split]').forEach((li) => {
+          const index = parseInt(li.dataset.split, 10);
+          const split = result.splits.find((sp) => sp.index === index);
+          li.querySelector('.race-game__split-label').textContent = chapterLabel(index);
+          li.querySelector('.race-game__split-time').textContent = S.formatRaceTime(split ? split.ms : 0);
+        });
+      }
+    }
+    if (finishNotesEl) finishNotesEl.textContent = (finishNotesEl.dataset.notesTemplate || '').replace('{count}', String(game.collected.size));
+    if (finishBestEl) {
+      let text = '';
+      if (result && result.assisted) text = finishBestEl.dataset.assistedText || '';
+      else if (result && result.newBest) text = finishBestEl.dataset.newBestText || '';
+      else if (result && result.best) text = (finishBestEl.dataset.bestTemplate || '').replace('{time}', S.formatRaceTime(result.best));
+      finishBestEl.hidden = !text;
+      finishBestEl.textContent = text;
+    }
+    finishEl.hidden = false;
+    hideHint();
+    const summary = [finishTimeEl && !finishTimeEl.hidden ? finishTimeEl.textContent : '', finishNotesEl ? finishNotesEl.textContent : '']
+      .filter(Boolean).join('. ');
+    announceOnce((statusEl.dataset.announceFinishTemplate || '').replace('{notes}', summary));
+    game.announcedChapter = game.chapterIndex;
+    if (finishTitleEl) finishTitleEl.focus({ preventScroll: true });
+  }
+
+  function hideFinish() {
+    game.finishShown = false;
+    if (!finishEl || finishEl.hidden) return;
+    const hadFocus = finishEl.contains(document.activeElement);
+    finishEl.hidden = true;
+    if (hadFocus) exitBtn.focus();
+  }
+
+  function raceAgain() {
+    game.race = freshRace();
+    hideFinish();
+    setScrollTop(0, { force: true });
+    announceChapter();
+    if (progressEl) progressEl.focus();
+  }
+
+  // ---- first-run controls hint (game-feel plan section 6) ----------------
+  function showHint() {
+    if (!hintEl || !hintTextEl) return;
+    hintTextEl.textContent = motionAllowed() ? hintTextEl.dataset.hintMotion : hintTextEl.dataset.hintStatic;
+    hintEl.hidden = false;
+    if (hintToggle) hintToggle.setAttribute('aria-expanded', 'true');
+  }
+  function hideHint() {
+    if (!hintEl || hintEl.hidden) return;
+    hintEl.hidden = true;
+    if (hintToggle) hintToggle.setAttribute('aria-expanded', 'false');
+  }
+  function onHintToggle() {
+    if (hintEl && hintEl.hidden) showHint(); else hideHint();
+  }
+
+  // ---- travel loop (game-feel plan section 1) ------------------------------
+  function travelInput() {
+    const keys = travel.keys;
+    return {
+      throttle: (keys.has('ahead') ? 1 : 0) - (keys.has('astern') ? 1 : 0),
+      steer: (keys.has('starboard') ? 1 : 0) - (keys.has('port') ? 1 : 0),
+      target: travel.target,
+    };
+  }
+
+  function setMoving(moving) {
+    const value = String(moving);
+    if (overlay.dataset.gameMoving !== value) overlay.dataset.gameMoving = value;
+  }
+
+  function kick() {
+    if (!game.open || !motionAllowed() || travel.raf) return;
+    travel.lastT = performance.now();
+    setMoving(true);
+    travel.raf = window.requestAnimationFrame(travelFrame);
+  }
+
+  function stopLoop() {
+    if (travel.raf) window.cancelAnimationFrame(travel.raf);
+    travel.raf = 0;
+    setMoving(false);
+  }
+
+  // A jump (slider, Home/End, chapter restore on entry) replaces any travel
+  // in flight: the vessel arrives at rest, on the centre line.
+  function stopMotion() {
+    stopLoop();
+    travel.vel = 0;
+    travel.target = null;
+    travel.lateral = 0;
+    travel.lateralVel = 0;
+  }
+
+  function travelFrame(now) {
+    travel.raf = 0;
+    if (!game.open || !motionAllowed()) { setMoving(false); return; }
+    const dt = Math.max(0, (now - travel.lastT) / 1000);
+    travel.lastT = now;
+    const prevPos = game.scrollTop;
+    const prevLateral = travel.lateral;
+    const next = S.stepTravel({ pos: prevPos, vel: travel.vel, lateral: prevLateral, lateralVel: travel.lateralVel }, travelInput(), dt);
+    travel.vel = next.vel;
+    travel.lateral = next.lateral;
+    travel.lateralVel = next.lateralVel;
+    travel.target = next.target;
+    advance(prevPos, prevLateral, next.pos, Math.min(dt, S.TRAVEL.maxDt));
+    if (!game.open) return;
+    if (next.settled) {
+      setMoving(false);
+      announceChapter();
+      return;
+    }
+    travel.raf = window.requestAnimationFrame(travelFrame);
+  }
+
+  // One travelled step, from the loop or a pointer drag: everything that
+  // follows from the vessel having moved.
+  function advance(prevPos, prevLateral, pos, dtSeconds) {
+    game.scrollTop = pos;
+    if (scrollEl) scrollEl.scrollTop = pos;
+    if (pos !== prevPos) accrueClock(prevPos, pos, dtSeconds);
+    collectAlong(prevPos, prevLateral, pos, travel.lateral);
+    overlay.dataset.gameLateral = travel.lateral.toFixed(3);
+    render();
+    noteUserFrame();
+    checkFinish();
   }
 
   // ---- scroll surface input (spec 6.1/6.3) --------------------------------
+  // Discrete jumps: the slider, Home/End, the reduced-motion path, entry.
   function setScrollTop(next, opts) {
     const clamped = clamp(next, 0, S.GAME_SCROLL_MAX);
     if (clamped === game.scrollTop && !(opts && opts.force)) return;
+    stopMotion();
+    if (game.race.running && clamped > game.scrollTop) game.race.assisted = true;
     game.scrollTop = clamped;
     if (scrollEl) scrollEl.scrollTop = clamped;
+    overlay.dataset.gameLateral = '0.000';
     render();
     noteUserFrame();
+    checkFinish();
   }
 
-  let dragging = false;
-  let dragStartY = 0;
-  let dragStartScroll = 0;
+  let drag = null;
   const EDGE_GUARD = 24;
 
   function onPointerDown(event) {
     if (event.button !== undefined && event.button !== 0) return;
     if (event.clientX <= EDGE_GUARD || event.clientX >= window.innerWidth - EDGE_GUARD) return;
-    dragging = true;
-    dragStartY = event.clientY;
-    dragStartScroll = game.scrollTop;
+    hideHint();
+    // Taking hold of the vessel stops whatever it was doing.
+    stopLoop();
+    travel.vel = 0;
+    travel.target = null;
+    travel.lateralVel = 0;
+    drag = {
+      x: event.clientX, y: event.clientY, startPos: game.scrollTop, startLateral: travel.lateral,
+      lastT: event.timeStamp, samples: [{ t: event.timeStamp, pos: game.scrollTop }],
+    };
     sceneEl.setPointerCapture && event.pointerId != null && sceneEl.setPointerCapture(event.pointerId);
   }
   function onPointerMove(event) {
-    if (!dragging) return;
-    const deltaY = event.clientY - dragStartY;
-    setScrollTop(dragStartScroll - deltaY * 5);
+    if (!drag) return;
+    const pos = clamp(drag.startPos - (event.clientY - drag.y) * DRAG_GAIN, 0, S.GAME_SCROLL_MAX);
+    if (!motionAllowed()) { setScrollTop(pos); return; }
+    const dt = clamp((event.timeStamp - drag.lastT) / 1000, 0, 0.1);
+    drag.lastT = event.timeStamp;
+    drag.samples.push({ t: event.timeStamp, pos });
+    while (drag.samples.length > 2 && event.timeStamp - drag.samples[0].t > FLING_WINDOW_MS) drag.samples.shift();
+    const first = drag.samples[0];
+    const span = (event.timeStamp - first.t) / 1000;
+    travel.vel = span > 0 ? clamp((pos - first.pos) / span, -S.TRAVEL.boostMax, S.TRAVEL.boostMax) : 0;
+    const prevPos = game.scrollTop;
+    const prevLateral = travel.lateral;
+    travel.lateral = clamp(drag.startLateral + (event.clientX - drag.x) / DRAG_STEER_PX, -1, 1);
+    advance(prevPos, prevLateral, pos, dt);
   }
-  function onPointerUp() { dragging = false; }
+  function onPointerUp(event) {
+    if (!drag) return;
+    // Fling: release carries the drag's recent velocity into a coast, unless
+    // the pointer was held still before letting go.
+    const last = drag.samples[drag.samples.length - 1];
+    if (!event || event.timeStamp - last.t > FLING_WINDOW_MS) travel.vel = 0;
+    drag = null;
+    if (motionAllowed()) kick();
+    else announceChapter();
+  }
 
   function onWheel(event) {
     event.preventDefault();
+    hideHint();
     const delta = event.deltaMode === 1 ? event.deltaY * 16 : event.deltaY;
-    setScrollTop(game.scrollTop + delta);
+    if (!motionAllowed()) { setScrollTop(game.scrollTop + delta); announceChapter(); return; }
+    travel.target = null;
+    travel.vel = clamp(travel.vel + delta * WHEEL_GAIN, -S.TRAVEL.boostMax, S.TRAVEL.boostMax);
+    kick();
   }
 
-  // A press must be a felt jump, not a crawl (measured bug: the old fixed
-  // 50px step against the 7,000px game surface was 0.71% of the journey,
-  // ~140 presses end to end -- the mouse/wheel scrubs continuously, so
-  // arrows read as dead by comparison). 5% of GAME_SCROLL_MAX is 350px:
-  // ~20 presses end to end, and still lands inside a single 1,000px
-  // chapter three times over, so it reads as a deliberate step, not a
-  // teleport. Holding the key repeats at the platform's own key-repeat
-  // rate -- event.repeat is no longer swallowed for Arrow keys -- rather
+  function boost() {
+    if (!motionAllowed()) return;
+    hideHint();
+    travel.target = null;
+    travel.vel = Math.min(S.TRAVEL.boostMax, Math.max(travel.vel, 0) + BOOST_IMPULSE);
+    kick();
+  }
+
+  // Reduced motion keeps the pre-loop step: 5% of GAME_SCROLL_MAX (350px),
+  // ~20 presses end to end, still three steps inside one 1,000px chapter.
+  // Holding the key repeats at the platform's own key-repeat rate rather
   // than this file owning a timer.
   const ARROW_STEP = S.GAME_SCROLL_MAX * 0.05;
 
+  function isControl(el) {
+    return Boolean(el && el.closest && el.closest('button, a[href], input, select, textarea'));
+  }
+
   function onKeydown(event) {
+    if (event.key === 'Escape') { if (!event.repeat) closeGame('escape'); return; }
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    const role = KEY_ROLES[event.key] || KEY_ROLES[event.code];
+    if (role) {
+      event.preventDefault();
+      hideHint();
+      if (!motionAllowed()) {
+        if (role === 'ahead') setScrollTop(game.scrollTop + ARROW_STEP);
+        else if (role === 'astern') setScrollTop(game.scrollTop - ARROW_STEP);
+        announceChapter();
+        return;
+      }
+      // Taking the helm cancels a glide in progress.
+      if (role === 'ahead' || role === 'astern') travel.target = null;
+      travel.keys.add(role);
+      kick();
+      return;
+    }
     switch (event.key) {
-      case 'ArrowUp': setScrollTop(game.scrollTop - ARROW_STEP); event.preventDefault(); break;
-      case 'ArrowDown': setScrollTop(game.scrollTop + ARROW_STEP); event.preventDefault(); break;
+      // Boost. Space only while focus is not on a control, where it must keep
+      // activating that control (focus starts on Exit); Shift always works.
+      case 'Shift': if (!event.repeat) boost(); break;
+      case ' ': if (!isControl(document.activeElement)) { event.preventDefault(); if (!event.repeat) boost(); } break;
       // Chapter-to-chapter stepping, reusing the existing previous/next
       // navigation (same targets as the on-screen chapter buttons).
       case 'PageUp': if (!event.repeat) onPrevious(); event.preventDefault(); break;
       case 'PageDown': if (!event.repeat) onNext(); event.preventDefault(); break;
-      case 'Home': if (!event.repeat) setScrollTop(0); event.preventDefault(); break;
-      case 'End': if (!event.repeat) setScrollTop(S.GAME_SCROLL_MAX); event.preventDefault(); break;
-      case 'Escape': if (!event.repeat) closeGame('escape'); break;
+      case 'Home': if (!event.repeat) { setScrollTop(0); announceChapter(); } event.preventDefault(); break;
+      case 'End': if (!event.repeat) { setScrollTop(S.GAME_SCROLL_MAX); announceChapter(); } event.preventDefault(); break;
       default: break;
     }
   }
 
+  function onKeyup(event) {
+    const role = KEY_ROLES[event.key] || KEY_ROLES[event.code];
+    if (role) travel.keys.delete(role);
+  }
+
+  // A key released while the window was not focused never sends its keyup:
+  // drop every held key rather than sail on forever.
+  function onWindowBlur() { travel.keys.clear(); }
+
   function onProgressInput() {
     const value = parseFloat(progressEl.value);
     if (Number.isNaN(value)) return;
+    hideHint();
     setScrollTop(value * (S.GAME_SCROLL_MAX / 100));
+  }
+
+  // Previous/Next and the chapter ticks glide to the chapter start (eased by
+  // the travel loop, not a teleport); without motion they jump, as before.
+  function glideTo(target) {
+    hideHint();
+    if (!motionAllowed()) {
+      setScrollTop(target);
+      announceChapter();
+      return;
+    }
+    travel.target = clamp(target, 0, S.GAME_SCROLL_MAX);
+    kick();
+  }
+
+  // During a glide, "current chapter" is where the glide is heading, so
+  // repeated presses step on from there instead of re-targeting the same
+  // chapter while the vessel is still on its way.
+  function headingChapter() {
+    if (travel.target === null) return game.chapterIndex;
+    return S.deriveCourseState(GAME_BOUNDARIES, travel.target, S.GAME_SCROLL_MAX).chapterIndex;
   }
 
   function goToChapter(index) {
     const clampedIndex = clamp(index, 0, STAGE_IDS.length - 1);
-    setScrollTop(clampedIndex * S.GAME_CHAPTER_SPAN);
-    announceOnce((statusEl.dataset.announceChapterTemplate || '').replace('{chapter}', chapterLabel(clampedIndex)));
+    glideTo(clampedIndex * S.GAME_CHAPTER_SPAN);
   }
-  function onPrevious() { goToChapter(game.chapterIndex - 1); }
+  function onPrevious() { goToChapter(headingChapter() - 1); }
   function onNext() {
-    const atFinish = game.chapterIndex === STAGE_IDS.length - 1;
-    if (atFinish) {
-      setScrollTop(S.GAME_SCROLL_MAX);
-      announceOnce((statusEl.dataset.announceChapterTemplate || '').replace('{chapter}', chapterLabel(STAGE_IDS.length - 1)));
-      return;
-    }
-    goToChapter(game.chapterIndex + 1);
+    const from = headingChapter();
+    if (from === STAGE_IDS.length - 1) { glideTo(S.GAME_SCROLL_MAX); return; }
+    goToChapter(from + 1);
+  }
+  function onTickClick(event) {
+    const index = parseInt(event.currentTarget.dataset.chapter, 10);
+    if (!Number.isNaN(index)) goToChapter(index);
   }
 
   function onReadThisChapter(event) {
     event.preventDefault();
     const targetId = STAGE_IDS[game.chapterIndex] || 'start';
     closeGame('read', targetId);
+  }
+
+  function onReadFullStory(event) {
+    event.preventDefault();
+    closeGame('read', 'start');
   }
 
   // ---- 3D world ownership + quality ladder (spec 8.2/8.4/8.5) ---------------
@@ -921,15 +1420,28 @@ export function initGameController(deps) {
     setInert(true);
     game.staticPresentation = null;
     game.landmarkOpen = false;
+    game.race = freshRace();
+    game.collected = readCollected();
+    game.finishShown = false;
+    if (finishEl) finishEl.hidden = true;
+    travel.keys.clear();
+    drag = null;
     sizeScrollSurface();
 
     history.pushState({ [HISTORY_MARKER]: true }, '');
 
+    // Entering at the reader's own position is a placement, not an arrival:
+    // opening the game at the very end must not pop the finish card (focus
+    // belongs on Exit).
+    game.opening = true;
     setScrollTop(S.gameScrollForChapter(reading.chapterIndex, reading.localProgress), { force: true });
+    game.opening = false;
+    game.announcedChapter = game.chapterIndex;
     game.mode = 'lite';
     updateTitle();
     updateLiteButton(true);
     render();
+    showHint();
 
     game.entryAnnounced = false;
     if (!game.entryAnnounced) {
@@ -940,9 +1452,12 @@ export function initGameController(deps) {
     exitBtn.focus();
 
     document.addEventListener('keydown', onKeydown);
+    document.addEventListener('keyup', onKeyup);
+    window.addEventListener('blur', onWindowBlur);
     sceneEl.addEventListener('pointerdown', onPointerDown);
     window.addEventListener('pointermove', onPointerMove);
     window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
     sceneEl.addEventListener('wheel', onWheel, { passive: false });
 
     evaluateWorldEligibility && evaluateWorldEligibility();
@@ -960,18 +1475,27 @@ export function initGameController(deps) {
     if (!game.open) return;
     let resolveClosing;
     closingPromise = new Promise((resolve) => { resolveClosing = resolve; });
+    stopMotion();
+    travel.keys.clear();
+    drag = null;
     game.open = false;
     setGameOpen && setGameOpen(false);
     document.documentElement.classList.remove('race--gaming');
     setInert(false);
     disposeWorld(true);
     undockRig();
+    hideHint();
+    game.finishShown = false;
+    if (finishEl) finishEl.hidden = true;
     overlay.hidden = true;
 
     document.removeEventListener('keydown', onKeydown);
+    document.removeEventListener('keyup', onKeyup);
+    window.removeEventListener('blur', onWindowBlur);
     sceneEl.removeEventListener('pointerdown', onPointerDown);
     window.removeEventListener('pointermove', onPointerMove);
     window.removeEventListener('pointerup', onPointerUp);
+    window.removeEventListener('pointercancel', onPointerUp);
     sceneEl.removeEventListener('wheel', onWheel);
 
     // Exiting native fullscreen is itself an async browser-chrome transition
@@ -1022,6 +1546,8 @@ export function initGameController(deps) {
   function onMotionChange() {
     updateLiteButton(game.mode !== '3d');
     if (reducedMotionMQ.matches || forcedColorsMQ.matches) {
+      stopMotion();
+      travel.keys.clear();
       if (game.mode === '3d') switchToLite(false);
       if (game.open) render();
     }
@@ -1030,7 +1556,7 @@ export function initGameController(deps) {
   forcedColorsMQ.addEventListener('change', onMotionChange);
 
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) return;
+    if (document.hidden) { travel.keys.clear(); return; }
     if (game.open) render();
   });
 
@@ -1039,10 +1565,17 @@ export function initGameController(deps) {
   exitBtn.addEventListener('click', () => closeGame('exit'));
   if (liteBtn) liteBtn.addEventListener('click', onLiteToggle);
   if (landmarkBtn) landmarkBtn.addEventListener('click', onLandmarkToggle);
-  if (progressEl) progressEl.addEventListener('input', onProgressInput);
+  if (progressEl) {
+    progressEl.addEventListener('input', onProgressInput);
+    progressEl.addEventListener('change', announceChapter);
+  }
   if (prevBtn) prevBtn.addEventListener('click', onPrevious);
   if (nextBtn) nextBtn.addEventListener('click', onNext);
+  tickEls.forEach((tick) => tick.addEventListener('click', onTickClick));
   if (readLink) readLink.addEventListener('click', onReadThisChapter);
+  if (hintToggle) hintToggle.addEventListener('click', onHintToggle);
+  if (finishAgainBtn) finishAgainBtn.addEventListener('click', raceAgain);
+  if (finishReadLink) finishReadLink.addEventListener('click', onReadFullStory);
 
   // DOM-only game shell + handlers are wired: reveal the entry control. Its
   // availability never depended on athlete/rail/WebGL init succeeding.

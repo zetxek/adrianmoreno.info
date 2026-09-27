@@ -16,13 +16,16 @@ const purgecssconfig = purgecssPlugin({
     // (assets/js/race/game.js) and never appears in hugo_stats.json.
     // race-athlete-wrap--docked: reparented at runtime by both the mobile
     // dock and the full-screen game's rig slot.
+    // race-game--static / race-game__tick--* / race-game__clock-*: written
+    // at runtime by the game's reduced-motion presentation, chapter rail and
+    // race clock.
     // canvas: no template ever writes a literal <canvas> tag -- both the
     // desktop world and the full-screen game create it via
     // document.createElement('canvas') at runtime, so hugo_stats.json's tag
     // list never contains "canvas" and PurgeCSS strips any rule requiring
     // that bare tag (e.g. `.race-game__scene canvas`) even though the class
     // half of the selector is itself safe.
-    greedy: [/header.*/, /.*icon.*/, /btn$/, /.*\[class.*/, /race-readout/, /aria-current/, /race--/, /race-athlete--/, /race-athlete-wrap--/, /race-nav-split--/, /race-world__canvas/, /race-game__map-/, /canvas/]
+    greedy: [/header.*/, /.*icon.*/, /btn$/, /.*\[class.*/, /race-readout/, /aria-current/, /race--/, /race-athlete--/, /race-athlete-wrap--/, /race-nav-split--/, /race-world__canvas/, /race-game__map-/, /race-game--/, /race-game__tick--/, /race-game__clock-/, /canvas/]
     },
     // hugo_stats.json only tracks tags/classes/ids (never attribute names),
     // so PurgeCSS's extractor can never see a bare `hidden` token to keep
