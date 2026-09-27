@@ -34,8 +34,8 @@ test.describe('Experience Page', () => {
     await expect(page.locator('#experience-single')).toBeVisible();
     await expect(page.locator('.section-experience')).toBeVisible();
 
-    // Verify page title (use first h2 in the experience section)
-    await expect(page.locator('#experience-single h2').first()).toHaveText('Experience');
+    // Verify page title (on /experience/ the section title is the page's h1)
+    await expect(page.locator('#experience-single h1').first()).toHaveText('Experience');
 
     // Verify experience list container
     await expect(page.locator('.experience-list')).toBeVisible();
