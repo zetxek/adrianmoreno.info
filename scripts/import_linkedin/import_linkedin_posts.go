@@ -276,7 +276,7 @@ func main() {
 		
 		if len(urlsToExtract) > 0 {
 			fmt.Printf("Found %d posts that might be reshares. Processing in single browser session...\n", len(urlsToExtract))
-			fmt.Println("(Posts will be saved incrementally as URLs are extracted)\n")
+			fmt.Println("(Posts will be saved incrementally as URLs are extracted)")
 			
 			// Extract URLs incrementally and save posts as we go
 			extractCount := 0
@@ -1144,8 +1144,10 @@ func htmlToMarkdown(html string) string {
 		return match
 	})
 
-	// Convert headers
-	content = regexp.MustCompile(`(?s)<h1[^>]*>(.*?)</h1>`).ReplaceAllString(content, "\n# $1\n\n")
+	// Convert headers. The Hugo layout renders the page's H1 from the
+	// front-matter title, but LinkedIn article exports repeat the article
+	// title as an <h1> in the body, so converted bodies must start at h2.
+	content = regexp.MustCompile(`(?s)<h1[^>]*>(.*?)</h1>`).ReplaceAllString(content, "\n## $1\n\n")
 	content = regexp.MustCompile(`(?s)<h2[^>]*>(.*?)</h2>`).ReplaceAllString(content, "\n## $1\n\n")
 	content = regexp.MustCompile(`(?s)<h3[^>]*>(.*?)</h3>`).ReplaceAllString(content, "\n### $1\n\n")
 	content = regexp.MustCompile(`(?s)<h4[^>]*>(.*?)</h4>`).ReplaceAllString(content, "\n#### $1\n\n")
