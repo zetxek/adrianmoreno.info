@@ -14,6 +14,12 @@ This Go script imports LinkedIn posts and articles from a LinkedIn data export a
 3. Request an archive of your data
 4. When you receive the archive, extract it to a folder
 
+## Tests
+
+The importer has unit tests in `scripts/import_linkedin/import_linkedin_posts_test.go`.
+Run them with `go test ./scripts/import_linkedin/` (`go test ./...` also works from the
+repo root). CI runs them on every PR to `main` via `.github/workflows/go-tests.yml`.
+
 ## Usage
 
 1. Place your LinkedIn export files in one of these locations:
