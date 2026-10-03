@@ -13,12 +13,18 @@ fi
 # Ensure the assets/css directory exists
 mkdir -p ./assets/css
 
-# Run critical CSS generator with additional launch options for Puppeteer
-# --penthouse-ignore-errors makes the process continue despite JS errors
-# --penthouse-browser-args adds Chrome flags to fix common launch issues
-./node_modules/critical/cli.js public/index.html --base public \
-  --penthouse-ignore-errors \
-  --penthouse-browser-args="--no-sandbox,--disable-setuid-sandbox,--disable-dev-shm-usage" \
-  > ./assets/css/critical.css
+# critical v9: the "render" engine loads the page in headless Chromium (Playwright)
+# and keeps the rules that style the first viewport. It launches with --no-sandbox
+# itself, so CI needs no extra flags, only `npx playwright install chromium`.
+# The static engine is not used: without a [data-critical-fold] hint it emits all
+# rules used on the page, not just the above-the-fold ones.
+# Write to a temp file first so a failed run cannot truncate the committed CSS.
+tmp="$(mktemp)"
+./node_modules/critical/cli.js public/index.html --engine render --out "$tmp"
+if [ ! -s "$tmp" ]; then
+    echo "Error: critical produced no CSS"
+    exit 1
+fi
+mv "$tmp" ./assets/css/critical.css
 
 echo "Done running critical-css"

@@ -195,6 +195,12 @@ url = "/search"
 weight = 8
 
 
+[[menu.header]]
+identifier = "race"
+name = "Game mode"
+pageRef = "/race"
+weight = 9
+
 [[menu.footer]]
 name = "💁‍♂️ About"
 url = "/#about"
