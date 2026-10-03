@@ -1353,6 +1353,8 @@ export function initGameController(deps) {
   // late/stale confirmation from a superseded session can never be read as
   // "the current session's fullscreen just ended".
   let fullscreenActiveSession = null;
+  // Where the last close put focus; see the late-exit repair in onFullscreenChange().
+  let restoredFocusEl = null;
 
   function applyFullscreenAttempt(session) {
     if (typeof overlay.requestFullscreen !== 'function') return;
@@ -1386,6 +1388,17 @@ export function initGameController(deps) {
     // never double-exit.
     if (closingSession !== null && closingSession === game.session && game.open) {
       closeGame('fullscreenchange');
+      return;
+    }
+    // A fullscreen request that only resolved after a quick exit (Escape
+    // pressed before the platform finished entering) is undone by
+    // applyFullscreenAttempt()'s stale-session branch -- and that late exit
+    // resets document focus to <body>, after closeGame() already restored
+    // it (measured: ~1 in 5 rapid open/Escape cycles, from either entry
+    // control). Put it back on the element the close restored it to.
+    if (!game.open && restoredFocusEl && restoredFocusEl.isConnected) {
+      const active = document.activeElement;
+      if (!active || active === document.body || overlay.contains(active)) restoredFocusEl.focus({ preventScroll: true });
     }
   }
   document.addEventListener('fullscreenchange', onFullscreenChange);
@@ -1411,6 +1424,7 @@ export function initGameController(deps) {
     try { history.scrollRestoration = 'manual'; } catch (e) { /* noop */ }
 
     game.session += 1;
+    restoredFocusEl = null;
     const session = game.session;
     overlay.hidden = false;
     applyFullscreenAttempt(session);
@@ -1513,9 +1527,19 @@ export function initGameController(deps) {
         window.location.hash = readTargetId;
         const target = document.getElementById(readTargetId);
         if (target) target.focus({ preventScroll: false });
+        restoredFocusEl = target;
       } else {
         restoreReadingScroll();
-        if (game.invokingEl && typeof game.invokingEl.focus === 'function') game.invokingEl.focus();
+        // The world panel's expand control is not rendered at this instant:
+        // the reading world was torn down while the game owned the screen
+        // and rebuilds asynchronously after exit (index.js teardownWorld/
+        // evaluateWorldEligibility), and focus() on a display:none button
+        // silently drops focus to <body>. Fall back to the chrome entry,
+        // which performs the same action and is always rendered.
+        const invoker = game.invokingEl;
+        const focusable = invoker && typeof invoker.focus === 'function' && invoker.getClientRects().length > 0;
+        restoredFocusEl = focusable ? invoker : entryBtn;
+        restoredFocusEl.focus();
       }
       invalidateReading && invalidateReading();
       evaluateWorldEligibility && evaluateWorldEligibility();
@@ -1561,7 +1585,11 @@ export function initGameController(deps) {
   });
 
   // ---- wire static controls -----------------------------------------------
-  entryBtn.addEventListener('click', () => openGame(entryBtn));
+  // Every way in (the chrome entry plus the world panel's expand control)
+  // opens the same dialog, and passes itself as the invoker so focus returns
+  // to whichever one the reader actually used.
+  const openers = [entryBtn, ...document.querySelectorAll('[data-race-game-open]')];
+  openers.forEach((btn) => btn.addEventListener('click', () => openGame(btn)));
   exitBtn.addEventListener('click', () => closeGame('exit'));
   if (liteBtn) liteBtn.addEventListener('click', onLiteToggle);
   if (landmarkBtn) landmarkBtn.addEventListener('click', onLandmarkToggle);
@@ -1577,9 +1605,11 @@ export function initGameController(deps) {
   if (finishAgainBtn) finishAgainBtn.addEventListener('click', raceAgain);
   if (finishReadLink) finishReadLink.addEventListener('click', onReadFullStory);
 
-  // DOM-only game shell + handlers are wired: reveal the entry control. Its
-  // availability never depended on athlete/rail/WebGL init succeeding.
-  entryBtn.hidden = false;
+  // DOM-only game shell + handlers are wired: reveal the entry controls.
+  // Their availability never depended on athlete/rail/WebGL init succeeding
+  // (the panel's expand control still only displays, via CSS, while the
+  // world panel itself is showing).
+  openers.forEach((btn) => { btn.hidden = false; });
 
   return { isOpen: () => game.open };
 }

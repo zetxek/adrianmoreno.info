@@ -383,7 +383,7 @@ html { scroll-behavior: auto; }
 }
 
 @media print {
-  .race-mobile-dock, .race-game-controls, .race-game-entry { display: none !important; }
+  .race-mobile-dock, .race-game-controls, .race-game-entry, .race-world-expand { display: none !important; }
 }
 
 /* Full-screen journey game entry control (game-mode spec 3.1). Server-
@@ -395,24 +395,64 @@ html { scroll-behavior: auto; }
    assets/js/race/index.js reparents the same node into .race-mobile-dock
    (see that media query above), where .race-game-entry--docked takes over
    its geometry instead. */
+/* In the chrome it reads as one more chrome link, matching .race-exit
+   (accent glyph + mono label, no box) rather than a bordered button
+   competing with the page title. */
 .race-game-entry {
   display: none;
   align-items: center;
   justify-content: center;
+  gap: .6rem;
   text-align: center;
   min-height: 44px;
-  padding: .5rem .9rem;
+  padding: 0 .25rem;
   background: none;
   color: inherit;
-  border: 1px solid currentColor;
-  font: 600 .62rem/1.3 var(--race-mono);
-  letter-spacing: .03em;
+  border: 0;
+  font: inherit;
+  letter-spacing: inherit;
   text-transform: uppercase;
   cursor: pointer;
 }
 .race--enhanced .race-game-entry:not([hidden]) { display: inline-flex; }
 .race-game-entry:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
-.race-game-entry__icon { display: none; }
+.race-game-entry:hover .race-game-entry__label { text-decoration: underline; text-underline-offset: .3em; }
+.race-game-entry__icon { display: inline-block; font-size: 1.05rem; color: #ff6e5f; }
+
+/* Expand control on the desktop world panel, like a video player's
+   full-screen button. Pinned to the panel's bottom-right corner: the panel
+   is fixed at right 2rem, vertically centred, 30vw square (see the
+   .race--world-ready .race-world rule), so its bottom edge sits at
+   50% + 15vw. Only shown while that panel is. */
+.race-world-expand { display: none; }
+@media screen and (min-width: 64rem) {
+  .race--world-ready .race-world-expand:not([hidden]) {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    position: fixed;
+    z-index: 11;
+    right: calc(2rem + 12px);
+    top: calc(50% + 15vw - 44px - 12px);
+    min-height: 44px;
+    padding: 0 .8rem;
+    pointer-events: auto;
+    background: rgb(21 23 25 / .78);
+    color: #e2e4e6;
+    border: 1px solid #42464a;
+    font: 600 .62rem/1 var(--race-mono);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color .15s, border-color .15s;
+  }
+  .race-world-expand:hover { background: #151719; border-color: #b1b7bd; }
+  .race-world-expand:focus-visible { outline: 2px solid #ff6e5f; outline-offset: 2px; }
+  .race-world-expand__icon { font-size: 1.05rem; color: #ff6e5f; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .race-world-expand { transition: none; }
+}
 
 @media screen and (width < 64rem) {
   /* The full-screen game entry, reparented into .race-mobile-dock by
@@ -434,7 +474,7 @@ html { scroll-behavior: auto; }
     background: #1d2023;
     border: 1px solid #42464a;
   }
-  .race-game-entry--docked .race-game-entry__icon { display: inline-block; font-size: 1.1rem; }
+  .race-game-entry--docked .race-game-entry__icon { display: inline-block; font-size: 1.1rem; color: inherit; }
 }
 
 /* ---- Full-screen journey game overlay (game-mode spec) -------------------

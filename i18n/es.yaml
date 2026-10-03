@@ -148,6 +148,10 @@
 ## Juego de trayecto a pantalla completa (sustituye al Pasaporte del recorrido)
 - id: race_game_entry
   translation: "Entrar en el modo juego a pantalla completa"
+- id: race_game_expand
+  translation: "Ampliar el recorrido a pantalla completa"
+- id: race_game_expand_visible
+  translation: "Pantalla completa"
 - id: race_game_exit
   translation: "Salir del modo juego"
 - id: race_game_exit_visible

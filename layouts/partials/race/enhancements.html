@@ -3,6 +3,17 @@
      after a valid first position is measured. No content lives here — the
      poster above remains the complete, no-JS baseline. */}}
 <div class="race-world" aria-hidden="true" hidden></div>
+{{/* Expand control for the desktop world panel, like a video player's
+     full-screen button: a second, in-context way into the same game dialog
+     as #race-game-entry. A sibling of .race-world, never inside it, so it
+     stays out of that aria-hidden subtree. Server-rendered hidden;
+     assets/js/race/game.js reveals it alongside the chrome entry, and CSS
+     only displays it while .race--world-ready (i.e. while the panel it sits
+     on is actually showing). */}}
+<button type="button" class="race-world-expand" data-race-game-open hidden
+  aria-haspopup="dialog" aria-controls="race-game" aria-describedby="race-game-entry-desc"
+  aria-label="{{ i18n "race_game_expand" }}"
+><span class="race-world-expand__icon" aria-hidden="true">&#10530;</span><span class="race-world-expand__label">{{ i18n "race_game_expand_visible" }}</span></button>
 <div class="race-athlete-wrap" aria-hidden="true" hidden>
   <svg class="race-athlete race-athlete--ready" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
     <circle class="race-athlete__backplate" cx="16" cy="16" r="14"/>

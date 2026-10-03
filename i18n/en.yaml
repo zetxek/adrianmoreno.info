@@ -177,6 +177,10 @@
 ## Full-screen journey game (replaces the deleted Course Passport)
 - id: race_game_entry
   translation: "Enter full-screen game mode"
+- id: race_game_expand
+  translation: "Expand the course to full screen"
+- id: race_game_expand_visible
+  translation: "Full screen"
 - id: race_game_entry_description
   translation: "Optional interactive journey. May download up to 240 KiB of 3D assets. Exit at any time."
 - id: race_game_dialog_label

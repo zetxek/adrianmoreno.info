@@ -431,6 +431,53 @@ test('full-screen game: 3D loads at 1440px when WebGL is available, full-viewpor
   expect(nodesAfter - nodesBefore).toBeLessThanOrEqual(92);
 });
 
+test('the world panel carries a video-style expand control that opens the game, and never shows without the panel', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(raceURL);
+  const hasWebGL = await page.evaluate(() => {
+    try {
+      const canvas = document.createElement('canvas');
+      return !!(canvas.getContext('webgl2') || canvas.getContext('webgl'));
+    } catch (e) {
+      return false;
+    }
+  });
+  test.skip(!hasWebGL, 'headless browser has no WebGL support in this environment');
+
+  await expect(page.locator('[data-race].race--world-ready')).toHaveCount(1, { timeout: 10000 });
+  const expand = page.getByRole('button', { name: 'Expand the course to full screen', exact: true });
+  await expect(expand).toBeVisible();
+
+  // Sits inside the panel's bottom-right corner.
+  const panel = await page.locator('.race-world').boundingBox();
+  const box = await expand.boundingBox();
+  expect(box.x).toBeGreaterThanOrEqual(panel.x);
+  expect(box.x + box.width).toBeLessThanOrEqual(panel.x + panel.width);
+  expect(box.y + box.height).toBeLessThanOrEqual(panel.y + panel.height);
+  expect(box.y).toBeGreaterThan(panel.y + panel.height / 2);
+
+  await expand.click();
+  await expect(page.locator('#race-game')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#race-game')).toBeHidden();
+  // Focus returns to a real control, never <body>: the expand control if
+  // the panel has already rebuilt, otherwise the chrome entry.
+  // Restoration lands after the exit's own history.back() settles, so poll.
+  await expect.poll(() => page.evaluate(() => {
+    const el = document.activeElement;
+    if (!el) return null;
+    if (el.id === 'race-game-entry') return 'entry';
+    return el.classList.contains('race-world-expand') ? 'expand' : el.tagName;
+  })).toMatch(/^(entry|expand)$/);
+});
+
+test('no world panel, no expand control: hidden below 64rem', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(raceURL);
+  await page.waitForTimeout(400);
+  await expect(page.locator('.race-world-expand')).toBeHidden();
+});
+
 test('atlas route wake: dash motion is a pure function of scroll position, not elapsed time', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   const hasWebGL = await page.evaluate(() => {
