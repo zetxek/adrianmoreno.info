@@ -171,8 +171,8 @@ test('the athlete is a fixed-position marker that swaps discipline pose at each 
   expect(await disciplineClass()).toContain('race-athlete--run');
 
   await page.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }));
-  await page.waitForTimeout(300);
-  expect(await disciplineClass()).toContain('race-athlete--finish');
+  // Written from the frame loop: retry rather than read once after a fixed delay.
+  await expect(page.locator('.race-athlete')).toHaveClass(/race-athlete--finish/);
 
   // reverse jumps are equally valid -- no irreversible sequence
   await goToChapter(page, 'swim');
@@ -211,8 +211,8 @@ test('the goal square fills at course completion and is reversible', async ({ pa
   const goalFill = () => page.locator('.race-goal__square').evaluate((el) => getComputedStyle(el).fill);
 
   await page.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }));
-  await page.waitForTimeout(400);
-  expect(await goalFill()).toBe('rgb(255, 51, 31)');
+  // Written from the frame loop: retry rather than read once after a fixed delay.
+  await expect(page.locator('.race-goal__square')).toHaveCSS('fill', 'rgb(255, 51, 31)');
   await expect(page.locator('[data-race]')).toHaveClass(/race--complete/);
   await expect(page.locator('.race-status')).toHaveText('Course complete');
   await expect(page.locator('.race-nav a[data-race-nav="finish"] .race-nav-split')).toHaveText('100%');

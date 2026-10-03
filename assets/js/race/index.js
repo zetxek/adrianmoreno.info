@@ -233,11 +233,13 @@ import { initGameController } from './game.js';
 
   // ---- athlete -----------------------------------------------------------
   function writeAthlete(discipline, theta, amplitude, derived, disciplineChanged, motionAllowed) {
-    /* Un-hide BEFORE the railReady guard: a failed rail measurement must only
-       skip repositioning, never leave the figure stuck hidden for the rest of
-       the page (the guard returns early, so the un-hide below was unreachable). */
-    if (athleteWrap.hidden) athleteWrap.hidden = false;
+    /* No rail and no mobile dock: there is nowhere to put the figure, so it
+       stays hidden (measureLayout() hid it) rather than showing unplaced at
+       the wrap's 0,0 origin. Un-hide on the first write that CAN place it --
+       a later successful measurement or the dock mounting -- so one failed
+       measurement never leaves it hidden for the rest of the page. */
     if (!mobile.mounted && !state.layout.railReady) return;
+    if (athleteWrap.hidden) athleteWrap.hidden = false;
     if (!mobile.mounted && state.layout.railReady) {
       const point = screenPointForFraction(refs.pathEl, state.layout.rail, derived.fraction);
       positionWrap(athleteWrap, point.x, point.y, state.layout.athleteSize);

@@ -21,17 +21,17 @@ p { text-wrap: pretty; }
 .race-sr, .race-nav-label, .race-game-entry--docked .race-game-entry__label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 .race-skip { position: fixed; inset: 1rem auto auto 1rem; z-index: 20; padding: .75rem 1rem; background: #fff; color: #151719; transform: translateY(-200%); }
 .race-skip:focus { transform: none; }
-.race-chrome { position: fixed; inset: 0 0 auto; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .6rem 1.25rem; min-height: 3.8rem; background: #151719; border-bottom: 1px solid #393c3f; color: #e2e4e6; font: .65rem/1.4 var(--race-mono); letter-spacing: .06em; text-transform: uppercase; }
+.race-chrome { position: fixed; inset: 0 0 auto; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: calc(.6rem + env(safe-area-inset-top, 0px)) calc(1.25rem + env(safe-area-inset-right, 0px)) .6rem calc(1.25rem + env(safe-area-inset-left, 0px)); min-height: 3.8rem; background: #151719; border-bottom: 1px solid #393c3f; color: #e2e4e6; font: .65rem/1.4 var(--race-mono); letter-spacing: .06em; text-transform: uppercase; }
 .race-exit { display: inline-flex; align-items: center; min-height: 44px; gap: .6rem; text-decoration: none; }
 .race-exit span { font-size: 1.2rem; color: #ff6e5f; }
 .race-edition { max-width: 10rem; text-align: right; font-size: .58rem; color: #b1b7bd; }
-.race-frame { position: fixed; inset: .65rem; z-index: 9; pointer-events: none; }
+.race-frame { position: fixed; inset: calc(.65rem + env(safe-area-inset-top, 0px)) calc(.65rem + env(safe-area-inset-right, 0px)) calc(.65rem + env(safe-area-inset-bottom, 0px)) calc(.65rem + env(safe-area-inset-left, 0px)); z-index: 9; pointer-events: none; }
 .race-frame span { position: absolute; width: 16px; height: 16px; border-color: #737a81; border-style: solid; }
 .race-frame span:nth-child(1) { top: 0; left: 0; border-width: 1px 0 0 1px; }
 .race-frame span:nth-child(2) { top: 0; right: 0; border-width: 1px 1px 0 0; }
 .race-frame span:nth-child(3) { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
 .race-frame span:nth-child(4) { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
-.race-nav { position: fixed; z-index: 10; inset: auto 0 0; padding: .45rem .6rem calc(.45rem + env(safe-area-inset-bottom, 0px)); background: #151719; color: #e2e4e6; border-top: 1px solid #42464a; }
+.race-nav { position: fixed; z-index: 10; inset: auto 0 0; padding: .45rem calc(.6rem + env(safe-area-inset-right, 0px)) calc(.45rem + env(safe-area-inset-bottom, 0px)) calc(.6rem + env(safe-area-inset-left, 0px)); background: #151719; color: #e2e4e6; border-top: 1px solid #42464a; }
 /* Every chip is a constant width (mobile: icon/number + split only; desktop:
    + label, widened below) so a chip never resizes when its split field's
    text changes ("—" to "100%") -- the strip scrolls horizontally instead of
@@ -58,7 +58,7 @@ p { text-wrap: pretty; }
 #race-path { d: path("M60 0 L60 1000"); }
 .race-track { opacity: .35; }
 .race-progress { opacity: 1; }
-.race-stage { position: relative; overflow: clip; background: var(--race-ground); padding: 7rem 1.5rem 7rem 3.25rem; scroll-margin-block: 4rem 6rem; }
+.race-stage { position: relative; overflow: clip; background: var(--race-ground); padding: 7rem calc(1.5rem + env(safe-area-inset-right, 0px)) 7rem calc(3.25rem + env(safe-area-inset-left, 0px)); scroll-margin-block: 4rem 6rem; }
 .race-content { position: relative; z-index: 3; width: 100%; max-width: 44rem; margin-inline: auto; }
 .race-scenery { position: absolute; inset: 0; pointer-events: none; opacity: .35; }
 .race-contours { background: repeating-radial-gradient(ellipse at 120% 40%, transparent 0 39px, #4a5055 40px, transparent 41px 76px); mask-image: linear-gradient(90deg, transparent 30%, #000); }
@@ -122,10 +122,10 @@ p { text-wrap: pretty; }
   .race-content { margin-inline: 0; }
   .race-course { left: 5vw; width: 20vw; }
   #race-path { d: path("M60 0 C110 40 10 75 60 130 S100 190 60 235 L105 270 15 295 60 320 C110 365 10 400 60 445 S110 510 60 565 L105 600 15 625 60 650 C105 710 20 750 60 810 S100 900 60 955 L60 1000"); }
-  .race-chrome { padding: .75rem 2.5rem; }
+  .race-chrome { padding: calc(.75rem + env(safe-area-inset-top, 0px)) calc(2.5rem + env(safe-area-inset-right, 0px)) .75rem calc(2.5rem + env(safe-area-inset-left, 0px)); }
   .race-edition { max-width: none; font-size: .65rem; }
-  .race-frame { inset: 1.25rem; }
-  .race-nav { inset: auto 50% 1.25rem auto; transform: translateX(50%); width: max-content; max-width: calc(100% - 3rem); border: 1px solid #42464a; padding: .4rem .7rem; }
+  .race-frame { inset: calc(1.25rem + env(safe-area-inset-top, 0px)) calc(1.25rem + env(safe-area-inset-right, 0px)) calc(1.25rem + env(safe-area-inset-bottom, 0px)) calc(1.25rem + env(safe-area-inset-left, 0px)); }
+  .race-nav { inset: auto 50% calc(1.25rem + env(safe-area-inset-bottom, 0px)) auto; transform: translateX(50%); width: max-content; max-width: calc(100% - 3rem); border: 1px solid #42464a; padding: .4rem .7rem; }
   /* The 45rem cap only matters full-bleed on mobile; at desktop the pill's
      own max-width already bounds it, so let the row reach its natural
      (wider, label-bearing) content width instead of scrolling needlessly. */
@@ -348,15 +348,15 @@ html { scroll-behavior: auto; }
   }
   .race-mobile-dock__marker {
     position: absolute;
-    left: 12px;
+    left: calc(12px + env(safe-area-inset-left, 0px));
     top: 8px;
     width: 44px;
     height: 44px;
   }
   .race-mobile-dock__label {
     position: absolute;
-    left: 68px;
-    right: 64px;
+    left: calc(68px + env(safe-area-inset-left, 0px));
+    right: calc(64px + env(safe-area-inset-right, 0px));
     top: 8px;
     margin: 0;
     font: .64rem/1.35 var(--race-mono);
@@ -366,7 +366,7 @@ html { scroll-behavior: auto; }
   }
   .race-nav--docked {
     position: fixed;
-    inset: auto 12px calc(env(safe-area-inset-bottom, 0px) + 8px) 164px;
+    inset: auto calc(12px + env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 8px) calc(164px + env(safe-area-inset-left, 0px));
     width: auto;
     max-width: none;
     transform: none;
@@ -466,7 +466,7 @@ html { scroll-behavior: auto; }
   .race-game-entry--docked {
     position: absolute;
     top: 8px;
-    right: 12px;
+    right: calc(12px + env(safe-area-inset-right, 0px));
     width: 44px;
     height: 44px;
     margin: 0;

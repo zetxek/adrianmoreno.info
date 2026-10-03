@@ -792,8 +792,13 @@ export function initGameController(deps) {
   let drag = null;
   const EDGE_GUARD = 24;
 
+  // A drag belongs to the one pointer that started it: a second finger
+  // neither re-anchors it nor feeds it moves, and only the owner's release
+  // ends it -- otherwise two fingers alternate the vessel between two
+  // positions, and the buoy sweep and race clock count those jumps.
   function onPointerDown(event) {
     if (event.button !== undefined && event.button !== 0) return;
+    if (drag) return;
     if (event.clientX <= EDGE_GUARD || event.clientX >= window.innerWidth - EDGE_GUARD) return;
     hideHint();
     // Taking hold of the vessel stops whatever it was doing.
@@ -802,13 +807,14 @@ export function initGameController(deps) {
     travel.target = null;
     travel.lateralVel = 0;
     drag = {
+      pointerId: event.pointerId,
       x: event.clientX, y: event.clientY, startPos: game.scrollTop, startLateral: travel.lateral,
       lastT: event.timeStamp, samples: [{ t: event.timeStamp, pos: game.scrollTop }],
     };
     sceneEl.setPointerCapture && event.pointerId != null && sceneEl.setPointerCapture(event.pointerId);
   }
   function onPointerMove(event) {
-    if (!drag) return;
+    if (!drag || event.pointerId !== drag.pointerId) return;
     const pos = clamp(drag.startPos - (event.clientY - drag.y) * DRAG_GAIN, 0, S.GAME_SCROLL_MAX);
     if (!motionAllowed()) { setScrollTop(pos); return; }
     const dt = clamp((event.timeStamp - drag.lastT) / 1000, 0, 0.1);
@@ -824,7 +830,7 @@ export function initGameController(deps) {
     advance(prevPos, prevLateral, pos, dt);
   }
   function onPointerUp(event) {
-    if (!drag) return;
+    if (!drag || (event && event.pointerId !== drag.pointerId)) return;
     // Fling: release carries the drag's recent velocity into a coast, unless
     // the pointer was held still before letting go.
     const last = drag.samples[drag.samples.length - 1];
@@ -1413,7 +1419,11 @@ export function initGameController(deps) {
 
   async function openGame(invokingEl) {
     if (game.open) return;
-    if (closingPromise) await closingPromise;
+    // Two activations inside one close window both pass the check above and
+    // both resume from the same await: loop until no close is in flight,
+    // then re-check, so only the first of them actually opens.
+    while (closingPromise) await closingPromise;
+    if (game.open) return;
     const reading = getReadingProgress();
     game.invokingEl = invokingEl || document.activeElement;
     game.savedScrollX = reading.scrollX;

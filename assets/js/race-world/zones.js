@@ -930,8 +930,11 @@ function swimBasin(unit, mat) {
   // crest the hórreo stands on), a few units clear of the hórreo's own
   // footprint (local x -9.6..-0.8) so the two read as one grouped
   // settlement on the mountain rather than overlapping or drifting back to
-  // two separate landmarks.
-  group.add(buildLighthouse(unit, mat, tally, { x: 3, z: 10.5, baseY: 0.8 }));
+  // two separate landmarks. z=8 puts it on the only strip of that terrace
+  // still exposed (z 7.2..8.9, in front of terrace 2's face at 8.9): at
+  // z=10.5 it stood inside the 3.4-high crest (z 9.6..14.4), which buried
+  // the knoll, the plinth and the lower 1.85 units of the tower.
+  group.add(buildLighthouse(unit, mat, tally, { x: 3, z: 8, baseY: 0.8 }));
 
   group.add(buildGaliciaRocks(unit, mat, tally));
 
