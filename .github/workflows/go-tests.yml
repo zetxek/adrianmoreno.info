@@ -1,0 +1,30 @@
+name: Go Tests
+
+# Gates the LinkedIn importer's unit tests (scripts/import_linkedin/), which
+# e2e-tests.yml does not cover — that workflow only runs the JS unit guards.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  go-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: go vet
+        run: go vet ./...
+
+      - name: go test
+        run: go test ./...
