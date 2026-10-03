@@ -44,7 +44,7 @@
     "autoprefixer": "^10.6.1",
     "bootstrap": "^5.3.8",
     "bootstrap-print-css": "^1.0.0",
-    "critical": "^8.0.0",
+    "critical": "^9.0.0",
     "del": "^8.0.1",
     "juice": "^12.1.3",
     "postcss": "^8.5.28",
