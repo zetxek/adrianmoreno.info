@@ -316,8 +316,24 @@ import { initGameController } from './game.js';
   // ---- mobile progress dock ---------------------------------------------
   // No reparenting into a second, independent copy: the mobile dock hosts
   // the very same athlete marker, just repositioned by CSS.
+
+  /* Moving a focused element drops focus to <body>. The game entry is the
+     element focus is handed back to when the game closes, and the close can
+     itself trigger a re-dock (a native fullscreen exit resizes the viewport
+     back across 64rem): without this, keyboard and screen-reader users lost
+     their place on exit (measured ~3 in 8 Firefox exits at 390px). */
+  /* Callers check before moving and restore only once the destination is
+     visible -- focus() inside the still-[hidden] dock is a silent no-op. */
+  function entryHasFocus() {
+    return Boolean(gameEntryBtn) && document.activeElement === gameEntryBtn;
+  }
+  function restoreEntryFocus(hadFocus) {
+    if (hadFocus && document.activeElement !== gameEntryBtn) gameEntryBtn.focus({ preventScroll: true });
+  }
+
   function mountMobileRaceDock() {
     if (mobile.mounted || !mobileDockEl || !mobileDockMarkerEl) return;
+    const hadFocus = entryHasFocus();
     mobile.athleteParent = athleteWrap.parentNode;
     mobile.athleteNext = athleteWrap.nextSibling;
     mobileDockMarkerEl.appendChild(athleteWrap);
@@ -333,10 +349,12 @@ import { initGameController } from './game.js';
     if (navEl) navEl.classList.add('race-nav--docked');
     mobileDockEl.hidden = false;
     mobile.mounted = true;
+    restoreEntryFocus(hadFocus);
   }
 
   function unmountMobileRaceDock() {
     if (!mobile.mounted) return;
+    const hadFocus = entryHasFocus();
     if (mobile.athleteParent) {
       mobile.athleteParent.insertBefore(athleteWrap, mobile.athleteNext);
     }
@@ -349,6 +367,7 @@ import { initGameController } from './game.js';
     if (navEl) navEl.classList.remove('race-nav--docked');
     if (mobileDockEl) mobileDockEl.hidden = true;
     mobile.mounted = false;
+    restoreEntryFocus(hadFocus);
   }
 
   function evaluateMobileDock() {

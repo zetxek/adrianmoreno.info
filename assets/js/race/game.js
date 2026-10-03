@@ -492,6 +492,17 @@ export function initGameController(deps) {
     if (statusEl.textContent !== text) statusEl.textContent = text;
   }
 
+  // Renderer status ("3D unavailable", "3D lost", and clearing it again on
+  // restore) arrives asynchronously, whenever the quality ladder settles --
+  // which on a device without WebGL can be after the reader has already
+  // reached the berth. It must never overwrite the finish announcement: the
+  // title and the Lite/3D switch already show the mode, so this one waits.
+  function announceRenderStatus(text) {
+    if (finishEl && !finishEl.hidden) return;
+    if (text) announceOnce(text);
+    else if (statusEl) statusEl.textContent = '';
+  }
+
   // Chapter changes are announced once travel settles (or immediately for a
   // discrete jump), never per frame -- and only when the chapter actually
   // changed since the last announcement, whatever input moved it.
@@ -811,7 +822,12 @@ export function initGameController(deps) {
       x: event.clientX, y: event.clientY, startPos: game.scrollTop, startLateral: travel.lateral,
       lastT: event.timeStamp, samples: [{ t: event.timeStamp, pos: game.scrollTop }],
     };
-    sceneEl.setPointerCapture && event.pointerId != null && sceneEl.setPointerCapture(event.pointerId);
+    // Capture is a nicety (moves keep arriving outside the scene); a pointer
+    // already released by the time this runs makes it throw, which must not
+    // abort the drag that was just set up.
+    if (sceneEl.setPointerCapture && event.pointerId != null) {
+      try { sceneEl.setPointerCapture(event.pointerId); } catch (e) { /* pointer already gone */ }
+    }
   }
   function onPointerMove(event) {
     if (!drag || event.pointerId !== drag.pointerId) return;
@@ -1094,7 +1110,7 @@ export function initGameController(deps) {
   function switchToLite(announce) {
     if (game.mode !== '3d') return;
     disposeWorld(true);
-    if (announce) announceOnce(statusEl.dataset.statusLost || statusEl.dataset.statusUnavailable);
+    if (announce) announceRenderStatus(statusEl.dataset.statusLost || statusEl.dataset.statusUnavailable);
     publishDiagnostics();
     render();
   }
@@ -1105,7 +1121,7 @@ export function initGameController(deps) {
     game.mode = 'lite';
     updateTitle();
     updateLiteButton(true);
-    announceOnce(statusKey === 'lost'
+    announceRenderStatus(statusKey === 'lost'
       ? (statusEl.dataset.statusLost || statusEl.dataset.statusUnavailable)
       : statusEl.dataset.statusUnavailable);
     publishDiagnostics();
@@ -1225,7 +1241,7 @@ export function initGameController(deps) {
       game.perf.samples = [];
       updateTitle();
       updateLiteButton(true);
-      announceOnce(statusEl.dataset.statusLost || statusEl.dataset.statusUnavailable);
+      announceRenderStatus(statusEl.dataset.statusLost || statusEl.dataset.statusUnavailable);
       publishDiagnostics();
       render();
       return;
@@ -1252,7 +1268,7 @@ export function initGameController(deps) {
     updateTitle();
     updateLiteButton(true);
     rememberTier(nextTier({ tier: attempt.tier, outcome: 'restored' }).persist);
-    if (statusEl) statusEl.textContent = '';
+    announceRenderStatus('');
     resizeWorld();
   }
 
@@ -1289,7 +1305,7 @@ export function initGameController(deps) {
       if (generation !== game.world.generation) return;
       game.mode = 'lite';
       updateTitle();
-      announceOnce(statusEl.dataset.statusUnavailable);
+      announceRenderStatus(statusEl.dataset.statusUnavailable);
       return;
     }
     if (!mod || generation !== game.world.generation || !game.open) return;

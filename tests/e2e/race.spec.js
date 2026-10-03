@@ -622,6 +622,32 @@ test('full-screen game: sailing through a buoy collects its field note, updates 
   await waitForGameIdle(page);
 });
 
+test('full-screen game: a 3D failure that settles after the finish never overwrites the "Course complete" announcement', async ({ page }) => {
+  // Reproduces the no-WebGL CI browser deterministically: WebGL is refused,
+  // and the world bundle is held until after the reader reaches the berth,
+  // so the quality ladder only gives up (and reports "3D unavailable")
+  // once the finish has already been announced.
+  await page.addInitScript(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext = function (type, ...rest) {
+      return /webgl/i.test(type) ? null : original.call(this, type, ...rest);
+    };
+  });
+  let release;
+  const held = new Promise((resolve) => { release = resolve; });
+  await page.route(/race-world.*\.js/, async (route) => { await held; await route.continue(); });
+
+  await openGameAtStart(page);
+  await page.keyboard.press('End');
+  await expect(page.locator('.race-game__finish')).toBeVisible();
+  await expect(page.locator('.race-game__status')).toContainText('Course complete');
+
+  release();
+  await expect(page.locator('#race-game')).toHaveAttribute('data-game-tier', '4'); // LITE_TIER: the ladder gave up
+  await expect(page.locator('.race-game__status')).toContainText('Course complete');
+  await expect(page.locator('.race-game__title')).toContainText('Lite');
+});
+
 test('full-screen game: reaching the berth opens the finish card with an email link; Race again resets; Escape still exits', async ({ page }) => {
   await openGameAtStart(page);
   const finish = page.locator('.race-game__finish');
@@ -681,4 +707,88 @@ test('full-screen game: chapter changes are announced as "Chapter n of 7", from 
   await expect(page.locator('.race-game__status')).toHaveText('Chapter 2 of 7: SWIM');
   await page.keyboard.press('Home');
   await expect(page.locator('.race-game__status')).toHaveText(/^Chapter 1 of 7: /);
+});
+
+// ---- contracts locked after the PR #511 review ---------------------------
+
+test('phones show each city chapter as a loaded still of the 3D world, with no WebGL', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const worldRequests = [];
+  page.on('request', (req) => { if (req.url().includes('race-world')) worldRequests.push(req.url()); });
+  await page.goto(raceURL);
+  for (const id of ['swim', 'bike', 'run']) {
+    const img = page.locator(`#${id} .race-city img`);
+    await img.scrollIntoViewIfNeeded();
+    await expect(img).toBeVisible();
+    await expect.poll(() => img.evaluate((el) => el.complete && el.naturalWidth)).toBeGreaterThan(0);
+  }
+  expect(await page.locator('canvas').count()).toBe(0);
+  expect(worldRequests).toEqual([]);
+});
+
+test('the city stills give way to the live panel once the desktop world is ready', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(raceURL);
+  const hasWebGL = await page.evaluate(() => {
+    try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; }
+  });
+  test.skip(!hasWebGL, 'headless browser has no WebGL support in this environment');
+  await expect(page.locator('[data-race].race--world-ready')).toHaveCount(1, { timeout: 10000 });
+  await expect(page.locator('#swim .race-city')).toBeHidden();
+});
+
+test('full-screen game: two activations while a close is still settling open the game once (one history marker)', async ({ page }) => {
+  await openGameAtStart(page);
+  const base = await page.evaluate(() => history.length); // includes this session's marker
+  // Escape starts a close whose history.back() settles asynchronously; both
+  // clicks land inside that window and both wait on it. Only one may open.
+  await page.evaluate(() => {
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    const b = document.getElementById('race-game-entry');
+    b.click();
+    b.click();
+  });
+  await expect(page.locator('#race-game')).toBeVisible();
+  await page.waitForTimeout(500);
+  expect(await page.evaluate(() => history.length)).toBe(base);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#race-game')).toBeHidden();
+  await expect.poll(() => page.evaluate(() => Boolean(history.state && history.state['race-game']))).toBe(false);
+});
+
+test('full-screen game: a drag belongs to the pointer that started it; a second finger is ignored', async ({ page }) => {
+  await openGameAtStart(page);
+  await page.waitForTimeout(300);
+  const pointer = (type, pointerId, x, y) => page.evaluate(([t, id, cx, cy]) => {
+    const target = t === 'pointerdown' ? document.querySelector('.race-game__scene') : window;
+    target.dispatchEvent(new PointerEvent(t, { pointerId: id, clientX: cx, clientY: cy, button: 0, bubbles: true, isPrimary: id === 1 }));
+  }, [type, pointerId, x, y]);
+
+  await pointer('pointerdown', 1, 195, 600);
+  await pointer('pointerdown', 2, 195, 300); // second finger: no re-anchor
+  await pointer('pointermove', 2, 195, 50); // its moves are ignored
+  expect(await gameProgress(page)).toBe(0);
+  await pointer('pointermove', 1, 195, 500); // owner drags forward
+  const afterOwner = await gameProgress(page);
+  expect(afterOwner).toBeGreaterThan(0);
+  await pointer('pointerup', 2, 195, 50); // the other finger lifting does not end the drag
+  await pointer('pointermove', 1, 195, 450);
+  expect(await gameProgress(page)).toBeGreaterThan(afterOwner);
+  await pointer('pointerup', 1, 195, 450);
+  await waitForGameIdle(page);
+});
+
+test('full-screen game: rapid open/Escape cycles always hand focus back to the entry, never <body>', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(raceURL);
+  const entry = page.locator('#race-game-entry');
+  for (let i = 0; i < 5; i += 1) {
+    await entry.click();
+    await expect(page.locator('#race-game')).toBeVisible();
+    await page.keyboard.press('Escape'); // before any fullscreen request has settled
+    await expect(page.locator('#race-game')).toBeHidden();
+    await expect(entry).toBeFocused();
+    await page.waitForTimeout(400); // let a late fullscreen transition land, then re-check
+    await expect(entry).toBeFocused();
+  }
 });
