@@ -112,6 +112,86 @@
 - id: "newsletter_button"
   translation: "Suscribirme"
 
+## Engineered Race UI (biography lives in data/race.yml)
+- id: race_mode
+  translation: "Modo juego · Natación, ciclismo, carrera"
+- id: race_exit
+  translation: "Volver al portfolio"
+- id: race_chapters
+  translation: "Etapas del recorrido"
+- id: race_start
+  translation: "Inicio"
+- id: race_finish
+  translation: "Meta"
+- id: race_role
+  translation: "ROL"
+- id: race_principles
+  translation: "Notas / Principios"
+- id: race_transition
+  translation: "Transición"
+- id: race_next
+  translation: "Siguiente: conversación"
+- id: race_email
+  translation: "Escríbeme"
+- id: race_back
+  translation: "Volver al inicio"
+- id: race_scroll_hint
+  translation: "SCROLL"
+- id: race_complete
+  translation: "Recorrido completado"
+- id: race_explore
+  translation: "Explorar la escena actual"
+- id: race_explore_instruction
+  translation: "Selecciona el modelo para girarlo. Desplázate para explorar."
+- id: race_atlas_description
+  translation: "Un mapa de juguete inclinado del recorrido: de Madrid a Galicia, cruzando el Atlántico hasta Ámsterdam y luego Copenhague."
+## Juego de trayecto a pantalla completa (sustituye al Pasaporte del recorrido)
+- id: race_game_entry
+  translation: "Entrar en el modo juego a pantalla completa"
+- id: race_game_expand
+  translation: "Ampliar el recorrido a pantalla completa"
+- id: race_game_expand_visible
+  translation: "Pantalla completa"
+- id: race_game_exit
+  translation: "Salir del modo juego"
+- id: race_game_exit_visible
+  translation: "Salir del juego"
+- id: race_game_announce_chapter_template
+  translation: "Capítulo {number} de 7: {chapter}"
+- id: race_game_announce_note_template
+  translation: "Nota de campo {count} de 7: {note}"
+- id: race_game_announce_finish_template
+  translation: "Recorrido completado. {notes}"
+- id: race_game_notes_template
+  translation: "Notas {count}/7"
+- id: race_game_clock_template
+  translation: "Tiempo navegando {time}"
+- id: race_game_hint_toggle
+  translation: "Mostrar controles"
+- id: race_game_hint
+  translation: "Mantén ↓ para avanzar, ↑ para retroceder · ← → para virar · Mayús para acelerar · también puedes arrastrar. Cruza la boya roja de cada capítulo para recoger su nota de campo."
+- id: race_game_hint_static
+  translation: "Usa Siguiente y Anterior, o el control de progreso, para avanzar. Muestra la nota de campo de cada capítulo para recogerla."
+- id: race_game_finish_title
+  translation: "Recorrido completado"
+- id: race_game_finish_time_template
+  translation: "Tiempo navegando: {time}"
+- id: race_game_finish_notes_template
+  translation: "Notas de campo recogidas: {count} de 7"
+- id: race_game_finish_best_template
+  translation: "Mejor marca: {time}"
+- id: race_game_finish_new_best
+  translation: "Nueva mejor marca."
+- id: race_game_finish_assisted
+  translation: "En esta vuelta te has saltado tramos, así que no cuenta como mejor marca."
+- id: race_game_finish_email
+  translation: "Escribir a Adrián"
+- id: race_game_finish_again
+  translation: "Correr de nuevo"
+- id: race_game_finish_read
+  translation: "Leer la historia completa"
+
+
 - id: "newsletter_placeholder"
   translation: "tu@email.com"
 

@@ -42,3 +42,6 @@ scripts/*.zip/*
 
 # Newsletter dry-run preview output
 tmp/
+
+# Agent scratch briefs and one-off captures
+.astra-briefs/

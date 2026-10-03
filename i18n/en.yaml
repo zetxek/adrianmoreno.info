@@ -146,3 +146,123 @@
 
 - id: "continue_reading"
   translation: "Continue reading"
+
+## Engineered Race UI (biography lives in data/race.yml)
+- id: race_mode
+  translation: "Game mode · Swim, bike, run"
+- id: race_exit
+  translation: "Exit to portfolio"
+- id: race_chapters
+  translation: "Course chapters"
+- id: race_start
+  translation: "Start"
+- id: race_finish
+  translation: "Finish"
+- id: race_role
+  translation: "ROLE"
+- id: race_principles
+  translation: "Field notes / Principles"
+- id: race_transition
+  translation: "Transition"
+- id: race_next
+  translation: "Next: conversation"
+- id: race_email
+  translation: "Email me"
+- id: race_back
+  translation: "Back to the start"
+- id: race_scroll_hint
+  translation: "SCROLL"
+- id: race_complete
+  translation: "Course complete"
+## Full-screen journey game (replaces the deleted Course Passport)
+- id: race_game_entry
+  translation: "Enter full-screen game mode"
+- id: race_game_expand
+  translation: "Expand the course to full screen"
+- id: race_game_expand_visible
+  translation: "Full screen"
+- id: race_game_entry_description
+  translation: "Optional interactive journey. May download up to 240 KiB of 3D assets. Exit at any time."
+- id: race_game_dialog_label
+  translation: "Journey game"
+- id: race_game_exit
+  translation: "Exit game mode"
+- id: race_game_exit_visible
+  translation: "Exit game"
+- id: race_game_title_template
+  translation: "Journey game · {mode}"
+- id: race_game_mode_3d
+  translation: "3D"
+- id: race_game_mode_lite
+  translation: "Lite"
+- id: race_game_switch_use_lite
+  translation: "Use Lite mode"
+- id: race_game_switch_try_3d
+  translation: "Try 3D"
+- id: race_game_chapter_template
+  translation: "Chapter {number} of 7 · {name}"
+- id: race_game_landmark_show
+  translation: "Reveal field note"
+- id: race_game_landmark_hide
+  translation: "Hide field note"
+- id: race_game_status_unavailable
+  translation: "3D unavailable. Continue in Lite mode."
+- id: race_game_status_lost
+  translation: "3D lost the rendering context. Continue in Lite mode."
+- id: race_game_progress
+  translation: "Journey progress"
+- id: race_game_progress_value_template
+  translation: "{chapter}, {percent}% of the illustrative route"
+- id: race_game_previous
+  translation: "Previous"
+- id: race_game_previous_accessible
+  translation: "Previous chapter"
+- id: race_game_next
+  translation: "Next"
+- id: race_game_next_accessible
+  translation: "Next chapter"
+- id: race_game_berth
+  translation: "Berth"
+- id: race_game_berth_accessible
+  translation: "Berth in Copenhagen"
+- id: race_game_read
+  translation: "Read this chapter"
+- id: race_game_disclaimer
+  translation: "Illustrative route — not a literal account of travel."
+- id: race_game_announce_entry
+  translation: "Journey game open. Hold the down arrow to sail on and the up arrow to go back, left and right to steer, or use Next, Previous and the progress control. Collect the field note in each of the seven chapters. Escape or Exit game closes it."
+- id: race_game_announce_chapter_template
+  translation: "Chapter {number} of 7: {chapter}"
+- id: race_game_announce_note_template
+  translation: "Field note {count} of 7: {note}"
+- id: race_game_announce_finish_template
+  translation: "Course complete. {notes}"
+- id: race_game_notes_template
+  translation: "Notes {count}/7"
+- id: race_game_clock_template
+  translation: "Time under way {time}"
+- id: race_game_hint_toggle
+  translation: "Show controls"
+- id: race_game_hint
+  translation: "Hold ↓ to sail on, ↑ to go back · ← → to steer · Shift to boost · drag works too. Sail through the red buoy in each chapter to collect its field note."
+- id: race_game_hint_static
+  translation: "Use Next and Previous, or the progress control, to travel. Reveal each chapter's field note to collect it."
+- id: race_game_finish_title
+  translation: "Course complete"
+- id: race_game_finish_time_template
+  translation: "Time under way: {time}"
+- id: race_game_finish_notes_template
+  translation: "Field notes collected: {count} of 7"
+- id: race_game_finish_best_template
+  translation: "Personal best: {time}"
+- id: race_game_finish_new_best
+  translation: "New personal best."
+- id: race_game_finish_assisted
+  translation: "You skipped ahead on this run, so it doesn't count toward a personal best."
+- id: race_game_finish_email
+  translation: "Email Adrián"
+- id: race_game_finish_again
+  translation: "Race again"
+- id: race_game_finish_read
+  translation: "Read the full story"
+

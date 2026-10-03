@@ -1,0 +1,9 @@
+/* Site overlay: independent of the generated home critical stylesheet. */
+.header .nav-link.race-nav-entry { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-width: 44px; min-height: 44px; }
+.header .race-triathlon-icon { width: 57px; height: 18px; flex-shrink: 0; }
+.header .race-entry-label { display: none; }
+.header .race-nav-entry:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; border-radius: 4px; }
+@media (max-width: 991.98px) {
+  .header .race-nav-entry { justify-content: flex-start; }
+  .header .race-entry-label { display: inline; }
+}

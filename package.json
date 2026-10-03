@@ -29,6 +29,7 @@
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install",
     "test:unit": "node --test \"tests/unit/**/*.test.mjs\"",
+    "race:city-cards": "node scripts/race/render-city-cards.mjs",
     "newsletter:send": "node scripts/newsletter/send.mjs",
     "newsletter:dry-run": "node scripts/newsletter/send.mjs --dry-run",
     "cv:dev": "hugo serve",
@@ -49,7 +50,8 @@
     "postcss": "^8.5.28",
     "postcss-cli": "^12.0.0",
     "postcss-flexbugs-fixes": "^5.0.2",
-    "qrcode": "^1.5.4"
+    "qrcode": "^1.5.4",
+    "three": "^0.186.0"
   },
   "engines": {
     "node": ">=22",
