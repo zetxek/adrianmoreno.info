@@ -100,8 +100,13 @@ export function jointTransforms(discipline, theta, amplitude, courseFraction, mo
   switch (poseForDiscipline(discipline)) {
     case 'swim':
       t['swim-body'] = translateY(0.45 * amplitude * sin2T);
-      t['swim-arm-front'] = rotate(48 * amplitude * sinT, 13, 10);
-      t['swim-arm-rear'] = rotate(-48 * amplitude * sinT, 13, 10);
+      // Front crawl: the swimmer lies flat at the waterline and both arms
+      // turn together about the shoulder, like a windmill -- the front arm
+      // pulls down through the water while the rear arm recovers above the
+      // back. +/-28 degrees keeps the recovering arm low over the body
+      // instead of swinging up to vertical.
+      t['swim-arm-front'] = rotate(28 * amplitude * sinT, 16, 14.1);
+      t['swim-arm-rear'] = rotate(28 * amplitude * sinT, 16, 14.1);
       t['swim-kick'] = rotate(amplitude * 12 * sinT);
       break;
     case 'bike': {
