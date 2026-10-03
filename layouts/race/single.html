@@ -90,12 +90,12 @@
     {{ $cid := .id }}
     <section class="race-stage race-{{ .terrain }}{{ with $city }} race-stage--city race-stage--{{ $cid }}{{ end }}" id="{{ .id }}" aria-labelledby="{{ .id }}-heading" data-coordinates="{{ .coordinates }}" data-caption="{{ index $race.captions .id }}" data-landmark="{{ .lesson }}" tabindex="-1">
       <div class="race-scenery race-landscape" aria-hidden="true"></div>
-      {{ with $city }}{{ partial (printf "race/city-%s.html" .) $ }}{{ end }}
       <span class="race-numeral" aria-hidden="true">{{ .number }}</span>
       <div class="race-content">
         <p class="race-telemetry">[{{ .period }}] // {{ .location }}<br>{{ .coordinates }}</p>
         <p class="race-discipline">{{ .number }} / {{ .discipline }} <span>· {{ .place }}</span></p>
         <h2 id="{{ .id }}-heading">{{ .title }}</h2>
+        {{ with $city }}{{ partial "race/city-card.html" . }}{{ end }}
         <p class="race-lede">{{ .lede }}</p>
         <p class="race-caption">{{ index $race.captions .id }}</p>
         <p class="race-briefing race-telemetry">{{ .briefing }}</p>

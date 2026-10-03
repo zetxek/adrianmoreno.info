@@ -1,0 +1,19 @@
+{{/* A chapter's establishing shot: a still of the real Three.js world at
+     that place (water, landmarks and the one vessel), rendered by
+     scripts/race/render-city-cards.mjs into assets/images/race/. Shown
+     wherever the live 3D panel is not (phones, and desktop until or unless
+     the world loads -- see .race-city in race.css), so every reader sees
+     the same places the panel and the full-screen game show. Decorative:
+     the chapter text already names the place, hence the empty alt. */}}
+{{- with resources.Get (printf "images/race/city-%s.png" .) -}}
+{{- $small := .Resize "480x webp q78" -}}
+{{- $medium := .Resize "800x webp q78" -}}
+{{- $large := .Resize "1200x webp q80" -}}
+<figure class="race-city">
+  <img src="{{ $medium.RelPermalink }}"
+    srcset="{{ $small.RelPermalink }} 480w, {{ $medium.RelPermalink }} 800w, {{ $large.RelPermalink }} 1200w"
+    sizes="(min-width: 48rem) 44rem, calc(100vw - 4.75rem)"
+    width="{{ $large.Width }}" height="{{ $large.Height }}"
+    alt="" loading="lazy" decoding="async">
+</figure>
+{{- end -}}
