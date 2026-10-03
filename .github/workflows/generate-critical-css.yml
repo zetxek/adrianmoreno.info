@@ -32,6 +32,9 @@ jobs:
 
       - run: npm install
 
+      - name: Install Chromium for critical's render engine
+        run: npx playwright install --with-deps chromium
+
       - name: Build
         run: hugo --minify --buildDrafts=true
       
