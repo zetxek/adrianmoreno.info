@@ -1,0 +1,14 @@
+{{- /*
+  Returns true for thin pages that stay browsable but should not be indexed:
+  - short LinkedIn shares (the importer tags them "share"); this also covers the
+    Spanish-language posts, which are all shares
+  - book author and book category listings
+  Used by head_custom.html (robots meta) and sitemap.xml (exclusion).
+*/ -}}
+{{- $noindex := false -}}
+{{- if and (eq .Section "blog") (in .Params.tags "share") -}}
+  {{- $noindex = true -}}
+{{- else if and (in (slice "taxonomy" "term") .Kind) (in (slice "book_authors" "book_categories") .Type) -}}
+  {{- $noindex = true -}}
+{{- end -}}
+{{- return $noindex -}}
