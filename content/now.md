@@ -5,7 +5,7 @@ type: "blog"
 
 ## What I'm up to now
 
-*Last updated: May 2026*
+*Last updated: October 2026*
 
 ## Open to
 
@@ -23,12 +23,11 @@ I'm driving adoption of **gen-AI tools and processes** across the engineering or
 
 ## Writing & Thinking
 
-Themes I keep coming back to:
+Three themes I keep coming back to:
 
-- **Empathy in engineering leadership** — making explicit the implicit, building trust across functions
-- **Breaking silos** — multi-disciplinary teams, DevOps culture, cross-functional ownership
-- **AI in engineering workflows** — practical adoption, not hype
-- **The business side of engineering** — P&L thinking, sustainable product strategies, balancing speed with cost-control
+- **[Engineering economics](/categories/engineering-economics/)** — P&L thinking, sustainable product strategies, balancing speed with cost-control. Start with [The Other Debt]({{< ref "/blog/2026-02-16-the-other-debt-when-good-engineering-ignores-economic-sustainability.md" >}}) and [The SaaSpocalypse That Never Came]({{< ref "/blog/2026-08-22-the-saaspocalypse-that-never-came.md" >}}).
+- **[AI-era leadership](/categories/ai-era-leadership/)** — AI in engineering workflows: practical adoption, not hype. Start with [Be a Shepherd, Not a Fence]({{< ref "/blog/2026-03-23-be-a-shepperd-not-a-fence-stop-gatekeeping-vibe-coders.md" >}}).
+- **[Human systems](/categories/human-systems/)** — empathy in engineering leadership, making explicit the implicit, and breaking silos through cross-functional ownership. Start with [Nobody Can Fix What Nobody Told Them]({{< ref "/blog/2026-10-04-feedback-isnt-attack-its-a-gift.md" >}}) and [Making explicit the implicit]({{< ref "/blog/2024-03-03-making-explicit-the-implicit-exploring-parallel-un.md" >}}).
 
 I publish mostly on [LinkedIn](https://www.linkedin.com/in/adrianmoreno/) and archive longer pieces on my [blog](/blog). Public speaking has been quieter the last couple of years — small kid at home — and I'm planning to ramp it back up.
 
