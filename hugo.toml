@@ -64,7 +64,7 @@ target = "static/js/purify.min.js"
 [params]
 
 description = "VP of Technology at Worksome, leading Product, Engineering, and Design. Nearly two decades across Spain, the Netherlands, and Denmark — IC, founder, CTO, VP. I help companies align business strategy, product strategy, and engineering execution: scaling teams, sharpening GTM, and keeping technology sustainable as the business grows."
-images = ['/img/og-preview.png']
+images = ['/img/og-preview.jpg']
 
 # Header logo text - kept short/distinct from the long SEO `title` above.
 # See https://github.com/zetxek/adritian-free-hugo-theme/pull/561
@@ -77,7 +77,7 @@ homepageExperienceCount = 6
 [params.seo.person]
 name = "Adrián Moreno Peña"
 url = "https://www.adrianmoreno.info/"
-image = "/img/og-preview.png"
+image = "/img/og-preview.jpg"
 sameAs = [
   "https://www.linkedin.com/in/adrianmoreno/",
   "https://github.com/zetxek",
