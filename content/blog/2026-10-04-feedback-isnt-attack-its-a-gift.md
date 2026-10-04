@@ -6,8 +6,8 @@ draft = false
 tags = ["article", "feedback", "leadership", "management", "radical candor"]
 categories = ["Leadership & Culture"]
 layout = "blog"
-images = ["/images/blog/Gemini_Generated_Image_kmzignkmzignkmzi.jpeg"]
-featuredImage = "/images/blog/Gemini_Generated_Image_kmzignkmzignkmzi.jpeg"
+images = ["/images/blog/nobody-can-fix-what-nobody-told-them.jpg"]
+featuredImage = "/images/blog/nobody-can-fix-what-nobody-told-them.jpg"
 
 +++
 
