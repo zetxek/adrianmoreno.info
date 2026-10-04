@@ -6,10 +6,11 @@ draft = false
 
 {{< showcase-section
     title="Hello, I'm Adrián."
-    subtitle="Engineer, builder, leader"
-    button_text="Contact me"
-    button_icon="icon-email"
-    description="<p>I lead <strong>Product, Engineering, and Design</strong> at <a target='_blank' rel='noopener noreferrer' href='https://www.worksome.com/'>Worksome</a> — a Danish company reshaping how businesses and independent professionals work together.</p><p>My focus: aligning <strong>business strategy, product strategy, and engineering execution</strong> — so teams ship outcomes that move the business, and keep doing it as the company scales.</p><p class='text-body-secondary fs-6 mb-0'>Nearly two decades across 🇪🇸 Spain · 🇳🇱 Netherlands · 🇩🇰 Denmark — IC, <a href='/experience/zadiasoftware/'>founder</a>, CTO, VP.</p>"
+    subtitle="Engineering leadership, with the business in view"
+    button_text="Read my writing"
+    button_url="/blog/"
+    button_icon="icon-table-list"
+    description="<p>I'm VP of Technology at <a target='_blank' rel='noopener noreferrer' href='https://www.worksome.com/'>Worksome</a>, leading <strong>Product, Engineering, and Design</strong>. Before that, I was VP of Engineering at SumUp, with <strong>P&amp;L responsibility</strong> for a ~30-person tribe.</p><p>I write about what that work teaches me: <strong>engineering economics</strong>, <strong>AI in real teams</strong>, and the <strong>human systems</strong> that make delivery work.</p><p class='text-body-secondary fs-6 mb-0'>Nearly two decades across 🇪🇸 Spain · 🇳🇱 Netherlands · 🇩🇰 Denmark — IC, <a href='/experience/zadiasoftware/'>founder</a>, CTO, VP. <a href='/cv/cv-adrian-moreno.pdf'>Download my CV</a> · <a href='#work-with-me'>Work with me</a></p>"
     imgSrc="images/adrian@2x.jpg"
     imgScale="0.5" >}}
 
@@ -26,9 +27,18 @@ draft = false
 
 {{< /showcase-section >}}
 
+{{< text-section title="Track record" sectionId="track-record" >}}
+
+- **~30 people, 4 squads, P&L ownership** — VP of Engineering & Tribe Lead for Invoices & Accounting at SumUp.
+- **~900 people in one incident process** — led SumUp's global incident response across Engineering, Risk, Compliance and Operations.
+- **+20% monthly active users** — from a new product line at SumUp.
+- **2nd-largest enterprise account by ARR** — led its acquisition at Worksome, with a ~10-person Product, Engineering and Design team.
+- **IC → founder → CTO → VP** — 19 years in Spain, the Netherlands and Denmark.
+  {{< /text-section >}}
+
 {{< about-section
 title="Who am I?"
-content="<p class='lead'>An engineer at heart, a leader by practice. I help companies turn technology into business outcomes — aligning <strong>product, engineering, and the GTM teams</strong> who carry the work to customers.</p><p>I lead through the <strong>3P framework — People, Product, Process</strong>:</p><ul><li><strong>People</strong> · High-performing teams, psychological safety, and leaders who grow other leaders.</li><li><strong>Product</strong> · Clear strategy, sharp prioritization, and tight feedback loops with customers and GTM.</li><li><strong>Process</strong> · Pragmatic agile, healthy DevOps, and sustainable architecture that scales with the business.</li></ul><p><strong>Currently exploring:</strong> AI as a capacity lever for delivery, operations, and team collaboration — making good engineering faster, not louder.</p><p class='text-body-secondary'><small>Across SaaS, fintech, e-commerce, and mobile — from hands-on building to executive scope.</small></p>"
+content="<p class='lead'>An engineer at heart, a leader by practice. I help companies turn technology into business outcomes — aligning <strong>product, engineering, and the GTM teams</strong> who carry the work to customers.</p><p>I lead through the <strong>3P framework — People, Product, Process</strong>:</p><ul><li><strong>People</strong> · High-performing teams, psychological safety, and leaders who grow other leaders.</li><li><strong>Product</strong> · Clear strategy, sharp prioritization, and tight feedback loops with customers and GTM.</li><li><strong>Process</strong> · Pragmatic agile, healthy DevOps, and sustainable architecture that scales with the business.</li></ul><p><strong>Currently exploring:</strong> AI as a capacity lever for delivery, operations, and team collaboration — making good engineering faster, not louder.</p><p class='text-body-secondary'><small>Across SaaS, fintech, e-commerce, and mobile — from hands-on building to executive scope. Prefer it as a triathlon? Try <a href='/race/'>game mode</a>.</small></p>"
 imgSrc="images/working-left@2x.webp"
 imgScale="0.5"
 btnText="" >}}
@@ -41,6 +51,15 @@ btnText="" >}}
 - **Architecture is a budget, not a religion.** Every choice should consider cost, speed, and reversibility.
 - **DevOps is a culture, not a team.** Ownership stays with whoever ships.
 - **Healthy systems first.** Small batches, fast feedback, quick iterations.
+  {{< /text-section >}}
+
+{{< text-section title="Selected writing" sectionId="selected-writing" >}}
+
+- **[The SaaSpocalypse That Never Came]({{< ref "/blog/2026-08-22-the-saaspocalypse-that-never-came.md" >}})** — AI moved "build vs buy" out of engineering and onto the COO's desk. What that means for the rest of us.
+- **[The Other Debt]({{< ref "/blog/2026-02-16-the-other-debt-when-good-engineering-ignores-economic-sustainability.md" >}})** — Code the business can't afford to maintain is not good code, however clean it is.
+- **[Nobody Can Fix What Nobody Told Them]({{< ref "/blog/2026-10-04-feedback-isnt-attack-its-a-gift.md" >}})** — Why holding back feedback leaves someone alone with a problem only you can see.
+
+[All articles →](/blog/)
   {{< /text-section >}}
 
 {{< education-list
@@ -57,3 +76,14 @@ button2_url="/cv/cv-adrian-moreno.pdf"
 button2_text="Download CV"
 button3_text="All experience"
 button3_url="/experience" >}}
+
+{{< text-section title="Work with me" sectionId="work-with-me" >}}
+
+Not actively looking for a new role, but open to:
+
+- **Advisory** for early-stage SaaS founders working on product, engineering, or scaling a tech org.
+- **Mentorship** for engineering leaders growing into VP or CTO scope.
+- **Speaking** on engineering leadership, incident response and distributed teams — see [past talks](/public-speaking/).
+
+[Get in touch](#contact) or [download my CV](/cv/cv-adrian-moreno.pdf).
+  {{< /text-section >}}

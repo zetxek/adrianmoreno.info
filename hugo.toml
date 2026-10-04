@@ -174,14 +174,9 @@ url = "/blog"
 weight = 4
 
 [[menu.header]]
-name = "Books"
-url = "/books"
-weight = 5
-
-#[[menu.header]]
-#name = "Speaking"
-#url = "/public-speaking"
-#weight = 6
+name = "Speaking"
+url = "/public-speaking"
+weight = 6
 
 [[menu.header]]
 name = "Contact"
@@ -193,13 +188,6 @@ pre = "search"
 name = "Search"
 url = "/search"
 weight = 8
-
-
-[[menu.header]]
-identifier = "race"
-name = "Game mode"
-pageRef = "/race"
-weight = 9
 
 [[menu.footer]]
 name = "💁‍♂️ About"
@@ -228,9 +216,14 @@ url = "/now"
 weight = 6
 
 [[menu.footer]]
+name = "🏊 Game mode"
+pageRef = "/race"
+weight = 7
+
+[[menu.footer]]
 name = "🔒 Privacy"
 url = "/privacy"
-weight = 7
+weight = 8
 
 
 [taxonomies]
