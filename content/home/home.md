@@ -6,7 +6,7 @@ draft = false
 
 {{< showcase-section
     title="Hello, I'm Adrián."
-    subtitle="Engineering leadership, with the business in view"
+    subtitle="Engineer, builder, leader"
     button_text="Read my writing"
     button_url="/blog/"
     button_icon="icon-table-list"
