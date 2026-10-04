@@ -18,9 +18,21 @@ mkdir -p ./assets/css
 # itself, so CI needs no extra flags, only `npx playwright install chromium`.
 # The static engine is not used: without a [data-critical-fold] hint it emits all
 # rules used on the page, not just the above-the-fold ones.
+# The built page already inlines the previous critical.css in a <style>, and critical
+# adds every <style> to its input, so the file would grow on each run. Feed it a copy
+# without that block. The copy sits next to index.html so relative stylesheet URLs
+# still resolve.
+input=public/index.critical-input.html
+trap 'rm -f "$input"' EXIT
+perl -0pe 's{<style data-generator="?critical-css"?>.*?</style>}{}s' public/index.html > "$input"
+if cmp -s public/index.html "$input"; then
+    echo "Error: inlined critical-css <style> not found in public/index.html"
+    exit 1
+fi
+
 # Write to a temp file first so a failed run cannot truncate the committed CSS.
 tmp="$(mktemp)"
-./node_modules/critical/cli.js public/index.html --engine render --out "$tmp"
+./node_modules/critical/cli.js "$input" --engine render --out "$tmp"
 if [ ! -s "$tmp" ]; then
     echo "Error: critical produced no CSS"
     exit 1
