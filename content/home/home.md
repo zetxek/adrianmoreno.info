@@ -35,6 +35,8 @@ btnText="" >}}
 
 {{< text-section title="How I lead" sectionId="how-i-lead" >}}
 
+I design teams the same way I design and build systems: **efficient, iterative, adaptable** — fit for today and ready for what comes next. The past is information to learn from: every reorg, process or tool we tried is an experiment, and it shouldn't hold us back. And like any good system, a team should react and adapt to new trends and ways of working — AI included — rather than defend how things used to be done.
+
 - **Make the implicit explicit.** Across functions, cultures, and seniority — alignment beats authority.
 - **Small reversible decisions over big slow ones.** Ship, learn, adjust.
 - **Optimize for cadence, not perfection.** Velocity compounds; perfection ships late.
