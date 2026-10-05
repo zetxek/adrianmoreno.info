@@ -22,9 +22,13 @@ mkdir -p ./assets/css
 # adds every <style> to its input, so the file would grow on each run. Feed it a copy
 # without that block. The copy sits next to index.html so relative stylesheet URLs
 # still resolve.
+# The attribute match is deliberately loose ([^>]* after the value): the theme marks
+# that block with `data-critical`, and that marker only makes critical skip it in the
+# *static* engine — the render engine walks the loaded page's stylesheets, so this
+# strip is still what keeps the output from doubling on every run.
 input=public/index.critical-input.html
 trap 'rm -f "$input"' EXIT
-perl -0pe 's{<style data-generator="?critical-css"?>.*?</style>}{}s' public/index.html > "$input"
+perl -0pe 's{<style data-generator="?critical-css"?[^>]*>.*?</style>}{}s' public/index.html > "$input"
 if cmp -s public/index.html "$input"; then
     echo "Error: inlined critical-css <style> not found in public/index.html"
     exit 1
