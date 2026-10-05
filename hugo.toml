@@ -154,6 +154,8 @@ URL = "js/library/fontfaceobserver.js"
 URL = "scss/adritian.scss"
 [[params.plugins.scss]]
 URL = "scss/books.scss"
+[[params.plugins.scss]]
+URL = "scss/sections.scss"
 
 # navigation
 [menu]

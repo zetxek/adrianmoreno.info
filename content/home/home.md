@@ -27,14 +27,14 @@ draft = false
 
 {{< /showcase-section >}}
 
-{{< text-section title="Track record" sectionId="track-record" >}}
-
-- **~30 people, 4 squads, P&L ownership** — VP of Engineering & Tribe Lead for Invoices & Accounting at SumUp.
-- **~900 people in one incident process** — led SumUp's global incident response across Engineering, Risk, Compliance and Operations.
-- **+20% monthly active users** — from a new product line at SumUp.
-- **2nd-largest enterprise account by ARR** — led its acquisition at Worksome, with a ~10-person Product, Engineering and Design team.
-- **IC → founder → CTO → VP** — 19 years in Spain, the Netherlands and Denmark.
-  {{< /text-section >}}
+{{< stats-section title="Track record" sectionId="track-record" >}}
+{{< stat value="~30" label="people, 4 squads, P&L ownership" >}}VP of Engineering & Tribe Lead for Invoices & Accounting at SumUp.{{< /stat >}}
+{{< stat value="~900" label="people in one incident process" >}}Led SumUp's global incident response across Engineering, Risk, Compliance and Operations.{{< /stat >}}
+{{< stat value="+20%" label="monthly active users" >}}From a new product line at SumUp.{{< /stat >}}
+{{< stat value="#2" label="enterprise account by ARR" >}}Led its acquisition at Worksome, with a ~10-person Product, Engineering and Design team.{{< /stat >}}
+{{< stat value="+1000%" label="platform performance" >}}Re-platformed PHP to Go as CTO at Pocket Media.{{< /stat >}}
+{{< stat value="19 yrs" label="IC → founder → CTO → VP" >}}In Spain, the Netherlands and Denmark.{{< /stat >}}
+{{< /stats-section >}}
 
 {{< about-section
 title="Who am I?"
@@ -43,17 +43,15 @@ imgSrc="images/working-left@2x.webp"
 imgScale="0.5"
 btnText="" >}}
 
-{{< text-section title="How I lead" sectionId="how-i-lead" >}}
-
-I design teams the same way I design and build systems: **efficient, iterative, adaptable** — fit for today and ready for what comes next. The past is information to learn from: every reorg, process or tool we tried is an experiment, and it shouldn't hold us back. And like any good system, a team should react and adapt to new trends and ways of working — AI included — rather than defend how things used to be done.
-
-- **Make the implicit explicit.** Across functions, cultures, and seniority — alignment beats authority.
-- **Small reversible decisions over big slow ones.** Ship, learn, adjust.
-- **Optimize for cadence, not perfection.** Velocity compounds; perfection ships late.
-- **Architecture is a budget, not a religion.** Every choice should consider cost, speed, and reversibility.
-- **DevOps is a culture, not a team.** Ownership stays with whoever ships.
-- **Healthy systems first.** Small batches, fast feedback, quick iterations.
-  {{< /text-section >}}
+{{< principles-section title="How I lead" sectionId="how-i-lead"
+    intro="I design teams the same way I design and build systems: **efficient, iterative, adaptable** — fit for today and ready for what comes next. The past is information to learn from: every reorg, process or tool we tried is an experiment, and it shouldn't hold us back. And like any good system, a team should react and adapt to new trends and ways of working — AI included — rather than defend how things used to be done." >}}
+{{< principle title="Make the implicit explicit." >}}Across functions, cultures, and seniority — alignment beats authority.{{< /principle >}}
+{{< principle title="Small reversible decisions over big slow ones." >}}Ship, learn, adjust.{{< /principle >}}
+{{< principle title="Optimize for cadence, not perfection." >}}Velocity compounds; perfection ships late.{{< /principle >}}
+{{< principle title="Architecture is a budget, not a religion." >}}Every choice should consider cost, speed, and reversibility.{{< /principle >}}
+{{< principle title="DevOps is a culture, not a team." >}}Ownership stays with whoever ships.{{< /principle >}}
+{{< principle title="Healthy systems first." >}}Small batches, fast feedback, quick iterations.{{< /principle >}}
+{{< /principles-section >}}
 
 {{< text-section title="Selected writing" sectionId="selected-writing" >}}
 

@@ -1,0 +1,13 @@
+{{/*
+  One figure inside stats-section.
+  value: the headline figure ("~30", "+20%").
+  label: what the figure counts.
+  Inner: optional context line (markdown).
+*/}}
+<div class="stat" role="listitem">
+    <p class="stat__value">{{ .Get "value" }}</p>
+    <div>
+        <p class="stat__label">{{ .Get "label" | markdownify }}</p>
+        {{ with trim .Inner "\n " }}<p class="stat__context">{{ . | markdownify }}</p>{{ end }}
+    </div>
+</div>
