@@ -15,11 +15,18 @@
   {{ template "_internal/opengraph.html" . }}
   {{ template "_internal/twitter_cards.html" . }}
   {{ partial "seo/jsonld.html" . }}
-  {{/* A small blocking page-only sheet is its own critical CSS. PostProcess waits
-       for hugo_stats.json before PurgeCSS runs; no race styles enter the home bundle. */}}
-  {{ $css := resources.Get "css/race.css" }}
-  {{ if hugo.IsProduction }}{{ $css = $css | css.PostCSS | minify | fingerprint | resources.PostProcess }}{{ end }}
-  <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+  {{/* A small blocking page-only sheet is its own critical CSS. In production,
+       templates.Defer waits for hugo_stats.json before PurgeCSS runs; no race
+       styles enter the home bundle. */}}
+  {{ if hugo.IsProduction }}
+    {{ with (templates.Defer (dict "key" "race-css")) }}
+      {{ $css := resources.Get "css/race.css" | css.PostCSS | minify | fingerprint }}
+      <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+    {{ end }}
+  {{ else }}
+    {{ $css := resources.Get "css/race.css" }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+  {{ end }}
   {{/* Two independent js.Build entries: the base controller (no deps, always
        downloaded) and the Three.js world (pinned npm dep, loaded only via a
        runtime dynamic import when assets/js/race/index.js decides the reader
