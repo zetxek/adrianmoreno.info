@@ -1,5 +1,5 @@
 baseURL = "https://www.adrianmoreno.info/"
-languageCode = "en"
+locale = "en"
 DefaultContentLanguage = "en"
 title = "Adrián Moreno Peña | VP of Technology @ Worksome ⸱ Product & Engineering Leader (Copenhagen)"
 
