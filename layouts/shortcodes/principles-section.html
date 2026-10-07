@@ -1,0 +1,23 @@
+{{/*
+  A two-column section: title and intro on the left, a numbered list of
+  nested `principle` shortcodes on the right. Stacks on small screens.
+  title, sectionId: as in text-section.
+  intro: optional paragraph (markdown).
+*/}}
+{{ $sectionId := .Get "sectionId" | default "" }}
+{{ $title := .Get "title" | default "" }}
+{{ $intro := .Get "intro" | default "" }}
+
+<section {{ if $sectionId }}id="{{ $sectionId }}" {{ end }}class="section section--border-bottom section--padding rad-animation-group">
+    <div class="container">
+        <div class="row rad-fade-down">
+            <div class="col-12 col-lg-5">
+                {{ if $title }}<h2 class="section__title">{{ $title }}</h2>{{ end }}
+                {{ with $intro }}<p class="principles__intro">{{ . | markdownify }}</p>{{ end }}
+            </div>
+            <div class="col-12 col-lg-7">
+                <ol class="principles">{{ .Inner }}</ol>
+            </div>
+        </div>
+    </div>
+</section>

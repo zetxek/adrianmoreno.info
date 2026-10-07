@@ -133,21 +133,16 @@ test('keyboard skip link, enlarged text, and print remain usable', async ({ page
   await expect(page.locator('.race-role')).toHaveCount(9);
 });
 
-for (const width of [375, 1440]) {
-  test(`menubar triathlon link at ${width}px; race JS stays off the homepage`, async ({ page }) => {
-    await page.setViewportSize({ width, height: 900 });
-    await page.goto('/');
-    if (width < 992) await page.locator('.navbar-toggler').click();
-    const entry = page.locator('.race-nav-entry');
-    await expect(entry).toBeVisible();
-    await expect(entry).toHaveAttribute('href', '/race/');
-    await expect(entry).toHaveAccessibleName('Game mode · Swim, bike, run');
-    await expect(entry.locator('svg')).toBeVisible();
-    expect(await page.locator('script[src*="/js/race."]').count()).toBe(0);
-    await entry.click();
-    await expect(page).toHaveURL(/\/race\/$/);
-  });
-}
+test('homepage links to game mode from About and the footer; race JS stays off the homepage', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('header a[href="/race/"]')).toHaveCount(0);
+  await expect(page.locator('footer a[href="/race/"]')).toBeVisible();
+  expect(await page.locator('script[src*="/js/race."]').count()).toBe(0);
+  const entry = page.locator('#about a[href="/race/"]');
+  await expect(entry).toBeVisible();
+  await entry.click();
+  await expect(page).toHaveURL(/\/race\/$/);
+});
 
 test('the athlete is a fixed-position marker that swaps discipline pose at each chapter boundary', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
