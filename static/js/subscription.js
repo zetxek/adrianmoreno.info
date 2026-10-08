@@ -5,21 +5,33 @@
  * Adds: honeypot field, real error surfacing, a guard against double
  * submission, and support for more than one form per page.
  *
- * Note on IDs: the theme's shortcode emits the same element IDs for every
- * instance, so a page rendering the newsletter block twice (its own plus the
- * footer) has duplicate IDs. That is invalid HTML we inherit rather than
- * introduce, so this script never relies on document-wide ID lookups — it
- * walks each form's own section instead.
+ * Note on IDs: a page can render the newsletter block twice (its own plus the
+ * footer). Theme v1.11.0+ (PR #635) keeps those IDs unique by suffixing the
+ * page's own instance with "-content" and leaving the footer's copy on the
+ * legacy IDs; older themes emitted the same IDs twice. Either way the fixed
+ * part of an ID survives as an end, so this script matches elements by their
+ * suffix inside the form's own scope (as the theme's SCSS does) rather than by
+ * one exact ID — a document-wide exact-ID lookup would silently skip whichever
+ * instance carries the suffix.
  */
 (function () {
   'use strict';
+
+  // A newsletter element's id is `rad-subscription` plus the instance's
+  // suffix plus the element's role: "" / "-content" then "-email", "-submit",
+  // "-success", "-fail". Matching on the role suffix inside a scoped lookup
+  // therefore works for every instance the theme can emit, with no knowledge
+  // of which one is suffixed.
+  function bySuffix(scope, suffix) {
+    return scope.querySelector('[id^="rad-subscription"][id$="' + suffix + '"]');
+  }
 
   function panelsFor(form) {
     // Scope to the enclosing section so each form talks to its own
     // success/error panels rather than the first pair in the document.
     var scope = form.closest('.section') || document;
-    var success = scope.querySelector('[id="rad-subscription-success"]');
-    var fail = scope.querySelector('[id="rad-subscription-fail"]');
+    var success = bySuffix(scope, '-success');
+    var fail = bySuffix(scope, '-fail');
 
     // .rad-subscription-group is the rounded pill: a 56px-tall flex row whose
     // children are the form and these two panels. The theme expects a panel to
@@ -69,8 +81,8 @@
     form.dataset.radSubscriptionReady = '1';
 
     var panels = panelsFor(form);
-    var submit = form.querySelector('[id="rad-subscription-submit"]');
-    var emailInput = form.querySelector('[id="rad-subscription-email"]');
+    var submit = bySuffix(form, '-submit');
+    var emailInput = bySuffix(form, '-email');
     if (!submit || !emailInput) return;
 
     // The server's email regex is stricter than the browser's native
@@ -153,7 +165,7 @@
   }
 
   function init() {
-    var forms = document.querySelectorAll('[id="rad-subscription"]');
+    var forms = document.querySelectorAll('form[id^="rad-subscription"]');
     Array.prototype.forEach.call(forms, initForm);
   }
 
