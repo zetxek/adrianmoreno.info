@@ -28,12 +28,14 @@ draft = false
 
 {{< about-section
 title="Who am I?"
-content="<p class='lead'>An engineer at heart, a leader by practice. I help companies turn technology into business outcomes — aligning <strong>product, engineering, and the GTM teams</strong> who carry the work to customers.</p><p>I lead through the <strong>3P framework — People, Product, Process</strong>:</p><ul><li><strong>People</strong> · High-performing teams, psychological safety, and leaders who grow other leaders.</li><li><strong>Product</strong> · Clear strategy, sharp prioritization, and tight feedback loops with customers and GTM.</li><li><strong>Process</strong> · Pragmatic agile, healthy DevOps, and sustainable architecture that scales with the business.</li></ul><p><strong>Currently exploring:</strong> AI as a capacity lever for delivery, operations, and team collaboration — making good engineering faster, not louder.</p><p class='text-body-secondary'><small>Across SaaS, fintech, e-commerce, and mobile — from hands-on building to executive scope.</small></p>"
+content="<p class='lead'>An engineer at heart, a leader by practice — and above all a <strong>builder</strong>, not only a people manager. I build systems, I build product, and I build the teams around them. I help companies turn technology into business outcomes — aligning <strong>product, engineering, and the GTM teams</strong> who carry the work to customers.</p><p>I lead through the <strong>3P framework — People, Product, Process</strong>:</p><ul><li><strong>People</strong> · High-performing teams, psychological safety, and leaders who grow other leaders.</li><li><strong>Product</strong> · Clear strategy, sharp prioritization, and tight feedback loops with customers and GTM.</li><li><strong>Process</strong> · Pragmatic agile, healthy DevOps, and sustainable architecture that scales with the business.</li></ul><p><strong>Currently exploring:</strong> AI as a capacity lever for delivery, operations, and team collaboration — making good engineering faster, not louder.</p><p class='text-body-secondary'><small>Across SaaS, fintech, e-commerce, and mobile — from hands-on building to executive scope.</small></p>"
 imgSrc="images/working-left@2x.webp"
 imgScale="0.5"
 btnText="" >}}
 
 {{< text-section title="How I lead" sectionId="how-i-lead" >}}
+
+I design teams the same way I design and build systems: **efficient, iterative, adaptable** — fit for today and ready for what comes next. The past is information to learn from: every reorg, process or tool we tried is an experiment, and it shouldn't hold us back. And like any good system, a team should react and adapt to new trends and ways of working — AI included — rather than defend how things used to be done.
 
 - **Make the implicit explicit.** Across functions, cultures, and seniority — alignment beats authority.
 - **Small reversible decisions over big slow ones.** Ship, learn, adjust.
