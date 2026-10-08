@@ -5,7 +5,7 @@
     {{ partial "head.html" . }} {{ partial "head_custom.html" . }}
   </head>
 
-  <body>
+  <body class="books-page">
     {{ partial "header.html" . }}
     {{- $year := .Params.year -}}
 
@@ -52,6 +52,7 @@
     <section
       id="book"
       class="section section--border-bottom rad-animation-group book-single">
+      {{ partial "book-grain.html" . }}
       <div class="container" id="book-viewport">
         <p class="book-single-back">
           <a href="{{ "books" | relURL }}">&larr; Back to all books</a>
@@ -60,10 +61,11 @@
         <div class="row book-single-header gy-4">
           <div class="col-12 col-lg-4">
             <div class="book-single-cover-frame">
-              {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-single-cover" "showCta" false) }}
+              {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-single-cover" "loading" "eager" "showCta" false "width" 400) }}
             </div>
           </div>
           <div class="col-12 col-lg-8">
+            <p class="book-single-eyebrow">Feature Presentation</p>
             <h1 class="book-single-title">{{ .Title }}</h1>
             {{ if $authors }}
             <p class="book-single-authors">by {{ $authors }}</p>
