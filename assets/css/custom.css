@@ -95,9 +95,9 @@ abbr[title] {
 /*
  * Newsletter error message.
  *
- * subscription.js moves #rad-subscription-fail out of .rad-subscription-group
+ * subscription.js moves the error panel out of .rad-subscription-group
  * so the form stays usable for a retry. Outside the pill it loses the theme's
- * `.rad-subscription-group #rad-subscription-fail p { color: #fff }` rule, and
+ * `.rad-subscription-group [id$="-fail"] p { color: #fff }` rule, and
  * the CTA section has a dark background, so restore the colour here.
  */
 .rad-subscription-fail--below {
@@ -118,32 +118,32 @@ abbr[title] {
  * glowing bar. Here the button is light against a black newsletter section,
  * so use a compact black spinner and a clear label instead.
  */
-.rad-subscription-group #rad-subscription-submit {
+.rad-subscription-group [id$="-submit"] {
     color: #000;
     background-color: #fff;
     border-color: #fff;
 }
 
-.rad-subscription-group #rad-subscription-submit:hover:not(:disabled),
-.rad-subscription-group #rad-subscription-submit:focus-visible {
+.rad-subscription-group [id$="-submit"]:hover:not(:disabled),
+.rad-subscription-group [id$="-submit"]:focus-visible {
     color: #000;
     background-color: #e8e8e8;
     border-color: #e8e8e8;
 }
 
-.rad-subscription-group #rad-subscription-submit.is-loading:disabled {
+.rad-subscription-group [id$="-submit"].is-loading:disabled {
     color: #000;
     background-color: #fff;
     border-color: #fff;
     cursor: progress;
 }
 
-.rad-subscription-group #rad-subscription-submit.is-loading .rad-subscription-submit-label {
+.rad-subscription-group [id$="-submit"].is-loading .rad-subscription-submit-label {
     color: #000;
     opacity: 1;
 }
 
-.rad-subscription-group #rad-subscription-submit.is-loading::after {
+.rad-subscription-group [id$="-submit"].is-loading::after {
     right: 12px;
     bottom: auto;
     width: 12px;
@@ -164,7 +164,7 @@ abbr[title] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .rad-subscription-group #rad-subscription-submit.is-loading::after {
+    .rad-subscription-group [id$="-submit"].is-loading::after {
         animation: none;
     }
 }
@@ -181,9 +181,11 @@ abbr[title] {
  * glow and swap the pill border for the site's own teal so focus reads as
  * "typing", not "invalid".
  *
- * The `#newsletter` prefix isn't just scoping — it's needed to out-specificity
- * the theme's own `.rad-subscription-group:has(...)` rule, which this
- * stylesheet loads before but has identical specificity otherwise.
+ * The `[id^="newsletter"]` prefix isn't just scoping — it's needed to
+ * out-specificity the theme's own `.rad-subscription-group:has(...)` rule. It
+ * matches both instances of the block: a page's own section keeps the legacy
+ * `newsletter` id only when nothing collides, and is suffixed "-content" when
+ * the footer also renders one.
  */
 .rad-subscription-group input[type="email"]:focus,
 .rad-subscription-group input[type="email"]:active {
@@ -191,7 +193,7 @@ abbr[title] {
     box-shadow: none;
 }
 
-#newsletter .rad-subscription-group:has(input[type="email"]:focus),
-#newsletter .rad-subscription-group:has(input[type="email"]:active) {
+[id^="newsletter"] .rad-subscription-group:has(input[type="email"]:focus),
+[id^="newsletter"] .rad-subscription-group:has(input[type="email"]:active) {
     border-color: rgba(var(--bs-primary-rgb), 0.6);
 }
