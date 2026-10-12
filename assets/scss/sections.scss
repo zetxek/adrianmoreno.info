@@ -33,6 +33,11 @@
   background: var(--bs-border-color);
   border: 1px solid var(--bs-border-color);
 
+  // The theme's nested containers leave less than 16rem at 320px.
+  @media (max-width: 575.98px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   @media (min-width: 992px) {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -125,4 +130,21 @@
 .principle__body {
   color: var(--bs-secondary-color);
   font-weight: 300;
+}
+
+// Keep the theme's About image inside the phone viewport. Its desktop
+// overflow treatment otherwise adds 28px of horizontal page scrolling.
+@media (max-width: 767.98px) {
+  #about .about__profile-picture {
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #about img.image-left-overflow {
+    max-width: 100%;
+    margin-left: 0;
+  }
 }
