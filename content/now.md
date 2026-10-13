@@ -12,7 +12,7 @@ type: "blog"
 Not actively looking for a new role, but open to:
 
 - **Advisory** for early-stage SaaS founders working on product, engineering, or scaling tech orgs
-- **Mentorship** for engineering leaders growing into VP / CTO scope
+- **Mentorship** for engineers transitioning to management, or engineering leaders growing into VP / CTO scope
 - **Networking** with peers in the Copenhagen tech ecosystem — coffee, walks, or [LinkedIn](https://www.linkedin.com/in/adrianmoreno/) DMs all welcome
 
 ## Work

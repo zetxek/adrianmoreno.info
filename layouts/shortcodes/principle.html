@@ -1,0 +1,9 @@
+{{/*
+  One item inside principles-section.
+  title: the principle, as a short sentence.
+  Inner: one-line explanation (markdown).
+*/}}
+<li class="principle">
+    <p class="principle__title">{{ .Get "title" | markdownify }}</p>
+    {{ with trim .Inner "\n " }}<p class="principle__body">{{ . | markdownify }}</p>{{ end }}
+</li>

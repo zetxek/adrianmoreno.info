@@ -1,4 +1,1 @@
-{{/* The race entry is critical nav UI: tiny synchronous sheet, no font or JS. */}}
-{{ $css := resources.Get "css/race-nav.css" | minify | fingerprint }}
-<link rel="stylesheet" href="{{ $css.RelPermalink }}">
 {{ if partial "seo/noindex.html" . }}<meta name="robots" content="noindex, follow">{{ end }}
