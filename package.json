@@ -47,7 +47,7 @@
     "critical": "^9.0.0",
     "del": "^8.0.1",
     "juice": "^12.2.0",
-    "postcss": "^8.5.28",
+    "postcss": "^8.5.29",
     "postcss-cli": "^12.0.0",
     "postcss-flexbugs-fixes": "^5.0.2",
     "qrcode": "^1.5.4",
