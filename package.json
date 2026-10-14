@@ -45,7 +45,7 @@
     "bootstrap": "^5.3.8",
     "bootstrap-print-css": "^1.0.0",
     "critical": "^9.0.0",
-    "del": "^8.0.1",
+    "del": "^9.0.1",
     "juice": "^12.2.0",
     "postcss": "^8.5.29",
     "postcss-cli": "^12.0.0",
