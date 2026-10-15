@@ -23,8 +23,20 @@ This is a personal portfolio website built with Hugo static site generator, usin
 ## Development Workflows
 
 ### Local Development
+Prerequisites: the Hugo **extended** binary, **Go** on `PATH`, and installed npm
+dependencies.
+
+- **Go is required** even though this is a Hugo site: the theme is a Hugo Module, so
+  Hugo shells out to `go` to resolve it. Without it the build fails with
+  `failed to load modules: failed to download modules: binary with name "go" not found in PATH`.
+- `npm install` is required before the first build: Bootstrap SCSS is mounted from
+  `node_modules/bootstrap/scss`, and without it the SCSS build fails with
+  `File to import not found or unreadable: bootstrap/functions`.
+
 ```bash
-hugo serve  # Start local development server on localhost:1313
+npm install   # once, and again after dependency bumps
+hugo serve    # start local development server on localhost:1313
+hugo --destination /tmp/build_out   # or a one-off build to inspect output
 ```
 
 ### Testing
