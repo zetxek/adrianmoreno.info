@@ -1,6 +1,8 @@
 ---
 title: "Now"
 type: "blog"
+date: 2026-10-13
+lastmod: 2026-10-13
 ---
 
 ## What I'm up to now
