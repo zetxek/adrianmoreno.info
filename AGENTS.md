@@ -14,6 +14,20 @@ This is a personal portfolio website built with Hugo static site generator, usin
 - **Books**: Individual markdown files in `content/book/` with frontmatter including `book_authors`, `book_categories`, `featured`, and `cover` fields
 - **Experience/Education**: Structured content sections with custom layouts
 - **Homepage**: Configuration driven by `data/homepage.yml` (currently minimal)
+- **Blog posts** (`content/blog/`): mostly LinkedIn imports. Two tags are load-bearing and
+  decide where a post appears:
+  - `tags` containing `article` → long-form writing, shown on `/blog/`.
+  - `tags` containing `share` → short LinkedIn posts, shown on `/archive/` instead.
+  A post carrying neither tag appears in no listing at all. Both listings compute their
+  sets from these tags, so when you change a post's tags, check the post still lands
+  somewhere.
+- **Archive** (`content/archive/_index.md` + `layouts/archive/list.html`): lists every post
+  tagged `share`, grouped by year. Imports stay linkable here rather than cluttering
+  `/blog/`.
+- **Categories are the editorial pillars** (`Human Systems`, `Engineering Economics`,
+  `AI-era Leadership`). Imported posts carry no category: junk import values such as
+  "Professional" were deliberately removed so `/categories/` stays meaningful. Don't
+  reintroduce a catch-all category.
 
 ### Build Pipeline & Performance Optimization
 - **CSS Optimization**: PostCSS with PurgeCSS removes unused CSS based on `hugo_stats.json`
