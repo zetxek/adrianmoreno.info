@@ -3,7 +3,6 @@ title = "One of the best things to work at SumUp is to s..."
 date = "2022-12-10T17:17:00Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7007392736664248320"
 originalDate = "December 10, 2022"

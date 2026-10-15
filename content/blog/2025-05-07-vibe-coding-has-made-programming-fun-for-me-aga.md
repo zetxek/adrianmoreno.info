@@ -3,7 +3,6 @@ title = "Vibe coding has made programming fun for me aga..."
 date = "2025-05-07T19:25:38Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7325964043024777216"
 originalDate = "May 7, 2025"

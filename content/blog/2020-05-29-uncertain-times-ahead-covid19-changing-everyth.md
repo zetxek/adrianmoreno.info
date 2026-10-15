@@ -3,7 +3,6 @@ title = "Uncertain times ahead, covid19 changing everyth..."
 date = "2020-05-29T08:27:56Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6672050820575567872"
 originalDate = "May 29, 2020"

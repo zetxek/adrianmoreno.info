@@ -3,7 +3,6 @@ title = "Not a bad way to start the weekend! If you want..."
 date = "2018-04-23T20:47:25Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6394285424038203392"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6394145119439720449/"

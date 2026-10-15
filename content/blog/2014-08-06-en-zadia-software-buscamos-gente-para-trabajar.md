@@ -3,7 +3,6 @@ title = "En Zadia Software buscamos gente para trabajar ..."
 date = "2014-08-06T12:10:32Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A5902757402649858048"
 originalDate = "August 6, 2014"

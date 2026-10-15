@@ -3,7 +3,6 @@ title = "For me the key is this point: \"Remaining techni..."
 date = "2021-01-11T15:46:16Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6754423178996572160"
 originalDate = "January 11, 2021"

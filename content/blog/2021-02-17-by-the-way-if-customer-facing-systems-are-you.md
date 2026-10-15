@@ -3,7 +3,6 @@ title = "By the way - if customer-facing systems are you..."
 date = "2021-02-17T15:02:47Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6767820584555474944"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6767435325770870784/"

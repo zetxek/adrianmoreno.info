@@ -3,7 +3,6 @@ title = "In order to protect the team, you have to go ag..."
 date = "2015-10-28T12:38:09Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6065114114848546816"
 originalDate = "October 28, 2015"

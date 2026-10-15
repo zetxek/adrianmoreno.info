@@ -3,7 +3,6 @@ title = "This is why you cannot have a team of only supe..."
 date = "2021-04-19T09:09:51Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A6789837427100925953"
 originalDate = "April 19, 2021"

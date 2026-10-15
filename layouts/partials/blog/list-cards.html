@@ -85,60 +85,17 @@
       #blogFilter button.active{background:var(--bs-primary,#478079);color:#fff;border-color:var(--bs-primary,#478079)}
       #blogFilter button.active .badge{background:rgba(255,255,255,0.25)!important;color:#fff}
     </style>
-    <div id="blogFilter" class="d-flex flex-wrap gap-2 mb-4 p-0" role="tablist">
-      {{ if $articles }}
-      <div role="presentation">
-        <button class="nav-link active" id="articles-tab" data-bs-toggle="pill" data-bs-target="#articles-posts" type="button" role="tab" aria-controls="articles-posts" aria-selected="true">
-          Articles <span class="badge bg-secondary ms-1">{{ len $articles }}</span>
-        </button>
-      </div>
-      {{ end }}
-      <div role="presentation">
-        <button class="nav-link{{ if not $articles }} active{{ end }}" id="all-tab" data-bs-toggle="pill" data-bs-target="#all-posts" type="button" role="tab" aria-controls="all-posts" aria-selected="{{ if not $articles }}true{{ else }}false{{ end }}">
-          All <span class="badge bg-secondary ms-1">{{ len $allPosts }}</span>
-        </button>
-      </div>
+    <div id="blogFilter" class="d-flex flex-wrap gap-2 align-items-center justify-content-between mb-4 p-0">
+      <span class="text-muted small">{{ len $articles }} long-form articles</span>
       {{ if $shares }}
-      <div role="presentation">
-        <button class="nav-link" id="shares-tab" data-bs-toggle="pill" data-bs-target="#shares-posts" type="button" role="tab" aria-controls="shares-posts" aria-selected="false">
-          Short posts <span class="badge bg-secondary ms-1">{{ len $shares }}</span>
-        </button>
-      </div>
+      <a class="blog-topics-cta" href="{{ "archive" | relURL }}/">
+        <span>Browse the archive &mdash; {{ len $shares }} short posts</span>
+        <span class="blog-topics-cta-icon" aria-hidden="true">&rarr;</span>
+      </a>
       {{ end }}
     </div>
 
     <div class="tab-content" id="blogFilterContent">
-      <!-- All posts -->
-      <div class="tab-pane fade{{ if not $articles }} show active{{ end }}" id="all-posts" role="tabpanel" aria-labelledby="all-tab">
-        {{ $paginator := .Paginate $allPosts }}
-        <div class="row g-4 blog-list">
-          {{ range $paginator.Pages }}
-            <div class="col-12 col-md-6 col-lg-4">
-              <article class="h-100 p-4 border rounded-3 shadow-sm">
-                <div class="text-muted small mb-2">{{ .Date.Format "Jan 2, 2006" }}</div>
-                <h2 class="h2 mb-3">
-                  <a class="text-decoration-none stretched-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
-                </h2>
-                {{ with .Summary }}
-                  <p class="mb-3">{{ . | plainify | truncate 200 }}</p>
-                {{ end }}
-                {{ $terms := or (.GetTerms "topics") (.GetTerms "tags") }}
-                {{ with $terms }}
-                  <ul class="list-inline small text-muted mb-0">
-                    {{ range first 3 . }}
-                      <li class="list-inline-item">#{{ .LinkTitle }}</li>
-                    {{ end }}
-                  </ul>
-                {{ end }}
-              </article>
-            </div>
-          {{ end }}
-        </div>
-        {{ if gt $paginator.TotalPages 1 }}
-          {{ template "_internal/pagination.html" . }}
-        {{ end }}
-      </div>
-
       <!-- Articles only -->
       {{ if $articles }}
       <div class="tab-pane fade show active" id="articles-posts" role="tabpanel" aria-labelledby="articles-tab">
@@ -168,34 +125,6 @@
       </div>
       {{ end }}
 
-      <!-- Short posts / shares only -->
-      {{ if $shares }}
-      <div class="tab-pane fade" id="shares-posts" role="tabpanel" aria-labelledby="shares-tab">
-        <div class="row g-4 blog-list">
-          {{ range $shares }}
-            <div class="col-12 col-md-6 col-lg-4">
-              <article class="h-100 p-4 border rounded-3 shadow-sm">
-                <div class="text-muted small mb-2">{{ .Date.Format "Jan 2, 2006" }}</div>
-                <h2 class="h2 mb-3">
-                  <a class="text-decoration-none stretched-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
-                </h2>
-                {{ with .Summary }}
-                  <p class="mb-3">{{ . | plainify | truncate 200 }}</p>
-                {{ end }}
-                {{ $terms := or (.GetTerms "topics") (.GetTerms "tags") }}
-                {{ with $terms }}
-                  <ul class="list-inline small text-muted mb-0">
-                    {{ range first 3 . }}
-                      <li class="list-inline-item">#{{ .LinkTitle }}</li>
-                    {{ end }}
-                  </ul>
-                {{ end }}
-              </article>
-            </div>
-          {{ end }}
-        </div>
-      </div>
-      {{ end }}
     </div>
   </div>
 </section>

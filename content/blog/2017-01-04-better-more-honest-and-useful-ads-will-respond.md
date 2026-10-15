@@ -3,7 +3,6 @@ title = "Better, more honest and useful ads will respond..."
 date = "2017-01-04T12:32:19Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6222388980265160704"
 sharedURL = "http://bokonads.com/the-ad-tech-renaissance/"

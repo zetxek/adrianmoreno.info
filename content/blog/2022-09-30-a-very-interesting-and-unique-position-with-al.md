@@ -3,7 +3,6 @@ title = "A very interesting and unique position, with al..."
 date = "2022-09-30T15:23:00Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6981634513093152768"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6977629139197448192/"

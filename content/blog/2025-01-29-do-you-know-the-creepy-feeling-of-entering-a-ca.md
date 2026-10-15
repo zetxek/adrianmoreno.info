@@ -3,7 +3,6 @@ title = "Do you know the creepy feeling of entering a ca..."
 date = "2025-01-29T16:15:49Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7290402264773517312"
 resharedPostURL = "https://www.linkedin.com/analytics/post-summary/urn:li:activity:7290402265314594816/"

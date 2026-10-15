@@ -3,7 +3,6 @@ title = "Nice to chat about ☁️ and everything around!"
 date = "2021-04-09T08:57:38Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6786210471570624512"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6785920835325595648/"

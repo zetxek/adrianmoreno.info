@@ -3,7 +3,6 @@ title = "Interactions like this really make my day to da..."
 date = "2023-03-27T13:46:43Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7046115320511492096"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7046102309428158464/"

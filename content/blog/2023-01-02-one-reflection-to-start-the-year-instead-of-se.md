@@ -3,7 +3,6 @@ title = "One reflection to start the year: instead of se..."
 date = "2023-01-02T20:19:10Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7015773503643623424"
 originalDate = "January 2, 2023"

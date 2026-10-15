@@ -3,7 +3,6 @@ title = "I love working in multi cultural environments, ..."
 date = "2022-11-03T21:35:59Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6994049565419020288"
 originalDate = "November 3, 2022"

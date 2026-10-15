@@ -3,7 +3,6 @@ title = "A very interesting article by Segment about dua..."
 date = "2021-06-14T13:05:08Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6810190355686809600"
 originalDate = "June 14, 2021"

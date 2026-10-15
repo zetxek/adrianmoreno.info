@@ -3,7 +3,6 @@ title = "What a journey: rebuilding a technology product..."
 date = "2023-03-21T21:29:47Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7044057528615215105"
 originalDate = "March 21, 2023"

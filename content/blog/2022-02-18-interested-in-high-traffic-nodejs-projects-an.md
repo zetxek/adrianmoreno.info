@@ -3,7 +3,6 @@ title = "Interested in high traffic node.js projects, an..."
 date = "2022-02-18T23:17:16Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6900578983537184768"
 originalDate = "February 18, 2022"

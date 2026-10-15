@@ -3,7 +3,6 @@ title = "Sharing for my #amsterdam network it mobile dev..."
 date = "2025-02-21T15:55:34Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7298732089489682432"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7298695522788278273/"

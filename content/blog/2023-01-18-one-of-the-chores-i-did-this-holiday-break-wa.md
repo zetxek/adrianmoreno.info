@@ -3,7 +3,6 @@ title = "One of the \"chores\" I did this holiday break wa..."
 date = "2023-01-18T21:12:29Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7021585126799110144"
 originalDate = "January 18, 2023"

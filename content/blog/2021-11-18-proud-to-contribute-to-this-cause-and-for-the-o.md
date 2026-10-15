@@ -3,7 +3,6 @@ title = "Proud to contribute to this cause and for the o..."
 date = "2021-11-18T22:13:47Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6867223325412741120"
 originalDate = "November 18, 2021"

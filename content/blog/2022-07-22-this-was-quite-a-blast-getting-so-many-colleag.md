@@ -3,7 +3,6 @@ title = "This was quite a blast. Getting so many colleag..."
 date = "2022-07-22T22:18:11Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Fintech & Business"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A6956371848737525760"
 originalDate = "July 22, 2022"

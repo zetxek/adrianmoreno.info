@@ -2,7 +2,7 @@
 title = "📥 Importing my LinkedIn archive into Hugo"
 date = "2025-12-25T12:00:00Z"
 draft = false
-tags = ["hugo", "linkedin", "automation", "ai"]
+tags = ["article", "hugo", "linkedin", "automation", "ai"]
 categories = ["Engineering & Product"]
 layout = "blog"
 toc = true

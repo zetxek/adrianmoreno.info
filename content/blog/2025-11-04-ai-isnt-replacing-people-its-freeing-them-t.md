@@ -3,7 +3,6 @@ title = "🪄AI isn’t replacing people, it’s freeing them t..."
 date = "2025-11-04T21:21:55Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7391585513549410304"
 originalDate = "November 4, 2025"

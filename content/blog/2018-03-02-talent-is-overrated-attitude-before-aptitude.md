@@ -3,7 +3,6 @@ title = "Talent is overrated. Attitude before aptitude!"
 date = "2018-03-02T09:47:34Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Career & Hiring"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6375275198891069440"
 originalDate = "March 2, 2018"

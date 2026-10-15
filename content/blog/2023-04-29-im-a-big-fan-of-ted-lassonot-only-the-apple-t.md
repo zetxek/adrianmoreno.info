@@ -3,7 +3,6 @@ title = "I'm a big fan of Ted Lasso. Not only the Apple ..."
 date = "2023-04-29T19:14:45Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7058156670958333952"
 originalDate = "April 29, 2023"

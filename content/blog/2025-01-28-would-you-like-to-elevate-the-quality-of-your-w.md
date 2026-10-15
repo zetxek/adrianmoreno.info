@@ -3,7 +3,6 @@ title = "Would you like to elevate the quality of your w..."
 date = "2025-01-28T18:30:49Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7290073853567889409"
 resharedPostURL = "https://www.linkedin.com/analytics/post-summary/urn:li:activity:7290073854159253505/"

@@ -3,7 +3,6 @@ title = "A reflection on one of the changes that you exp..."
 date = "2021-09-28T08:31:25Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6848534588185214976"
 originalDate = "September 28, 2021"

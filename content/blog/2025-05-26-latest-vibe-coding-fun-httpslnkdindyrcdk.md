@@ -3,7 +3,6 @@ title = "🪄Latest vibe coding fun: https://lnkd.in/dYrcdK..."
 date = "2025-05-26T19:06:14Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7332844531358265344"
 originalDate = "May 26, 2025"

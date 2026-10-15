@@ -3,7 +3,6 @@ title = "Nice to have Mickael representing our Engineeri..."
 date = "2022-02-23T14:27:35Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6902257624767705088"
 originalDate = "February 23, 2022"

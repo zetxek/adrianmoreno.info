@@ -3,7 +3,6 @@ title = "As in many other cities, housing in Amsterdam i..."
 date = "2019-03-16T19:33:26Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6512767636969971712"
 originalDate = "March 16, 2019"

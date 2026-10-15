@@ -3,7 +3,6 @@ title = "It was a delight to talk with Elliot from Engin..."
 date = "2023-06-07T19:32:53Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7072294366156845057"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7072223982967476225/"

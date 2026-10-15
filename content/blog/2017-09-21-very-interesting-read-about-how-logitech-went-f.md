@@ -3,7 +3,6 @@ title = "Very interesting read about how Logitech went f..."
 date = "2017-09-21T09:11:13Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6316559219206160384"
 sharedURL = "https://www.fastcodesign.com/90143222/logitech-quadrupled-its-profits-with-one-big-design-idea"
