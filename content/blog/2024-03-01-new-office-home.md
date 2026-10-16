@@ -3,7 +3,6 @@ title = "New office home!"
 date = "2024-03-01T16:57:53Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7169375304405258240"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7169322205489696768/"

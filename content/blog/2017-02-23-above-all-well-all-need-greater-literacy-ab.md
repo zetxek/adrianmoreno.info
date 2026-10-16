@@ -3,7 +3,6 @@ title = "> Above all, we'll all need greater literacy ab..."
 date = "2017-02-23T14:07:56Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6240532438355968000"
 sharedURL = "https://www.fastcoexist.com/3068167/algorithms-control-our-lives-are-they-benevolent-rulers-or-evil-dictators"

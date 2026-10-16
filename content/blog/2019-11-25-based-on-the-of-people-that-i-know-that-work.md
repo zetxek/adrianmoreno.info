@@ -3,7 +3,6 @@ title = "Based on the % of people that I know that work ..."
 date = "2019-11-25T10:02:05Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6604670372774244352"
 originalDate = "November 25, 2019"

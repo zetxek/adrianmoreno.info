@@ -3,7 +3,6 @@ title = "Para los devs en la zona de Galicia (o que les ..."
 date = "2015-03-08T19:46:11Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A5980423073474637824"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:5979602360194908160/"

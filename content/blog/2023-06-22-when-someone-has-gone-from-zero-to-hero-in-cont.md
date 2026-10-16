@@ -3,7 +3,6 @@ title = "When someone has gone from zero to hero in cont..."
 date = "2023-06-22T14:55:14Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7077660309494059008"
 originalDate = "June 22, 2023"

@@ -3,7 +3,6 @@ title = "At Pocket Media we are looking for a new collea..."
 date = "2016-02-19T08:40:22Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6106366491320471553"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6106074611345084416/"

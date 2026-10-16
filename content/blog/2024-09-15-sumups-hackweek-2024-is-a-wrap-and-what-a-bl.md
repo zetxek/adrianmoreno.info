@@ -3,7 +3,6 @@ title = "SumUp's Hackweek 2024 is a wrap - and what a bl..."
 date = "2024-09-15T14:06:48Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7241085048790142977"
 originalDate = "September 15, 2024"

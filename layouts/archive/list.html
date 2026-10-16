@@ -1,0 +1,29 @@
+{{ define "main" }}
+<section id="archive" class="section section--border-bottom rad-animation-group flex-grow-1" aria-labelledby="archive-title">
+  <div class="container">
+    <header class="blog-intro mb-5">
+      <h1 id="archive-title" class="mb-3">{{ .Title }}</h1>
+      {{ with .Content }}<div class="lead blog-intro-copy">{{ . }}</div>{{ end }}
+      {{ with .Params.description }}<div class="lead blog-intro-copy">{{ . }}</div>{{ end }}
+    </header>
+
+    {{/* Short posts: everything tagged "share" - the LinkedIn imports kept out of the blog listing. */}}
+    {{ $shares := where (where .Site.RegularPages "Section" "blog") "Params.tags" "intersect" (slice "share") }}
+    {{ $shares = $shares.ByDate.Reverse }}
+
+    <p class="text-muted small mb-0">{{ len $shares }} short posts, newest first.</p>
+
+    {{ range $shares.GroupByDate "2006" }}
+      <h2 class="h4 mt-5 mb-3">{{ .Key }}</h2>
+      <ul class="list-unstyled archive-list">
+        {{ range .Pages }}
+          <li class="mb-3">
+            <div class="text-muted small">{{ .Date.Format "Jan 2" }}</div>
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </li>
+        {{ end }}
+      </ul>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

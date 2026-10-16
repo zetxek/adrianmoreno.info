@@ -3,7 +3,6 @@ title = "Do you have some experience in frontend and you..."
 date = "2020-11-04T11:51:51Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6729721809081520128"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6729702460073512960/"

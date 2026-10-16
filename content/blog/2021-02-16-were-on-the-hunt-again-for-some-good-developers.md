@@ -3,7 +3,6 @@ title = "We're on the hunt again for some good developers!"
 date = "2021-02-16T16:29:57Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Engineering & Product"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6767480133021405184"
 sharedURL = "https://www.vanmoof.com/careers/jobs/amsterdam/full-stack-developer/c6402f82-ef5a-49ee-b1fa-6557d156604d"

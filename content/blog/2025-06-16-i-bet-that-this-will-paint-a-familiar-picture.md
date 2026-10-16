@@ -3,7 +3,6 @@ title = "I bet that this will paint a familiar picture. ..."
 date = "2025-06-16T19:20:04Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7340458157984362497"
 originalDate = "June 16, 2025"

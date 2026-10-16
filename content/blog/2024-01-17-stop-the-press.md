@@ -3,7 +3,6 @@ title = "STOP THE PRESS 🛑"
 date = "2024-01-17T13:03:48Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Fintech & Business"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7153371326177579010"
 sharedURL = "https://www.sumup.com/careers/positions/copenhagen-denmark/engineering/senior-android-engineer/7097645002/?gh_src=4d73fb202us&gh_jid=7097645002"

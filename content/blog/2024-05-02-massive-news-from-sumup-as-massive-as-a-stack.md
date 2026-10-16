@@ -3,7 +3,6 @@ title = "Massive news from SumUp: as massive as a stack ..."
 date = "2024-05-02T09:17:03Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7191727379461849090"
 sharedURL = "https://www.pymnts.com/loans/2024/payments-fintech-sumup-gets-1-billion-dollar-private-credit-loan/"

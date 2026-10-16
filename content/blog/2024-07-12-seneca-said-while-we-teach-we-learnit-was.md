@@ -3,7 +3,6 @@ title = "Seneca said, \"While we teach, we learn\"."
 date = "2024-07-12T18:59:39Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7217603534706397184"
 originalDate = "July 12, 2024"

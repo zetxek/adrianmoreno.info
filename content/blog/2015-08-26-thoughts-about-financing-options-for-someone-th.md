@@ -3,7 +3,6 @@ title = "Thoughts about financing options for someone th..."
 date = "2015-08-26T17:54:19Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6042363244461514752"
 originalDate = "August 26, 2015"

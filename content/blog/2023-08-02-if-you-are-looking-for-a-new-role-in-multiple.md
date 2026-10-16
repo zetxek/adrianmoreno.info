@@ -3,7 +3,6 @@ title = "If you are looking for a new role (in multiple ..."
 date = "2023-08-02T12:31:43Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7092482093972078592"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7092412370374811648/"

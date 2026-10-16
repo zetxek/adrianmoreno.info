@@ -3,7 +3,6 @@ title = "2021 has been... quite a year 🤪"
 date = "2021-12-23T08:42:05Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["General"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6879702626695487488"
 originalDate = "December 23, 2021"

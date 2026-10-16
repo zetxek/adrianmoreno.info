@@ -3,7 +3,6 @@ title = "Knowing how to program for iOS makes programmin..."
 date = "2015-04-06T13:04:24Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A5990831209909878784"
 sharedURL = "https://github.com/zetxek/Remote-Kodi-OS-X"

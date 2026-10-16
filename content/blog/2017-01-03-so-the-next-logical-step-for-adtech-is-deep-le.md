@@ -3,7 +3,6 @@ title = "So the next logical step for adtech is \"Deep Le..."
 date = "2017-01-03T10:49:04Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6222000607893553152"
 originalDate = "January 3, 2017"

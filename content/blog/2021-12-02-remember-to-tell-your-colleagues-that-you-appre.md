@@ -3,7 +3,6 @@ title = "Remember to tell your colleagues that you appre..."
 date = "2021-12-02T19:03:27Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6872248855262445568"
 originalDate = "December 2, 2021"

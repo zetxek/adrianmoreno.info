@@ -3,7 +3,6 @@ title = "We have many job openings active at Pocket, in ..."
 date = "2016-08-10T15:59:50Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6169170189905645568"
 sharedURL = "https://pocketmedia.has-jobs.com/senior-back-end-developer-team-lead-amsterdam/107273/0"

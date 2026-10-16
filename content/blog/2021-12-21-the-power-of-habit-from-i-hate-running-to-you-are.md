@@ -3,7 +3,6 @@ title = "The power of habit: from \"I hate running\"​ to \"You are an Ironman\
 date = "2021-12-21T19:49:00Z"
 draft = false
 tags = ["linkedin", "imported", "article"]
-categories = ["General"]
 layout = "blog"
 originalDate = "December 21, 2021"
 contentHash = "f506f517f8895e296cb9651a63af99d642d97d7d40b113873b81d9efe743edce"

@@ -3,7 +3,6 @@ title = "- 💡A mind shift to start being part of the solu..."
 date = "2024-08-23T21:28:29Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["General"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7232861281630736385"
 originalDate = "August 23, 2024"

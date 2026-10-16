@@ -3,7 +3,6 @@ title = "Taking some time off and resting until you almo..."
 date = "2023-01-08T21:56:16Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7017972265069723649"
 originalDate = "January 8, 2023"

@@ -3,7 +3,6 @@ title = "My colleague Povilas Jurkūnas is #hiring for a ..."
 date = "2024-01-05T10:16:59Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7148980695728664578"
 resharedPostURL = "https://www.linkedin.com/analytics/post-summary/urn:li:activity:7148980696324239360/"

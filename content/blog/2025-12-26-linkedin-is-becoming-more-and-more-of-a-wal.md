@@ -3,7 +3,6 @@ title = "🧱🏡🧱 LinkedIn is becoming more and more of a wal..."
 date = "2025-12-26T16:39:03Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7410358496900100096"
 originalDate = "December 26, 2025"

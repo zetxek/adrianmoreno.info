@@ -3,7 +3,6 @@ title = "Never make fun of someone who mispronounces a w..."
 date = "2024-07-26T12:33:42Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7222579834403639296"
 originalDate = "July 26, 2024"

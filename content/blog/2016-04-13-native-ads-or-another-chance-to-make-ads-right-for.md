@@ -3,7 +3,6 @@ title = "Native Ads or another chance to make ads right for the users"
 date = "2016-04-13T10:26:00Z"
 draft = false
 tags = ["linkedin", "imported", "article"]
-categories = ["General"]
 layout = "blog"
 originalDate = "April 13, 2016"
 contentHash = "218a48632c9aec7f6e5ecf378e206008cfb3bf958a98637cea221b78b1be453c"

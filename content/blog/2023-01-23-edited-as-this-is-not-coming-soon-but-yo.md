@@ -3,7 +3,6 @@ title = "Edited✍️ - as this is not \"coming soon\", but yo..."
 date = "2023-01-23T17:27:26Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7023340433724342272"
 originalDate = "January 23, 2023"

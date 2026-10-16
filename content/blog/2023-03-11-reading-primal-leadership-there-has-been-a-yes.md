@@ -3,7 +3,6 @@ title = "Reading Primal Leadership there has been a \"yes..."
 date = "2023-03-11T17:56:12Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7040379900767191040"
 originalDate = "March 11, 2023"

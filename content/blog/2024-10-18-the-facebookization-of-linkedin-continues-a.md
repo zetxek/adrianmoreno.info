@@ -3,7 +3,6 @@ title = "The \"Facebookization\" of LinkedIn continues - a..."
 date = "2024-10-18T06:10:30Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7252923984764125184"
 resharedPostURL = "https://www.linkedin.com/analytics/post-summary/urn:li:activity:7252923985695232000/"

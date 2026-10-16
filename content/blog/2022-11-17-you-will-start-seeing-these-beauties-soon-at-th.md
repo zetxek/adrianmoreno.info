@@ -3,7 +3,6 @@ title = "You will start seeing these beauties soon at th..."
 date = "2022-11-17T07:05:31Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6998903936560545792"
 sharedURL = "https://www.sumup.com/en-gb/point-of-sale-overview/pos-lite/"

@@ -3,7 +3,6 @@ title = "But culture change can’t be achieved through to..."
 date = "2017-12-11T12:41:45Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6345965617757118464"
 sharedURL = "https://hbr.org/2017/06/changing-company-culture-requires-a-movement-not-a-mandate"

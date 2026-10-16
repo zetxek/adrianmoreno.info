@@ -3,7 +3,6 @@ title = "Last Friday Night (T.G.I.F.)"
 date = "2018-06-16T13:04:00Z"
 draft = false
 tags = ["linkedin", "imported", "article"]
-categories = ["General"]
 layout = "blog"
 originalDate = "June 16, 2018"
 contentHash = "5c3f42d348ffe88067e39862b9937fbaa3744b848bdc1f248c6a8f45809f62fb"

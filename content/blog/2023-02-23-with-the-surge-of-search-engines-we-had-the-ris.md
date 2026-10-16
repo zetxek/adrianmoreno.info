@@ -3,7 +3,6 @@ title = "With the surge of Search Engines we had the ris..."
 date = "2023-02-23T16:00:05Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7034552473864306689"
 originalDate = "February 23, 2023"

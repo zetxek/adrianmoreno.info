@@ -3,7 +3,6 @@ title = "Lista de Google Groups"
 date = "2012-04-17T23:03:47Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["General"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AgroupPost%3A4333610-108578016"
 originalDate = "April 17, 2012"

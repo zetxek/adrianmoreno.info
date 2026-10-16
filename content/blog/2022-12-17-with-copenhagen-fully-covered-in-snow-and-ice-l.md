@@ -3,7 +3,6 @@ title = "With Copenhagen fully covered in snow and ice l..."
 date = "2022-12-17T12:59:04Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7009864540733505538"
 originalDate = "December 17, 2022"

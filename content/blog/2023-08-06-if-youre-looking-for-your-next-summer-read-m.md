@@ -3,7 +3,6 @@ title = "If you're looking for your next summer read - m..."
 date = "2023-08-06T19:51:36Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7094042345540567041"
 originalDate = "August 6, 2023"

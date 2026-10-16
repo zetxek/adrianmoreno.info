@@ -3,7 +3,6 @@ title = "After 1 year and a half my relationship with Va..."
 date = "2021-04-28T12:08:22Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6793143841839968256"
 originalDate = "April 28, 2021"

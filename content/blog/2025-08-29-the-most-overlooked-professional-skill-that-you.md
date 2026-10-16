@@ -3,7 +3,6 @@ title = "The most overlooked professional skill that you..."
 date = "2025-08-29T18:22:54Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7367260472498216960"
 originalDate = "August 29, 2025"

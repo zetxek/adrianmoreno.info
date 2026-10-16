@@ -3,7 +3,6 @@ title = "When you manage people you are \"management\" - a..."
 date = "2024-07-13T12:01:18Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7217860640621678592"
 originalDate = "July 13, 2024"
