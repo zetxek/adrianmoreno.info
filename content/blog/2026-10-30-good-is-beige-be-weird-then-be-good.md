@@ -1,7 +1,7 @@
 +++
 title = "Good Is Beige. Be Weird, Then Be Good."
 date = 2026-10-30T09:30:00+01:00
-draft = true
+draft = false
 tags = ["ai", "authenticity", "writing", "leadership"]
 categories = ["blog"]
 layout = "blog"
