@@ -9,7 +9,7 @@ layout = "blog"
 
 The fastest way to become invisible right now is to be _competent_.
 
-Talking is cheap, I've known that for years. Anyone can fill a meeting, restate the problem in more words, and sound busy while saying nothing. What changed is that being accurate is cheap too. A model will produce eight hundred plausible, correctly punctuated words in about ten seconds, name a framework, hand you three tidy bullets, and land a conclusion. It'll be right.
+Talking is cheap, I've known that for years 😅. Anyone can fill a meeting, restate the problem in more words, and sound busy while saying nothing. What changed is that being accurate is cheap too. A model will produce eight hundred plausible, correctly punctuated words in about ten seconds, name a framework, hand you three tidy bullets, and land a conclusion. It'll be right.
 
 Which is exactly the problem. "Right" is free now, and free things stop being signals.
 
