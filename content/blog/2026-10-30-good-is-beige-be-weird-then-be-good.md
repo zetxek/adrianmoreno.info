@@ -7,11 +7,11 @@ categories = ["blog"]
 layout = "blog"
 +++
 
-The fastest way to become invisible right now is to be competent.
+The fastest way to become invisible right now is to be _competent_.
 
 Talking is cheap, I've known that for years. Anyone can fill a meeting, restate the problem in more words, and sound busy while saying nothing. What changed is that being accurate is cheap too. A model will produce eight hundred plausible, correctly punctuated words in about ten seconds, name a framework, hand you three tidy bullets, and land a conclusion. It'll be right.
 
-Which is exactly the problem. Right is free now, and free things stop being signals.
+Which is exactly the problem. "Right" is free now, and free things stop being signals.
 
 ---
 
@@ -58,12 +58,12 @@ Authenticity gets treated as a personality trait. In practice it's a bill you ke
 2. **Give the model my position, not a topic.** "Sharpen this argument" produces something. "Write about authenticity" produces beige.
 3. **Ask it to argue against me.** Agreement is worthless. I want the strongest counter-case, so the version I publish has already survived contact.
 4. **Read it aloud.** Anything I wouldn't say to a person gets cut. This catches more slop than any prompt.
-5. **Keep one unfixable thing per piece.** A phrase, a reference, a joke that only lands if you know me. That's the fingerprint, and a model will happily sand it off.
+5. **Keep one unfixable thing per piece.** A phrase, a reference, a joke that only lands if you know me. The Spanish sayings I translate and don't make sense in English. That's the fingerprint, and a model will happily sand it off.
 
 ---
 
-None of this is nostalgia for sloppier writing. I like that the baseline went up. Correct prose on demand is a gift.
+None of this is nostalgia for sloppier writing. I like that the baseline went up. For the ones that were producing incoherent texts and can now generate some average, mild paragraphs - that's a substantial improvement.
 
-But when everyone can be accurate, accuracy stops being the differentiator, and personality becomes the only thing you can't generate on spec. You are the part of the work that a prompt can't reach.
+But when everyone can be accurate, accuracy stops being the differentiator, and **personality** becomes the only thing you can't generate on demand. You are the part of the work that a prompt can't reach.
 
-So be good. Genuinely, properly good. Then be specific enough that only you could have written it, and specific enough that it could fail. Being right is now table stakes. Being someone in particular is the whole game.
+So be good. Genuinely, properly good. Obsessively good in whatever matters to you. Then, be specific enough that only you could have written it, and specific enough that it could fail. Being right is now table stakes. Being someone in particular is the whole game.
