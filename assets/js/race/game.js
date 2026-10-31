@@ -135,7 +135,7 @@ export function initGameController(deps) {
     dirty: true,
     landmarkOpen: false,
     entryAnnounced: false,
-    perf: { samples: [], degraded: false },
+    perf: { samples: [], degraded: false, warmup: false },
     staticPresentation: null,
     session: 0,
     announcedChapter: null,
@@ -586,6 +586,11 @@ export function initGameController(deps) {
   // producing frames -- never a monitoring loop. ----------------------------
   function recordSample(ms) {
     if (game.mode !== '3d') return;
+    // The first frame after a world is built or restored compiles every
+    // shader. It is a one-off cost, not a frame rate: counted, a single such
+    // frame decides a whole window (p95 of 12 is the max), and a build plus
+    // one restore was enough to drop a capable device to Lite.
+    if (game.perf.warmup) { game.perf.warmup = false; return; }
     game.perf.samples.push(ms);
     if (game.perf.samples.length < SAMPLE_WINDOW) return;
     const window12 = game.perf.samples.splice(0, SAMPLE_WINDOW);
@@ -1102,6 +1107,7 @@ export function initGameController(deps) {
     quality.current = null;
     game.perf.samples = [];
     game.perf.degraded = false;
+    game.perf.warmup = false;
     if (markLite) game.mode = 'lite';
     updateTitle();
     updateLiteButton(true);
@@ -1181,6 +1187,7 @@ export function initGameController(deps) {
     updateLiteButton(true);
     let outcome = 'ok';
     try {
+      game.perf.warmup = true;
       resizeWorld();
       if (attempt.instance.isContextLost()) outcome = 'lost-on-create';
     } catch (e) {
@@ -1269,6 +1276,7 @@ export function initGameController(deps) {
     updateLiteButton(true);
     rememberTier(nextTier({ tier: attempt.tier, outcome: 'restored' }).persist);
     announceRenderStatus('');
+    game.perf.warmup = true;
     resizeWorld();
   }
 

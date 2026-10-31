@@ -297,6 +297,42 @@ test.describe('game quality ladder (chromium, 390x844 @ DPR 3)', () => {
     expect(q.stored).toBe('1');
   });
 
+  test('the shader-compile frame after a build or a restore never counts against the frame budget', async ({ page }) => {
+    // Every program link costs 45ms, so each world's first frame (and the
+    // first after a restore) is over the 33.4ms budget on any machine, while
+    // later frames stay fast. Counting those frames once degraded and then
+    // dropped a capable device to Lite on a slow CI runner.
+    await page.addInitScript(() => {
+      [window.WebGL2RenderingContext, window.WebGLRenderingContext].forEach((Ctor) => {
+        if (!Ctor) return;
+        const link = Ctor.prototype.linkProgram;
+        Ctor.prototype.linkProgram = function (...args) {
+          const until = performance.now() + 45;
+          while (performance.now() < until) { /* simulated shader compile */ }
+          return link.apply(this, args);
+        };
+      });
+    });
+    await seed(page);
+    await page.goto(raceURL);
+    test.skip(!(await hasWebGL(page)), 'no WebGL in this environment');
+    await page.locator('#race-game-entry').click();
+    await waitForSettled(page, { tier: 0 });
+    await travel(page);
+    await loseContext(page);
+    await page.waitForFunction(() => document.querySelector('#race-game').dataset.gameParked === 'true');
+    await restoreContext(page);
+    await page.waitForFunction(() => document.querySelector('#race-game').dataset.gameParked === 'false');
+    await travel(page, 300);
+    await travel(page, 300);
+    const q = await readQuality(page);
+    expect(q.canvases).toBe(1);                            // still in 3D, not switched to Lite
+    expect(q.mapHidden).toBe(true);
+    expect(q.status).toBe('');
+    expect(q.ratio).not.toBe('');
+    expect(q.ledger.map((e) => [e.tier, e.outcome])).toEqual([[0, 'restored']]);
+  });
+
   test('construction failure is bounded: four attempts at four tiers, then Lite, creation errors recorded', async ({ page }) => {
     await seed(page);
     await page.addInitScript(() => {
