@@ -418,6 +418,44 @@ test.describe('game quality ladder (chromium, 1440x900 desktop)', () => {
     }
     console.log('DESKTOP', JSON.stringify({ renderer: q.caps.renderer, ratio: q.ratio, buffer: q.buffer, granted: q.aaGranted, samples: q.ledger[0].samples, bytes: q.ledger[0].framebufferBytes }));
   });
+
+  test('a shader first linked mid-course never counts against the frame budget', async ({ page }) => {
+    // One material is culled at the start and links on the travel frame that
+    // first draws it (about a third of the way along). With each link held
+    // at 45ms that frame is over budget; counted, it lowered the render
+    // ratio, which a 1440px viewport makes visible (0.848 -> 0.621).
+    await page.addInitScript(() => {
+      [window.WebGL2RenderingContext, window.WebGLRenderingContext].forEach((Ctor) => {
+        if (!Ctor) return;
+        const link = Ctor.prototype.linkProgram;
+        Ctor.prototype.linkProgram = function (...args) {
+          const until = performance.now() + 45;
+          while (performance.now() < until) { /* simulated shader compile */ }
+          return link.apply(this, args);
+        };
+      });
+    });
+    test.setTimeout(60000);
+    await seed(page);
+    await page.goto(raceURL);
+    test.skip(!(await hasWebGL(page)), 'no WebGL in this environment');
+    await page.locator('#race-game-entry').click();
+    await waitForSettled(page, { tier: 0 });
+    const before = await readQuality(page);
+    const progress = () => page.evaluate(() => Number(document.querySelector('.race-game__progress').value));
+    await page.mouse.move(700, 450);
+    // Keep sailing (no settling between impulses) until well past the late link.
+    for (let i = 0; i < 120 && (await progress()) < 60; i += 1) {
+      await page.mouse.wheel(0, 400);
+      await page.waitForTimeout(150);
+    }
+    expect(await progress()).toBeGreaterThanOrEqual(60);
+    await page.waitForFunction(() => document.querySelector('#race-game').dataset.gameMoving === 'false');
+    const after = await readQuality(page);
+    expect(after.canvases).toBe(1);
+    expect(after.ratio).toBe(before.ratio);
+    expect(after.ledger.map((e) => [e.tier, e.outcome])).toEqual([[0, 'ok']]);
+  });
 });
 
 test('the Lite/Try 3D switch always carries a visible label (recovery path after a loss)', async ({ page }) => {

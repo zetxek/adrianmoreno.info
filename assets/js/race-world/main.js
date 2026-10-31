@@ -422,5 +422,9 @@ export default async function createWorld({ canvas, width, height, pixelRatio, o
   return {
     update, render, resize, dispose, canvas, capabilities, diagnostics,
     isContextLost: () => gl.isContextLost(),
+    // Linked shader programs. three.js compiles a material's program the
+    // first time it is drawn, so a count that grows across render() means
+    // that frame paid a one-off compile cost.
+    programCount: () => (renderer.info.programs ? renderer.info.programs.length : 0),
   };
 }

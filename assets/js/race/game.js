@@ -573,9 +573,12 @@ export function initGameController(deps) {
         collected: game.collected,
         ambient: true,
       });
+      const instance = game.world.instance;
+      const programsBefore = instance.programCount();
       const start = performance.now();
-      game.world.instance.render();
-      recordSample(performance.now() - start);
+      instance.render();
+      const ms = performance.now() - start;
+      recordSample(ms, instance.programCount() > programsBefore);
     } else {
       const u = journeyCoordinate(GAME_BOUNDARIES, game.scrollTop);
       if (u !== null) writeLite(u, travel.lateral, yaw);
@@ -584,13 +587,16 @@ export function initGameController(deps) {
 
   // ---- degradation policy (spec 8.4): only sampled while input is actively
   // producing frames -- never a monitoring loop. ----------------------------
-  function recordSample(ms) {
+  function recordSample(ms, compiled) {
     if (game.mode !== '3d') return;
-    // The first frame after a world is built or restored compiles every
-    // shader. It is a one-off cost, not a frame rate: counted, a single such
-    // frame decides a whole window (p95 of 12 is the max), and a build plus
-    // one restore was enough to drop a capable device to Lite.
+    // A frame that links shader programs pays a one-off cost, not a frame
+    // rate: counted, a single such frame decides a whole window (p95 of 12 is
+    // the max), and a build plus one restore was enough to drop a capable
+    // device to Lite. The first frame after a world is built or restored
+    // compiles every visible material; materials first drawn later (zones
+    // culled at the start) compile on whichever travel frame shows them.
     if (game.perf.warmup) { game.perf.warmup = false; return; }
+    if (compiled) return;
     game.perf.samples.push(ms);
     if (game.perf.samples.length < SAMPLE_WINDOW) return;
     const window12 = game.perf.samples.splice(0, SAMPLE_WINDOW);
