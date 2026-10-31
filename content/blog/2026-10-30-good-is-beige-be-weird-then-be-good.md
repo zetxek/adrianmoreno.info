@@ -9,7 +9,7 @@ layout = "blog"
 
 The fastest way to become invisible right now is to be _competent_.
 
-Talking is cheap, I've known that for years 😅. Anyone can fill a meeting, restate the problem in more words, and sound busy while saying nothing. What changed is that being accurate is cheap too. A model will produce eight hundred plausible, correctly punctuated words in about ten seconds, name a framework, hand you three tidy bullets, and land a conclusion. It'll be right.
+Talk is cheap, and I've known that for years 😅. Anyone can fill a meeting, restate the problem in more words, and sound busy while saying nothing. What changed is that being accurate is cheap too. A model will produce eight hundred plausible, correctly punctuated words in about ten seconds, name a framework, hand you three tidy bullets, and land a conclusion. It'll be right.
 
 Which is exactly the problem. "Right" is free now, and free things stop being signals.
 
@@ -21,7 +21,7 @@ When you optimise for "good", you optimise toward the mean. Good is what's left 
 
 You've read that voice. It restates the question, adds a paragraph of context nobody requested, weighs three balanced considerations, and concludes that the answer depends. Flawless, and completely beige.
 
-Now put a model behind it. The model has read all of it, every beige post and article and breathless LinkedIn win, and when you ask it to improve your draft it will move you confidently toward the middle, because the middle is what "good" looks like on average.
+Now put a model behind it. The model has read all of it, every beige article and every breathless LinkedIn "win", and when you ask it to improve your draft it will move you confidently toward the middle, because the middle is what "good" looks like on average.
 
 This is why I've stopped asking models whether my writing is any good. They agree with everything. **"You're absolutely right" is the most expensive sentence in modern work**, and it bills you in taste, one polite confirmation at a time.
 
@@ -36,6 +36,18 @@ The brief isn't "be weird instead of good". It's weird and good at the same time
 Imagine two posts about the same idea. The first is technically perfect and could have been written by anyone with a style guide. The second starts with a sentence you'd only say out loud to a colleague you trust, has one paragraph that goes further than it strictly needs to, and ends somewhere slightly uncomfortable. The second one is the only one anybody remembers. It's also the one that could be wrong.
 
 That risk is the product. Not the prose.
+
+---
+
+## Positioning means picking a reader
+
+Memorable and liked-by-everyone pull in opposite directions. Nobody remembers the post that was fine for everybody. Memorable things are memorable to someone in particular: a person with a job, a problem, and a moment of "oh, that's me" somewhere in your second paragraph.
+
+That's what positioning is, and marketing people have known it forever. You choose who your audience is, and in doing so you choose who it's not for. Write for the average reader and you write for nobody, because the average reader doesn't exist. It's a statistical artefact, like averaging a Copenhagen January and a Spanish August and getting a pleasant spring day that never happens.
+
+A model can only aim at the middle. It has no idea who you're talking to unless you tell it, and even then it drifts back toward the crowd. Choosing the reader is a decision, and decisions are the part you can't delegate.
+
+So write for the ten people who'll forward it saying "this is exactly what I meant", and accept that the other ninety will scroll past. They were going to forget you anyway.
 
 ---
 
@@ -58,12 +70,12 @@ Authenticity gets treated as a personality trait. In practice it's a bill you ke
 2. **Give the model my position, not a topic.** "Sharpen this argument" produces something. "Write about authenticity" produces beige.
 3. **Ask it to argue against me.** Agreement is worthless. I want the strongest counter-case, so the version I publish has already survived contact.
 4. **Read it aloud.** Anything I wouldn't say to a person gets cut. This catches more slop than any prompt.
-5. **Keep one unfixable thing per piece.** A phrase, a reference, a joke that only lands if you know me. The Spanish sayings I translate and don't make sense in English. That's the fingerprint, and a model will happily sand it off.
+5. **Keep one unfixable thing per piece.** A phrase, a reference, a joke that only lands if you know me. The Spanish sayings I translate literally, even though they make no sense in English. That's the fingerprint, and a model will happily sand it off.
 
 ---
 
-None of this is nostalgia for sloppier writing. I like that the baseline went up. For the ones that were producing incoherent texts and can now generate some average, mild paragraphs - that's a substantial improvement.
+None of this is nostalgia for sloppier writing. I like that the baseline went up. If you used to produce incoherent text and now produce mild, average paragraphs, that's a real improvement.
 
 But when everyone can be accurate, accuracy stops being the differentiator, and **personality** becomes the only thing you can't generate on demand. You are the part of the work that a prompt can't reach.
 
-So be good. Genuinely, properly good. Obsessively good in whatever matters to you. Then, be specific enough that only you could have written it, and specific enough that it could fail. Being right is now table stakes. Being someone in particular is the whole game.
+So be good. Genuinely, properly good. Obsessively good in whatever matters to you. Then, be specific enough that only you could have written it, and specific enough that it could fail. Being right is now table stakes. Being someone in particular, for someone in particular, is the whole game.
