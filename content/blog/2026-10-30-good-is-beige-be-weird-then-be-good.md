@@ -35,7 +35,7 @@ You need both at once, weird and good, and that's much harder, because the two i
 
 Imagine two posts about the same idea. The first is technically perfect and could have been written by anyone with a style guide. The second starts with a sentence you'd only say out loud to a colleague you trust, has one paragraph that goes further than it strictly needs to, and ends somewhere slightly uncomfortable. The second one is the only one anybody remembers. It's also the one that could be wrong.
 
-And that risk is what makes it worth reading.
+And that risk is what makes it worth reading. Or buying, or hiring, for that matter.
 
 ---
 
