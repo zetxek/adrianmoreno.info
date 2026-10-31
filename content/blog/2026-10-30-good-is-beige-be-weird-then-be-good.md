@@ -29,13 +29,13 @@ This is why I've stopped asking models whether my writing is any good. They agre
 
 ## Weird is unique. Weird on its own is noise.
 
-Here's the part people skip. You can't simply decide to be weird. Weird without good is just another flavour of slop, and there is already an infinite amount of that.
+You can't just decide to be weird, though. Weird without good is another flavour of slop, and we already have an infinite supply of that.
 
-The brief isn't "be weird instead of good". It's weird and good at the same time, which is much harder, because those two instincts pull in opposite directions. Good wants the safest phrasing. Weird wants the true one.
+You need both at once, weird and good, and that's much harder, because the two instincts pull in opposite directions. Good wants the safest phrasing. Weird wants the true one.
 
 Imagine two posts about the same idea. The first is technically perfect and could have been written by anyone with a style guide. The second starts with a sentence you'd only say out loud to a colleague you trust, has one paragraph that goes further than it strictly needs to, and ends somewhere slightly uncomfortable. The second one is the only one anybody remembers. It's also the one that could be wrong.
 
-That risk is the product. Not the prose.
+And that risk is what makes it worth reading.
 
 ---
 
@@ -55,14 +55,14 @@ So be the obvious yes for the few, and an easy no for the rest. The rest were go
 
 ## What authenticity actually costs
 
-Authenticity gets treated as a personality trait. In practice it's a bill you keep paying, and here's what's on it.
+Authenticity gets treated as a personality trait, something you either have or you don't. To me it feels more like a bill that keeps arriving. Mine usually has four lines:
 
-- **An opinion you'd defend in a room.** Not a preference, a position. If nobody could disagree with what you wrote, you didn't say anything.
+- **An opinion you'd defend in a room.** A position with your name on it, one somebody could push back on. If nobody could disagree with what you wrote, you didn't say anything.
 - **A specific that cost you something.** A real number, a real constraint, the thing that went badly. Models can write "significant improvement" for free. Only you can write what actually happened.
 - **Willingness to be mildly disliked.** A percentage of readers will always want the beige version. That's the tax, and it's cheaper than being forgettable.
-- **Consistency about what you keep saying.** A voice is a set of arguments you return to. If every piece starts from scratch, you don't have a voice, you have a content calendar.
+- **Consistency about what you keep saying.** A voice is a set of arguments you keep coming back to. Start every piece from scratch and what you end up with is a content calendar.
 
-*(The giveaway in most AI-assisted writing isn't the vocabulary. It's that nothing in it costs the author anything.)*
+*(The giveaway in most AI-assisted writing is that nothing in it cost the author anything. The vocabulary is the least of it.)*
 
 ---
 
@@ -76,7 +76,7 @@ Authenticity gets treated as a personality trait. In practice it's a bill you ke
 
 ---
 
-None of this is nostalgia for sloppier writing. I like that the baseline went up. If you used to produce incoherent text and now produce mild, average paragraphs, that's a real improvement.
+To be clear, I like that the baseline went up. If you used to produce incoherent text and now produce mild, average paragraphs, that's a real improvement. Sloppy was never the goal.
 
 But when everyone can be accurate, accuracy stops being the differentiator, and **personality** becomes the only thing you can't generate on demand. You are the part of the work that a prompt can't reach.
 
