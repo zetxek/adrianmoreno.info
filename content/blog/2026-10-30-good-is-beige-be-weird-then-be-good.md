@@ -39,15 +39,17 @@ That risk is the product. Not the prose.
 
 ---
 
-## Positioning means picking a reader
+## Personality attracts. It also repels. Good.
 
-Memorable and liked-by-everyone pull in opposite directions. Nobody remembers the post that was fine for everybody. Memorable things are memorable to someone in particular: a person with a job, a problem, and a moment of "oh, that's me" somewhere in your second paragraph.
+This goes well beyond writing. Who hires you, who buys from you, who wants to work next to you: all of them are choosing between options that look roughly the same on paper. Same skills on the CV, same features on the pricing page, same "passionate about quality" on the About page. The thing that tips the decision is whether they remember you, and nobody remembers the option that was fine for everybody.
 
-That's what positioning is, and marketing people have known it forever. You choose who your audience is, and in doing so you choose who it's not for. Write for the average reader and you write for nobody, because the average reader doesn't exist. It's a statistical artefact, like averaging a Copenhagen January and a Spanish August and getting a pleasant spring day that never happens.
+That's what positioning is. You choose who you're for, and in doing so you choose who you're not for. Optimise for the average customer, the average hiring manager, the average colleague, and you're optimising for someone who doesn't exist. The average is a statistical artefact, like averaging a Copenhagen January and a Spanish August and getting a pleasant spring day that never happens.
 
-A model can only aim at the middle. It has no idea who you're talking to unless you tell it, and even then it drifts back toward the crowd. Choosing the reader is a decision, and decisions are the part you can't delegate.
+Personality does both jobs at once. The same trait that makes the right client think "finally, someone who gets it" makes the wrong one quietly close the tab. That rejection is the differentiation working. A company that wants a safe pair of hands for a safe project should hire someone else, and you both win when they figure that out from your first conversation instead of your third month.
 
-So write for the ten people who'll forward it saying "this is exactly what I meant", and accept that the other ninety will scroll past. They were going to forget you anyway.
+A model can't make this choice for you. It aims at the middle by design, and the middle is exactly the space where everyone is interchangeable. Deciding who you're for is a decision, and decisions are the part you can't delegate.
+
+So be the obvious yes for the few, and an easy no for the rest. The rest were going to forget you anyway.
 
 ---
 
