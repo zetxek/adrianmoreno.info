@@ -3,7 +3,6 @@ title = "People, your \"engagement AI automations\" are ge..."
 date = "2025-03-10T15:43:17Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7304889591239471105"
 originalDate = "March 10, 2025"

@@ -3,7 +3,6 @@ title = "Yes, you're an imposter. So am I and so is ever..."
 date = "2017-10-29T22:32:11Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6330531524433317888"
 sharedURL = "http://sethgodin.typepad.com/seths_blog/2017/10/imposter-syndrome.html"

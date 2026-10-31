@@ -1,5 +1,5 @@
 baseURL = "https://www.adrianmoreno.info/"
-languageCode = "en"
+locale = "en"
 DefaultContentLanguage = "en"
 title = "Adrián Moreno Peña | VP of Technology @ Worksome ⸱ Product & Engineering Leader (Copenhagen)"
 
@@ -64,7 +64,7 @@ target = "static/js/purify.min.js"
 [params]
 
 description = "VP of Technology at Worksome, leading Product, Engineering, and Design. Nearly two decades across Spain, the Netherlands, and Denmark — IC, founder, CTO, VP. I help companies align business strategy, product strategy, and engineering execution: scaling teams, sharpening GTM, and keeping technology sustainable as the business grows."
-images = ['/img/og-preview.png']
+images = ['/img/og-preview.jpg']
 
 # Header logo text - kept short/distinct from the long SEO `title` above.
 # See https://github.com/zetxek/adritian-free-hugo-theme/pull/561
@@ -77,7 +77,7 @@ homepageExperienceCount = 6
 [params.seo.person]
 name = "Adrián Moreno Peña"
 url = "https://www.adrianmoreno.info/"
-image = "/img/og-preview.png"
+image = "/img/og-preview.jpg"
 sameAs = [
   "https://www.linkedin.com/in/adrianmoreno/",
   "https://github.com/zetxek",
@@ -154,6 +154,8 @@ URL = "js/library/fontfaceobserver.js"
 URL = "scss/adritian.scss"
 [[params.plugins.scss]]
 URL = "scss/books.scss"
+[[params.plugins.scss]]
+URL = "scss/sections.scss"
 
 # navigation
 [menu]
@@ -171,17 +173,12 @@ weight = 3
 [[menu.header]]
 name = "Articles"
 url = "/blog"
-weight = 4
+weight = 1
 
 [[menu.header]]
-name = "Books"
-url = "/books"
-weight = 5
-
-#[[menu.header]]
-#name = "Speaking"
-#url = "/public-speaking"
-#weight = 6
+name = "Speaking"
+url = "/public-speaking"
+weight = 6
 
 [[menu.header]]
 name = "Contact"
@@ -193,7 +190,6 @@ pre = "search"
 name = "Search"
 url = "/search"
 weight = 8
-
 
 [[menu.footer]]
 name = "💁‍♂️ About"
@@ -222,9 +218,14 @@ url = "/now"
 weight = 6
 
 [[menu.footer]]
+name = "🏊 Game mode"
+pageRef = "/race"
+weight = 7
+
+[[menu.footer]]
 name = "🔒 Privacy"
 url = "/privacy"
-weight = 7
+weight = 8
 
 
 [taxonomies]

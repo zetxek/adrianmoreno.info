@@ -3,7 +3,6 @@ title = "Since joining Worksome, I have been engaged in ..."
 date = "2025-12-23T10:47:51Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7409182949386043393"
 originalDate = "December 23, 2025"

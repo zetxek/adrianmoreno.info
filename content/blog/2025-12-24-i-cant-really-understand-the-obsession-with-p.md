@@ -3,7 +3,6 @@ title = "I can't really understand the obsession with \"p..."
 date = "2025-12-24T13:01:44Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7409579030708015105"
 originalDate = "December 24, 2025"

@@ -3,7 +3,6 @@ title = "Very nice open source project for DIY de-contam..."
 date = "2020-04-10T12:34:24Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6654355841946316800"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6653697155565527040/"

@@ -1,0 +1,12 @@
+{{/* Mobile progress dock (below 64rem): assets/js/race/index.js reveals it,
+     and reparents the athlete marker into it, once eligibility and layout
+     are known. It does not live inside the world's aria-hidden subtree.
+     .race-mobile-dock__label carries the same per-chapter scene caption the
+     desktop .race-readout shows (binding continuity spec section 6.2: "dock
+     text shows the current scene caption and integer chapter percentage"),
+     not the short nav label -- this is the only journey-continuity cue
+     available below 64rem, where the 3D world never loads. */}}
+<div class="race-mobile-dock" hidden>
+  <div class="race-mobile-dock__marker" aria-hidden="true"></div>
+  <p class="race-mobile-dock__label"></p>
+</div>

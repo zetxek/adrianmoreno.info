@@ -3,7 +3,6 @@ title = "While one could think \"why celebrate if we're e..."
 date = "2023-03-22T16:57:09Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7044351307083579392"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7044283108413571072/"

@@ -3,7 +3,6 @@ title = "Very excited to be invited to the panel to disc..."
 date = "2024-11-10T19:26:05Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7261459118794690561"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7261361964478586880/"

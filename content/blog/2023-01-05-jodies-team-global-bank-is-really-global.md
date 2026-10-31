@@ -3,7 +3,6 @@ title = "Jodie's team (Global Bank) is really global 🌏, ..."
 date = "2023-01-05T09:45:51Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7016701289614958592"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7015398959510659072/"

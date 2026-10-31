@@ -3,7 +3,6 @@ title = "I don't know who needs to hear this - but I wou..."
 date = "2025-06-19T17:01:54Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7341510552357081089"
 originalDate = "June 19, 2025"

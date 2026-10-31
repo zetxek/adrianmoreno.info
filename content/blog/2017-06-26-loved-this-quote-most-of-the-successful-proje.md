@@ -3,7 +3,6 @@ title = "Loved this quote: \"Most of the successful proje..."
 date = "2017-06-26T23:18:17Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6285244642879504384"
 sharedURL = "http://firstround.com/review/the-best-advice-we-overheard-at-first-rounds-cto-unconference"

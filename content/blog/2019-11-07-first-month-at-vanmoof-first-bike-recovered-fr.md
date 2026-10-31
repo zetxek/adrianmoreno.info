@@ -3,7 +3,6 @@ title = "First month at VanMoof, first bike recovered fr..."
 date = "2019-11-07T12:20:07Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6598182127362207744"
 originalDate = "November 7, 2019"

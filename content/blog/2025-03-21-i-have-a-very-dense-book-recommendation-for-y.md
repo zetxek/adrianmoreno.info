@@ -3,7 +3,6 @@ title = "I have a (very dense) book recommendation for y..."
 date = "2025-03-21T18:35:10Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7308919114306084864"
 originalDate = "March 21, 2025"

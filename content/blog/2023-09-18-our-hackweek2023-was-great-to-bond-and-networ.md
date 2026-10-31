@@ -3,7 +3,6 @@ title = "Our #hackweek2023 was great to bond, and networ..."
 date = "2023-09-18T19:42:43Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7109622787828314112"
 originalDate = "September 18, 2023"

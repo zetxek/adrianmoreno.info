@@ -3,7 +3,6 @@ title = "💳 In a time where payments get more expensive i..."
 date = "2023-12-07T12:45:53Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7138508919366160384"
 sharedURL = "https://detailwatch.dk/article16664215.ece"

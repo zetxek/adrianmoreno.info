@@ -3,7 +3,7 @@ title: "Blog"
 url: blog
 layout: "blog"
 cascade:
-  - _target:
+  - target:
       kind: page
     outputs: ["HTML", "email"]
 ---

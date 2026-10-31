@@ -142,14 +142,28 @@ func TestHtmlToMarkdown_ConvertsHeaders(t *testing.T) {
 
 	result := htmlToMarkdown(input)
 
-	if !strings.Contains(result, "# Main Title") {
-		t.Errorf("H1 should become '# Main Title', got: %s", result)
+	// H1 is demoted to h2 because the Hugo layout renders the page's H1
+	// from the front-matter title; see htmlToMarkdown's header comment.
+	if !strings.Contains(result, "## Main Title") {
+		t.Errorf("H1 should become '## Main Title', got: %s", result)
 	}
 	if !strings.Contains(result, "## Subtitle") {
 		t.Errorf("H2 should become '## Subtitle', got: %s", result)
 	}
 	if !strings.Contains(result, "### Section") {
 		t.Errorf("H3 should become '### Section', got: %s", result)
+	}
+}
+
+func TestHtmlToMarkdown_NeverEmitsH1(t *testing.T) {
+	input := `<h1>Main Title</h1><h2>Subtitle</h2><h3>Section</h3><h4>Detail</h4>`
+
+	result := htmlToMarkdown(input)
+
+	for _, line := range strings.Split(result, "\n") {
+		if strings.HasPrefix(line, "# ") {
+			t.Errorf("converted output must not contain an H1 line, got: %q in: %s", line, result)
+		}
 	}
 }
 

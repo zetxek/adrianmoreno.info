@@ -3,7 +3,6 @@ title = "We're hiring for a super interesting position, ..."
 date = "2022-05-23T16:04:49Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6934534613482528768"
 originalDate = "May 23, 2022"

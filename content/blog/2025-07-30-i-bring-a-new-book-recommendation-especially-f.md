@@ -3,7 +3,6 @@ title = "I bring a new book recommendation, especially f..."
 date = "2025-07-30T20:43:40Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7356424264901656577"
 originalDate = "July 30, 2025"

@@ -3,7 +3,6 @@ title = "If there's a mantra that the teams I work with ..."
 date = "2024-03-03T18:33:05Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7170124036411179008"
 originalDate = "March 3, 2024"

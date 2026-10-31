@@ -3,7 +3,6 @@ title = "Great recap by our David of the results of the ..."
 date = "2023-07-15T21:04:32Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7086088168290021376"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7085893358035841024/"

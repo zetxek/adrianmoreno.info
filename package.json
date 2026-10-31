@@ -19,16 +19,17 @@
     }
   },
   "dependencies": {
-    "dompurify": "^3.4.14",
+    "dompurify": "^3.4.17",
     "fuse.js": "^7.5.0",
-    "node-gyp": "^13.0.2",
-    "playwright": "^1.62.0"
+    "node-gyp": "^13.1.0",
+    "playwright": "^1.64.1"
   },
   "scripts": {
     "test": "npm run test:e2e",
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install",
     "test:unit": "node --test \"tests/unit/**/*.test.mjs\"",
+    "race:city-cards": "node scripts/race/render-city-cards.mjs",
     "newsletter:send": "node scripts/newsletter/send.mjs",
     "newsletter:dry-run": "node scripts/newsletter/send.mjs --dry-run",
     "cv:dev": "hugo serve",
@@ -38,19 +39,19 @@
   "description": "JS automations for adrianmoreno.info",
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^8.0.0",
-    "@playwright/test": "^1.62.1",
+    "@playwright/test": "^1.64.1",
     "@zetxek/adritian-theme-helper": "^1.0.5",
-    "autoprefixer": "^10.5.4",
+    "autoprefixer": "^10.6.1",
     "bootstrap": "^5.3.8",
     "bootstrap-print-css": "^1.0.0",
-    "browser-sync": "^3.0.4",
-    "critical": "^8.0.0",
-    "del": "^8.0.1",
-    "juice": "^12.1.2",
-    "postcss": "^8.5.26",
-    "postcss-cli": "^11.0.1",
+    "critical": "^9.0.0",
+    "del": "^9.0.1",
+    "juice": "^12.2.0",
+    "postcss": "^8.5.30",
+    "postcss-cli": "^12.0.0",
     "postcss-flexbugs-fixes": "^5.0.2",
-    "qrcode": "^1.5.4"
+    "qrcode": "^1.5.4",
+    "three": "^0.186.1"
   },
   "engines": {
     "node": ">=22",

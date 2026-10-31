@@ -3,7 +3,6 @@ title = "More fuel to deliver on our vision: to create a..."
 date = "2023-12-11T12:53:21Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7139960351504097280"
 originalDate = "December 11, 2023"

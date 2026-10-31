@@ -3,7 +3,6 @@ title = "And in an age when innovation is increasingly a..."
 date = "2014-02-23T02:00:51Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A5843166330370805769"
 originalDate = "February 23, 2014"

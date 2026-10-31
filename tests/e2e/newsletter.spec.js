@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 test.describe('newsletter signup', () => {
   test('the form renders on the newsletter page', async ({ page }) => {
     await page.goto('/newsletter/');
-    const form = page.locator('#rad-subscription').first();
+    const form = page.locator('form[id^="rad-subscription"]').first();
     await expect(form).toBeVisible();
     await expect(form).toHaveAttribute('action', '/api/subscribe');
   });
@@ -12,7 +12,7 @@ test.describe('newsletter signup', () => {
     // /newsletter/ renders the block twice: its own, plus the footer. Only the
     // first was initialised before, leaving the footer form silently dead.
     await page.goto('/newsletter/');
-    const forms = page.locator('[id="rad-subscription"]');
+    const forms = page.locator('form[id^="rad-subscription"]');
     const count = await forms.count();
     expect(count).toBeGreaterThan(1);
 
@@ -21,13 +21,57 @@ test.describe('newsletter signup', () => {
     }
   });
 
+  test("each instance also gets the site's own styling, not just the legacy-id one", async ({ page }) => {
+    // assets/css/custom.css styles the newsletter button and the pill's focus
+    // state. The theme suffixes the ids of whichever instance would otherwise
+    // collide (PR #635), so any rule keyed on one exact id silently skips the
+    // suffixed instance — which is how the page's own form lost its button
+    // styling and its focus ring. Both copies have to come out identical.
+    await page.goto('/newsletter/');
+
+    const forms = page.locator('form[id^="rad-subscription"]');
+    const groups = page.locator('.rad-subscription-group');
+    expect(await forms.count()).toBe(2);
+    expect(await groups.count()).toBe(2);
+
+    for (let i = 0; i < 2; i++) {
+      const submit = forms.nth(i).locator('[id$="-submit"]');
+      await expect(submit).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+      await expect(submit).toHaveCSS('color', 'rgb(0, 0, 0)');
+
+      await forms.nth(i).locator('[id$="-email"]').focus();
+      await expect(groups.nth(i)).toHaveCSS('border-color', 'rgba(71, 128, 121, 0.6)');
+    }
+  });
+
+  test('no id on the page is duplicated', async ({ page }) => {
+    // Theme PR #635 fixed exactly this: rendering the newsletter block twice
+    // used to emit the same ids twice. This page is the one place a
+    // first-party site does that, so it's the place to guard the regression.
+    await page.goto('/newsletter/');
+    const ids = await page.locator('[id]').evaluateAll((elements) => elements.map((el) => el.id));
+    const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
+    expect(duplicates).toEqual([]);
+  });
+
+  test("the footer's form keeps the legacy unsuffixed ids for backwards compatibility", async ({ page }) => {
+    // The theme suffixes the page's own block with "-content" but
+    // deliberately leaves the footer's copy (always last in the document)
+    // unsuffixed, so sites already embedding the old markup keep working.
+    await page.goto('/newsletter/');
+    const legacyForm = page.locator('form[id^="rad-subscription"]').last();
+    await expect(legacyForm).toHaveAttribute('id', 'rad-subscription');
+    await expect(legacyForm.locator('[id="rad-subscription-email"]')).toHaveCount(1);
+    await expect(legacyForm.locator('[id="rad-subscription-submit"]')).toHaveCount(1);
+  });
+
   test('the last form on the page can submit successfully', async ({ page }) => {
     await page.goto('/newsletter/');
     await page.route('**/api/subscribe', (route) =>
       route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' }),
     );
 
-    const form = page.locator('[id="rad-subscription"]').last();
+    const form = page.locator('form[id^="rad-subscription"]').last();
     await form.locator('[id="rad-subscription-email"]').fill('reader@example.com');
     await form.locator('[id="rad-subscription-submit"]').click();
 
@@ -115,7 +159,7 @@ test.describe('newsletter signup', () => {
       route.fulfill({ status: 400, contentType: 'application/json', body: '{"error":"invalid_email"}' }),
     );
 
-    const form = page.locator('[id="rad-subscription"]').first();
+    const form = page.locator('form[id^="rad-subscription"]').last();
     await form.locator('[id="rad-subscription-email"]').fill('user@ss');
     await form.locator('[id="rad-subscription-submit"]').click();
 
@@ -173,7 +217,7 @@ test.describe('newsletter signup', () => {
     await page.locator('#rad-subscription-submit').first().click();
 
     await expect(page.locator('#rad-subscription-success').first()).toBeVisible();
-    await expect(page.locator('#rad-subscription').first()).toBeHidden();
+    await expect(page.locator('form[id^="rad-subscription"]').last()).toBeHidden();
   });
 
   test('a server error reveals the error message and leaves the form usable', async ({ page }) => {
@@ -183,7 +227,7 @@ test.describe('newsletter signup', () => {
       route.fulfill({ status: 503, body: '{"error":"temporarily_unavailable"}' }),
     );
 
-    const form = page.locator('[id="rad-subscription"]').first();
+    const form = page.locator('form[id^="rad-subscription"]').last();
     await form.locator('[id="rad-subscription-email"]').fill('reader@example.com');
     await form.locator('[id="rad-subscription-submit"]').click();
 
@@ -217,7 +261,7 @@ test.describe('newsletter signup', () => {
       );
     });
 
-    const form = page.locator('[id="rad-subscription"]').first();
+    const form = page.locator('form[id^="rad-subscription"]').last();
     await form.locator('[id="rad-subscription-email"]').fill('reader@example.com');
     await form.locator('[id="rad-subscription-submit"]').click();
     await expect(page.locator('[id="rad-subscription-fail"]').first()).toBeVisible();
@@ -238,7 +282,7 @@ test.describe('newsletter signup', () => {
       route.fulfill({ status: 503, contentType: 'application/json', body: '{"error":"temporarily_unavailable"}' }),
     );
 
-    const form = page.locator('[id="rad-subscription"]').first();
+    const form = page.locator('form[id^="rad-subscription"]').last();
     await form.locator('[id="rad-subscription-email"]').fill('reader@example.com');
     const submit = form.locator('[id="rad-subscription-submit"]');
     await submit.click();

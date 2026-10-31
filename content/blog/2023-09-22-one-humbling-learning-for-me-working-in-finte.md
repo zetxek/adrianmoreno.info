@@ -3,7 +3,6 @@ title = "One (humbling) learning for me working in Finte..."
 date = "2023-09-22T11:22:13Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7110946387965407234"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7110586960548638720/"

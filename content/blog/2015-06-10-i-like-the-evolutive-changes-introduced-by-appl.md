@@ -3,7 +3,6 @@ title = "I like the evolutive changes introduced by Appl..."
 date = "2015-06-10T20:58:34Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6014505747117862912"
 sharedURL = "https://developer.apple.com/swift/blog/?id=29"

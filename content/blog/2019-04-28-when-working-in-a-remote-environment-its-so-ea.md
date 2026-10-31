@@ -3,7 +3,6 @@ title = "When working in a remote environment it's so ea..."
 date = "2019-04-28T20:28:26Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6528364159455756289"
 originalDate = "April 28, 2019"

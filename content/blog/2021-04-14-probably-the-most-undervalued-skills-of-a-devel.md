@@ -3,7 +3,6 @@ title = "Probably the most undervalued skills of a devel..."
 date = "2021-04-14T13:45:04Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6788094747325014016"
 originalDate = "April 14, 2021"

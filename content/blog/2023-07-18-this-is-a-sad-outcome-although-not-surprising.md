@@ -3,7 +3,6 @@ title = "This is a sad outcome - although not surprising..."
 date = "2023-07-18T09:27:31Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7086999919827267585"
 originalDate = "July 18, 2023"

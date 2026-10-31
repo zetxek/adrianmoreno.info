@@ -3,7 +3,6 @@ title = "I love the ad that our colleagues in Chile have..."
 date = "2021-08-12T08:21:16Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A6831499804296650752"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6831255355826216960/"

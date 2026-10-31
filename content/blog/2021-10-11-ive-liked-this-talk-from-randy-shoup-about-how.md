@@ -3,7 +3,6 @@ title = "I've liked this talk from Randy Shoup about how..."
 date = "2021-10-11T07:51:02Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6853235465500315648"
 originalDate = "October 11, 2021"

@@ -3,7 +3,6 @@ title = "Engineering Managers in my network - the chance..."
 date = "2024-02-29T21:01:30Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7169074225595584512"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7169011034941292544/"

@@ -3,7 +3,6 @@ title = "Together with my colleagues at Emakina.NL we're..."
 date = "2018-11-07T15:52:12Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6465963931092475905"
 sharedURL = "https://movember.com/team/2326602"

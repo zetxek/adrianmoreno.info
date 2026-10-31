@@ -3,7 +3,6 @@ title = "This year I culminated a process in which I hav..."
 date = "2021-12-21T20:46:08Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A6879160066663100417"
 originalDate = "December 21, 2021"

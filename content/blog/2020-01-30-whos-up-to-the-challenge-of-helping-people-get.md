@@ -3,7 +3,6 @@ title = "Who's up to the challenge of helping people get..."
 date = "2020-01-30T23:18:23Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6628788367100256256"
 originalDate = "January 30, 2020"

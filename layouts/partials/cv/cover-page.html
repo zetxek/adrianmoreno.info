@@ -1,13 +1,13 @@
-{{ $cl := site.Data.cv.cover_letter }}
+{{ $cl := hugo.Data.cv.cover_letter }}
 <main class="cv cv--cover">
   {{/* HEADER (same as CV page) */}}
   <header class="cv__header">
     <div class="cv__header-inner">
-      <h1 class="cv__name">{{ site.Data.cv.header.name }}</h1>
-      <p class="cv__title">{{ site.Data.cv.header.title }}</p>
+      <h1 class="cv__name">{{ hugo.Data.cv.header.name }}</h1>
+      <p class="cv__title">{{ hugo.Data.cv.header.title }}</p>
     </div>
     {{ with resources.Get "cv-qr.svg" }}
-    <a class="cv__qr" href="{{ site.Data.cv.footer.qr_target }}" aria-label="Open CV online">
+    <a class="cv__qr" href="{{ hugo.Data.cv.footer.qr_target }}" aria-label="Open CV online">
       {{ .Content | safeHTML }}
     </a>
     {{ end }}
@@ -32,7 +32,7 @@
   </div>
 
   <footer class="cv__footer">
-    <span>{{ site.Data.cv.footer.url }}</span>
+    <span>{{ hugo.Data.cv.footer.url }}</span>
     <span class="cv__updated">Last updated: {{ now.Format "2006-01-02" }}</span>
   </footer>
 </main>

@@ -3,7 +3,6 @@ title = "What a blast this event is!"
 date = "2022-05-12T15:06:06Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Engineering & Product"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6930533571593920513"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6929846712240877568/"

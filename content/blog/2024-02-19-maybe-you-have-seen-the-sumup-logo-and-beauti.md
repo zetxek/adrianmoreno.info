@@ -3,7 +3,6 @@ title = "🇩🇰Maybe you have seen the SumUp logo and beauti..."
 date = "2024-02-19T15:28:11Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7165366466203136000"
 originalDate = "February 19, 2024"

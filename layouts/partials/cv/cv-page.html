@@ -2,18 +2,18 @@
   {{/* HEADER */}}
   <header class="cv__header">
     <div class="cv__header-inner">
-      <h1 class="cv__name">{{ site.Data.cv.header.name }}</h1>
-      <p class="cv__title">{{ site.Data.cv.header.title }}</p>
+      <h1 class="cv__name">{{ hugo.Data.cv.header.name }}</h1>
+      <p class="cv__title">{{ hugo.Data.cv.header.title }}</p>
     </div>
     {{ with resources.Get "cv-qr.svg" }}
-    <a class="cv__qr" href="{{ site.Data.cv.footer.qr_target }}" aria-label="Open CV online">
+    <a class="cv__qr" href="{{ hugo.Data.cv.footer.qr_target }}" aria-label="Open CV online">
       {{ .Content | safeHTML }}
     </a>
     {{ end }}
   </header>
 
   {{/* SUMMARY */}}
-  {{ with site.Data.cv.summary }}
+  {{ with hugo.Data.cv.summary }}
   <section class="cv__summary"><p>{{ . }}</p></section>
   {{ end }}
 
@@ -90,7 +90,7 @@
     <aside class="cv__sidebar">
 
       {{/* SKILLS */}}
-      {{ with site.Data.cv.skills }}
+      {{ with hugo.Data.cv.skills }}
       <section class="cv-skills">
         <h2 class="cv__section-title">Skills</h2>
         {{ range . }}
@@ -106,20 +106,20 @@
       <section class="cv-info">
         <h2 class="cv__section-title">Information</h2>
         <dl class="cv-info__list">
-          <dt>Name</dt>        <dd>{{ site.Data.cv.information.name }}</dd>
-          <dt>Nationality</dt> <dd>{{ site.Data.cv.information.nationality }}</dd>
+          <dt>Name</dt>        <dd>{{ hugo.Data.cv.information.name }}</dd>
+          <dt>Nationality</dt> <dd>{{ hugo.Data.cv.information.nationality }}</dd>
           <dt>Languages</dt>
           <dd>
             <ul class="cv-info__langs">
-              {{ range site.Data.cv.information.languages }}<li>{{ . }}</li>{{ end }}
+              {{ range hugo.Data.cv.information.languages }}<li>{{ . }}</li>{{ end }}
             </ul>
           </dd>
-          <dt>Phone</dt> <dd><a href="tel:{{ site.Data.cv.information.phone }}">{{ site.Data.cv.information.phone }}</a></dd>
-          <dt>Email</dt> <dd><a href="mailto:{{ site.Data.cv.information.email }}">{{ site.Data.cv.information.email }}</a></dd>
+          <dt>Phone</dt> <dd><a href="tel:{{ hugo.Data.cv.information.phone }}">{{ hugo.Data.cv.information.phone }}</a></dd>
+          <dt>Email</dt> <dd><a href="mailto:{{ hugo.Data.cv.information.email }}">{{ hugo.Data.cv.information.email }}</a></dd>
           <dt>Online</dt>
           <dd>
             <ul class="cv-info__links">
-              {{ range site.Data.cv.information.links }}
+              {{ range hugo.Data.cv.information.links }}
               <li>
                 <a href="{{ .url }}" aria-label="{{ .label }}" title="{{ .label }}">
                   {{ if eq .icon "linkedin" }}
@@ -155,7 +155,7 @@
       <section class="cv-courses">
         <h2 class="cv__section-title">Courses &amp; other</h2>
         <ul class="cv-courses__list">
-          {{ range site.Data.cv.courses }}
+          {{ range hugo.Data.cv.courses }}
           <li>
             <strong>{{ .title }}</strong>
             {{ with .detail }}<span class="cv-courses__detail">{{ . }}</span>{{ end }}
@@ -168,7 +168,7 @@
   </div>
 
   <footer class="cv__footer">
-    <span>{{ site.Data.cv.footer.url }}</span>
+    <span>{{ hugo.Data.cv.footer.url }}</span>
     <span class="cv__updated">Last updated: {{ now.Format "2006-01-02" }}</span>
   </footer>
 </main>

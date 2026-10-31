@@ -3,7 +3,6 @@ title = "New podcast announcement 🎙️: This was a quite n..."
 date = "2023-07-26T20:15:39Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7090062131366092800"
 originalDate = "July 26, 2023"

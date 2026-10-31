@@ -3,7 +3,6 @@ title = "Being a direct B2C company where we sell our bi..."
 date = "2020-09-21T07:56:06Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6713717414565056512"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6713712754135457793/"

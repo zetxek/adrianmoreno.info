@@ -3,7 +3,6 @@ title = "Hey, vrienden in Nederland 🇳🇱 - if you want to ..."
 date = "2023-08-22T20:23:58Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7099848698431459328"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:7099692030989074433/"

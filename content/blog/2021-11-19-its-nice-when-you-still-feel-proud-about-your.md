@@ -3,7 +3,6 @@ title = "It's nice when you still feel proud about your ..."
 date = "2021-11-19T08:22:53Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6867376608471207936"
 originalDate = "November 19, 2021"

@@ -3,7 +3,6 @@ title = "I met Zahra during the React meetup we hosted i..."
 date = "2023-05-04T12:48:42Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7059871460307152897"
 originalDate = "May 4, 2023"

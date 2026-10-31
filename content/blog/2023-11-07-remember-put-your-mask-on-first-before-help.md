@@ -3,7 +3,6 @@ title = "🛫 \"Remember, put your mask on first before help..."
 date = "2023-11-07T21:43:29Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7127772572196212737"
 originalDate = "November 7, 2023"

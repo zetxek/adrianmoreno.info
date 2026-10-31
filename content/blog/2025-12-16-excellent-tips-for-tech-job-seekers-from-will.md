@@ -3,7 +3,6 @@ title = "Excellent tips for tech job seekers from Will."
 date = "2025-12-16T16:16:52Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7406729033603973120"
 originalDate = "December 16, 2025"

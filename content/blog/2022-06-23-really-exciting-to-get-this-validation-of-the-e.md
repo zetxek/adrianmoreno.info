@@ -3,7 +3,6 @@ title = "Really exciting to get this validation of the e..."
 date = "2022-06-23T19:10:19Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6945815319626059776"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6945657732993593344/"

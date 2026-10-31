@@ -3,7 +3,6 @@ title = "Interesting to see how a piece of software engi..."
 date = "2023-01-02T20:13:12Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7015772004129644544"
 originalDate = "January 2, 2023"

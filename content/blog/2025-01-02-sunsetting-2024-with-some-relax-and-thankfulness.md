@@ -3,7 +3,6 @@ title = "Sunsetting 2024 with some relax… and thankfulness!"
 date = "2025-01-02T07:54:58Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["General"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7280491749565714432"
 originalDate = "January 2, 2025"

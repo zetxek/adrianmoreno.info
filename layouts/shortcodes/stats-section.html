@@ -1,0 +1,21 @@
+{{/*
+  A section of headline figures, filled with nested `stat` shortcodes.
+  title, subtitle, sectionId: as in text-section.
+  layout: "grid" (default, tiles) or "list" (one row per stat, figure on the left).
+*/}}
+{{ $sectionId := .Get "sectionId" | default "" }}
+{{ $title := .Get "title" | default "" }}
+{{ $subtitle := .Get "subtitle" | default "" }}
+{{ $layout := .Get "layout" | default "grid" }}
+
+<section {{ if $sectionId }}id="{{ $sectionId }}" {{ end }}class="section section--border-bottom section--padding rad-animation-group">
+    <div class="container">
+        <div class="row rad-fade-down">
+            <div class="col-12">
+                {{ if $title }}<h2 class="section__title">{{ $title }}</h2>{{ end }}
+                {{ if $subtitle }}<p class="section__subtitle">{{ $subtitle }}</p>{{ end }}
+                <div class="stats stats--{{ $layout }}" role="list">{{ .Inner }}</div>
+            </div>
+        </div>
+    </div>
+</section>

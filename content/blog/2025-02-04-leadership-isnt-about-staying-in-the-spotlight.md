@@ -3,7 +3,6 @@ title = "Leadership isn't about staying in the spotlight..."
 date = "2025-02-04T21:41:33Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7292658564781740034"
 originalDate = "February 4, 2025"

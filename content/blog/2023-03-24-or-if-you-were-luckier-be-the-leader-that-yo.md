@@ -3,7 +3,6 @@ title = "Or if you were luckier... be the leader that yo..."
 date = "2023-03-24T22:34:31Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7045160984117698560"
 originalDate = "March 24, 2023"

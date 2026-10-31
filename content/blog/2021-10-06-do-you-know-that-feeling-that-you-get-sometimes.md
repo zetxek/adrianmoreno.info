@@ -3,7 +3,6 @@ title = "Do you know that feeling that you get sometimes..."
 date = "2021-10-06T08:18:56Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6851430551560187905"
 originalDate = "October 6, 2021"

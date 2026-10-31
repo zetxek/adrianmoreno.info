@@ -3,7 +3,6 @@ title = "Don’t partner with cynics and pessimists. Their..."
 date = "2023-02-12T16:26:40Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7030572897538572289"
 originalDate = "February 12, 2023"

@@ -3,7 +3,6 @@ title = "If there's something that I HATE (with the capi..."
 date = "2022-01-29T20:51:37Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6893294574538768384"
 originalDate = "January 29, 2022"

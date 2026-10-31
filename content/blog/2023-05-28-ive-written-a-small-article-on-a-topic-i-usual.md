@@ -3,7 +3,6 @@ title = "I've written a small article on a topic I usual..."
 date = "2023-05-28T14:12:17Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7068589802677264384"
 originalDate = "May 28, 2023"

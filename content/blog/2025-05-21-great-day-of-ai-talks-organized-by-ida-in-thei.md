@@ -3,7 +3,6 @@ title = "Great day of AI talks organized by IDA, in thei..."
 date = "2025-05-21T05:08:44Z"
 draft = false
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7330821829634297856"
 originalDate = "May 21, 2025"

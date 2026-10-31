@@ -3,7 +3,6 @@ title = "Are you into the mobile industry and want to wo..."
 date = "2015-08-21T09:28:58Z"
 draft = true
 tags = ["linkedin", "imported", "share"]
-categories = ["Professional"]
 layout = "blog"
 originalURL = "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A6040424130329792512"
 resharedPostURL = "https://www.linkedin.com/feed/update/urn:li:activity:6039711159337181184/"
