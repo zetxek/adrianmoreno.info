@@ -91,35 +91,28 @@ test.describe('Experience Page', () => {
     await expect(page.locator('header nav a[href*="#experience-single"]')).toBeVisible();
     await expect(page.locator('header nav a[href*="#contact"]')).toBeVisible();
 
-    // Test navigation to About section
-    // force:true bypasses actionability checks (visible/stable) that fail in Chrome headless
-    // when the smooth-scroll library animates the header between clicks
-    await page.click('header a[href*="#about"]', { force: true });
-    await expect(page).toHaveURL(/.*#about/);
-    // The About link lives on the homepage, so this click triggers a full page
-    // navigation, after which the browser performs its own smooth anchor scroll
-    // (CSS `scroll-behavior: smooth`). Clicks dispatched while that scroll is
-    // still running are silently dropped by Chromium — wait until scrollY stops
-    // changing before clicking the next link.
-    await page.waitForLoadState('load');
-    await page.waitForFunction(
-      () => new Promise((resolve) => {
-        let prev = -1;
-        const id = setInterval(() => {
-          if (window.scrollY === prev) { clearInterval(id); resolve(true); }
-          prev = window.scrollY;
-        }, 100);
-      })
-    );
-
-    // Test navigation to Experience section
-    await page.click('header a[href*="#experience-single"]', { force: true });
-    await expect(page).toHaveURL(/.*#experience-single/);
-
-    // Test navigation to Contact section
-    await page.click('header a[href*="#contact"]', { force: true });
-    await expect(page).toHaveURL(/.*#contact/);
-  });
+    // Test navigation to each header link, each from a fresh homepage.
+    //
+    // Chaining the clicks (click `#about`, land on `/`, immediately click
+    // `#experience-single`) raced the browser's own fragment scroll: on a loaded
+    // runner the second click was dispatched before the page had been scrolled
+    // and laid out, landed on `<html>` instead of the link, and the URL never
+    // changed — that dropped click is the CI flake this test used to fail with.
+    // Starting every click from `goto('/')` gives each one the same settled
+    // state.
+    //
+    // No `force: true`: the actionability checks it bypasses (visible, stable,
+    // receives pointer events) are exactly what catches a dropped click, and the
+    // smooth-scroll library pushes the hash synchronously, so the URL assertion
+    // does not race its animation.
+    for (const target of ['#about', '#experience-single', '#contact']) {
+     await page.goto('/');
+     await page.locator(`header a[href*="${target}"]`).click();
+     await expect(page).toHaveURL(new RegExp(`.*${target}`));
+     // …and the browser really did scroll that section into view.
+     await expect(page.locator(target)).toBeInViewport();
+    }
+    });
 
   test('should have clickable experience entry links', async ({ page }) => {
     await page.goto('/experience');
