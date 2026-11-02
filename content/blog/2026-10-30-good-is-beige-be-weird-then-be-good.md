@@ -1,5 +1,5 @@
 +++
-title = "Good Is Beige. Be Weird, Then Be Good."
+title = "Good Is Beige. Have a Spine."
 date = 2026-10-30T09:30:00+01:00
 draft = false
 tags = ["ai", "authenticity", "writing", "leadership"]
@@ -27,11 +27,13 @@ This is why I've stopped asking models whether my writing is any good. They agre
 
 ---
 
-## Weird is unique. Weird on its own is noise.
+## Personality needs a spine
 
-You can't just decide to be weird, though. Weird without good is another flavour of slop, and we already have an infinite supply of that.
+Personality often gets confused with quirkiness: the funny socks, the emoji in the commit messages, the contrarian take for the sake of it. That's decoration. On its own it's another flavour of slop, and we already have an infinite supply of that.
 
-You need both at once, weird and good, and that's much harder, because the two instincts pull in opposite directions. Good wants the safest phrasing. Weird wants the true one.
+What I mean is having a spine. Saying what you actually think, putting your name next to it, and staying put when someone pushes back. Daring to stand out, knowing some people will roll their eyes.
+
+And you need that on top of being good, which is much harder, because the two instincts pull in opposite directions. Good wants the safest phrasing. A spine wants the true one.
 
 Imagine two posts about the same idea. The first is technically perfect and could have been written by anyone with a style guide. The second starts with a sentence you'd only say out loud to a colleague you trust, has one paragraph that goes further than it strictly needs to, and ends somewhere slightly uncomfortable. The second one is the only one anybody remembers. It's also the one that could be wrong.
 
