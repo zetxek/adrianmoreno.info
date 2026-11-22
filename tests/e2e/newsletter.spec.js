@@ -39,8 +39,15 @@ test.describe('newsletter signup', () => {
       await expect(submit).toHaveCSS('background-color', 'rgb(255, 255, 255)');
       await expect(submit).toHaveCSS('color', 'rgb(0, 0, 0)');
 
-      await forms.nth(i).locator('[id$="-email"]').focus();
-      await expect(groups.nth(i)).toHaveCSS('border-color', 'rgba(71, 128, 121, 0.6)');
+      // The border colour comes from the theme's --bs-primary-rgb (custom.css
+       // derives it from that variable so both copies follow the theme's primary).
+       // Read it instead of pinning the hex: a colour-only theme change (v1.14.1,
+       // PR #689, darkened the primary to #41766f) would otherwise fail here.
+       const primaryRgb = await page.evaluate(() =>
+        getComputedStyle(document.documentElement).getPropertyValue('--bs-primary-rgb').trim()
+       );
+       await forms.nth(i).locator('[id$="-email"]').focus();
+       await expect(groups.nth(i)).toHaveCSS('border-color', `rgba(${primaryRgb}, 0.6)`);
     }
   });
 

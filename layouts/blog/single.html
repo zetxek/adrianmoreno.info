@@ -84,37 +84,45 @@
 
     {{/* Original LinkedIn article link and reshared post - only shown for imported posts */}}
     {{ if or (and .Params.originalURL .Params.originalDate) .Params.resharedPostURL }}
-    <aside class="original-source light-border-top">
-      <p class="text-muted">
-        {{ if and .Params.originalURL .Params.originalDate }}
-        <i class="icon-linkedin"></i>
-        Original {{ if .Params.resharedPostURL }}reshare{{ else }}post{{ end }} published on <a href="{{ .Params.originalURL }}" target="_blank" rel="noopener">LinkedIn</a> on {{ .Params.originalDate }}.
-        {{ end }}
-        {{ if .Params.resharedPostURL }}
-        <br>
-        <i class="icon-share"></i>
-        Reshared from: <a href="{{ .Params.resharedPostURL }}" target="_blank" rel="noopener">View original post on LinkedIn</a>.
-        {{ end }}
-      </p>
-    </aside>
+    {{/* A plain div, not <aside>: an aside inside <article> is a complementary
+     landmark nested in another landmark (axe
+     landmark-complementary-is-top-level), and this is provenance metadata about
+     the post, not a complementary region. */}}
+     <div class="original-source light-border-top">
+     <p class="text-muted">
+     {{ if and .Params.originalURL .Params.originalDate }}
+     <i class="icon-linkedin"></i>
+     Original {{ if .Params.resharedPostURL }}reshare{{ else }}post{{ end }} published on <a href="{{ .Params.originalURL }}" target="_blank" rel="noopener">LinkedIn</a> on {{ .Params.originalDate }}.
+     {{ end }}
+     {{ if .Params.resharedPostURL }}
+     <br>
+     <i class="icon-share"></i>
+     Reshared from: <a href="{{ .Params.resharedPostURL }}" target="_blank" rel="noopener">View original post on LinkedIn</a>.
+     {{ end }}
+     </p>
+     </div>
     {{ end }}
 
     {{ partial "social-sharing.html" . }}
 
     {{ partial "related-posts.html" . }}
 
-    <aside class="content-browser light-border-top">
-      {{ i18n "continue_reading" }}
-      <div>
-        {{ with .PrevInSection }}
-        <a class="previous" href="{{ .RelPermalink }}">↩ {{ .LinkTitle }}</a>
-        {{ end }}
-        ■
-        {{ with .NextInSection }}
-        <a class="next" href="{{ .RelPermalink }}"> {{ .LinkTitle }} ↪</a>
-        {{ end }}
-      </div>
-    </aside>
+    {{/* Page navigation, so a named <nav> rather than an <aside> (which axe flags as
+     a complementary landmark nested inside <article>). Mirrors theme PR #692,
+     which the theme's own single.html now does — this site overrides that
+     template, so the fix has to be mirrored here or it never reaches the site. */}}
+     <nav class="content-browser light-border-top" aria-label="{{ i18n "continue_reading" }}">
+     {{ i18n "continue_reading" }}
+     <div>
+     {{ with .PrevInSection }}
+     <a class="previous" href="{{ .RelPermalink }}">↩ {{ .LinkTitle }}</a>
+     {{ end }}
+     ■
+     {{ with .NextInSection }}
+     <a class="next" href="{{ .RelPermalink }}"> {{ .LinkTitle }} ↪</a>
+     {{ end }}
+     </div>
+     </nav>
 
     {{ partial "comments.html" . }}
   </article>
