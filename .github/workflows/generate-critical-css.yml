@@ -33,7 +33,15 @@ jobs:
       - run: npm install
 
       - name: Install Chromium for critical's render engine
-        run: npx playwright install --with-deps chromium
+        # critical's render engine imports `playwright` (its optional peer dep), which
+        # is a different package from `@playwright/test` and carries a different
+        # Chromium build. node_modules/.bin/playwright points at whichever of the two
+        # npm linked last, so `npx playwright install` installed the @playwright/test
+        # build and left critical failing with "Executable doesn't exist at
+        # .../chromium_headless_shell-<rev>" once the two versions diverged
+        # (Dependabot bumping `playwright` on its own). Call the CLI of the package
+        # critical actually imports.
+        run: node ./node_modules/playwright/cli.js install --with-deps chromium
 
       - name: Build
         run: hugo --minify --buildDrafts=true
