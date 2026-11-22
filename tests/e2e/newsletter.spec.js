@@ -34,13 +34,19 @@ test.describe('newsletter signup', () => {
     expect(await forms.count()).toBe(2);
     expect(await groups.count()).toBe(2);
 
+    // The ring is the theme's primary colour, which the theme may retune
+    // (v1.14.1 darkened it for WCAG AA), so read it rather than hardcode it.
+    const primaryRgb = await page.evaluate(() =>
+      getComputedStyle(document.documentElement).getPropertyValue('--bs-primary-rgb').trim(),
+    );
+
     for (let i = 0; i < 2; i++) {
       const submit = forms.nth(i).locator('[id$="-submit"]');
       await expect(submit).toHaveCSS('background-color', 'rgb(255, 255, 255)');
       await expect(submit).toHaveCSS('color', 'rgb(0, 0, 0)');
 
       await forms.nth(i).locator('[id$="-email"]').focus();
-      await expect(groups.nth(i)).toHaveCSS('border-color', 'rgba(71, 128, 121, 0.6)');
+      await expect(groups.nth(i)).toHaveCSS('border-color', `rgba(${primaryRgb}, 0.6)`);
     }
   });
 
