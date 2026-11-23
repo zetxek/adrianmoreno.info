@@ -1,0 +1,12 @@
+{{- /*
+  Renders the film-grain overlay used on the books list and single pages.
+  The texture (assets/images/books-grain.png) is a small tile of random
+  noise with a low alpha (~6%) already baked into the pixels — so it's
+  applied here with plain opacity, no `mix-blend-mode`, which would force
+  the browser to recomposite every layer beneath it on every paint.
+*/ -}}
+{{- $grain := resources.Get "images/books-grain.png" -}}
+{{- with $grain }}
+  {{- $tile := .Resize "96x96 webp q45 Lanczos" }}
+<div class="book-grain" style="background-image: url('{{ $tile.RelPermalink }}');" aria-hidden="true"></div>
+{{- end -}}
