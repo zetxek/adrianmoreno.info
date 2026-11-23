@@ -10,15 +10,15 @@ layout = "blog"
 
 The fastest way to become invisible right now is to be _competent_.
 
-A model will produce eight hundred plausible, correctly punctuated words in about ten seconds, with a framework, three tidy bullets and a conclusion. And it'll be right. Talk is cheap, and I've known that for years. Anyone could always restate the problem in more words and sound busy while saying nothing. Accuracy was the part that was never cheap.
+A model will produce eight hundred plausible, correctly punctuated words in about ten seconds, with a framework, three tidy bullets and a conclusion. Most of it will even be right. Talk was always cheap. Anyone could restate the problem in more words and sound busy while saying nothing. What was never cheap was sounding like you knew.
 
-Which is exactly the problem. Right is free now, and free things stop being signals.
+Which is exactly the problem. Plausible is free now, and free things stop being signals.
 
 ---
 
 ## Good is the average of everyone else's best practice
 
-Optimise for good and you optimise toward the mean. Good is what's left after you sand off everything someone might disagree with, and enough best practice leaves you sounding like everyone else who followed it.
+Optimise for good and you optimise toward the mean. Good is what's left after you sand off everything someone might disagree with, and enough best practice leaves you sounding like everyone else who followed it. That's the sense I mean throughout: not mastery, just the absence of objection. Excellence is something else, and I'm asking you to keep it.
 
 You've read that voice. It restates the question, adds context nobody asked for, weighs some balanced considerations and concludes that it depends. Flawless. Completely beige.
 
@@ -50,7 +50,7 @@ The trait that makes the right client think "finally, someone who gets it" is th
 
 It's happened to me. There are people who didn't want to work with me, whether they were hiring me or buying from me, because we didn't fit. I can't hand you the list; I'm sure of it anyway. The alternative is trying to blend in, and blending in kills the edge that made anyone look twice. So I use the rejection instead. Every person who walks away is telling me something about who I'm actually for, and I'd rather have that than another polite yes I'd have to live up to.
 
-A model can't make that call for you. It aims at the middle by design, where everyone is interchangeable. Judgement is the part you can't delegate.
+None of that is a licence for ego. Some work should be beige: a post-mortem or a runbook, anything someone opens at 2am mid-incident, is better boring than memorable. The spine belongs in the parts that carry your name and your judgement. It's cheaper for me to say this than for someone earlier in their career, because a VP can afford to be turned down and an engineer with a mortgage and a visa clock often can't.
 
 So pick your few and be their obvious yes.
 
@@ -60,9 +60,9 @@ So pick your few and be their obvious yes.
 
 Authenticity gets treated as a trait you either have or you don't. I see it as a bill that keeps arriving, and mine usually has four lines:
 
-- An opinion you'd defend in a room. If nobody could disagree with what you wrote, you didn't say anything.
+- An opinion you'd defend in a room.
 - A specific that cost you something. A real number, a real constraint, the thing that went badly. A model will write "significant improvement" all day for free, but it can't know what actually happened.
-- Willingness to be mildly disliked. Some readers will always want the beige version. That's the tax, and it's cheaper than being forgettable.
+- Willingness to be mildly disliked. That's the tax, and it's cheaper than being forgettable.
 - Consistency in what you keep saying. A voice is a set of arguments you keep returning to. Start every piece from scratch and you end up with a content calendar.
 
 *(Most AI-assisted writing gives itself away because nothing in it cost the author anything. The vocabulary is the least of it.)*
@@ -75,12 +75,10 @@ Authenticity gets treated as a trait you either have or you don't. I see it as a
 2. I give the model my position, never a topic. "Sharpen this argument" gives it something to push on. A bare "write about authenticity" gets me beige.
 3. I ask it to argue against me. Its agreement is worthless. I want the strongest counter-case, so whatever I publish has already survived contact.
 4. I read it aloud. Anything I wouldn't say to a person gets cut, and that catches more slop than any prompt.
-5. I keep one unfixable thing per piece. A phrase or a joke that only lands if you know me, like the Spanish sayings I translate literally even though they make no sense in English. **That's the fingerprint**, and a model will happily sand it off.
+5. I keep one unfixable thing per piece. A phrase or a joke that only lands if you know me, like the Spanish sayings I translate literally even though they make no sense in English. **That's the fingerprint**, and a model will polish it smooth.
 
 ---
 
-I'm glad the baseline went up. If you used to produce incoherent text and now produce mild, average paragraphs, that's a real improvement. Sloppy was never the goal.
+I'm glad the baseline went up. Going from incoherent to mild and average is a real improvement, and sloppy was never the goal. But when everyone can produce plausible paragraphs, plausible stops telling anyone apart. What's left is the part a prompt can't reach, and it's you.
 
-But when everyone can be accurate, accuracy stops telling anyone apart. What's left is the part a prompt can't reach — you.
-
-So be good first. Properly, obsessively good at whatever matters to you, because a spine without that is just slop with confidence. Then write something only you could have written, **specific enough that it could fail**. Right answers are free. Being someone in particular, for someone in particular, isn't.
+So be good first. Properly, obsessively good at whatever matters to you, because a spine without that is just slop with confidence. Then write something only you could have written, **specific enough that it could fail**. Sounding right is free. Being someone in particular, for someone in particular, isn't.
