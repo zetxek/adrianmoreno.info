@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop
-      - feature/github-actions
-      - '*'
 
 jobs:
   build-and-deploy:
