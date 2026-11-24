@@ -85,8 +85,8 @@ abbr[title] {
     font-variant-numeric: tabular-nums;
     line-height: 1.2;
     color: #fff;
-    background-color: #478079;
-    border: 1px solid #478079;
+  background-color: var(--bs-primary, #41766f);
+  border: 1px solid var(--bs-primary, #41766f);
     border-radius: 0.375rem;
     min-width: 2.5rem;
     text-align: center;
