@@ -3,7 +3,7 @@ title = "Good Is Beige. Be Good, Then Be Someone."
 slug = "good-is-beige-be-good-then-be-someone"
 date = 2026-10-30T09:30:00+01:00
 draft = true
-tags = ["ai", "authenticity", "writing", "leadership"]
+tags = ["article", "ai", "authenticity", "writing", "leadership"]
 categories = ["blog"]
 layout = "blog"
 +++
