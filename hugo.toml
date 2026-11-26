@@ -156,6 +156,8 @@ URL = "scss/adritian.scss"
 URL = "scss/books.scss"
 [[params.plugins.scss]]
 URL = "scss/sections.scss"
+[[params.plugins.scss]]
+URL = "scss/skills.scss"
 
 # navigation
 [menu]
