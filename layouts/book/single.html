@@ -57,7 +57,7 @@
           <a href="{{ "books" | relURL }}">&larr; Back to all books</a>
         </p>
 
-        <div class="row book-single-header gy-4">
+        <div id="main-content" tabindex="-1" class="row book-single-header gy-4">
           <div class="col-12 col-lg-4">
             <div class="book-single-cover-frame">
               {{ partial "book-3d-cover.html" (dict "page" . "imgClass" "book-single-cover" "showCta" false) }}
