@@ -1,6 +1,6 @@
 {{ define "main" }}
 <section id="archive" class="section section--border-bottom rad-animation-group flex-grow-1" aria-labelledby="archive-title">
-  <div class="container">
+  <div id="main-content" tabindex="-1" class="container">
     <header class="blog-intro mb-5">
       <h1 id="archive-title" class="mb-3">{{ .Title }}</h1>
       {{ with .Content }}<div class="lead blog-intro-copy">{{ . }}</div>{{ end }}
